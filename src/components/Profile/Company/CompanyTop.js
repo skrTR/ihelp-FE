@@ -29,6 +29,7 @@ const CompanyTop = (props) => {
     point,
     data,
   } = props;
+
   function numFormatter(num) {
     if (num > 999 && num < 1000000) {
       return (num / 1000).toFixed(0) + "Мянга"; // convert to K for number from > 1000 < 1 million

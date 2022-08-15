@@ -220,7 +220,7 @@ const EmployeeSpecialModal = (props) => {
                       <Text
                         style={{ color: colors.primaryText, marginRight: 10 }}
                       >
-                        {l} point
+                        {l} пойнт
                       </Text>
                     </View>
                   </View>
@@ -312,7 +312,7 @@ const EmployeeSpecialModal = (props) => {
                       <Text
                         style={{ color: colors.primaryText, marginRight: 10 }}
                       >
-                        {l} point
+                        {l} пойнт
                       </Text>
                     </View>
                   </View>
@@ -415,7 +415,7 @@ const EmployeeSpecialModal = (props) => {
                     </Text>
                     <View>
                       <Text style={{ left: 10, color: colors.primaryText }}>
-                        14point
+                        14 пойнт
                       </Text>
                       <CountDown
                         until={60 * 60 * 24 * l}

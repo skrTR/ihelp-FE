@@ -10,7 +10,6 @@ const CompanyCreatedWork = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       {companyJobs.map((data) => {
-        console.log(data);
         return (
           <View key={data._id}>
             <CompanyJobs

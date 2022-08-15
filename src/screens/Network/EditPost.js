@@ -32,7 +32,7 @@ const EditPost = ({ route }) => {
   const openImageProfileLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({

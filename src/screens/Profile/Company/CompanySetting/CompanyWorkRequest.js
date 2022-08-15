@@ -11,6 +11,7 @@ import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../../../Constants";
 import UserContext from "../../../../context/UserContext";
+import Empty from "../../../../components/Empty";
 
 const CompanyWorkRequest = () => {
   const state = useContext(UserContext);
@@ -32,93 +33,99 @@ const CompanyWorkRequest = () => {
   }, []);
   return (
     <ScrollView>
-      {cvData.map((e) => {
-        return (
-          <View
-            style={{
-              backgroundColor: "#454545",
-              marginHorizontal: 10,
-              paddingVertical: 15,
-              marginVertical: 4,
-              borderRadius: 10,
-            }}
-            key={e._id}
-          >
+      {cvData.length < 0 ? (
+        cvData.map((e) => {
+          return (
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
+                backgroundColor: "#454545",
+                marginHorizontal: 10,
+                paddingVertical: 15,
+                marginVertical: 4,
+                borderRadius: 10,
               }}
+              key={e._id}
             >
-              <TouchableOpacity
-                style={{ flexDirection: "row", alignItems: "center" }}
-                onPress={() => navigation.navigate("WorkDetailScreen", { id })}
+              <View
+                style={{
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
               >
-                <Image
-                  source={{
-                    uri: `${api}/upload/${e.createUser.profile}`,
-                  }}
-                  style={{
-                    width: 75,
-                    height: 75,
-                    borderRadius: 30,
-                    marginHorizontal: 5,
-                  }}
-                />
+                <TouchableOpacity
+                  style={{ flexDirection: "row", alignItems: "center" }}
+                  onPress={() =>
+                    navigation.navigate("WorkDetailScreen", { id })
+                  }
+                >
+                  <Image
+                    source={{
+                      uri: `${api}/upload/${e.createUser.profile}`,
+                    }}
+                    style={{
+                      width: 75,
+                      height: 75,
+                      borderRadius: 30,
+                      marginHorizontal: 5,
+                    }}
+                  />
 
-                <View>
+                  <View>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: colors.primaryText,
+                        fontFamily: "Sf-bold",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {e.occupation}
+                    </Text>
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                      }}
+                    >
+                      {e.createUser.lastName} овогтой {e.createUser.firstName}
+                    </Text>
+                    <Text
+                      style={{
+                        paddingVertical: 5,
+                        color: colors.primaryText,
+                        fontFamily: "Sf-thin",
+                        fontSize: 14,
+                      }}
+                    >
+                      Цалин: {e.salary}₮
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+                <View style={{}}>
                   <Text
                     style={{
-                      fontSize: 15,
-                      color: colors.primaryText,
-                      fontFamily: "Sf-bold",
-                      fontWeight: "bold",
+                      color:
+                        e.approveStatus === "Зөвшөөрсөн"
+                          ? "green"
+                          : e.approveStatus === "Зөвшөөрөөгүй"
+                          ? "red"
+                          : colors.primaryText,
+                      width: "100%",
+                      textAlign: "center",
+                      fontSize: 10,
+                      marginRight: 20,
                     }}
                   >
-                    {e.occupation}
-                  </Text>
-                  <Text
-                    style={{
-                      color: colors.primaryText,
-                    }}
-                  >
-                    {e.createUser.lastName} овогтой {e.createUser.firstName}
-                  </Text>
-                  <Text
-                    style={{
-                      paddingVertical: 5,
-                      color: colors.primaryText,
-                      fontFamily: "Sf-thin",
-                      fontSize: 14,
-                    }}
-                  >
-                    Цалин: {e.salary}₮
+                    {e.approveStatus}
                   </Text>
                 </View>
-              </TouchableOpacity>
-              <View style={{}}>
-                <Text
-                  style={{
-                    color:
-                      e.approveStatus === "Зөвшөөрсөн"
-                        ? "green"
-                        : e.approveStatus === "Зөвшөөрөөгүй"
-                        ? "red"
-                        : colors.primaryText,
-                    width: "100%",
-                    textAlign: "center",
-                    fontSize: 10,
-                    marginRight: 20,
-                  }}
-                >
-                  {e.approveStatus}
-                </Text>
               </View>
             </View>
-          </View>
-        );
-      })}
+          );
+        })
+      ) : (
+        <Empty text="Таныг хүн дагаагүй байна" />
+      )}
     </ScrollView>
   );
 };

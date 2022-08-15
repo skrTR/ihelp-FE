@@ -10,11 +10,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import {
-  useIsFocused,
-  useNavigation,
-  useTheme,
-} from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { api } from "../../../Constants";
 import UserContext from "../../context/UserContext";
@@ -25,77 +21,38 @@ const NetworkingScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const isFocused = useIsFocused();
   const [followData, setFollowData] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [pageCurrent, setPageCurrent] = useState(1);
-  const [pagination, setPagination] = useState();
-  const [noMore, setNoMore] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
   const [userProfile] = useUserProfile(state.userId);
   let isMounted = true;
   const getFollowData = () => {
+    setIsLoading(true);
     axios
       .get(
-        `${api}/api/v1/posts/${state.userId}/following?limit=4&sort=-createdAt&page=${pageCurrent}`
+        `${api}/api/v1/posts/${state.userId}/following?limit=4&sort=-createdAt&limit=1000`
       )
-      // .get(
-      //   `${api}/api/v1/posts/${state.userId}/following?limit=4&sort=-createdAt&page=${pageCurrent}`
-      // )
+
       .then((res) => {
         if (isMounted) {
-          setFollowData([...followData, ...res.data.data]);
-          setPagination(res.data.pagination);
+          setFollowData(res.data.data);
+          setIsLoading(false);
         }
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err);
+        setIsLoading(false);
+      });
   };
   useEffect(() => {
-    setIsLoading(false);
-    setIsFetching(false);
     getFollowData();
     return () => {
       isMounted = false;
     };
-  }, [pageCurrent, isFetching, isFocused]);
+  }, []);
 
-  const onRefresh = () => {
-    setIsFetching(true);
-  };
-  const renderFooter = () => {
-    return isLoading ? (
-      <View style={{ marginBottom: 100 }}>
-        <ActivityIndicator />
-      </View>
-    ) : null;
-  };
-  const handleMore = () => {
-    if (pageCurrent >= pagination.pageCount) {
-      setNoMore(true);
-    } else {
-      setPageCurrent(pageCurrent + 1);
-      setIsLoading(true);
-    }
-  };
   if (!userProfile) {
     return null;
   }
-  const NoMoreData = () => {
-    return noMore ? (
-      <View style={{ marginBottom: 50, marginTop: 30 }}>
-        <Text
-          style={{
-            textAlign: "center",
-            fontWeight: "bold",
-            color: colors.primaryText,
-          }}
-        >
-          {" "}
-          Мэдээлэл дууссан{" "}
-        </Text>
-      </View>
-    ) : null;
-  };
 
   return (
     <SafeAreaView style={{ backgroundColor: colors.header, flex: 1 }}>
@@ -103,11 +60,7 @@ const NetworkingScreen = () => {
 
       <FlatList
         data={followData}
-        onRefresh={onRefresh}
-        refreshing={isFetching}
-        ListFooterComponent={noMore ? NoMoreData : renderFooter}
         showsVerticalScrollIndicator={false}
-        onEndReached={handleMore}
         initialNumToRender={5}
         onEndReachedThreshold={0}
         ListHeaderComponent={

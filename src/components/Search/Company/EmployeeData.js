@@ -45,7 +45,13 @@ const EmployeeData = (props) => {
   };
   return (
     <>
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <TouchableOpacity
           style={{
             flexDirection: "row",

@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
@@ -42,19 +49,19 @@ const EmployeeAddWork = () => {
       .catch((err) => alert(err));
   };
   const [addWork, setAddWork] = useState({
-    description: "График дизайнер ажилд орноo ",
-    do: "Постер, Эх бэлтгэх",
-    skill: "Постер олон жил чадварлаг хийнэ",
-    location: "Mongolia",
-    experience: "Постер олон жил хийлээ",
-    specialPermission: "Тусгай зөвшөөрөл хуссан",
-    certificate: "MIT аас авлаа",
+    description: "",
+    do: "",
+    skill: "",
+    location: "",
+    experience: "",
+    specialPermission: "",
+    certificate: "",
     price: "",
     time: "",
     workerNumber: "",
     occupation: "",
     isCompany: true,
-    startDate: "2022-07-24T08:03:56.127Z",
+    startDate: "",
     order: null,
     urgent: null,
     special: null,
@@ -223,7 +230,10 @@ const EmployeeAddWork = () => {
     <SafeAreaView style={{ backgroundColor: "#141414" }}>
       <CompanyHeader isBack={true} notification={notification.notification} />
       <View style={{ backgroundColor: colors.background }}>
-        <ScrollView style={{ marginHorizontal: 20 }}>
+        <ScrollView
+          style={{ marginHorizontal: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Тайлбар
           </Text>
@@ -328,21 +338,21 @@ const EmployeeAddWork = () => {
             Үнийн санал
           </Text>
           <MyButton
-            text={price === "" ? "Нас сонгох" : price}
+            text={price === "" ? "Үнийн санал" : price}
             onPress={checkPrice}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Зарцуулах цаг хугацаа
           </Text>
           <MyButton
-            text={time === "" ? "Нас сонгох" : time}
+            text={time === "" ? "Зарцуулах цаг хугацаа" : time}
             onPress={checkTime}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ажилчдийн тоо
+            Ажилчдын тоо
           </Text>
           <MyButton
-            text={workerNumber === "" ? "Нас сонгох" : workerNumber}
+            text={workerNumber === "" ? "Ажилчдын тоо" : workerNumber}
             onPress={checkWorkerNumber}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -360,7 +370,19 @@ const EmployeeAddWork = () => {
             }
             onPress={checkOrders}
           />
-          <MyButton text="Илгээх" onPress={sendWork} />
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 20,
+              borderColor: colors.border,
+              marginTop: 10,
+            }}
+            onPress={sendWork}
+          >
+            <Text style={{ textAlign: "center", color: "black" }}>Нийтлэх</Text>
+          </TouchableOpacity>
           <View style={{ marginBottom: 200 }} />
         </ScrollView>
       </View>

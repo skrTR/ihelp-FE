@@ -221,7 +221,7 @@ const SpecialModal = (props) => {
                       <Text
                         style={{ color: colors.primaryText, marginRight: 10 }}
                       >
-                        {l} point
+                        {l} пойнт
                       </Text>
                     </View>
                   </View>
@@ -313,7 +313,7 @@ const SpecialModal = (props) => {
                       <Text
                         style={{ color: colors.primaryText, marginRight: 10 }}
                       >
-                        {l} point
+                        {l} пойнт
                       </Text>
                     </View>
                   </View>
@@ -415,8 +415,14 @@ const SpecialModal = (props) => {
                       CV хүлээн авах эцсийн хугацаа:{" "}
                     </Text>
                     <View>
-                      <Text style={{ left: 10, color: colors.primaryText }}>
-                        14point
+                      <Text
+                        style={{
+                          left: 50,
+                          color: colors.primaryText,
+                          bottom: 50,
+                        }}
+                      >
+                        14 пойнт
                       </Text>
                       <CountDown
                         until={60 * 60 * 24 * l}

@@ -49,7 +49,7 @@ const CompanyTop = (props) => {
           }`
         )
         .then((res) => {
-          Alert.alert("Амжилттай дагахаа болилоо");
+          // Alert.alert("Амжилттай дагахаа болилоо");
         })
         .catch((err) => {
           console.log(err);
@@ -63,7 +63,7 @@ const CompanyTop = (props) => {
           }`
         )
         .then((res) => {
-          Alert.alert("Амжилттай дагалаа");
+          // Alert.alert("Амжилттай дагалаа");
         })
         .catch((err) => {
           console.log(err);
@@ -141,7 +141,8 @@ const CompanyTop = (props) => {
             <Text
               style={{
                 color: colors.secondaryText,
-                textAlign: "justify",
+                fontSize: 11,
+                width: "90%",
               }}
             >
               {category}
@@ -248,19 +249,27 @@ const CompanyTop = (props) => {
                   }}
                 >
                   {/* Профайл янзлах */}
-                  <View style={{ flexDirection: "row", alignSelf: "center" }}>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignSelf: "center",
+                      alignItems: "center",
+                      top: 6,
+                    }}
+                  >
                     <MaterialCommunityIcons
-                      name="cube-send"
-                      size={24}
+                      name="file-send-outline"
+                      size={16}
                       color={colors.border}
-                      style={{ top: 7 }}
+                      style={{ left: 2 }}
                     />
+
                     <Text
                       style={{
                         textAlign: "center",
-                        top: 10,
                         color: colors.border,
-                        right: 5,
+                        fontSize: 12,
+                        right: 3,
                       }}
                     >
                       {" "}
@@ -287,19 +296,26 @@ const CompanyTop = (props) => {
               }
             >
               {/* Профайл янзлах */}
-              <View style={{ flexDirection: "row", alignSelf: "center" }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignSelf: "center",
+                  alignItems: "center",
+                  top: 6,
+                }}
+              >
                 <MaterialCommunityIcons
                   name="cube-send"
-                  size={24}
+                  size={16}
                   color={colors.border}
-                  style={{ top: 7 }}
+                  style={{ left: 2 }}
                 />
                 <Text
                   style={{
                     textAlign: "center",
-                    top: 10,
                     color: colors.border,
-                    right: 5,
+                    fontSize: 12,
+                    right: 3,
                   }}
                 >
                   {" "}
@@ -322,17 +338,23 @@ const CompanyTop = (props) => {
             }}
             onPress={onFollow}
           >
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignSelf: "center",
+                alignItems: "center",
+              }}
+            >
               <AntDesign
                 name={following ? "deleteuser" : "adduser"}
-                size={24}
+                size={16}
                 color={!following ? colors.border : colors.primaryText}
               />
               <Text
                 style={{
                   textAlign: "center",
-                  top: 3,
                   color: !following ? colors.border : colors.primaryText,
+                  fontSize: 12,
                 }}
               >
                 {" "}

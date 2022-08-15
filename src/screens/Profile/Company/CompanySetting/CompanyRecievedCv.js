@@ -10,7 +10,7 @@ const CompanyRecievedCv = () => {
     axios
       .get(`${api}/api/v1/applies`)
       .then((res) => {
-        console.log(res.data.data);
+        console.log(res.data.data, "a");
       })
       .catch((err) => {
         console.log(err);

@@ -108,12 +108,12 @@ const SearchScreen = () => {
           </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
-      {/* <Text
+      <Text
         style={{ fontSize: 500, color: "white" }}
         onPress={() => state.logout()}
       >
         Garah
-      </Text> */}
+      </Text>
     </>
   );
 };

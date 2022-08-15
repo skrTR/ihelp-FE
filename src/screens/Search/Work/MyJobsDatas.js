@@ -104,6 +104,7 @@ const MyJobsDatas = (props) => {
             style={{
               width: 50,
               height: 50,
+              marginHorizontal: 10,
             }}
             imageStyle={{ borderRadius: 30 }}
           >
@@ -148,7 +149,7 @@ const MyJobsDatas = (props) => {
             )}
           </ImageBackground>
 
-          <View>
+          <View style={{}}>
             <Text
               style={{
                 fontSize: 15,

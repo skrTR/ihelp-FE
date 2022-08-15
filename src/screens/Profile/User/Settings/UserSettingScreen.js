@@ -25,6 +25,30 @@ const UserSettingsScreen = ({ route }) => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const [loading, setLoading] = useState(false);
+  const userDelete = () => {
+    Alert.alert("Та өөрийн профайл устгахдаа", "итгэлтэй байна уу?", [
+      {
+        text: "Болих",
+        onPress: () => {
+          console.log("Cancel Pressed");
+        },
+        style: "cancel",
+      },
+      {
+        text: "Устгах",
+        onPress: () => {
+          axios
+            .delete(`${api}/api/v1/cvs/${state.userId}`)
+            .then((res) => {
+              state.logout();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+      },
+    ]);
+  };
   const changePassword = () => {
     setLoading(true);
     Alert.alert(
@@ -199,6 +223,30 @@ const UserSettingsScreen = ({ route }) => {
             style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
           >
             Нууц үг солих
+          </Text>
+        </View>
+      </TouchableOpacity>
+      <View
+        style={{
+          borderWidth: 0.5,
+          borderColor: colors.border,
+          marginVertical: 10,
+        }}
+      />
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+        onPress={userDelete}
+      >
+        <MaterialCommunityIcons
+          name="delete-forever"
+          size={28}
+          color={colors.primaryText}
+        />
+        <View>
+          <Text
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+          >
+            Өөрийн профайл устгах
           </Text>
         </View>
       </TouchableOpacity>

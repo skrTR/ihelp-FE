@@ -7,24 +7,44 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import MyTextInput from "../../components/MyTextInput";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import UserContext from "../../context/UserContext";
+import axios from "axios";
+import { api } from "../../../Constants";
 const CompanySignUpScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [name, setName] = useState("Skr Tech LLC");
-  const [phone, setPhone] = useState("97014400");
-  const [password, setPassword] = useState("123456");
-  const [email, setEmail] = useState("scarynomi@gmail.com");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [isEmployer, setIsEmployer] = useState(false);
+  const [isEmployee, setIsEmployee] = useState(false);
   const signUpHandler = () => {
-    state.companySignUp(name, phone, email, password);
+    axios
+      .post(`${api}/api/v1/profiles`, {
+        firstName: name,
+        phone: phone,
+        email: email,
+        password: password,
+        isEmployer: isEmployer,
+        isEmployee: isEmployee,
+      })
+      .then((res) => {
+        navigation.navigate("CompanyLoginScreen");
+      })
+      .catch((err) => {
+        Alert.alert(err.message);
+      });
   };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -101,8 +121,50 @@ const CompanySignUpScreen = () => {
             Нууц үг:
           </Text>
           <MyTextInput value={password} onChangeText={setPassword} />
+          <Text style={[styles.inputHeadText, { color: colors.primary }]}>
+            Нууц үг давтах:
+          </Text>
+          <MyTextInput value={password} onChangeText={setPassword} />
         </View>
-        <TouchableOpacity style={{ flex: 1, top: 5 }} onPress={signUpHandler}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-around",
+            top: 34,
+          }}
+        >
+          <TouchableOpacity
+            style={{ flexDirection: "row", alignItems: "center" }}
+            onPress={() => setIsEmployer(!isEmployer)}
+          >
+            <MaterialCommunityIcons
+              name={
+                !isEmployer
+                  ? "checkbox-multiple-blank-outline"
+                  : "checkbox-multiple-marked"
+              }
+              size={24}
+              color="black"
+            />
+            <Text>Ажил өгье</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setIsEmployee(!isEmployee)}
+            style={{ flexDirection: "row", alignItems: "center" }}
+          >
+            <MaterialCommunityIcons
+              name={
+                !isEmployee
+                  ? "checkbox-multiple-blank-outline"
+                  : "checkbox-multiple-marked"
+              }
+              size={24}
+              color="black"
+            />
+            <Text>Ажил олгогч</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={{ flex: 1, top: 35 }} onPress={signUpHandler}>
           <ImageBackground
             source={require("../../../assets/ihelp/companybutton.png")}
             style={{ height: 100 }}

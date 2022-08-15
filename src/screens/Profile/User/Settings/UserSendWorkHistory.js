@@ -34,11 +34,12 @@ const UserSendWorkHistory = () => {
             return (
               <>
                 <SendWorkHistory
-                  companyData={item.company && item.company}
-                  jobData={item.job && item.job}
+                  companyData={item.companyInfo}
+                  jobData={item.jobInfo}
                   isViewed={item.isViewed}
                   success={item.success}
                   createdAt={item.createdAt}
+                  jobInfo={item.jobInfo}
                 />
                 <View style={{ borderWidth: 1, borderColor: colors.border }} />
               </>

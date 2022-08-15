@@ -42,7 +42,7 @@ const UserVerifyScreen = (props) => {
   const cameraImageFrontCardLibrary = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchCameraAsync({
@@ -57,7 +57,7 @@ const UserVerifyScreen = (props) => {
   const openImageFrontCardLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -90,7 +90,7 @@ const UserVerifyScreen = (props) => {
   const cameraImageBackCardLibrary = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchCameraAsync({
@@ -105,7 +105,7 @@ const UserVerifyScreen = (props) => {
   const openImageBackCardLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -138,7 +138,7 @@ const UserVerifyScreen = (props) => {
   const cameraImageSelfieLibrary = async () => {
     const { status } = await ImagePicker.requestCameraPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchCameraAsync({
@@ -153,7 +153,7 @@ const UserVerifyScreen = (props) => {
   const openImageSelfieLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({

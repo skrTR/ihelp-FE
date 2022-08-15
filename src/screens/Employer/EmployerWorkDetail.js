@@ -66,6 +66,7 @@ const EmployerWorkDetail = (props) => {
   useEffect(() => {
     setIsCvSent(cvCheck.includes(`${id}`));
   }, [checkCvId]);
+
   const unLiked = () => {
     axios
       .delete(`${api}/api/v1/likes/${id}/job`)
@@ -160,7 +161,12 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             </View>
-            <AntDesign name="right" size={50} color={colors.primaryText} />
+            <AntDesign
+              name="right"
+              size={30}
+              color={colors.primaryText}
+              style={{ marginRight: 10 }}
+            />
           </TouchableOpacity>
           <View
             style={{
@@ -403,23 +409,43 @@ const EmployerWorkDetail = (props) => {
                 padding: 20,
               }}
             >
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  color: "white",
-                  bottom: 5,
-                }}
-              >
-                Анкет илгээх{" "}
-                <Ionicons
-                  // send
-                  name="send-outline"
-                  size={20}
-                  color={colors.primaryText}
-                  style={{}}
-                />
-              </Text>
+              {isCvSent ? (
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 20,
+                    color: "white",
+                    bottom: 5,
+                  }}
+                >
+                  Анкет илгээсэн байна{" "}
+                  <Ionicons
+                    // send
+                    name="send-outline"
+                    size={20}
+                    color={colors.primaryText}
+                    style={{}}
+                  />
+                </Text>
+              ) : (
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 20,
+                    color: "white",
+                    bottom: 5,
+                  }}
+                >
+                  Анкет илгээх{" "}
+                  <Ionicons
+                    // send
+                    name="send-outline"
+                    size={20}
+                    color={colors.primaryText}
+                    style={{}}
+                  />
+                </Text>
+              )}
             </View>
           </TouchableOpacity>
         )}

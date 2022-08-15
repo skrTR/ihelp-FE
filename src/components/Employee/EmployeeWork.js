@@ -90,7 +90,12 @@ const EmployeeWork = (props) => {
       >
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
-          onPress={() => navigation.navigate("UserWorkDetail", { id })}
+          onPress={() =>
+            navigation.navigate("EmployeeWorkDetail", {
+              id: id,
+              isLiked: isLike,
+            })
+          }
         >
           <ImageBackground
             source={{
@@ -176,7 +181,8 @@ const EmployeeWork = (props) => {
                 fontWeight: "200",
               }}
             >
-              {type} - {firstName}
+              {type.length < 20 ? `${type}` : `${type.substring(0, 22)}...`} -{" "}
+              {firstName}
             </Text>
           </View>
         </TouchableOpacity>

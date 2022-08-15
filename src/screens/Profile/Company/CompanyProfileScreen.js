@@ -32,8 +32,8 @@ const CompanyProfileScreen = () => {
           cover={companyProfile.cover}
           profile={companyProfile.profile}
           point={companyProfile.point}
-          name={companyProfile.name}
-          category={companyProfile.category && companyProfile.category.name}
+          name={companyProfile.firstName}
+          category={companyProfile.categoryName}
           jobCount={companyProfile.jobNumber}
           followerCount={companyProfile.follower}
           followingCount={companyProfile.following}
@@ -89,7 +89,6 @@ const CompanyProfileScreen = () => {
                 Ажлын зарууд
               </Text>
               {companyJobs.map((data) => {
-                console.log(data);
                 return (
                   <View key={data._id}>
                     <CompanyJobs

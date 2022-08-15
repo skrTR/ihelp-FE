@@ -85,7 +85,7 @@ const ChangeAccountModal = () => {
                   {decoded.firstName} {decoded.lastName}
                 </Text>
               </View>
-              <MaterialCommunityIcons
+              {/* <MaterialCommunityIcons
                 name={
                   !state.isCompany
                     ? "checkbox-blank-circle"
@@ -93,7 +93,7 @@ const ChangeAccountModal = () => {
                 }
                 size={24}
                 color={colors.primaryText}
-              />
+              /> */}
             </TouchableOpacity>
           </>
         ) : companyDecoded ? (
@@ -141,7 +141,7 @@ const ChangeAccountModal = () => {
                   {companyDecoded.name}
                 </Text>
               </View>
-              <MaterialCommunityIcons
+              {/* <MaterialCommunityIcons
                 name={
                   state.isCompany
                     ? "checkbox-blank-circle"
@@ -149,7 +149,7 @@ const ChangeAccountModal = () => {
                 }
                 size={24}
                 color={colors.primaryText}
-              />
+              /> */}
             </TouchableOpacity>
           </>
         ) : null}
@@ -160,15 +160,21 @@ const ChangeAccountModal = () => {
           alignItems: "center",
           marginTop: 20,
           alignSelf: "center",
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: 10,
+          marginHorizontal: 10,
+          padding: 5,
+          paddingHorizontal: 20,
         }}
         onPress={logout}
       >
-        <MaterialIcons name="logout" size={28} color={colors.primaryText} />
+        <MaterialIcons name="logout" size={22} color={colors.primaryText} />
 
         <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+          style={{ color: colors.primaryText, marginLeft: 10, fontSize: 15 }}
         >
-          Аккоунт гаргах
+          Гарах
         </Text>
       </TouchableOpacity>
       {/* {companyDecoded ? (

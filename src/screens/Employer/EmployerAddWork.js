@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
@@ -497,6 +497,7 @@ const EmployerAddWork = () => {
             onChangeText={checkContact}
             errorText="Холбоо барих урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.contact}
+            keyboardType="numeric"
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Хаяг байршил
@@ -524,7 +525,6 @@ const EmployerAddWork = () => {
           <MyButton
             text={salary === "" ? "Цалин сонгох" : `${salary}₮`}
             onPress={checkSalary}
-            style={{ padding: 7 }}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Хүйс сонгох
@@ -563,10 +563,10 @@ const EmployerAddWork = () => {
             onPress={checkOccupation}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Level сонгох
+            Албан тушаал сонгох
           </Text>
           <MyButton
-            text={level === "" ? "Level сонгох" : `${level}`}
+            text={level === "" ? "Албан тушаал" : `${level}`}
             onPress={checkLevel}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -592,7 +592,19 @@ const EmployerAddWork = () => {
             onPress={checkOrders}
           />
           <View style={{ marginVertical: 5 }} />
-          <MyButton text="Илгээх" onPress={sendWork} />
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 20,
+              borderColor: colors.border,
+              marginTop: 10,
+            }}
+            onPress={sendWork}
+          >
+            <Text style={{ textAlign: "center", color: "black" }}>Нийтлэх</Text>
+          </TouchableOpacity>
           <View style={{ marginBottom: 100 }} />
         </ScrollView>
       </View>

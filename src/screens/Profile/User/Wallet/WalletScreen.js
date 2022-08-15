@@ -246,7 +246,7 @@ const WalletScreen = ({ route }) => {
                   <Text
                     style={{ color: "green", fontSize: 20, fontWeight: "bold" }}
                   >
-                    +{item.point / 1000} P
+                    {item.point / 1000} P
                   </Text>
                   <Text
                     style={{
@@ -255,7 +255,7 @@ const WalletScreen = ({ route }) => {
                       fontFamily: "Sf-thin",
                     }}
                   >
-                    -{item.point} ₮
+                    {item.point} ₮
                   </Text>
                 </View>
               </View>
@@ -281,7 +281,7 @@ const WalletScreen = ({ route }) => {
                 style={{
                   fontSize: 20,
                   position: "absolute",
-                  right: 10,
+                  right: 20,
                   marginTop: 10,
                 }}
                 onPress={() => setModalVisible(!modalVisible)}
@@ -317,7 +317,6 @@ const WalletScreen = ({ route }) => {
                   style={{
                     backgroundColor: "#FFB6C1",
                     borderRadius: 10,
-                    marginRight: 10,
                   }}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
@@ -334,6 +333,7 @@ const WalletScreen = ({ route }) => {
                         textAlign: "center",
                         top: 3,
                         color: colors.border,
+                        marginRight: 10,
                       }}
                     >
                       Буцах
@@ -373,6 +373,7 @@ const WalletScreen = ({ route }) => {
                         top: 3,
                         color: colors.border,
                         paddingHorizontal: 3,
+                        marginRight: 10,
                       }}
                     >
                       Авах

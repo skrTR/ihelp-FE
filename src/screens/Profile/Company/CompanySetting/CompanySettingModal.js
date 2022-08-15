@@ -44,6 +44,30 @@ const CompanySettingModal = () => {
   const companyExit = () => {
     state.logout();
   };
+  const companyDelete = () => {
+    Alert.alert("Та өөрийн профайл устгахдаа ", "итгэлтэй байна уу?", [
+      {
+        text: "Болих",
+        onPress: () => {
+          console.log("Cancel Pressed");
+        },
+        style: "cancel",
+      },
+      {
+        text: "Устгах",
+        onPress: () => {
+          axios
+            .delete(`${api}/api/v1/cvs/${state.companyId}`)
+            .then((res) => {
+              state.logout();
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        },
+      },
+    ]);
+  };
   const changePassword = () => {
     setLoading(true);
     Alert.alert("Нууц үг солих", `${state.email} рүү 6 тэмдэгтэй код очно`, [
@@ -227,6 +251,30 @@ const CompanySettingModal = () => {
           style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
         >
           Нууц үг солих
+        </Text>
+      </TouchableOpacity>
+      {/* Line */}
+      <View
+        style={{
+          borderWidth: 0.5,
+          borderColor: colors.border,
+          marginVertical: 10,
+        }}
+      />
+      <TouchableOpacity
+        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+        onPress={companyDelete}
+      >
+        <MaterialIcons
+          name="delete-forever"
+          size={28}
+          color={colors.primaryText}
+        />
+
+        <Text
+          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+        >
+          Аккоунт устгах
         </Text>
       </TouchableOpacity>
       {/* Line */}

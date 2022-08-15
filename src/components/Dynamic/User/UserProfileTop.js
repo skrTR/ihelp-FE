@@ -32,7 +32,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           }`
         )
         .then((res) => {
-          Alert.alert("Амжилттай дагахаа болилоо");
+          // Alert.alert("Амжилттай дагахаа болилоо");
         })
         .catch((err) => {
           console.log(err);
@@ -46,7 +46,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           }`
         )
         .then((res) => {
-          Alert.alert("Амжилттай дагалаа");
+          // Alert.alert("Амжилттай дагалаа");
         })
         .catch((err) => {
           console.log(err);

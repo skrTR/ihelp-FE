@@ -149,28 +149,6 @@ export const UserStore = (props) => {
         Alert.alert(message);
       });
   };
-  const companySignUp = (phone, email, password, name) => {
-    axios
-      .post(`${api}/api/v1/profiles`, {
-        name: name,
-        phone: phone,
-        email: email,
-        password: password,
-        expoPushToken: expoPushToken,
-      })
-      .then((res) => {
-        loginCompanySuccessFul(
-          res.data.token,
-          email,
-          res.data.data.organization,
-          res.data.data._id
-        );
-      })
-      .catch((err) => {
-        loginFailed(err.message);
-        Alert.alert(err);
-      });
-  };
 
   const loginFailed = (error) => {
     setIsLoggedIn(false);
@@ -242,7 +220,6 @@ export const UserStore = (props) => {
         companyLogout,
         companyLogin,
         signUp,
-        companySignUp,
         logout,
         token,
         setToken,

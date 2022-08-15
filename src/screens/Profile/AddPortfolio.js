@@ -29,7 +29,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -44,7 +44,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary1 = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -59,7 +59,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary2 = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -74,7 +74,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary3 = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -89,7 +89,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary4 = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({
@@ -104,7 +104,7 @@ const AddPortfolio = (props) => {
   const openImageProfileLibrary5 = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("zurgiin erhiig neene uu");
+      alert("Зургийн эрхийг нээнэ үү");
     }
     if (status === "granted") {
       const response = await ImagePicker.launchImageLibraryAsync({

@@ -560,8 +560,9 @@ const EmployerSendWorkModal = (props) => {
             padding: 10,
             borderWidth: 1,
             borderRadius: 20,
-            marginVertical: 10,
-            margin: 20,
+            borderColor: colors.border,
+            marginTop: 10,
+            marginHorizontal: 10,
           }}
           onPress={printToFile}
         >
@@ -576,13 +577,13 @@ const EmployerSendWorkModal = (props) => {
 
             borderWidth: 1,
             borderRadius: 20,
-            marginVertical: 10,
-            margin: 20,
+            borderColor: colors.border,
+            margin: 10,
           }}
           onPress={sendCv}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
-            {isSentCv ? "Ажлын санал илгээгдсэн" : "Ажлын санал тавих"}
+            {isSentCv ? "Анкет илгээгдсэн" : "Анкет илгээх"}
           </Text>
         </TouchableOpacity>
         {/* Profile ruu ochih */}
@@ -592,8 +593,8 @@ const EmployerSendWorkModal = (props) => {
 
             borderWidth: 1,
             borderRadius: 20,
-            marginVertical: 10,
-            margin: 20,
+            borderColor: colors.border,
+            marginHorizontal: 10,
           }}
           onPress={() => {
             navigation.navigate("Профайл", {

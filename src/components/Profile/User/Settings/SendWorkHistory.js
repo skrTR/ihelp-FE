@@ -4,9 +4,8 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../../../Constants";
 import moment from "moment";
 const SendWorkHistory = (props) => {
-  const { companyData, jobData, success, isViewed, createdAt } = props;
+  const { companyData, jobData, success, isViewed, createdAt, jobInfo } = props;
   const { colors } = useTheme();
-  const navigation = useNavigation();
 
   return (
     <>
@@ -55,7 +54,7 @@ const SendWorkHistory = (props) => {
                     width: "95%",
                   }}
                 >
-                  {jobData.occupation && jobData.occupation.name}
+                  {jobInfo.occupationName}
                   {/* Борлуулалт мэдээлэлийн ажилтан */}
                 </Text>
 
@@ -82,19 +81,19 @@ const SendWorkHistory = (props) => {
             </TouchableOpacity>
             <View style={{ alignItems: "center" }}>
               {success === true ? (
-                <Text style={{ color: colors.primaryText }}>
-                  Status: <Text style={{ color: "green" }}>Зөвшөөрсөн</Text>
+                <Text style={{ color: colors.primaryText, marginRight: 10 }}>
+                  Төлөв: <Text style={{ color: "green" }}>Зөвшөөрсөн</Text>
                 </Text>
               ) : (
                 success === false && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Status: <Text style={{ color: "red" }}>Цуцалсан</Text>
+                  <Text style={{ color: colors.primaryText, marginRight: 10 }}>
+                    Төлөв: <Text style={{ color: "red" }}>Цуцалсан</Text>
                   </Text>
                 )
               )}
               {success === undefined && (
-                <Text style={{ color: colors.primaryText }}>
-                  Status: {isViewed ? "Үзсэн" : "Үзээгүй"}
+                <Text style={{ color: colors.primaryText, marginRight: 10 }}>
+                  Төлөв: {isViewed ? "Үзсэн" : "Үзээгүй"}
                 </Text>
               )}
               <Text style={{ color: colors.primaryText }}>
