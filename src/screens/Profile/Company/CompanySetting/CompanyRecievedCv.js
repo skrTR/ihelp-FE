@@ -8,7 +8,7 @@ const CompanyRecievedCv = () => {
   const state = useContext(UserContext);
   const getCvs = () => {
     axios
-      .get(`${api}/api/v1/applies`)
+      .get(`${api}/api/v1/applies/${state.companyId}/profile`)
       .then((res) => {
         console.log(res.data.data, "a");
       })

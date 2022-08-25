@@ -7,11 +7,17 @@
           "icon": "./assets/ihelp/notification.png",
           "color": "black" 
         }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you share them with your friends."
+        }
       ]
     ],
     "name": "ihelp",
     "slug": "ihelphr",
-    "version": "0.0.7",
+    "version": "0.0.8",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
@@ -31,7 +37,11 @@
       "supportsTablet": true,
       "bundleIdentifier": "mn.ihelphrnovelist"
     },
+   
     "android": {
+      "versionCode": 1,
+      "package": "mn.ihelphrnovelist",
+      "permissions": [ "CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL" ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/logo.png",
         "backgroundColor": "#FFFFFF"

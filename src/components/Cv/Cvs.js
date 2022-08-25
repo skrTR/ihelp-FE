@@ -7,6 +7,7 @@ import CircularProgress from "react-native-circular-progress-indicator";
 const Cvs = ({ item }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  console.log(item);
   return (
     <View
       style={{

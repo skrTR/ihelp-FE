@@ -41,7 +41,8 @@ const EmployerWorkDetail = (props) => {
         Alert.alert("Таны CV амжилттай илгээгдлээ.");
       })
       .catch((err) => {
-        // Alert.alert(err.response.data.error.message);
+        Alert.alert(err.response.data.error.message);
+        // Alert.alert(err.response)
       });
   };
   const getCheckCv = () => {

@@ -145,8 +145,8 @@ export const UserStore = (props) => {
         navigation.navigate("PersonLoginScreen");
       })
       .catch((err) => {
+        Alert.alert(err.message);
         loginFailed(err.message);
-        Alert.alert(message);
       });
   };
 

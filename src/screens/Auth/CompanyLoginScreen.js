@@ -19,8 +19,8 @@ const CompanyLoginScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("gg@gg.com");
+  const [password, setPassword] = useState("123456");
   const signUpHandler = () => {
     state.companyLogin(email, password);
   };
