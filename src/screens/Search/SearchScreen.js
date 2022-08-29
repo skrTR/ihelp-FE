@@ -5,7 +5,7 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import Header from "../../components/Header/Header";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -15,7 +15,6 @@ const SearchScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
-
   return (
     <>
       <SafeAreaView style={{ backgroundColor: colors.header }}>
@@ -106,14 +105,22 @@ const SearchScreen = () => {
               Салбараар зар хайх{" "}
             </Text>
           </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 20,
+              borderColor: colors.border,
+              marginTop: 10,
+            }}
+            onPress={() => state.logout()}
+          >
+            <Text style={{ textAlign: "center", color: colors.primaryText }}>
+              Logout
+            </Text>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
-      <Text
-        style={{ fontSize: 500, color: "white" }}
-        onPress={() => state.logout()}
-      >
-        Garah
-      </Text>
     </>
   );
 };

@@ -105,6 +105,7 @@ const PersonLoginScreen = () => {
               <ImageBackground
                 source={require("../../../assets/ihelp/personbutton.png")}
                 style={{ height: 100 }}
+                imageStyle={{ resizeMode: "contain" }}
               >
                 <Text
                   style={{

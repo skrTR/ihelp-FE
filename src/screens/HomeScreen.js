@@ -1,10 +1,4 @@
-import {
-  StyleSheet,
-  ImageBackground,
-  Pressable,
-  Image,
-  Text,
-} from "react-native";
+import { ImageBackground, Pressable, Image, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
@@ -12,7 +6,13 @@ import { useNavigation } from "@react-navigation/native";
 const HomeScreen = () => {
   const navigation = useNavigation();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: "white" }}>
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: "white",
+        justifyContent: "space-around",
+      }}
+    >
       <Pressable
         style={{ flex: 0.5 }}
         onPress={() => navigation.navigate("CompanyLoginScreen")}
@@ -26,17 +26,22 @@ const HomeScreen = () => {
             alignContent: "center",
             justifyContent: "space-evenly",
           }}
+          imageStyle={{ resizeMode: "contain" }}
         >
           <Image
             source={require("../../assets/ihelp/logocompany.png")}
-            style={{ width: "61%", height: "31%", alignSelf: "center" }}
+            style={{
+              width: "61%",
+              height: "31%",
+              alignSelf: "center",
+              resizeMode: "contain",
+            }}
           />
           <Text style={{ fontFamily: "Sf-thin", color: "white", fontSize: 30 }}>
             Компани
           </Text>
         </ImageBackground>
       </Pressable>
-
       <Pressable
         style={{ flex: 0.5 }}
         onPress={() => navigation.navigate("PersonLoginScreen")}
@@ -50,10 +55,16 @@ const HomeScreen = () => {
             alignContent: "center",
             justifyContent: "space-evenly",
           }}
+          imageStyle={{ resizeMode: "contain" }}
         >
           <Image
             source={require("../../assets/ihelp/logoperson.png")}
-            style={{ width: "59%", height: "28%", alignSelf: "center" }}
+            style={{
+              width: "59%",
+              height: "28%",
+              alignSelf: "center",
+              resizeMode: "contain",
+            }}
           />
           <Text style={{ fontFamily: "Sf-thin", color: "white", fontSize: 30 }}>
             Хувь хүн
@@ -65,5 +76,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({});

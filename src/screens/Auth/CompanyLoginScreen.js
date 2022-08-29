@@ -108,6 +108,7 @@ const CompanyLoginScreen = () => {
               <ImageBackground
                 source={require("../../../assets/ihelp/companybutton.png")}
                 style={{ height: 100 }}
+                imageStyle={{ resizeMode: "contain" }}
               >
                 <Text
                   style={{
