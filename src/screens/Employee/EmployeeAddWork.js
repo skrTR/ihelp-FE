@@ -56,15 +56,15 @@ const EmployeeAddWork = () => {
     experience: "",
     specialPermission: "",
     certificate: "",
-    price: "",
-    time: "",
-    workerNumber: "",
+    price: "Сонгох",
+    time: "Сонгох",
+    workerNumber: "Сонгох",
     occupation: "",
     isCompany: true,
     startDate: "",
-    order: null,
-    urgent: null,
-    special: null,
+    order: 0,
+    urgent: 0,
+    special: 0,
   });
 
   const [error, setError] = useState({
@@ -304,16 +304,6 @@ const EmployeeAddWork = () => {
             errorText="certificate зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.certificate}
           />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Certificate
-          </Text>
-          <FormText
-            placeholder="Certificate"
-            value={addWork.certificate}
-            onChangeText={checkCertificate}
-            errorText="certificate зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.certificate}
-          />
 
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Эхлэх хугацаа
@@ -365,7 +355,7 @@ const EmployeeAddWork = () => {
                 : isType === 2
                 ? `Онцгой ${normalDay} хоног`
                 : isType === 3
-                ? `Яааралтай ${normalDay} хоног`
+                ? `Яаралтай ${normalDay} хоног`
                 : "Зарын төрөл сонгох"
             }
             onPress={checkOrders}

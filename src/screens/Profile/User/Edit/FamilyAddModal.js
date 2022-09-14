@@ -117,7 +117,10 @@ const FamilyAddModal = () => {
     });
   };
   return (
-    <ScrollView style={{ marginHorizontal: 20 }}>
+    <ScrollView
+      style={{ marginHorizontal: 20 }}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={{ marginBottom: 10 }} />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Таны хэн болох
@@ -162,6 +165,7 @@ const FamilyAddModal = () => {
         onChangeText={checkBirthYear}
         errorText="Төрсөн жил 3-20 тэмдэгтээс тогтоно."
         errorShow={error.birthYear}
+        keyboardType="numeric"
       />
 
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -172,6 +176,7 @@ const FamilyAddModal = () => {
         onChangeText={checkPhone}
         errorText=" Холбоо барих дугаар 3-20 тэмдэгтээс тогтоно."
         errorShow={error.phone}
+        keyboardType="numeric"
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Мэргэжил
@@ -205,6 +210,7 @@ const FamilyAddModal = () => {
           </Text>
         </LinearGradient>
       </TouchableOpacity>
+      <View style={{ marginBottom: 500 }} />
     </ScrollView>
   );
 };

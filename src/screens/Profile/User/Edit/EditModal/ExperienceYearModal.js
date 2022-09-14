@@ -16,10 +16,7 @@ const ExperienceYearModal = (props) => {
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader
-          text="Цагын төрөл сонгох"
-          clicked={() => setExpModal(false)}
-        />
+        <ModalHeader text="Ажлын туршлага" clicked={() => setExpModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
           {[
             "Байхгүй",

@@ -70,6 +70,8 @@ import PostSettings from "../screens/Network/PostSettings";
 import CompanyWorkRequest from "../screens/Profile/Company/CompanySetting/CompanyWorkRequest";
 import UserPortfolio from "../screens/Profile/User/EditCoverStatus/UserPortfolio";
 import AddPortfolio from "../screens/Profile/AddPortfolio";
+import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import CvDetailScreen from "../components/Cv/CvDetailScreen";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -136,6 +138,16 @@ const ProfileGroup = () => {
               component={CompanySettingModal}
               options={{
                 headerShown: true,
+                presentation: "formSheet",
+                title: "Тохиргоо",
+                headerLeft: () => <MyBackButton />,
+              }}
+            />
+            <ProfileStack.Screen
+              name="CvDetailScreen"
+              component={CvDetailScreen}
+              options={{
+                headerShown: false,
                 presentation: "formSheet",
                 title: "Тохиргоо",
                 headerLeft: () => <MyBackButton />,
@@ -546,13 +558,23 @@ const ProfileGroup = () => {
             options={{
               headerShown: true,
               presentation: "formSheet",
-              title: "Дагсан",
+              title: "Дагaсан",
               headerLeft: () => <MyBackButton />,
             }}
           />
           <ProfileStack.Screen
             name="UserSendWorkRequest"
             component={UserSendWorkRequest}
+            options={{
+              headerShown: true,
+              presentation: "formSheet",
+              title: "Ажлын санал илгээх",
+              headerLeft: () => <MyBackButton />,
+            }}
+          />
+          <ProfileStack.Screen
+            name="CompanySendWorkRequest"
+            component={CompanySendWorkRequest}
             options={{
               headerShown: true,
               presentation: "formSheet",

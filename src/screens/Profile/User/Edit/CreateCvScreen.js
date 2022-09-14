@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import React from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -21,6 +22,7 @@ import moment from "moment";
 import useCv from "../../../../hooks/ProfileDetail/User/useCv";
 import useUserProfile from "../../../../hooks/ProfileDetail/User/useUserProfile";
 import Spinner from "../../../../components/Spinner";
+import EmptyData from "../../../../components/Profile/User/Empty/EmptyData";
 const CreateCvScreen = (props) => {
   const { id } = props.route.params;
   const [cv, cvLoading] = useCv(id);
@@ -71,6 +73,7 @@ const CreateCvScreen = (props) => {
             }
           />
         </View>
+        {/* Хувийн мэдээлэл */}
         <TouchableOpacity
           style={{
             backgroundColor: colors.border,
@@ -89,8 +92,7 @@ const CreateCvScreen = (props) => {
                 name="network-wired"
                 size={14}
                 color={colors.primary}
-              />
-              {""}
+              />{" "}
               Овог нэр:{" "}
             </Text>
             {cv.lastName} {cv.firstName}{" "}
@@ -141,21 +143,9 @@ const CreateCvScreen = (props) => {
             </Text>
             {cv.profession}
           </Text>
-          <Text style={{ color: colors.primaryText, fontWeight: "200" }}>
-            <Text style={{ fontFamily: "Sf-bold" }}>
-              <MaterialIcons
-                name="connect-without-contact"
-                size={15}
-                color={colors.primary}
-              />{" "}
-              Яааралтай үед холбоо барих:{" "}
-            </Text>
-            {cv.phoneEmergency ? cv.phoneEmergency : "Хоосон"}
-          </Text>
           <Text
             style={{
               color: colors.primaryText,
-              marginTop: 5,
               fontWeight: "200",
             }}
           >
@@ -194,7 +184,7 @@ const CreateCvScreen = (props) => {
             onPress={() => navigation.navigate("AchievmentAddModal")}
           />
         </View>
-        {cv.achievement && (
+        {cv.achievement.length > 0 ? (
           <View>
             {cv.achievement.map((item) => {
               return (
@@ -244,7 +234,7 @@ const CreateCvScreen = (props) => {
                         />{" "}
                         Он:{" "}
                       </Text>
-                      {item.year}
+                      {item.achievementYear}
                     </Text>
                     <Text
                       style={{ color: colors.primaryText, fontWeight: "200" }}
@@ -273,6 +263,56 @@ const CreateCvScreen = (props) => {
                 </TouchableOpacity>
               );
             })}
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              width: "90%",
+              marginHorizontal: 20,
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ImageBackground
+                source={require("../../../../../assets/ihelp/ggwp1.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={"medal-outline"}
+                  size={24}
+                  color={colors.primaryText}
+                />
+              </ImageBackground>
+              <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                {" "}
+                Гавьяа шагнал
+              </Text>
+            </View>
+            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+              Та өөрийн гавьяа шагнал талаар мэдээлэл оруулснаар суурь чадвараа
+              таниулах боломжтой
+            </Text>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                padding: 10,
+                backgroundColor: "#FFB6C1",
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 15,
+              }}
+              onPress={() => navigation.navigate("AchievmentAddModal")}
+            >
+              <Text style={{ color: colors.border }}>Нэмэх</Text>
+            </TouchableOpacity>
           </View>
         )}
       </>
@@ -303,7 +343,7 @@ const CreateCvScreen = (props) => {
             onPress={() => navigation.navigate("CourseAddModal")}
           />
         </View>
-        {cv.course && (
+        {cv.course.length > 0 ? (
           <View>
             {cv.course.map((e) => {
               return (
@@ -337,27 +377,18 @@ const CreateCvScreen = (props) => {
                     <Text
                       style={{
                         color: colors.primaryText,
-                        marginVertical: 5,
+                        marginTop: 5,
                         fontWeight: "200",
                       }}
                     >
                       <Text style={{ fontFamily: "Sf-bold" }}>Мэргэжил: </Text>
                       {e.field}
                     </Text>
-
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Нэмэлт мэдээлэл:{" "}
-                      </Text>
-                      {e.description}
-                    </Text>
                     <Text
                       style={{
                         color: colors.primaryText,
-                        marginVertical: 5,
                         fontWeight: "200",
+                        marginTop: 5,
                       }}
                     >
                       <Text style={{ fontFamily: "Sf-bold" }}>Голч дүн: </Text>
@@ -368,9 +399,10 @@ const CreateCvScreen = (props) => {
                       style={{
                         color: colors.primaryText,
                         fontWeight: "200",
+                        marginTop: 5,
                       }}
                     >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Эхэлсэн: </Text>
+                      <Text style={{ fontFamily: "Sf-bold" }}>Элссэн: </Text>
                       {e.start.slice(0, 4)}
                     </Text>
                     {!e.isStudying ? (
@@ -378,6 +410,7 @@ const CreateCvScreen = (props) => {
                         style={{
                           color: colors.primaryText,
                           fontWeight: "200",
+                          marginTop: 5,
                         }}
                       >
                         <Text style={{ fontFamily: "Sf-bold" }}>Статус: </Text>
@@ -391,8 +424,8 @@ const CreateCvScreen = (props) => {
                           fontWeight: "200",
                         }}
                       >
-                        <Text style={{ fontFamily: "Sf-bold" }}>Статус:</Text>
-                        {e.end && e.end.slice(0, 4)}
+                        <Text style={{ fontFamily: "Sf-bold" }}>Төгссөн:</Text>{" "}
+                        {moment(e.end).format("YYYY")}
                       </Text>
                     )}
                   </View>
@@ -404,6 +437,56 @@ const CreateCvScreen = (props) => {
                 </TouchableOpacity>
               );
             })}
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              width: "90%",
+              marginHorizontal: 20,
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ImageBackground
+                source={require("../../../../../assets/ihelp/ggwp1.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={"medal-outline"}
+                  size={24}
+                  color={colors.primaryText}
+                />
+              </ImageBackground>
+              <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                {" "}
+                Боловсрол
+              </Text>
+            </View>
+            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+              Та өөрийн боловсролын талаар мэдээлэл оруулснаар суурь чадвараа
+              таниулах боломжтой
+            </Text>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                padding: 10,
+                backgroundColor: "#FFB6C1",
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 15,
+              }}
+              onPress={() => navigation.navigate("CourseAddModal")}
+            >
+              <Text style={{ color: colors.border }}>Нэмэх</Text>
+            </TouchableOpacity>
           </View>
         )}
       </>
@@ -434,9 +517,10 @@ const CreateCvScreen = (props) => {
             onPress={() => navigation.navigate("ExperienceAddModal")}
           />
         </View>
-        {cv.experience && (
+        {cv.experience.length > 0 ? (
           <View>
             {cv.experience.map((item) => {
+              console.log(item);
               return (
                 <TouchableOpacity
                   onPress={() =>
@@ -500,17 +584,17 @@ const CreateCvScreen = (props) => {
                       <Text style={{ fontFamily: "Sf-bold" }}>
                         Ажилд орсон:{" "}
                       </Text>
-                      {item.start && item.start.slice(0, 4)}
+                      {moment(item.start).format("YYYY")}
                     </Text>
                     {item.isWorking ? (
                       <Text
                         style={{
                           color: colors.primaryText,
-                          marginVertical: 5,
                           fontWeight: "200",
                         }}
                       >
-                        Одоог хүртэл ажиллаж байгаа
+                        <Text style={{ fontFamily: "Sf-bold" }}>Статус: </Text>
+                        Ажиллаж байгаa
                       </Text>
                     ) : (
                       <Text
@@ -533,7 +617,7 @@ const CreateCvScreen = (props) => {
                       }}
                     >
                       <Text style={{ fontFamily: "Sf-bold" }}>
-                        Холбоо барих:{" "}
+                        Холбогдох албан тушаалтан:{" "}
                       </Text>
                       {item.contactInfo}
                     </Text>
@@ -570,9 +654,7 @@ const CreateCvScreen = (props) => {
                         fontWeight: "200",
                       }}
                     >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Дэлгэрэнгүй мэдээлэл:{" "}
-                      </Text>
+                      <Text style={{ fontFamily: "Sf-bold" }}>Тайлбар: </Text>
                       {item.description}
                     </Text>
                   </View>
@@ -589,6 +671,56 @@ const CreateCvScreen = (props) => {
                 </TouchableOpacity>
               );
             })}
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              width: "90%",
+              marginHorizontal: 20,
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ImageBackground
+                source={require("../../../../../assets/ihelp/ggwp1.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={"medal-outline"}
+                  size={24}
+                  color={colors.primaryText}
+                />
+              </ImageBackground>
+              <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                {" "}
+                Туршлага
+              </Text>
+            </View>
+            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+              Та өөрийн туршлагын талаар мэдээлэл оруулснаар суурь чадвараа
+              таниулах боломжтой
+            </Text>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                padding: 10,
+                backgroundColor: "#FFB6C1",
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 15,
+              }}
+              onPress={() => navigation.navigate("ExperienceAddModal")}
+            >
+              <Text style={{ color: colors.border }}>Нэмэх</Text>
+            </TouchableOpacity>
           </View>
         )}
       </>
@@ -619,7 +751,7 @@ const CreateCvScreen = (props) => {
             onPress={() => navigation.navigate("FamilyAddModal")}
           />
         </View>
-        {cv.family && (
+        {cv.family.length > 0 ? (
           <View>
             {cv.family.map((item) => {
               return (
@@ -746,6 +878,56 @@ const CreateCvScreen = (props) => {
               );
             })}
           </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              width: "90%",
+              marginHorizontal: 20,
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ImageBackground
+                source={require("../../../../../assets/ihelp/ggwp1.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Ionicons
+                  name={"medal-outline"}
+                  size={24}
+                  color={colors.primaryText}
+                />
+              </ImageBackground>
+              <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                {" "}
+                Гэр бүл
+              </Text>
+            </View>
+            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+              Та өөрийн ойр дотны хүний талаар мэдээлэл оруулснаар яааралтай үед
+              холбоо барих боломжтой
+            </Text>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                padding: 10,
+                backgroundColor: "#FFB6C1",
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 15,
+              }}
+              onPress={() => navigation.navigate("FamilyAddModal")}
+            >
+              <Text style={{ color: colors.border }}>Нэмэх</Text>
+            </TouchableOpacity>
+          </View>
         )}
       </>
 
@@ -777,7 +959,7 @@ const CreateCvScreen = (props) => {
           />
         </View>
         <View>
-          {cv.language && (
+          {cv.language.length > 0 ? (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate("LanguagePackageModal", {
@@ -813,7 +995,7 @@ const CreateCvScreen = (props) => {
                       color={colors.primaryText}
                       onPress={() =>
                         navigation.navigate("LanguagePackageModal", {
-                          data: item,
+                          data: cv.language,
                         })
                       }
                       style={{ marginRight: 5 }}
@@ -822,6 +1004,56 @@ const CreateCvScreen = (props) => {
                 );
               })}
             </TouchableOpacity>
+          ) : (
+            <View
+              style={{
+                borderWidth: 1,
+                borderColor: colors.border,
+                width: "90%",
+                marginHorizontal: 20,
+                padding: 20,
+                borderRadius: 10,
+              }}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <ImageBackground
+                  source={require("../../../../../assets/ihelp/ggwp1.png")}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <Ionicons
+                    name={"medal-outline"}
+                    size={24}
+                    color={colors.primaryText}
+                  />
+                </ImageBackground>
+                <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                  {" "}
+                  Хэлний чадвар
+                </Text>
+              </View>
+              <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+                Та өөрийн хэлний чадварыг талаар мэдээлэл оруулснаар суурь
+                чадвараа таниулах боломжтой
+              </Text>
+              <TouchableOpacity
+                style={{
+                  alignItems: "center",
+                  padding: 10,
+                  backgroundColor: "#FFB6C1",
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  marginTop: 15,
+                }}
+                onPress={() => navigation.navigate("LanguageAddModal")}
+              >
+                <Text style={{ color: colors.border }}>Нэмэх</Text>
+              </TouchableOpacity>
+            </View>
           )}
         </View>
       </>

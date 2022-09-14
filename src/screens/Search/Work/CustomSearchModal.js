@@ -34,7 +34,7 @@ const CustomSearchModal = () => {
   // Цалин Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [salary, setSalary] = useState("");
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
   const checkAge = (text) => {
@@ -208,7 +208,7 @@ const CustomSearchModal = () => {
               {occupationName ? `${occupationName}` : "Мэргэжил"}
             </Text>
           </TouchableOpacity>
-          {/* Цагын төрөл */}
+          {/* Цагийн төрөл */}
           <TouchableOpacity
             style={{
               padding: 10,

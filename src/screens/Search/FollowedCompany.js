@@ -37,7 +37,6 @@ const FollowedCompany = () => {
             data={followingData}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) => {
-              console.log(item);
               return (
                 <DynamicFollowing
                   followUser={item.followUserInfo}

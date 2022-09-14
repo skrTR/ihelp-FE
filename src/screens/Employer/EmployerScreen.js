@@ -31,6 +31,7 @@ const EmployerScreen = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const { colors } = useTheme();
   const state = useContext(UserContext);
+
   return (
     <SafeAreaView style={{ backgroundColor: "#141414", marginBottom: 115 }}>
       {state.isCompany ? (

@@ -17,7 +17,7 @@ const LanguageModal = (props) => {
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader
-          text="Цагын төрөл сонгох"
+          text="Цагийн төрөл сонгох"
           clicked={() => setLanguageModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>

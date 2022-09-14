@@ -77,20 +77,20 @@ const CompanyProfileScreen = () => {
             <Spinner />
           ) : (
             <>
-              <Text
-                style={{
-                  color: colors.primaryText,
-                  fontFamily: "Sf-bold",
-                  fontSize: 20,
-                  marginHorizontal: 20,
-                  marginVertical: 15,
-                }}
-              >
-                Ажлын зарууд
-              </Text>
               {companyJobs.map((data) => {
                 return (
                   <View key={data._id}>
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontFamily: "Sf-bold",
+                        fontSize: 20,
+                        marginHorizontal: 20,
+                        marginVertical: 15,
+                      }}
+                    >
+                      Ажлын зарууд
+                    </Text>
                     <CompanyJobs
                       id={data._id}
                       createUser={data.createUser}

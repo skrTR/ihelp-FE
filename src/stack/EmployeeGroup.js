@@ -14,6 +14,7 @@ import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
+import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 const EmployeeGroup = () => {
   const EmployeeStack = createNativeStackNavigator();
   return (
@@ -94,6 +95,16 @@ const EmployeeGroup = () => {
         <EmployeeStack.Screen
           name="UserSendWorkRequest"
           component={UserSendWorkRequest}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployeeStack.Screen
+          name="CompanySendWorkRequest"
+          component={CompanySendWorkRequest}
           options={{
             headerShown: true,
             presentation: "formSheet",

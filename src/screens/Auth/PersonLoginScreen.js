@@ -19,8 +19,8 @@ const PersonLoginScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [phone, setPhone] = useState("95040448");
-  const [password, setPassword] = useState("123456");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
   const signUpHandler = () => {
     state.login(phone, password);
   };

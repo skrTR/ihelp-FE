@@ -20,9 +20,10 @@ const CompanyWorkRequest = () => {
   const { colors } = useTheme();
   const getCvData = () => {
     axios
-      .get(`${api}/api/v1/invitations/${state.companyId}/cv`)
+      .get(`${api}/api/v1/invitations/${state.companyId}/cv?sort=-createdAt`)
       .then((res) => {
         setCvData(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -33,7 +34,7 @@ const CompanyWorkRequest = () => {
   }, []);
   return (
     <ScrollView>
-      {cvData.length < 0 ? (
+      {cvData.length > 0 ? (
         cvData.map((e) => {
           return (
             <View
@@ -61,7 +62,7 @@ const CompanyWorkRequest = () => {
                 >
                   <Image
                     source={{
-                      uri: `${api}/upload/${e.createUser.profile}`,
+                      uri: `${api}/upload/${e.profile}`,
                     }}
                     style={{
                       width: 75,
@@ -80,14 +81,14 @@ const CompanyWorkRequest = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {e.occupation}
+                      {e.name}
                     </Text>
                     <Text
                       style={{
                         color: colors.primaryText,
                       }}
                     >
-                      {e.createUser.lastName} овогтой {e.createUser.firstName}
+                      {e.lastName} овогтой {e.firstName}
                     </Text>
                     <Text
                       style={{
@@ -97,7 +98,7 @@ const CompanyWorkRequest = () => {
                         fontSize: 14,
                       }}
                     >
-                      Цалин: {e.salary}₮
+                      Ажлын хөлс: {e.salary}₮
                     </Text>
                   </View>
                 </TouchableOpacity>

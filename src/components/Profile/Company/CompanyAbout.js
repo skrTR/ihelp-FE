@@ -43,7 +43,7 @@ const CompanyAbout = (props) => {
         />
       </View>
       {/* About */}
-      {about && (
+      {about === "Хоосон" ? null : (
         <View
           style={{
             flexDirection: "row",
@@ -71,7 +71,7 @@ const CompanyAbout = (props) => {
       )}
 
       {/* Website */}
-      {web && (
+      {web === "Хоосон" ? null : (
         <View
           style={{
             flexDirection: "row",
@@ -99,7 +99,7 @@ const CompanyAbout = (props) => {
       )}
 
       {/* Phone */}
-      {phone && (
+      {phone === "Хоосон" ? null : (
         <View
           style={{
             flexDirection: "row",
@@ -127,7 +127,7 @@ const CompanyAbout = (props) => {
       )}
 
       {/* Ажилтны тоо */}
-      {workerNumber && (
+      {workerNumber === "null" ? null : (
         <View
           style={{
             flexDirection: "row",
@@ -148,7 +148,7 @@ const CompanyAbout = (props) => {
               color: colors.primaryText,
             }}
           >
-            {workerNumber} Хүмүүс ажилдаг
+            {workerNumber} ажилтантай
           </Text>
         </View>
       )}
@@ -179,7 +179,7 @@ const CompanyAbout = (props) => {
           </Text>
         </View>
       )}
-      {location && (
+      {location === "Хоосон" ? null : (
         <View
           style={{
             flexDirection: "row",
@@ -201,7 +201,7 @@ const CompanyAbout = (props) => {
               color: colors.primaryText,
             }}
           >
-            {location} онд үүссэн
+            {location}
           </Text>
         </View>
       )}

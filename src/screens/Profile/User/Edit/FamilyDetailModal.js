@@ -129,7 +129,10 @@ const FamilyDetailModal = ({ route }) => {
     });
   };
   return (
-    <ScrollView style={{ marginHorizontal: 20 }}>
+    <ScrollView
+      style={{ marginHorizontal: 20 }}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={{ marginBottom: 10 }} />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Таны хэн болох
@@ -174,6 +177,7 @@ const FamilyDetailModal = ({ route }) => {
         onChangeText={checkBirthYear}
         errorText="Төрсөн жил 3-20 тэмдэгтээс тогтоно."
         errorShow={error.birthYear}
+        keyboardType="numeric"
       />
 
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -184,6 +188,7 @@ const FamilyDetailModal = ({ route }) => {
         onChangeText={checkPhone}
         errorText=" Холбоо барих дугаар 3-20 тэмдэгтээс тогтоно."
         errorShow={error.phone}
+        keyboardType="numeric"
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Мэргэжил
@@ -236,8 +241,15 @@ const FamilyDetailModal = ({ route }) => {
       <MyButton
         onPress={() => navigation.navigate("FamilyAddModal")}
         text="Гэр бүлийн мэдээлэл нэмэх"
-        style={{ marginTop: 20 }}
+        style={{
+          marginTop: 20,
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: 20,
+          padding: 10,
+        }}
       />
+      <View style={{ marginBottom: 500 }} />
     </ScrollView>
   );
 };

@@ -46,7 +46,7 @@ const EmployerAddWork = () => {
   // Level сонгох
   const [level, setLevel] = useState("");
   const [levelModal, setLevelModal] = useState(false);
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
   // Ontsloh yaaraltai bolgoh eseh
@@ -57,10 +57,13 @@ const EmployerAddWork = () => {
       .then((res) => {
         navigation.goBack();
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        alert(err.message);
+        console.log(err);
+      });
   };
   const [addWork, setAddWork] = useState({
-    title: "",
+    title: "Test123",
     description: "",
     do: "",
     do1: "",
@@ -75,17 +78,17 @@ const EmployerAddWork = () => {
     contact: "",
     location: "",
     benefit: "",
-    salary: "",
-    gender: "",
-    age: "",
-    education: "",
-    experience: "",
+    salary: "Сонгох",
+    gender: "Сонгох",
+    age: "Сонгох",
+    education: "Сонгох",
+    experience: "Сонгох",
     occupation: "",
-    level: "",
-    type: "",
-    order: null,
-    special: null,
-    urgent: null,
+    level: "Мэргэжил хамаарахгүй",
+    type: "Сонгох",
+    order: 0,
+    special: 0,
+    urgent: 0,
   });
   const [error, setError] = useState({
     title: false,
@@ -439,13 +442,13 @@ const EmployerAddWork = () => {
             errorShow={error.language}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ажилах цагын хуваарь
+            Ажиллах цагийн хуваарь
           </Text>
           <FormText
-            placeholder="Ажилах цагын хуваарь "
+            placeholder="Ажиллах цагийн хуваарь"
             value={addWork.schedule}
             onChangeText={checkSchedule}
-            errorText="Ажилах цагын хуваарь  урт 4-20 тэмдэгтээс тогтоно."
+            errorText="Ажиллах цагийн хуваарь урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.schedule}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -570,10 +573,10 @@ const EmployerAddWork = () => {
             onPress={checkLevel}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Цагын төрөл сонгох
+            Цагийн төрөл сонгох
           </Text>
           <MyButton
-            text={type === "" ? "Цагын төрөл сонгох" : `${type}`}
+            text={type === "" ? "Цагийн төрөл сонгох" : `${type}`}
             onPress={checkType}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -586,7 +589,7 @@ const EmployerAddWork = () => {
                 : isType === 2
                 ? `Онцгой ${normalDay} хоног`
                 : isType === 3
-                ? `Яааралтай ${normalDay} хоног`
+                ? `Яаралтай ${normalDay} хоног`
                 : "Зарын төрөл сонгох"
             }
             onPress={checkOrders}

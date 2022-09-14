@@ -18,7 +18,20 @@ const TimeModal = (props) => {
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader text="Нас сонгох" clicked={() => setTimeModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
-          {["1 - 7 хоног", "7 - 14 xoног"].map((l, i) => (
+          {[
+            "1 - 7 хоног",
+            "7 - 14 хоног",
+            "14 - 21 хоног",
+            "21 - 30 хоног",
+            "1 - 2 сар",
+            "2 - 3 сар",
+            "3 - 4 сар",
+            "4 - 6 сар",
+            "6 - 8 сар",
+            "8 - 12 сар",
+            "1 - 2 жил",
+            "2 - 3 жил",
+          ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
                 setTime(l);

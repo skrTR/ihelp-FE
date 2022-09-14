@@ -35,7 +35,7 @@ const EmployeeSavedWork = () => {
                 <EmployeeWork
                   id={item.announcement}
                   firstName={item.firstName}
-                  profile={item.profile}
+                  profile={item.announcementInfo.profile}
                   occupation={item.announcementInfo.occupationName}
                   type={item.announcementInfo.skill}
                   salary={item.announcementInfo.price}

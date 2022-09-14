@@ -27,6 +27,7 @@ import CompanyFilterModal from "../screens/Search/Company/CompanyFilterModal";
 import ResultedCompanyModal from "../screens/Search/Company/ResultedCompanyModal";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
+import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 const SearchGroup = () => {
   const SearchStack = createNativeStackNavigator();
   return (
@@ -126,6 +127,16 @@ const SearchGroup = () => {
         <SearchStack.Screen
           name="UserSendWorkRequest"
           component={SendWorkRequestModal}
+          options={{
+            fullScreenGestureEnabled: true,
+            title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+            presentation: "formSheet",
+          }}
+        />
+        <SearchStack.Screen
+          name="CompanySendWorkRequest"
+          component={CompanySendWorkRequest}
           options={{
             fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",

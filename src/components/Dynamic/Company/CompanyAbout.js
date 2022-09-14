@@ -138,7 +138,7 @@ const CompanyAbout = (props) => {
               color: colors.primaryText,
             }}
           >
-            {workerNumber} Хүмүүс ажилдаг
+            {workerNumber} ажилтантай
           </Text>
         </View>
       )}

@@ -6,6 +6,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
 import { api } from "../../../../../Constants";
+import moment from "moment";
 const AchievmentDetailModal = ({ route }) => {
   const { data } = route.params;
   const navigation = useNavigation();
@@ -28,12 +29,12 @@ const AchievmentDetailModal = ({ route }) => {
   };
   const [achievement, setAchievement] = useState({
     name: data.name,
-    year: data.year,
+    achievementYear: data.achievementYear,
     company: data.company,
   });
   const [error, setError] = useState({
     name: false,
-    year: false,
+    achievementYear: false,
     company: false,
   });
   const checkName = (text) => {
@@ -49,17 +50,17 @@ const AchievmentDetailModal = ({ route }) => {
   const checkYear = (text) => {
     setError({
       ...error,
-      year: text.length < 3,
+      achievementYear: text.length < 3,
     });
     setAchievement({
       ...achievement,
-      year: text,
+      achievementYear: text,
     });
   };
   const checkCompany = (text) => {
     setError({
       ...error,
-      year: text.length < 1,
+      company: text.length < 1,
     });
     setAchievement({
       ...achievement,
@@ -85,10 +86,11 @@ const AchievmentDetailModal = ({ route }) => {
       </Text>
       <FormText
         placeholder="Шагнал авсан он"
-        value={`${achievement.year}`}
+        value={`${achievement.achievementYear}`}
         onChangeText={checkYear}
-        errorText="Шагнал авсан он 4-10 тэмдэгтээс тогтоно."
-        errorShow={error.year}
+        errorText="Шагнал авсан он 4 тооноос тогтоно."
+        errorShow={error.achievementYear}
+        keyboardType="numeric"
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Шагнал гардуулсан компани
@@ -136,7 +138,13 @@ const AchievmentDetailModal = ({ route }) => {
       <MyButton
         onPress={() => navigation.navigate("AchievmentAddModal")}
         text="Гавьяа шагнал нэмэх"
-        style={{ marginTop: 20 }}
+        style={{
+          marginTop: 20,
+          borderWidth: 1,
+          borderColor: colors.border,
+          padding: 12,
+          borderRadius: 20,
+        }}
       />
     </ScrollView>
   );

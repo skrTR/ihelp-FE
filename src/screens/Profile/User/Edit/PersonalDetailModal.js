@@ -45,17 +45,17 @@ const PersonalDetailModal = (props) => {
   };
 
   const [personalCv, setPersonalCv] = useState({
-    lastName: data.lastName,
-    firstName: data.firstName,
-    profession: data.profession,
-    birth: data.birth,
-    humanId: data.humanId,
-    birthPlace: data.birthPlace,
-    location: data.location,
-    salaryExpectation: data.salaryExpectation,
-    experienceYear: data.experienceYear,
-    gender: data.gender,
-    driverLicense: data.driverLicense,
+    lastName: data.lastName ? data.lastName : "",
+    firstName: data.firstName ? data.firstName : "",
+    profession: data.profession ? data.profession : "",
+    birth: data.birth ? data.birth : "",
+    humanId: data.humanId ? data.humanId : "",
+    birthPlace: data.birthPlace ? data.birthPlace : "",
+    location: data.location ? data.location : "",
+    salaryExpectation: data.salaryExpectation ? data.salaryExpectation : "",
+    experienceYear: data.experienceYear ? data.experienceYear : "",
+    gender: data.gender ? data.gender : "",
+    driverLicense: data.driverLicense ? data.driverLicense : "",
     working: data.working,
   });
   const [error, setError] = useState({
@@ -308,7 +308,9 @@ const PersonalDetailModal = (props) => {
             }}
           >
             <Text style={{ fontSize: 16 }}>
-              {expText === "Байхгүй" ? expText : expText && `${expText} жил`}
+              {personalCv.experienceYear === ""
+                ? "Ажлын туршлага жилээр"
+                : personalCv.experienceYear}
             </Text>
           </View>
         </TouchableOpacity>
@@ -323,7 +325,11 @@ const PersonalDetailModal = (props) => {
               borderRadius: 20,
             }}
           >
-            <Text style={{ fontSize: 16 }}>{salText}</Text>
+            <Text style={{ fontSize: 16 }}>
+              {personalCv.salaryExpectation === ""
+                ? "Өөрийн хүсэж буй цалин"
+                : personalCv.salaryExpectation}
+            </Text>
           </View>
         </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>

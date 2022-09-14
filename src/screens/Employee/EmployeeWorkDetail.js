@@ -257,7 +257,9 @@ const EmployeeWorkDetail = (props) => {
           borderTopLeftRadius: 20,
           bottom: 0,
         }}
-        onPress={() => navigation.navigate("UserSendWorkRequest", { id: id })}
+        onPress={() =>
+          navigation.navigate("CompanySendWorkRequest", { id: id })
+        }
       >
         <Text
           style={{

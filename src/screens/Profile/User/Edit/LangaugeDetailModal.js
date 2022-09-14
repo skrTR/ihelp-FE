@@ -17,7 +17,7 @@ const LanguageDetailModal = (props) => {
   const { data } = props.route.params;
   const navigation = useNavigation();
   const { colors } = useTheme();
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [langText, setLangText] = useState("");
   const [languageModal, setLanguageModal] = useState(false);
   const [language, setLanguage] = useState({
@@ -85,7 +85,9 @@ const LanguageDetailModal = (props) => {
             borderRadius: 20,
           }}
         >
-          <Text style={{ fontSize: 16 }}>{langText && langText}</Text>
+          <Text style={{ fontSize: 16 }}>
+            {language.level && language.level}
+          </Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity

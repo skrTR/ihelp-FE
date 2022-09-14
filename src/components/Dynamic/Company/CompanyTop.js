@@ -292,7 +292,7 @@ const CompanyTop = (props) => {
                 flex: 0.66,
               }}
               onPress={() =>
-                navigation.navigate("UserSendWorkRequest", { id: id })
+                navigation.navigate("CompanySendWorkRequest", { id: id })
               }
             >
               {/* Профайл янзлах */}
@@ -319,7 +319,7 @@ const CompanyTop = (props) => {
                   }}
                 >
                   {" "}
-                  Ажлын санал тавих{"   "}
+                  Ажлын санал тавих{"  "}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -430,7 +430,7 @@ const CompanyTop = (props) => {
                 marginTop: 5,
               }}
             >
-              Дагсан
+              Дагaсан
             </Text>
           </TouchableOpacity>
         </View>

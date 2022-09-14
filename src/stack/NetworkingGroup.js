@@ -17,6 +17,8 @@ import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import PostLikeUser from "../screens/Network/PostLikeUser";
+import UserSearch from "../screens/Search/UserSearch";
+import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 const NetworkingGroup = () => {
   const NetworkingStack = createNativeStackNavigator();
   return (
@@ -129,6 +131,26 @@ const NetworkingGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <NetworkingStack.Screen
+          name="CompanySendWorkRequest"
+          component={CompanySendWorkRequest}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <NetworkingStack.Screen
+          name="UserSearch"
+          component={UserSearch}
+          options={{
+            headerShown: false,
+            presentation: "formSheet",
+            title: "Хэрэглэгчид",
             headerLeft: () => <MyBackButton />,
           }}
         />

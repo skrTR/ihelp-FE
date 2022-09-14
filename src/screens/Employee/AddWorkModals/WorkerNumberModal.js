@@ -26,7 +26,20 @@ const WorketNumberModal = (props) => {
           clicked={() => setWorkerNumberModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
-          {["1 - 5", "5-10"].map((l, i) => (
+          {[
+            "1 - 5",
+            "5 - 10",
+            "10 - 15",
+            "15 - 20",
+            "20 - 30",
+            "30 - 40",
+            "40 - 50",
+            "50 - 100",
+            "100 - 200",
+            "200 - 500",
+            "500 - 1000",
+            "1000 - 10000",
+          ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
                 setWorkerNumber(l);

@@ -5,8 +5,10 @@ import { darkTheme } from "./src/themes/dark.js";
 import StackNavigator from "./src/stack/StackNavigator";
 import { UserStore } from "./src/context/UserContext";
 import { useFonts } from "expo-font";
+
 export default function App() {
   const colorScheme = useColorScheme();
+
   const [loaded] = useFonts({
     "Sf-heavy": require("./assets/fonts/SF-Pro-Text-Heavy.otf"),
     "Sf-bold": require("./assets/fonts/SF-Pro-Text-Bold.otf"),

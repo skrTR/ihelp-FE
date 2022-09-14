@@ -15,7 +15,7 @@ import LanguageModal from "./EditModal/LanguageModal";
 const LanguageAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [langText, setLangText] = useState("");
   const [languageModal, setLanguageModal] = useState(false);
   const [language, setLanguage] = useState({

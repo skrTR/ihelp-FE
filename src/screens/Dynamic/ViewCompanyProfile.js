@@ -42,7 +42,7 @@ const ViewCompanyProfile = (props) => {
           cover={companyProfile.cover}
           profile={companyProfile.profile}
           point={companyProfile.point}
-          name={companyProfile.name}
+          name={companyProfile.firstName}
           category={companyProfile.categoryName}
           jobCount={companyProfile.jobNumber}
           followerCount={companyProfile.follower}

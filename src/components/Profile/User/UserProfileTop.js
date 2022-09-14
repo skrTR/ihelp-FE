@@ -314,7 +314,7 @@ const UserProfileTop = ({ userProfile, cv }) => {
               marginTop: 5,
             }}
           >
-            Дагсан
+            Дагaсан
           </Text>
         </TouchableOpacity>
       </View>

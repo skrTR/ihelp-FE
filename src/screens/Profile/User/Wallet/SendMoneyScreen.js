@@ -31,6 +31,7 @@ const SendMoneyScreen = (props) => {
       .get(`${api}/api/v1/cvs/${id}?select=invoiceId`)
       .then((res) => {
         setUserInvoince(res.data.data.invoiceId);
+        console.log(res.data.data);
       })
       .catch((err) => {
         alert(err, "userData");

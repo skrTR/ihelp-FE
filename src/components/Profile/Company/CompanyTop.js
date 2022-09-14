@@ -303,7 +303,7 @@ const CompanyTop = (props) => {
                 marginTop: 5,
               }}
             >
-              Дагсан
+              Дагaсан
             </Text>
           </TouchableOpacity>
         </View>

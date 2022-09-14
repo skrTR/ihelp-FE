@@ -100,7 +100,7 @@ const CompanySignUpScreen = () => {
                 color: colors.primary,
               }}
             >
-              Person
+              Company
             </Text>
           </View>
         </ImageBackground>

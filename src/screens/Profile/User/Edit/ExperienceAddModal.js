@@ -23,7 +23,7 @@ const ExperienceAddModal = (props) => {
   const { colors } = useTheme();
   // Company songoh
   const [companyModal, setCompanyModal] = useState(false);
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
   const [error, setError] = useState({
@@ -35,6 +35,7 @@ const ExperienceAddModal = (props) => {
     position: false,
     location: false,
     type: false,
+    start: false,
   });
   const [experience, setExperience] = useState({
     description: "",
@@ -52,7 +53,6 @@ const ExperienceAddModal = (props) => {
     location: "",
     type: "",
   });
-  const [isEnabled, setIsEnabled] = useState(true);
 
   const sendPersonalDetail = () => {
     axios
@@ -63,7 +63,6 @@ const ExperienceAddModal = (props) => {
       .catch((err) => alert(err));
   };
 
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
   const checkDescription = (text) => {
     setError({
       ...error,
@@ -154,7 +153,18 @@ const ExperienceAddModal = (props) => {
       end: type,
     });
   };
-
+  const checkStart = (type) => {
+    setExperience({
+      ...experience,
+      start: type,
+    });
+  };
+  const checkWorking = () => {
+    setExperience({
+      ...experience,
+      isWorking: !experience.isWorking,
+    });
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -218,6 +228,16 @@ const ExperienceAddModal = (props) => {
           </View>
         </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Ажилд орсон он
+        </Text>
+        <FormText
+          value={experience.start}
+          onChangeText={checkStart}
+          errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
+          errorShow={error.start}
+          keyboardType="numeric"
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Албан тушаал
         </Text>
         <FormText
@@ -277,22 +297,25 @@ const ExperienceAddModal = (props) => {
           errorText="Холбогдох албан тушаалтан 3-20 тэмдэгтээс тогтоно."
           errorShow={error.contactInfo}
         />
-
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Ажиллаж байгаа эсэх?
+        </Text>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <Switch
             trackColor={{ false: "#FFB6C1", true: "#FFB6C1" }}
-            thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+            thumbColor={experience.isWorking ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
-            onValueChange={toggleSwitch}
-            value={isEnabled}
-            style={{ marginTop: 16, marginBottom: 5 }}
+            onValueChange={checkWorking}
+            value={experience.isWorking}
           />
-          {isEnabled && (
+          {experience.isWorking ? (
             <Text style={[{ color: colors.primaryText }]}> Ажиллаж байгаа</Text>
+          ) : (
+            <Text style={[{ color: colors.primaryText }]}> Ажлаас гарсан</Text>
           )}
         </View>
 
-        {!isEnabled && (
+        {!experience.isWorking && (
           <>
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Гарсан шалтгаан
@@ -311,6 +334,7 @@ const ExperienceAddModal = (props) => {
               onChangeText={checkEnd}
               errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
               errorShow={error.end}
+              keyboardType="numeric"
             />
           </>
         )}
@@ -360,6 +384,7 @@ const ExperienceAddModal = (props) => {
           setType={setType}
           checkType={checkType}
         />
+        <View style={{ marginBottom: 500 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

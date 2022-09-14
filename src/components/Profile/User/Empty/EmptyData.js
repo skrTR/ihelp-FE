@@ -33,6 +33,7 @@ const EmptyData = (props) => {
           padding: 20,
           borderRadius: 10,
           marginTop: 10,
+          ...props.style,
         }}
       >
         <View style={{ flexDirection: "row", alignItems: "center" }}>

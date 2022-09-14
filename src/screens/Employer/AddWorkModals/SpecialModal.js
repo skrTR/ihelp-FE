@@ -131,7 +131,7 @@ const SpecialModal = (props) => {
                 color: isType === 3 ? colors.background : colors.primaryText,
               }}
             >
-              Яааралтай
+              Яаралтай
             </Text>
           </TouchableOpacity>
         </View>
@@ -313,7 +313,7 @@ const SpecialModal = (props) => {
                       <Text
                         style={{ color: colors.primaryText, marginRight: 10 }}
                       >
-                        {l} пойнт
+                        {l * 2} пойнт
                       </Text>
                     </View>
                   </View>
@@ -415,15 +415,27 @@ const SpecialModal = (props) => {
                       CV хүлээн авах эцсийн хугацаа:{" "}
                     </Text>
                     <View>
-                      <Text
-                        style={{
-                          left: 50,
-                          color: colors.primaryText,
-                          bottom: 50,
-                        }}
-                      >
-                        14 пойнт
-                      </Text>
+                      <View>
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            left: 50,
+                            bottom: 50,
+                          }}
+                        >
+                          {l} хоног
+                        </Text>
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            left: 50,
+                            bottom: 40,
+                          }}
+                        >
+                          {l * 3} пойнт
+                        </Text>
+                      </View>
+
                       <CountDown
                         until={60 * 60 * 24 * l}
                         size={12}

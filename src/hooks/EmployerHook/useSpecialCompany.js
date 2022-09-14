@@ -22,6 +22,7 @@ export default () => {
       })
       .catch((err) => {
         let message = err.message;
+
         if (message === "Request failed with status code 404")
           message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
         else if (message === "Network Error")

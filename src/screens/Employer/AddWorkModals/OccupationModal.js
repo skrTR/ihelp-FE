@@ -109,6 +109,7 @@ const OccupationModal = (props) => {
             borderRadius: 20,
             marginBottom: 10,
             marginHorizontal: 10,
+            color: colors.primaryText,
           }}
         />
         <View style={{ marginHorizontal: 10 }}>

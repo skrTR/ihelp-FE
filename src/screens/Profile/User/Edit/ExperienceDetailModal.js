@@ -19,6 +19,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
 import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
+import moment from "moment";
 const ExperienceDetailModal = ({ route }) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -26,7 +27,7 @@ const ExperienceDetailModal = ({ route }) => {
 
   // Company songoh
   const [companyModal, setCompanyModal] = useState(false);
-  // Цагын төрөл сонгох
+  // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
   const sendPersonalDetail = () => {
@@ -45,16 +46,15 @@ const ExperienceDetailModal = ({ route }) => {
       })
       .catch((err) => alert(err));
   };
-  const [isEnabled, setIsEnabled] = useState(data.isWorking);
   const [experience, setExperience] = useState({
     description: data.description,
     do: data.do,
     exitCause: data.exitCause,
     achievements: data.achievements,
     contactInfo: data.contactInfo,
-    start: data.start,
-    end: data.end,
-    isWorking: isEnabled,
+    start: data.start ? data.start : "2022",
+    end: data.end ? data.end : "2022",
+    isWorking: data.isWorking,
     company: data.company,
     position: data.position,
     location: data.location,
@@ -74,7 +74,18 @@ const ExperienceDetailModal = ({ route }) => {
     location: false,
     type: false,
   });
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+  const checkStart = (type) => {
+    setExperience({
+      ...experience,
+      start: type,
+    });
+  };
+  const checkWorking = () => {
+    setExperience({
+      ...experience,
+      isWorking: !experience.isWorking,
+    });
+  };
   const checkDescription = (text) => {
     setError({
       ...error,
@@ -172,15 +183,17 @@ const ExperienceDetailModal = ({ route }) => {
         style={{ flex: 1 }}
       >
         <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
-          <TouchableOpacity onPress={() => setCompanyModal(true)}>
+          <TouchableOpacity
+            onPress={() => setCompanyModal(true)}
+            style={{ marginTop: 10 }}
+          >
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Компани нэр
+              Компани
             </Text>
             <View
               style={{
                 backgroundColor: colors.secondaryText,
                 padding: 2,
-                marginVertical: 5,
                 borderRadius: 20,
                 flexDirection: "row",
                 alignItems: "center",
@@ -227,6 +240,16 @@ const ExperienceDetailModal = ({ route }) => {
             </View>
           </TouchableOpacity>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Ажилд орсон он
+          </Text>
+          <FormText
+            value={moment(experience.start).format("YYYY")}
+            onChangeText={checkStart}
+            errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
+            errorShow={error.start}
+            keyboardType="numeric"
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Албан тушаал
           </Text>
           <FormText
@@ -237,7 +260,7 @@ const ExperienceDetailModal = ({ route }) => {
           />
           <TouchableOpacity onPress={checkType}>
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Цагийн төрөл
+              Төрөл
             </Text>
             <View
               style={{
@@ -246,7 +269,7 @@ const ExperienceDetailModal = ({ route }) => {
                 borderRadius: 20,
               }}
             >
-              <Text style={{ fontSize: 16 }}>{type}</Text>
+              <Text style={{ fontSize: 16 }}>{type && type}</Text>
             </View>
           </TouchableOpacity>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -258,6 +281,7 @@ const ExperienceDetailModal = ({ route }) => {
             errorText="Хаяг байршил 3-20 тэмдэгтээс тогтоно."
             errorShow={error.location}
           />
+
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Хийсэн ажил
           </Text>
@@ -285,23 +309,31 @@ const ExperienceDetailModal = ({ route }) => {
             errorText="Холбогдох албан тушаалтан 3-20 тэмдэгтээс тогтоно."
             errorShow={error.contactInfo}
           />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Ажиллаж байгаа эсэх?
+          </Text>
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <Switch
               trackColor={{ false: "#FFB6C1", true: "#FFB6C1" }}
-              thumbColor={isEnabled ? "#f4f3f4" : "#f4f3f4"}
+              thumbColor={experience.isWorking ? "#f4f3f4" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
-              value={isEnabled}
-              style={{ marginTop: 16, marginBottom: 5 }}
+              onValueChange={checkWorking}
+              value={experience.isWorking}
             />
-            {isEnabled && (
+            {experience.isWorking ? (
               <Text style={[{ color: colors.primaryText }]}>
                 {" "}
                 Ажиллаж байгаа
               </Text>
+            ) : (
+              <Text style={[{ color: colors.primaryText }]}>
+                {" "}
+                Ажлаас гарсан
+              </Text>
             )}
           </View>
-          {!isEnabled && (
+
+          {!experience.isWorking && (
             <>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>
                 Гарсан шалтгаан
@@ -316,10 +348,11 @@ const ExperienceDetailModal = ({ route }) => {
                 Гарсан он
               </Text>
               <FormText
-                value={experience.end && experience.end.slice(0, 10)}
+                value={moment(experience.end).format("YYYY")}
                 onChangeText={checkEnd}
                 errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
                 errorShow={error.end}
+                keyboardType="numeric"
               />
             </>
           )}
@@ -332,6 +365,7 @@ const ExperienceDetailModal = ({ route }) => {
             errorText="Тайлбар 4-20 тэмдэгтээс тогтоно."
             errorShow={error.description}
           />
+
           <TouchableOpacity
             onPress={sendPersonalDetail}
             style={{
@@ -373,8 +407,15 @@ const ExperienceDetailModal = ({ route }) => {
           <MyButton
             onPress={() => navigation.navigate("ExperienceAddModal")}
             text="Туршлага нэмэх"
-            style={{ marginTop: 20, marginBottom: 50 }}
+            style={{
+              marginTop: 20,
+              borderWidth: 1,
+              borderColor: colors.border,
+              borderRadius: 20,
+              padding: 10,
+            }}
           />
+
           {/* Modal */}
           <ExperienceCompanyModal
             companyModal={companyModal}
@@ -388,6 +429,7 @@ const ExperienceDetailModal = ({ route }) => {
             setType={setType}
             checkType={checkType}
           />
+          <View style={{ marginBottom: 500 }} />
         </ScrollView>
       </KeyboardAvoidingView>
     </>

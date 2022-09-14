@@ -1,40 +1,40 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
+import ModalHeader from "../../../components/ModalHeader";
 import { useTheme } from "@react-navigation/native";
-import ModalHeader from "../../../../../components/ModalHeader";
 
-const ExperienceTypeModal = (props) => {
-  const { typeModal, setTypeModal, setType, checkType } = props;
+const CompanymembersModal = (props) => {
+  const { setMembersText, membersModal, setMembersModal, checkMembers } = props;
+
   const { colors } = useTheme();
   return (
     <Modal
       animationType="slide"
+      visible={membersModal}
       presentationStyle="formSheet"
-      visible={typeModal}
       onRequestClose={() => {
-        setTypeModal(!typeModal);
+        setMembersModal(!membersModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader
-          text="Цагийн төрөл сонгох"
-          clicked={() => setTypeModal(false)}
+          text="Ажилтны тоо"
+          clicked={() => setMembersModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
           {[
-            "Бүтэн цаг",
-            "Хагас цаг",
-            "freelancer",
-            "self-employed",
-            "contract",
-            "intern",
-            "apprentice",
-            "seasonal",
+            "1-10",
+            "11-20",
+            "21-50",
+            "51-100",
+            "101-500",
+            "501-1000",
+            "1000+",
           ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setType(l);
-                checkType(l);
+                setMembersText(l);
+                checkMembers(l);
               }}
               key={i}
             >
@@ -50,14 +50,13 @@ const ExperienceTypeModal = (props) => {
   );
 };
 
-export default ExperienceTypeModal;
+export default CompanymembersModal;
 
 const styles = StyleSheet.create({
   text: {
     margin: 5,
     fontSize: 15,
     padding: 10,
-    fontFamily: "Sf-bold",
   },
   border: {
     borderWidth: 1,

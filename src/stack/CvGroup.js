@@ -10,6 +10,7 @@ import MyBackButton from "../components/Header/MyBackButton";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
+import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 const CvGroup = () => {
   const CvStack = createNativeStackNavigator();
   return (
@@ -53,6 +54,15 @@ const CvGroup = () => {
         <CvStack.Screen
           name="UserSendWorkRequest"
           component={UserSendWorkRequest}
+          options={{
+            title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+            presentation: "formSheet",
+          }}
+        />
+        <CvStack.Screen
+          name="CompanySendWorkRequest"
+          component={CompanySendWorkRequest}
           options={{
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,

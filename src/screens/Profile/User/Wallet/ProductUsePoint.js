@@ -270,7 +270,7 @@ const ProductUsePoint = ({ route }) => {
                             ? `Дуусax:${moment(data.urgent).fromNow()}`
                             : moment() < moment(data.urgent)
                             ? `Дуусax:${moment(data.special).fromNow()}`
-                            : "Онцгой болон яааралтай сонгоогүй"}
+                            : "Онцгой болон яаралтай сонгоогүй"}
                         </Text>
                       </View>
                     </TouchableOpacity>

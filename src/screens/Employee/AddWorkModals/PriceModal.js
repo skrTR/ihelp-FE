@@ -18,7 +18,20 @@ const PriceModal = (props) => {
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader text="Нас сонгох" clicked={() => setPriceModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
-          {["400,000 - 600,000", "1"].map((l, i) => (
+          {[
+            "400,000 - 600,000",
+            "600,000 - 800,000",
+            "800,000 - 1,000,000",
+            "1,000,000 - 1,200,000",
+            "1,200,000 - 1,500,000",
+            "1,500,000 - 1,800,000",
+            "1,800,000 - 2,100,000",
+            "2,100,000 - 2,500,000",
+            "2,500,000 - 3,000,000",
+            "3,000,000 - 4,000,000",
+            "4,000,000 - 5,000,000",
+            "5,000,000 -аас дээш",
+          ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
                 setPrice(l);

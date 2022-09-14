@@ -111,7 +111,7 @@ const WorkBoostModal = (props) => {
               color: isType === 3 ? colors.background : colors.primaryText,
             }}
           >
-            Яааралтай
+            Яаралтай
           </Text>
         </TouchableOpacity>
       </View>

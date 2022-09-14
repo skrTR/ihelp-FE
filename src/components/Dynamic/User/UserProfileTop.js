@@ -251,7 +251,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
               marginTop: 5,
             }}
           >
-            Дагсан
+            Дагaсан
           </Text>
         </TouchableOpacity>
       </View>

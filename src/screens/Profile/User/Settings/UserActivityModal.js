@@ -21,6 +21,7 @@ const UserActivityModal = () => {
       .get(`${api}/api/v1/cvs/activity?sort=-createdAt`)
       .then((res) => {
         setActivityData(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);
@@ -207,7 +208,6 @@ const UserActivityModal = () => {
                   </TouchableOpacity>
                 </>
               )}
-
               {item.type === "Like" && (
                 <TouchableOpacity
                   onPress={() =>
@@ -328,10 +328,8 @@ const UserActivityModal = () => {
                     </ImageBackground>
                     <View style={{ flex: 3, marginHorizontal: 5 }}>
                       <Text style={{ color: colors.primaryText }}>
-                        Та{" "}
-                        {item.jobId.createUser &&
-                          `${item.jobId.createUser.lastName} ${item.jobId.createUser.firstName}`}{" "}
-                        оруулсан зарыг хадгалсан байна.{" "}
+                        Та {item.jobId && item.jobId.firstName}
+                        та ажлын санал илгээсэн байна.{" "}
                       </Text>
                       <Text
                         style={{ color: colors.secondaryText, fontSize: 12 }}

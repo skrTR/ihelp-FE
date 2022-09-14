@@ -21,12 +21,12 @@ const AchievmentAddModal = () => {
 
   const [achievement, setAchievement] = useState({
     name: "",
-    year: "",
+    achievementYear: "",
     company: "",
   });
   const [error, setError] = useState({
     name: false,
-    year: false,
+    achievementYear: false,
     company: false,
   });
 
@@ -43,17 +43,17 @@ const AchievmentAddModal = () => {
   const checkYear = (text) => {
     setError({
       ...error,
-      year: text.length < 3,
+      achievementYear: text.length < 3,
     });
     setAchievement({
       ...achievement,
-      year: text,
+      achievementYear: text,
     });
   };
   const checkCompany = (text) => {
     setError({
       ...error,
-      year: text.length < 1,
+      company: text.length < 1,
     });
     setAchievement({
       ...achievement,
@@ -79,10 +79,11 @@ const AchievmentAddModal = () => {
       </Text>
       <FormText
         placeholder="Шагнал авсан он"
-        value={`${achievement.year}`}
+        value={`${achievement.achievementYear}`}
         onChangeText={checkYear}
         errorText="Шагнал авсан он 4-10 тэмдэгтээс тогтоно."
-        errorShow={error.year}
+        errorShow={error.achievementYear}
+        keyboardType={"number-pad"}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Шагнал гардуулсан газар

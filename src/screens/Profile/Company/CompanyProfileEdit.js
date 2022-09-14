@@ -7,6 +7,8 @@ import UserContext from "../../../context/UserContext";
 import moment from "moment";
 import { api } from "../../../../Constants";
 import FormText from "../../../components/FormText";
+import CompanyWorkerModal from "./CompanyWorkerModal";
+import MyButton from "../../../components/MyButton";
 
 const CompanyProfileEdit = ({ route }) => {
   const { colors } = useTheme();
@@ -14,21 +16,25 @@ const CompanyProfileEdit = ({ route }) => {
   const navigation = useNavigation();
   const state = useContext(UserContext);
   const [companyProfile, setCompanyProfile] = useState({
-    about: data.about,
-    web: data.web,
-    phone: data.phone,
-    members: data.employerNumber,
-    createdYear: data.createdYear,
-    locaiton: data.location,
+    about: data.about ? data.about : "Хоосон",
+    web: data.web ? data.web : "Хоосон",
+    phone: data.phone ? data.phone : "Хоосон",
+    employerNumber: data.employerNumber ? data.employerNumber : "null",
+    createYear: data.createYear ? data.createYear : "2022",
+    location: data.location ? data.location : "Хоосон",
   });
+  console.log(data);
   const [error, setError] = useState({
     about: false,
     web: false,
     phone: false,
     members: false,
-    createdYear: false,
+    createYear: false,
     locaiton: false,
   });
+  // ажилтан сонгох модал
+  const [membersModal, setMembersModal] = useState(false);
+  const [membersText, setMembersText] = useState("");
   const checkAbout = (text) => {
     setError({
       ...error,
@@ -59,34 +65,32 @@ const CompanyProfileEdit = ({ route }) => {
       phone: text,
     });
   };
-  const checkMembers = (text) => {
-    setError({
-      ...error,
-      members: text.length < 2,
-    });
-    setCompanyProfile({
-      ...companyProfile,
-      members: text,
-    });
-  };
+
   const checkCreatedYear = (text) => {
     setError({
       ...error,
-      createdYear: text.length < 2,
+      createYear: text.length < 2,
     });
     setCompanyProfile({
       ...companyProfile,
-      createdYear: text,
+      createYear: text,
     });
   };
   const checkLocaiton = (text) => {
     setError({
       ...error,
-      locaiton: text.length < 2,
+      location: text.length < 2,
     });
     setCompanyProfile({
       ...companyProfile,
-      locaiton: text,
+      location: text,
+    });
+  };
+  const checkMembers = (text) => {
+    setMembersModal(!membersModal);
+    setCompanyProfile({
+      ...companyProfile,
+      employerNumber: text,
     });
   };
   const sendCompanyProfile = () => {
@@ -127,28 +131,44 @@ const CompanyProfileEdit = ({ route }) => {
         errorShow={error.phone}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Ажилчдын тоо
+        Ажилтаны тоо
       </Text>
-      <FormText
-        value={companyProfile.members}
-        onChangeText={checkMembers}
-        errorText="Ажилчдын тоо 2 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.members}
-      />
+      <TouchableOpacity
+        style={{
+          padding: 10,
+          borderWidth: 1,
+          borderRadius: 20,
+          borderColor: colors.border,
+          backgroundColor: colors.secondaryText,
+        }}
+        onPress={() => setMembersModal(true)}
+      >
+        <Text
+          style={{
+            textAlign: "center",
+            color: colors.primaryText,
+          }}
+        >
+          {companyProfile.employerNumber === ""
+            ? "Ажилтаны тоо"
+            : `${companyProfile.employerNumber} Ажилтантай`}
+        </Text>
+      </TouchableOpacity>
+
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Үүсгэн байгуулагдсан огноо
       </Text>
       <FormText
-        value={moment(companyProfile.createdYear).format("YYYY")}
+        value={moment(companyProfile.createYear).format("YYYY")}
         onChangeText={checkCreatedYear}
         errorText="Үүсгэн байгуулагдсан огноо 4 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.createdYear}
+        errorShow={error.createYear}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Хаяг байршил
       </Text>
       <FormText
-        value={companyProfile.locaiton}
+        value={companyProfile.location}
         onChangeText={checkLocaiton}
         errorText="Хаяг байршил 2 оос дээш тэмдэгтээс тогтоно."
         errorShow={error.locaiton}
@@ -173,6 +193,12 @@ const CompanyProfileEdit = ({ route }) => {
           <Text style={{ color: "white" }}> Хадгалах </Text>
         </LinearGradient>
       </TouchableOpacity>
+      <CompanyWorkerModal
+        setMembersText={setMembersText}
+        membersModal={membersModal}
+        setMembersModal={setMembersModal}
+        checkMembers={checkMembers}
+      />
     </View>
   );
 };
