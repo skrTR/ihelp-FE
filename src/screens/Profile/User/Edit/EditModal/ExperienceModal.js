@@ -4,7 +4,12 @@ import ModalHeader from "../../../components/ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
 const ExperienceModal = (props) => {
-  const { experienceModal, setExperienceModal, checkExperience } = props;
+  const {
+    experienceModal,
+    setExperienceModal,
+    setExperience,
+    checkExperience,
+  } = props;
   const { colors } = useTheme();
   return (
     <Modal
@@ -25,6 +30,7 @@ const ExperienceModal = (props) => {
             (l, i) => (
               <TouchableOpacity
                 onPress={() => {
+                  setExperience(l);
                   checkExperience(l);
                 }}
                 key={i}

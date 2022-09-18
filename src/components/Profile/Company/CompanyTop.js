@@ -12,6 +12,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { AntDesign, Feather, Ionicons, Entypo } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import { api } from "../../../../Constants";
+import Verify from "../../Verify";
 
 const fullWidth = Dimensions.get("screen").width;
 const fullHeight = Dimensions.get("screen").height;
@@ -28,6 +29,7 @@ const CompanyTop = (props) => {
     followingCount,
     point,
     data,
+    isApproved,
   } = props;
 
   function numFormatter(num) {
@@ -123,7 +125,7 @@ const CompanyTop = (props) => {
                 fontSize: 18,
               }}
             >
-              {name}
+              {name} {isApproved && <Verify size={13} />}
             </Text>
             <Text
               style={{

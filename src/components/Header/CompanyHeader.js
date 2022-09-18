@@ -1,10 +1,12 @@
-import { Image, View, TouchableOpacity, Text } from "react-native";
+import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import UserContext from "../../context/UserContext";
 import axios from "axios";
+import * as Linking from "expo-linking";
+import UserContext from "../../context/UserContext";
 import { api } from "../../../Constants";
+
 const CompanyHeader = (props) => {
   const {
     isBack,
@@ -21,7 +23,9 @@ const CompanyHeader = (props) => {
   let isMounted = true;
   const loadCompanyProfile = () => {
     axios
-      .get(`${api}/api/v1/profiles/${state.companyId}?select=notification`)
+      .get(
+        `${api}/api/v1/profiles/${state.companyId}?select=notification isApproved`
+      )
       .then((res) => {
         if (isMounted) {
           setCompanyProfile(res.data.data);
@@ -107,14 +111,50 @@ const CompanyHeader = (props) => {
               name="add"
               size={30}
               color={colors.primaryText}
-              onPress={() => navigation.navigate("EmployerAddWork")}
+              onPress={() => {
+                companyProfile.isApproved
+                  ? navigation.navigate("EmployerAddWork")
+                  : Alert.alert(
+                      "",
+                      "Та эхлээд манай компанитай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
+                      [
+                        {
+                          text: "Буцах",
+                          onPress: () => console.log("Cancel Pressed"),
+                          style: "cancel",
+                        },
+                        {
+                          text: "Холбоо барих",
+                          onPress: () => Linking.openURL("tel:+976 77555255"),
+                        },
+                      ]
+                    );
+              }}
             />
           ) : isEmployeeAddWork ? (
             <Ionicons
               name="add"
               size={30}
               color={colors.primaryText}
-              onPress={() => navigation.navigate("EmployeeAddWork")}
+              onPress={() => {
+                companyProfile.isApproved
+                  ? navigation.navigate("EmployeeAddWork")
+                  : Alert.alert(
+                      "",
+                      "Та эхлээд манай компанитай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
+                      [
+                        {
+                          text: "Буцах",
+                          onPress: () => console.log("Cancel Pressed"),
+                          style: "cancel",
+                        },
+                        {
+                          text: "Холбоо барих",
+                          onPress: () => Linking.openURL("tel:+976 77555255"),
+                        },
+                      ]
+                    );
+              }}
             />
           ) : isNotification ? (
             <TouchableOpacity

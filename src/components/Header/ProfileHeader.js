@@ -31,7 +31,7 @@ const ProfileHeader = (props) => {
               fontSize: 20,
             }}
           >
-            {lastName} {firstName}
+            {lastName} {firstName}{" "}
           </Text>
           <FontAwesome name="angle-down" size={24} color={colors.primaryText} />
         </TouchableOpacity>

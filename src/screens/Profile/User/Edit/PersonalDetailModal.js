@@ -16,8 +16,8 @@ import axios from "axios";
 import { api } from "../../../../../Constants";
 import moment from "moment";
 import { LinearGradient } from "expo-linear-gradient";
-import SalaryExpectationModal from "./EditModal/SalaryExpectationModal";
-import ExperienceYearModal from "./EditModal/ExperienceYearModal";
+import SalaryModal from "../../../Employer/AddWorkModals/SalaryModal";
+import ExperienceModal from "../../../Employer/AddWorkModals/ExperienceModal";
 const PersonalDetailModal = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
@@ -25,12 +25,8 @@ const PersonalDetailModal = (props) => {
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
-  // tsalingiin huleelt
-  const [salText, setSalText] = useState("");
-  const [salModal, setSalModal] = useState(false);
-  // ajliin turshlaga
-  const [expText, setExpText] = useState("");
-  const [expModal, setExpModal] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [experienceModal, setExperienceModal] = useState(false);
   const showPicker = () => {
     setIsPickerShow(true);
   };
@@ -43,7 +39,6 @@ const PersonalDetailModal = (props) => {
       })
       .catch((err) => alert(err));
   };
-
   const [personalCv, setPersonalCv] = useState({
     lastName: data.lastName ? data.lastName : "",
     firstName: data.firstName ? data.firstName : "",
@@ -52,10 +47,11 @@ const PersonalDetailModal = (props) => {
     humanId: data.humanId ? data.humanId : "",
     birthPlace: data.birthPlace ? data.birthPlace : "",
     location: data.location ? data.location : "",
-    salaryExpectation: data.salaryExpectation ? data.salaryExpectation : "",
-    experienceYear: data.experienceYear ? data.experienceYear : "",
-    gender: data.gender ? data.gender : "",
-    driverLicense: data.driverLicense ? data.driverLicense : "",
+    salaryExpectation: data.salaryExpectation
+      ? data.salaryExpectation
+      : "Сонгох",
+    experienceYear: data.experienceYear ? data.experienceYear : "Сонгох",
+    driverLicense: data.driverLicense,
     working: data.working,
   });
   const [error, setError] = useState({
@@ -130,20 +126,7 @@ const PersonalDetailModal = (props) => {
       location: text,
     });
   };
-  const checkSalaryExpectation = (text) => {
-    setSalModal(!salModal);
-    setPersonalCv({
-      ...personalCv,
-      salaryExpectation: text,
-    });
-  };
-  const checkExperienceYear = (text) => {
-    setExpModal(!expModal);
-    setPersonalCv({
-      ...personalCv,
-      experienceYear: text,
-    });
-  };
+
   const checkBirth = (event, value) => {
     setDate(value);
     setPersonalCv({
@@ -167,7 +150,20 @@ const PersonalDetailModal = (props) => {
       working: !personalCv.working,
     });
   };
-
+  const checkSalary = (text) => {
+    setModalVisible(!modalVisible);
+    setPersonalCv({
+      ...personalCv,
+      salaryExpectation: text,
+    });
+  };
+  const checkExperience = (text) => {
+    setExperienceModal(!experienceModal);
+    setPersonalCv({
+      ...personalCv,
+      experienceYear: text,
+    });
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -204,7 +200,6 @@ const PersonalDetailModal = (props) => {
           errorShow={error.firstName}
           style={{ fontSize: 16 }}
         />
-
         {/* Рэгистэр */}
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Регистерийн дугаар
@@ -232,7 +227,6 @@ const PersonalDetailModal = (props) => {
             neutralButtonLabel="clear"
           />
         )}
-
         {!isPickerShow ? (
           <TouchableOpacity
             onPress={showPicker}
@@ -296,7 +290,7 @@ const PersonalDetailModal = (props) => {
           style={{ fontSize: 16 }}
         />
 
-        <TouchableOpacity onPress={checkExperienceYear}>
+        <TouchableOpacity onPress={() => setExperienceModal(true)}>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Ажлын туршлага
           </Text>
@@ -314,7 +308,7 @@ const PersonalDetailModal = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={checkSalaryExpectation}>
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Цалингийн хүлээлт
           </Text>
@@ -325,11 +319,7 @@ const PersonalDetailModal = (props) => {
               borderRadius: 20,
             }}
           >
-            <Text style={{ fontSize: 16 }}>
-              {personalCv.salaryExpectation === ""
-                ? "Өөрийн хүсэж буй цалин"
-                : personalCv.salaryExpectation}
-            </Text>
+            <Text style={{ fontSize: 16 }}>{personalCv.salaryExpectation}</Text>
           </View>
         </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -360,7 +350,6 @@ const PersonalDetailModal = (props) => {
             </Text>
           )}
         </View>
-
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Ажил хийдэг эсэх?
         </Text>
@@ -410,18 +399,16 @@ const PersonalDetailModal = (props) => {
         </LinearGradient>
         <View style={{ marginBottom: 100 }} />
       </ScrollView>
-      {/* Modal */}
-      <SalaryExpectationModal
-        setSalText={setSalText}
-        checkSalaryExpectation={checkSalaryExpectation}
-        salModal={salModal}
-        setSalModal={setSalModal}
+      {/* Цалин  */}
+      <SalaryModal
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        checkSalary={checkSalary}
       />
-      <ExperienceYearModal
-        setExpText={setExpText}
-        checkExperienceYear={checkExperienceYear}
-        expModal={expModal}
-        setExpModal={setExpModal}
+      <ExperienceModal
+        experienceModal={experienceModal}
+        setExperienceModal={setExperienceModal}
+        checkExperience={checkExperience}
       />
     </KeyboardAvoidingView>
   );

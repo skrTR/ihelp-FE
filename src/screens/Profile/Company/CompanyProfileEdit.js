@@ -23,7 +23,6 @@ const CompanyProfileEdit = ({ route }) => {
     createYear: data.createYear ? data.createYear : "2022",
     location: data.location ? data.location : "Хоосон",
   });
-  console.log(data);
   const [error, setError] = useState({
     about: false,
     web: false,

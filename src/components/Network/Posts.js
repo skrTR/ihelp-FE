@@ -10,11 +10,10 @@ import {
 import React, { useState, useContext, useEffect } from "react";
 import { api } from "../../../Constants";
 import moment from "moment";
-import "moment/locale/mn";
 import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
 const fullWidth = Dimensions.get("screen").width;
 const Posts = (props) => {
@@ -45,6 +44,7 @@ const Posts = (props) => {
     shareCount,
     isCompany,
     isBoost,
+    isApproved,
   } = props;
   // Like unlike func
   const [isLike, setIsLike] = useState(false);
@@ -154,10 +154,29 @@ const Posts = (props) => {
               <View style={{ marginLeft: 10 }}>
                 <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
                   {lastName} {firstName}{" "}
+                  {isApproved && (
+                    <View
+                      style={{
+                        backgroundColor: colors.primary,
+                        borderRadius: 50,
+                        alignItems: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <AntDesign
+                        name="check"
+                        size={13}
+                        color={colors.primaryText}
+                      />
+                    </View>
+                  )}
                 </Text>
-                <Text style={{ color: colors.secondaryText }}>
-                  {profession} {workingCompany && `@${workingCompany}`}
-                </Text>
+                {profession && (
+                  <Text style={{ color: colors.secondaryText }}>
+                    {profession} {workingCompany && `@${workingCompany}`}
+                  </Text>
+                )}
+
                 <Text
                   style={{
                     color: colors.secondaryText,
@@ -254,18 +273,36 @@ const Posts = (props) => {
               </ImageBackground>
               <View style={{ marginLeft: 10 }}>
                 <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
-                  {isShared ? sharedUserLastName : lastName}{" "}
-                  {isShared ? sharedUserFirstName : firstName}{" "}
+                  {isShared ? sharedUserLastName : lastName}
+                  {isShared ? sharedUserFirstName : firstName}
+                  {isApproved && (
+                    <View
+                      style={{
+                        backgroundColor: colors.primary,
+                        borderRadius: 50,
+                        alignItems: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <AntDesign
+                        name="check"
+                        size={13}
+                        color={colors.primaryText}
+                      />
+                    </View>
+                  )}
                 </Text>
                 {isBoost ? (
                   <>
-                    <Text
-                      style={{
-                        color: colors.secondaryText,
-                      }}
-                    >
-                      {profession} {workingCompany && `@${workingCompany}`}
-                    </Text>
+                    {profession && (
+                      <Text
+                        style={{
+                          color: colors.secondaryText,
+                        }}
+                      >
+                        {profession} {workingCompany && `@${workingCompany}`}
+                      </Text>
+                    )}
                     <Text
                       style={{
                         color: colors.secondaryText,
@@ -276,23 +313,25 @@ const Posts = (props) => {
                   </>
                 ) : (
                   <>
-                    <Text
-                      style={{
-                        color: colors.secondaryText,
-                      }}
-                    >
-                      {isShared ? (
-                        <Text>
+                    {isShared ? (
+                      sharedUserProfession && (
+                        <Text style={{ color: colors.secondaryText }}>
                           {sharedUserProfession}{" "}
                           {sharedUserWorkingCompany &&
                             `@${sharedUserWorkingCompany}`}
                         </Text>
-                      ) : (
-                        <Text>
-                          {profession} {workingCompany && `@${workingCompany}`}
-                        </Text>
-                      )}
-                    </Text>
+                      )
+                    ) : (
+                      <>
+                        {profession && (
+                          <Text style={{ color: colors.secondaryText }}>
+                            {profession}{" "}
+                            {workingCompany && `@${workingCompany}`}
+                          </Text>
+                        )}
+                      </>
+                    )}
+
                     <Text
                       style={{
                         color: colors.secondaryText,
@@ -309,7 +348,9 @@ const Posts = (props) => {
             {isShared ? null : createUserId === state.userId ? (
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("PostSettings", { id: postId })
+                  navigation.navigate("PostSettings", {
+                    id: postId,
+                  })
                 }
               >
                 <Entypo

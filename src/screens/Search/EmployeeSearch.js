@@ -23,7 +23,7 @@ const EmployeeSearch = () => {
     return () => {};
   }, []);
   const fetchCompany = () => {
-    const apiURL = `${api}/api/v1/profiles?select=firstName profile categoryName organization isEmployer isEmployee&isEmployee=true&limit=1000`;
+    const apiURL = `${api}/api/v1/profiles?select=firstName profile categoryName organization isEmployer isEmployee isApproved&isEmployee=true&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -50,7 +50,6 @@ const EmployeeSearch = () => {
       setSearch(text);
     }
   };
-  console.log(masterData);
   return (
     <SafeAreaView style={{ backgroundColor: "#141414", height: "100%" }}>
       <View

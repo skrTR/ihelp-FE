@@ -94,10 +94,12 @@ export const UserStore = (props) => {
           res.data.cv.organization,
           res.data.cv._id
         );
+        console.log(res.data);
       })
       .catch((err) => {
         loginFailed(err.message);
-        let message = err.message;
+        console.log(err.message);
+        let message = err.response.data.error.message;
         Alert.alert(message);
       });
   };
@@ -119,7 +121,7 @@ export const UserStore = (props) => {
       })
       .catch((err) => {
         loginFailed(err.message);
-        let message = err.message;
+        let message = err.response.data.error.message;
         Alert.alert(message);
       });
   };

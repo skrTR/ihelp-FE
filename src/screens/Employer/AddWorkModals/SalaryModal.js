@@ -4,7 +4,7 @@ import ModalHeader from "../../../components/ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
 const SalaryModal = (props) => {
-  const { modalVisible, setModalVisible, setSalary, checkSalary } = props;
+  const { modalVisible, setModalVisible, checkSalary } = props;
   const { colors } = useTheme();
   return (
     <Modal
@@ -34,7 +34,6 @@ const SalaryModal = (props) => {
           ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setSalary(l);
                 checkSalary(l);
               }}
               key={i}

@@ -5,7 +5,6 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
-  TextInput,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -14,21 +13,148 @@ import * as ImagePicker from "expo-image-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../../../../Constants";
 import { LinearGradient } from "expo-linear-gradient";
-import Border from "../../../../components/Border";
-import MyButton from "../../../../components/MyButton";
 const UserVerifyScreen = (props) => {
-  const { data, cv } = props.route.params;
-  const { colors } = useTheme();
-  const [frontIdCard, setFrontIdCardImage] = useState("");
-  const [backIdCard, setBackIdCardImage] = useState("");
-  const [selfie, setSelfie] = useState("");
+  const { data } = props.route.params;
+  const [frontIdCard, setFrontIdCard] = useState();
+  const [backIdCard, setBackIdCard] = useState();
+  const [selfiePhoto, setSelfiePhoto] = useState();
+  const [contractPhoto, setContractPhoto] = useState();
+
+  const navigation = useNavigation();
+
   const [uploadTotal, setUploadTotal] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const navigation = useNavigation();
+  const { colors } = useTheme();
+  const openImageProfileLibrary = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setFrontIdCard(response.uri);
+      }
+    }
+  };
+  const openImageProfileLibrary1 = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setBackIdCard(response.uri);
+      }
+    }
+  };
+  const openImageProfileLibrary2 = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setSelfiePhoto(response.uri);
+      }
+    }
+  };
+  const openImageProfileLibrary3 = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setContractPhoto(response.uri);
+      }
+    }
+  };
+
+  const deleteImage = () => {
+    setFrontIdCard(undefined);
+  };
+
+  const deleteImage1 = () => {
+    setBackIdCard(undefined);
+  };
+
+  const deleteImage2 = () => {
+    setSelfiePhoto(undefined);
+  };
+
+  const deleteImage3 = () => {
+    setContractPhoto(undefined);
+  };
+
+  const sendVerify = () => {
+    const xhr = new XMLHttpRequest();
+    xhr.addEventListener("load", (event) => handleUploadComplete(event));
+    xhr.upload.addEventListener("progress", handleUploadProgress);
+    const formData = new FormData();
+    if (frontIdCard) {
+      const fileExt =
+        frontIdCard && frontIdCard.substring(frontIdCard.lastIndexOf(".") + 1);
+      formData.append("file1", {
+        uri: frontIdCard,
+        type: `image/${fileExt}`,
+        name: "portf__1",
+      });
+    }
+    if (backIdCard) {
+      const fileExt =
+        backIdCard && backIdCard.substring(backIdCard.lastIndexOf(".") + 1);
+      formData.append("file2", {
+        uri: backIdCard,
+        type: `image/${fileExt}`,
+        name: "portf__2",
+      });
+    }
+    if (selfiePhoto) {
+      const fileExt =
+        selfiePhoto && selfiePhoto.substring(selfiePhoto.lastIndexOf(".") + 1);
+      formData.append("file3", {
+        uri: selfiePhoto,
+        type: `image/${fileExt}`,
+        name: "portf__3",
+      });
+    }
+    if (contractPhoto) {
+      const fileExt =
+        contractPhoto &&
+        contractPhoto.substring(contractPhoto.lastIndexOf(".") + 1);
+      formData.append("file4", {
+        uri: contractPhoto,
+        type: `image/${fileExt}`,
+        name: "portf__4",
+      });
+    }
+
+    xhr.open("PUT", `${api}/api/v1/cvs/auth-photo`);
+    xhr.send(formData);
+    xhr.onload = function (e) {
+      console.log("Request Status", xhr.status);
+    };
+  };
   const handleUploadComplete = () => {
     setUploadProgress(0);
     setUploadTotal(0);
-    // props.navigation.navigate("Detail", { id: bookId });
+    navigation.goBack();
   };
   const handleUploadProgress = (event) => {
     if (uploadTotal === 0) setUploadTotal(event.total);
@@ -37,153 +163,37 @@ const UserVerifyScreen = (props) => {
       return Math.round((event.loaded * 100) / event.total);
     });
   };
-
-  // Front Camera
-  const cameraImageFrontCardLibrary = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-      });
-      if (!response.cancelled) {
-        setFrontIdCardImage(response.uri);
-      }
-    }
-  };
-  const openImageFrontCardLibrary = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-      });
-      if (!response.cancelled) {
-        setFrontIdCardImage(response.uri);
-      }
-    }
-  };
-  const uploadFrontIdCard = async () => {
-    const xhr = new XMLHttpRequest();
-    const fileExt = frontIdCard.substring(frontIdCard.lastIndexOf(".") + 1);
-    xhr.addEventListener("load", (event) => handleUploadComplete(event));
-    xhr.upload.addEventListener("progress", handleUploadProgress);
-    const formData = new FormData();
-    formData.append("file", {
-      uri: frontIdCard,
-      type: `image/${fileExt}`,
-      name: "new__profile",
-    });
-    xhr.open("PUT", `${api}/api/v1/cvs/profile`);
-    xhr.send(formData);
-    Alert.alert("Амжиллтай хадгаллаа", "", [
-      { text: "ОК", onPress: () => navigation.goBack() },
-    ]);
-  };
-  // Back camera
-  const cameraImageBackCardLibrary = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-      });
-      if (!response.cancelled) {
-        setBackIdCardImage(response.uri);
-      }
-    }
-  };
-  const openImageBackCardLibrary = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-      });
-      if (!response.cancelled) {
-        setBackIdCardImage(response.uri);
-      }
-    }
-  };
-  const uploadBackIdCard = async () => {
-    const xhr = new XMLHttpRequest();
-    const fileExt = backIdCard.substring(backIdCard.lastIndexOf(".") + 1);
-    xhr.addEventListener("load", (event) => handleUploadComplete(event));
-    xhr.upload.addEventListener("progress", handleUploadProgress);
-    const formData = new FormData();
-    formData.append("file", {
-      uri: backIdCard,
-      type: `image/${fileExt}`,
-      name: "new__profile",
-    });
-    xhr.open("PUT", `${api}/api/v1/cvs/profile`);
-    xhr.send(formData);
-    Alert.alert("Амжиллтай хадгаллаа", "", [
-      { text: "ОК", onPress: () => navigation.goBack() },
-    ]);
-  };
-  // Selfie
-  const cameraImageSelfieLibrary = async () => {
-    const { status } = await ImagePicker.requestCameraPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [16, 9],
-      });
-      if (!response.cancelled) {
-        setSelfie(response.uri);
-      }
-    }
-  };
-  const openImageSelfieLibrary = async () => {
-    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== "granted") {
-      alert("Зургийн эрхийг нээнэ үү");
-    }
-    if (status === "granted") {
-      const response = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        allowsEditing: true,
-      });
-      if (!response.cancelled) {
-        setSelfie(response.uri);
-      }
-    }
-  };
-
-  if (uploadTotal < 0) {
+  if (uploadTotal > 0) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text
-          style={{
-            marginBottom: 20,
-            fontWeight: "bold",
-            fontSize: 16,
-            color: colors.primaryText,
-            fontFamily: "Sf-thin",
-          }}
-        >
+        <Text style={{ marginBottom: 20, fontWeight: "bold", fontSize: 16 }}>
           Түр хүлээнэ үү. Зургийг илгээж байна...
         </Text>
-        <ActivityIndicator size={"small"} color={colors.primaryText} />
+
+        <View
+          style={{
+            height: 50,
+            backgroundColor: "red",
+            width: 200,
+          }}
+        >
+          <View
+            style={{
+              height: 50,
+              backgroundColor: "green",
+              width: uploadProgress * 2,
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ color: "white", flex: 1, marginTop: 15 }}>
+              {uploadProgress}%
+            </Text>
+          </View>
+        </View>
       </View>
     );
   }
+
   return (
     <ScrollView style={{ marginTop: 20 }}>
       <Image
@@ -209,29 +219,7 @@ const UserVerifyScreen = (props) => {
       >
         {data.lastName.slice(0, 1)}.{data.firstName}
       </Text>
-      <View
-        style={{
-          flexDirection: "row",
-          alignSelf: "center",
-          marginVertical: 5,
-          alignItems: "center",
-        }}
-      >
-        <Text
-          style={{
-            color: colors.primaryText,
-          }}
-        >
-          {data.workingCompany}{" "}
-        </Text>
-        <Text
-          style={{
-            color: colors.primaryText,
-          }}
-        >
-          @{data.profession}
-        </Text>
-      </View>
+
       <Text
         style={{
           fontSize: 12,
@@ -248,7 +236,7 @@ const UserVerifyScreen = (props) => {
         бусдад санал болгогдох зэрэг платформыг бүрэн хэмжээнд ашиглах нөхцөл
         бүрдэнэ.
       </Text>
-      {/* Front Camera */}
+      {/* Front card  */}
       <View
         style={{
           borderWidth: 1,
@@ -287,12 +275,29 @@ const UserVerifyScreen = (props) => {
           alignContent: "center",
         }}
       >
-        <AntDesign
-          name="camerao"
-          size={30}
-          color={"black"}
-          style={{ marginTop: 80 }}
-        />
+        {frontIdCard ? (
+          <ImageBackground
+            source={{
+              uri: frontIdCard,
+            }}
+            style={{ width: "100%", height: 200 }}
+          >
+            <AntDesign
+              name="delete"
+              size={24}
+              color="white"
+              style={{ alignSelf: "flex-end" }}
+              onPress={deleteImage}
+            />
+          </ImageBackground>
+        ) : (
+          <AntDesign
+            name="camerao"
+            size={30}
+            color={"black"}
+            style={{ marginTop: 80 }}
+          />
+        )}
       </View>
       <View
         style={{
@@ -311,7 +316,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={cameraImageFrontCardLibrary}
+          onPress={openImageProfileLibrary}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -326,7 +331,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={openImageProfileLibrary}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
@@ -342,15 +347,14 @@ const UserVerifyScreen = (props) => {
             paddingHorizontal: 20,
             backgroundColor: "#FFB6C1",
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={sendVerify}
         >
           <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
 
-      {/* Front Camera end */}
+      {/* Front card end */}
 
-      {/* Back camera */}
       <View
         style={{
           borderWidth: 1,
@@ -358,7 +362,7 @@ const UserVerifyScreen = (props) => {
           marginVertical: 20,
         }}
       />
-
+      {/* back card  */}
       <Text
         style={{
           color: colors.primaryText,
@@ -380,12 +384,29 @@ const UserVerifyScreen = (props) => {
           alignContent: "center",
         }}
       >
-        <AntDesign
-          name="camerao"
-          size={30}
-          color={"black"}
-          style={{ marginTop: 80 }}
-        />
+        {backIdCard ? (
+          <ImageBackground
+            source={{
+              uri: backIdCard,
+            }}
+            style={{ width: "100%", height: 200 }}
+          >
+            <AntDesign
+              name="delete"
+              size={24}
+              color="white"
+              style={{ alignSelf: "flex-end" }}
+              onPress={deleteImage1}
+            />
+          </ImageBackground>
+        ) : (
+          <AntDesign
+            name="camerao"
+            size={30}
+            color={"black"}
+            style={{ marginTop: 80 }}
+          />
+        )}
       </View>
       <View
         style={{
@@ -404,7 +425,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={cameraImageFrontCardLibrary}
+          onPress={openImageProfileLibrary1}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -419,7 +440,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={openImageProfileLibrary1}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
@@ -435,12 +456,12 @@ const UserVerifyScreen = (props) => {
             paddingHorizontal: 20,
             backgroundColor: "#FFB6C1",
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={sendVerify}
         >
           <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
-      {/* Back Camera End */}
+      {/* back card end */}
       {/* сэлфиэ camera */}
       <View
         style={{
@@ -449,7 +470,7 @@ const UserVerifyScreen = (props) => {
           marginVertical: 20,
         }}
       />
-
+      {/* selfie  */}
       <Text
         style={{
           color: colors.primaryText,
@@ -483,12 +504,29 @@ const UserVerifyScreen = (props) => {
           alignContent: "center",
         }}
       >
-        <AntDesign
-          name="camerao"
-          size={30}
-          color={"black"}
-          style={{ marginTop: 80 }}
-        />
+        {selfiePhoto ? (
+          <ImageBackground
+            source={{
+              uri: selfiePhoto,
+            }}
+            style={{ width: "100%", height: 200 }}
+          >
+            <AntDesign
+              name="delete"
+              size={24}
+              color="white"
+              style={{ alignSelf: "flex-end" }}
+              onPress={deleteImage2}
+            />
+          </ImageBackground>
+        ) : (
+          <AntDesign
+            name="camerao"
+            size={30}
+            color={"black"}
+            style={{ marginTop: 80 }}
+          />
+        )}
       </View>
       <View
         style={{
@@ -507,7 +545,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={cameraImageFrontCardLibrary}
+          onPress={openImageProfileLibrary2}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -522,7 +560,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={openImageProfileLibrary2}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
@@ -538,13 +576,13 @@ const UserVerifyScreen = (props) => {
             paddingHorizontal: 20,
             backgroundColor: "#FFB6C1",
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={sendVerify}
         >
           <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
+      {/* selfie end */}
       {/* Back Camera End */}
-      {/* Өргөдөл */}
       <View
         style={{
           borderWidth: 1,
@@ -552,7 +590,7 @@ const UserVerifyScreen = (props) => {
           marginVertical: 20,
         }}
       />
-
+      {/* Өргөдөл */}
       <Text
         style={{
           color: colors.primaryText,
@@ -666,12 +704,29 @@ const UserVerifyScreen = (props) => {
           alignContent: "center",
         }}
       >
-        <AntDesign
-          name="camerao"
-          size={30}
-          color={"black"}
-          style={{ marginTop: 80 }}
-        />
+        {contractPhoto ? (
+          <ImageBackground
+            source={{
+              uri: contractPhoto,
+            }}
+            style={{ width: "100%", height: 200 }}
+          >
+            <AntDesign
+              name="delete"
+              size={24}
+              color="white"
+              style={{ alignSelf: "flex-end" }}
+              onPress={deleteImage3}
+            />
+          </ImageBackground>
+        ) : (
+          <AntDesign
+            name="camerao"
+            size={30}
+            color={"black"}
+            style={{ marginTop: 80 }}
+          />
+        )}
       </View>
       <View
         style={{
@@ -690,7 +745,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={cameraImageFrontCardLibrary}
+          onPress={openImageProfileLibrary3}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -705,7 +760,7 @@ const UserVerifyScreen = (props) => {
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={openImageProfileLibrary3}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
@@ -721,14 +776,15 @@ const UserVerifyScreen = (props) => {
             paddingHorizontal: 20,
             backgroundColor: "#FFB6C1",
           }}
-          onPress={openImageFrontCardLibrary}
+          onPress={sendVerify}
         >
           <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
-      {/* Back Camera End */}
+      {/* Өргөдөл end*/}
+      {/* Илгээх */}
       <TouchableOpacity
-        onPress={props.onClick}
+        onPress={sendVerify}
         style={{
           borderRadius: 20,
           paddingVertical: 10,

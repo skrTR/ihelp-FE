@@ -33,6 +33,7 @@ const CvScreen = () => {
       .then((res) => {
         if (isMounted) {
           setCvData(res.data.data);
+          console.log(res.data.data);
         }
       })
       .catch((err) => {

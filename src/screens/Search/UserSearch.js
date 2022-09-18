@@ -25,7 +25,7 @@ const UserSearch = () => {
     return () => {};
   }, []);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany profession&organization=false&limit=1000`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession&organization=false&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -83,11 +83,23 @@ const UserSearch = () => {
         </ImageBackground>
         <View style={{ marginLeft: 10 }}>
           <Text style={{ color: colors.primaryText }}>
-            {item.lastName} {item.firstName}
+            {item.lastName} {item.firstName} {console.log(item)}
+            {item.isApproved && (
+              <View
+                style={{
+                  backgroundColor: colors.primary,
+                  borderRadius: 50,
+                  alignItems: "center",
+                  alignContent: "center",
+                }}
+              >
+                <AntDesign name="check" size={10} color={colors.primaryText} />
+              </View>
+            )}
           </Text>
           <Text style={{ color: colors.secondaryText }}>
-            {item.profession && `${item.profession}@`}
-            {item.workingCompany && item.workingCompany}
+            {item.profession && `${item.profession}`}
+            {item.workingCompany && `@${item.workingCompany}`}
           </Text>
         </View>
       </TouchableOpacity>

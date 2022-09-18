@@ -39,6 +39,7 @@ const CompanyProfileScreen = () => {
           followingCount={companyProfile.following}
           isFollow={companyProfile.isFollowing}
           data={companyProfile}
+          isApproved={companyProfile.isApproved}
         />
         <View style={{ bottom: 30 }}>
           <Border />
@@ -77,20 +78,23 @@ const CompanyProfileScreen = () => {
             <Spinner />
           ) : (
             <>
+              {companyJobs.length > 0 && (
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-bold",
+                    fontSize: 20,
+                    marginHorizontal: 20,
+                    marginVertical: 15,
+                  }}
+                >
+                  Ажлын зарууд
+                </Text>
+              )}
+
               {companyJobs.map((data) => {
                 return (
                   <View key={data._id}>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        fontFamily: "Sf-bold",
-                        fontSize: 20,
-                        marginHorizontal: 20,
-                        marginVertical: 15,
-                      }}
-                    >
-                      Ажлын зарууд
-                    </Text>
                     <CompanyJobs
                       id={data._id}
                       createUser={data.createUser}

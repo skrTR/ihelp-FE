@@ -6,6 +6,7 @@ import UserContext from "../../../context/UserContext";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import Verify from "../../Verify";
 const EmployeeData = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -114,7 +115,9 @@ const EmployeeData = (props) => {
           </ImageBackground>
 
           <View style={{ marginLeft: 10 }}>
-            <Text style={{ color: colors.primaryText }}>{item.firstName}</Text>
+            <Text style={{ color: colors.primaryText }}>
+              {item.firstName} {item.isApproved && <Verify size={10} />}
+            </Text>
             <Text style={{ color: colors.secondaryText }}>
               {item.categoryName}
             </Text>

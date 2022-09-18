@@ -63,7 +63,7 @@ const EmployerAddWork = () => {
       });
   };
   const [addWork, setAddWork] = useState({
-    title: "Test123",
+    title: "",
     description: "",
     do: "",
     do1: "",

@@ -84,7 +84,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/icon.png")
+                : require("../../../../../assets/header.png")
             }
             style={{
               width: "90%",
@@ -146,7 +146,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/icon.png")
+                : require("../../../../../assets/header.png")
             }
             style={{
               width: "90%",
@@ -208,7 +208,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/icon.png")
+                : require("../../../../../assets/header.png")
             }
             style={{
               width: "90%",

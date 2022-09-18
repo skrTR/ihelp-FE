@@ -21,8 +21,6 @@ import {
 import moment from "moment";
 import useCv from "../../../../hooks/ProfileDetail/User/useCv";
 import useUserProfile from "../../../../hooks/ProfileDetail/User/useUserProfile";
-import Spinner from "../../../../components/Spinner";
-import EmptyData from "../../../../components/Profile/User/Empty/EmptyData";
 const CreateCvScreen = (props) => {
   const { id } = props.route.params;
   const [cv, cvLoading] = useCv(id);
@@ -45,58 +43,56 @@ const CreateCvScreen = (props) => {
       showsVerticalScrollIndicator={false}
     >
       {/* name birth location register phoneEmergency driverlicence */}
-      <>
-        <View
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginVertical: 10,
+        }}
+      >
+        <Text
           style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginVertical: 10,
+            color: colors.primaryText,
+            fontWeight: "bold",
+            fontSize: 20,
           }}
         >
-          <Text
-            style={{
-              color: colors.primaryText,
-              fontWeight: "bold",
-              fontSize: 20,
-            }}
-          >
-            Хувийн мэдээлэл
-          </Text>
-          <SimpleLineIcons
-            name="pencil"
-            size={24}
-            color={colors.primaryText}
-            style={{ marginRight: 10 }}
-            onPress={() =>
-              navigation.navigate("PersonalDetailModal", { data: cv })
-            }
-          />
-        </View>
-        {/* Хувийн мэдээлэл */}
-        <TouchableOpacity
-          style={{
-            backgroundColor: colors.border,
-            padding: 10,
-            justifyContent: "space-between",
-            marginVertical: 2,
-            borderRadius: 20,
-          }}
+          Хувийн мэдээлэл
+        </Text>
+        <SimpleLineIcons
+          name="pencil"
+          size={24}
+          color={colors.primaryText}
+          style={{ marginRight: 10 }}
           onPress={() =>
             navigation.navigate("PersonalDetailModal", { data: cv })
           }
-        >
-          <Text style={{ color: colors.primaryText, fontWeight: "200" }}>
-            <Text style={{ fontFamily: "Sf-bold" }}>
-              <FontAwesome5
-                name="network-wired"
-                size={14}
-                color={colors.primary}
-              />{" "}
-              Овог нэр:{" "}
-            </Text>
-            {cv.lastName} {cv.firstName}{" "}
+        />
+      </View>
+      {/* Хувийн мэдээлэл */}
+      <TouchableOpacity
+        style={{
+          backgroundColor: colors.border,
+          padding: 10,
+          justifyContent: "space-between",
+          marginVertical: 2,
+          borderRadius: 20,
+        }}
+        onPress={() => navigation.navigate("PersonalDetailModal", { data: cv })}
+      >
+        <Text style={{ color: colors.primaryText, fontWeight: "200" }}>
+          <Text style={{ fontFamily: "Sf-bold" }}>
+            <FontAwesome5
+              name="network-wired"
+              size={14}
+              color={colors.primary}
+            />{" "}
+            Овог нэр:{" "}
           </Text>
+          {cv.lastName} {cv.firstName}{" "}
+        </Text>
+        {cv.birth && (
           <Text
             style={{
               color: colors.primaryText,
@@ -114,10 +110,13 @@ const CreateCvScreen = (props) => {
             </Text>
             {moment(cv.birth).format("YYYY-MM-DD")}
           </Text>
+        )}
+        {!cv.location === "" && (
           <Text
             style={{
               color: colors.primaryText,
               fontWeight: "200",
+              marginTop: 5,
             }}
           >
             <Text style={{ fontFamily: "Sf-bold" }}>
@@ -126,6 +125,27 @@ const CreateCvScreen = (props) => {
             </Text>
             {cv.location}
           </Text>
+        )}
+        {cv.salaryExpectation && (
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "200",
+              marginTop: 5,
+            }}
+          >
+            <Text style={{ fontFamily: "Sf-bold" }}>
+              <MaterialCommunityIcons
+                name="cash-lock"
+                size={16}
+                color={colors.primary}
+              />{" "}
+              Цалингийн хүлээлт:{" "}
+            </Text>
+            {cv.salaryExpectation} ₮
+          </Text>
+        )}
+        {cv.profession && (
           <Text
             style={{
               color: colors.primaryText,
@@ -143,20 +163,20 @@ const CreateCvScreen = (props) => {
             </Text>
             {cv.profession}
           </Text>
-          <Text
-            style={{
-              color: colors.primaryText,
-              fontWeight: "200",
-            }}
-          >
-            <Text style={{ fontFamily: "Sf-bold" }}>
-              <AntDesign name="car" size={16} color={colors.primary} /> Жолооны
-              үнэмлэх:{" "}
-            </Text>
-            {cv.driverLicense ? "Байгаа" : "Байхгүй"}
-          </Text>
-        </TouchableOpacity>
-      </>
+        )}
+        <Text
+          style={{
+            color: colors.primaryText,
+            fontWeight: "200",
+          }}
+        >
+          <Text style={{ fontFamily: "Sf-bold" }}>
+            <AntDesign name="car" size={16} color={colors.primary} /> Жолооны
+            үнэмлэх:
+          </Text>{" "}
+          {cv.driverLicense ? "Байгаа" : "Байхгүй"}
+        </Text>
+      </TouchableOpacity>
       {/* Achievment */}
       <>
         <View
@@ -394,7 +414,6 @@ const CreateCvScreen = (props) => {
                       <Text style={{ fontFamily: "Sf-bold" }}>Голч дүн: </Text>
                       {e.grade}
                     </Text>
-
                     <Text
                       style={{
                         color: colors.primaryText,
@@ -930,7 +949,6 @@ const CreateCvScreen = (props) => {
           </View>
         )}
       </>
-
       {/* Хэлний чадвар */}
       <>
         <View

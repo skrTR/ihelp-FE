@@ -2,7 +2,6 @@ import {
   Text,
   View,
   FlatList,
-  ActivityIndicator,
   Image,
   ImageBackground,
   TouchableOpacity,
@@ -22,11 +21,11 @@ const NetworkingScreen = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [followData, setFollowData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
   const [userProfile] = useUserProfile(state.userId);
+  const [loading, setLoading] = useState(false);
   let isMounted = true;
   const getFollowData = () => {
-    setIsLoading(true);
+    setLoading(true);
     axios
       .get(
         `${api}/api/v1/posts/${state.userId}/following?limit=4&sort=-createdAt&limit=1000`
@@ -35,12 +34,12 @@ const NetworkingScreen = () => {
       .then((res) => {
         if (isMounted) {
           setFollowData(res.data.data);
-          setIsLoading(false);
+          setLoading(false);
         }
       })
       .catch((err) => {
         alert(err);
-        setIsLoading(false);
+        setLoading(false);
       });
   };
   useEffect(() => {
@@ -53,11 +52,9 @@ const NetworkingScreen = () => {
   if (!userProfile) {
     return null;
   }
-
   return (
     <SafeAreaView style={{ backgroundColor: colors.header, flex: 1 }}>
       <Header userSearch={true} />
-
       <FlatList
         data={followData}
         showsVerticalScrollIndicator={false}
@@ -159,6 +156,7 @@ const NetworkingScreen = () => {
                   isLiked={item.isLiked}
                   isCompany={item.organization}
                   isBoost={item.isBoost}
+                  isApproved={item.isApproved}
                 />
               )}
             </View>
