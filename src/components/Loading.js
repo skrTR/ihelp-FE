@@ -3,7 +3,6 @@ import LottieView from "lottie-react-native";
 import { View, Text } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { ViewPropTypes } from "deprecated-react-native-prop-types";
 const Loading = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
