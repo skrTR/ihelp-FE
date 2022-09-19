@@ -288,10 +288,7 @@ const WalletScreen = ({ route }) => {
               />
               <View style={{}}>
                 <TextInput
-                  value={`${
-                    sendPoint &&
-                    sendPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                  }₮`}
+                  value={`${sendPoint}`}
                   onChangeText={setSendPoint}
                   keyboardType="number-pad"
                   style={{

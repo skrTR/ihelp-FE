@@ -6,7 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import useUrgentWork from "../../hooks/EmployerHook/useUrgentWork";
 import useSpecialWork from "../../hooks/EmployerHook/useSpecialWork";
@@ -21,6 +21,8 @@ import UrgentWork from "../../components/Employer/UrgentWork";
 import SpecialWork from "../../components/Employer/SpecialWork";
 import NormalWork from "../../components/Employer/NormalWork";
 import UserContext from "../../context/UserContext";
+import axios from "axios";
+import { api } from "../../../Constants";
 const EmployerScreen = () => {
   const [urgentWork, urgentError] = useUrgentWork();
   const [specialWork] = useSpecialWork();
@@ -31,6 +33,25 @@ const EmployerScreen = () => {
   const [isEnabled, setIsEnabled] = useState(false);
   const { colors } = useTheme();
   const state = useContext(UserContext);
+  useEffect(() => {
+    if (state.isCompany) {
+      axios.get(`${api}/api/v1/profiles/${state.companyId}`).catch((err) => {
+        const message = err.response.data.error.message;
+        console.log(err.response.data.error.message);
+        if (message === `${state.companyId} ID-тэй компани байхгүй!`) {
+          state.logout();
+        }
+      });
+    } else if (!state.isCompany) {
+      axios.get(`${api}/api/v1/cvs/${state.userId}`).catch((err) => {
+        const message = err.response.data.error.message;
+        console.log(err.response.data.error.message);
+        if (message === `${state.userId} ID-тэй хэрэглэгч байхгүй!`) {
+          state.logout();
+        }
+      });
+    }
+  }, []);
 
   return (
     <SafeAreaView style={{ backgroundColor: "#141414", marginBottom: 115 }}>

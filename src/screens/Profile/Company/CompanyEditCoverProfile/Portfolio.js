@@ -310,12 +310,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage1 ? postImage1 : `${api}/upload/${backPhoto1}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage1 ? deleteImage : deleteBackPhoto}
                 />
@@ -357,12 +357,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage2 ? postImage2 : `${api}/upload/${backPhoto2}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage1 ? deleteImage1 : deleteBackPhoto1}
                 />
@@ -404,12 +404,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage3 ? postImage3 : `${api}/upload/${backPhoto3}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage3 ? deleteImage2 : deleteBackPhoto2}
                 />
@@ -460,12 +460,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage4 ? postImage4 : `${api}/upload/${backPhoto4}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage4 ? deleteImage3 : deleteBackPhoto3}
                 />
@@ -507,12 +507,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage5 ? postImage5 : `${api}/upload/${backPhoto5}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage5 ? deleteImage4 : deleteBackPhoto4}
                 />
@@ -554,12 +554,12 @@ const Portfolio = (props) => {
                 source={{
                   uri: postImage6 ? postImage6 : `${api}/upload/${backPhoto6}`,
                 }}
-                style={{ width: fullWidth / 3.4, height: 130, flex: 0.33 }}
+                style={{ width: fullWidth / 3.1, height: 130, flex: 0.33 }}
               >
                 <AntDesign
                   name="delete"
                   size={24}
-                  color="white"
+                  color={"red"}
                   style={{ alignSelf: "flex-end", margin: 10 }}
                   onPress={postImage6 ? deleteImage5 : deleteBackPhoto5}
                 />
@@ -569,6 +569,17 @@ const Portfolio = (props) => {
         </View>
       </>
       <MyButton text={"Оруулах"} onPress={sendNetworkingPost} />
+      <MyButton
+        text={"Портфолио устгах"}
+        onPress={() => navigation.navigate("DeletePortfolio")}
+        style={{
+          marginTop: 10,
+          borderWidth: 1,
+          borderRadius: 50,
+          padding: 10,
+          borderColor: colors.border,
+        }}
+      />
     </View>
   );
 };

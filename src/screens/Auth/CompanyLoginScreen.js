@@ -14,6 +14,7 @@ import MyTextInput from "../../components/MyTextInput";
 import { AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import UserContext from "../../context/UserContext";
+import MyPasswordInput from "../../components/MyPasswordInput";
 
 const CompanyLoginScreen = () => {
   const navigation = useNavigation();
@@ -22,6 +23,12 @@ const CompanyLoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const signUpHandler = () => {
+    if (email.length < 0) {
+      return alert("Та и-мэйл оруулна уу");
+    }
+    if (password.length > 0) {
+      return alert("Та нууц үгээ оруулна уу");
+    }
     state.companyLogin(email, password);
   };
 
@@ -94,10 +101,10 @@ const CompanyLoginScreen = () => {
             <Text style={[styles.inputHeadText, { color: colors.primary }]}>
               Нууц үг:
             </Text>
-            <MyTextInput
+            <MyPasswordInput
               value={password}
               onChangeText={setPassword}
-              secureTextEntry={true}
+              iconStyle={colors.primary}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -136,6 +143,24 @@ const CompanyLoginScreen = () => {
               <Text
                 style={{ color: colors.primary }}
                 onPress={() => navigation.navigate("CompanySignUpScreen")}
+              >
+                энд дар
+              </Text>{" "}
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 15,
+                position: "absolute",
+                top: 130,
+                alignSelf: "center",
+                color: "black",
+              }}
+            >
+              Хэрэв та нууц үгээ мартсан бол{" "}
+              <Text
+                style={{ color: colors.primary }}
+                onPress={() => navigation.navigate("CompanyResetPassword")}
               >
                 энд дар
               </Text>{" "}

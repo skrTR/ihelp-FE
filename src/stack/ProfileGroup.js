@@ -72,6 +72,7 @@ import UserPortfolio from "../screens/Profile/User/EditCoverStatus/UserPortfolio
 import AddPortfolio from "../screens/Profile/AddPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import CvDetailScreen from "../components/Cv/CvDetailScreen";
+import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -723,6 +724,16 @@ const ProfileGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Портфолиа",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="DeletePortfolio"
+          component={DeletePortfolio}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Портфолиа устгах",
             headerLeft: () => <MyBackButton />,
           }}
         />

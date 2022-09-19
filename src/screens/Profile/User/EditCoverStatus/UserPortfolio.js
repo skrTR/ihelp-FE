@@ -34,6 +34,7 @@ const UserPortfolio = () => {
   }
   return (
     <>
+      {console.log(companyProfile.portfolio.image5)}
       <Portfolio
         image1={companyProfile.portfolio.image1}
         image2={companyProfile.portfolio.image2}

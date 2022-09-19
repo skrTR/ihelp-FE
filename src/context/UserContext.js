@@ -126,32 +126,6 @@ export const UserStore = (props) => {
       });
   };
 
-  const signUp = (phone, email, password, firstName, lastName, random) => {
-    axios
-      .post(`${api}/api/v1/cvs`, {
-        firstName: firstName,
-        lastName: lastName,
-        phone: phone,
-        email: email,
-        password: password,
-        random: random,
-        expoPushToken: expoPushToken,
-      })
-      .then((res) => {
-        // loginUserSuccessFul(
-        //   res.data.token,
-        //   phone,
-        //   res.data.data.organization,
-        //   res.data.data._id
-        // );
-        navigation.navigate("PersonLoginScreen");
-      })
-      .catch((err) => {
-        Alert.alert(err.message);
-        loginFailed(err.message);
-      });
-  };
-
   const loginFailed = (error) => {
     setIsLoggedIn(false);
     setIsCompany(false);
@@ -221,7 +195,6 @@ export const UserStore = (props) => {
         login,
         companyLogout,
         companyLogin,
-        signUp,
         logout,
         token,
         setToken,

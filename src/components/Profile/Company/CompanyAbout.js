@@ -125,32 +125,35 @@ const CompanyAbout = (props) => {
           </Text>
         </View>
       )}
-
-      {/* Ажилтны тоо */}
-      {workerNumber === "null" ? null : (
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginVertical: 5,
-          }}
-        >
-          <FontAwesome5
-            name="people-arrows"
-            size={20}
-            color={colors.primaryText}
-            style={{ width: "10%" }}
-          />
-          <Text
-            style={{
-              flexDirection: "row",
-              width: "95%",
-              color: colors.primaryText,
-            }}
-          >
-            {workerNumber} ажилтантай
-          </Text>
-        </View>
+      {workerNumber && (
+        <>
+          {/* Ажилтны тоо */}
+          {workerNumber === "null" ? null : (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginVertical: 5,
+              }}
+            >
+              <FontAwesome5
+                name="people-arrows"
+                size={20}
+                color={colors.primaryText}
+                style={{ width: "10%" }}
+              />
+              <Text
+                style={{
+                  flexDirection: "row",
+                  width: "95%",
+                  color: colors.primaryText,
+                }}
+              >
+                {workerNumber} ажилтантай
+              </Text>
+            </View>
+          )}
+        </>
       )}
 
       {/* Ажилтны тоо */}

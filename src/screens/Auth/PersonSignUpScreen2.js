@@ -7,6 +7,7 @@ import {
   Platform,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -29,7 +30,24 @@ const PersonSignUpScreen2 = (props) => {
     return () => clearInterval(timer);
   }, [counter]);
   const signUpHandler = () => {
-    state.signUp(phone, email, password, firstName, lastName, random);
+    axios
+      .post(`${api}/api/v1/cvs`, {
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+        email: email,
+        password: password,
+        random: random,
+      })
+      .then((res) => {
+        navigation.navigate("PersonAfterLogin", {
+          SignPhone: phone,
+          SignPassword: password,
+        });
+      })
+      .catch((err) => {
+        Alert.alert(err.response.data.error.message);
+      });
   };
   const sendMessage = () => {
     axios
@@ -116,22 +134,33 @@ const PersonSignUpScreen2 = (props) => {
             onCodeChanged={(val) => setRandom(val)}
             autoFocusOnLoad
             onCodeFilled={(code) => {}}
+            codeInputFieldStyle={{ color: "#765097" }}
+            codeInputHighlightStyle={{
+              borderColor: "#765097",
+              borderRadius: 10,
+            }}
           />
           {counter > 0 ? (
             <Text style={{ textAlign: "right", marginRight: 10 }}>
               {" "}
-              Дахин message илгээх 00:{counter}{" "}
+              Дахин мессеж илгээх 00:{counter}{" "}
             </Text>
           ) : (
-            <Text
-              style={{ textAlign: "right", marginRight: 10 }}
+            <TouchableOpacity
+              style={{
+                marginRight: 10,
+                backgroundColor: "#765097",
+                alignSelf: "flex-end",
+                padding: 10,
+                borderRadius: 10,
+              }}
               onPress={() => {
                 sendMessage();
                 setCounter(59);
               }}
             >
-              Дахин message илгээх
-            </Text>
+              <Text style={{ textAlign: "right" }}>Дахин мессеж илгээх</Text>
+            </TouchableOpacity>
           )}
 
           <TouchableOpacity style={{}} onPress={signUpHandler}>

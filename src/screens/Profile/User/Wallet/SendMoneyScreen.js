@@ -6,6 +6,7 @@ import {
   TextInput,
   SafeAreaView,
   ScrollView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -31,7 +32,7 @@ const SendMoneyScreen = (props) => {
       .get(`${api}/api/v1/cvs/${id}?select=invoiceId`)
       .then((res) => {
         setUserInvoince(res.data.data.invoiceId);
-        console.log(res.data.data);
+        console.log(res.data.data, "a");
       })
       .catch((err) => {
         alert(err, "userData");
@@ -124,11 +125,15 @@ const SendMoneyScreen = (props) => {
               borderRadius: 10,
               borderColor: colors.border,
             }}
-            onPress={() =>
-              navigation.navigate("QpayModals", {
-                userInvoince: userInvoince,
-              })
-            }
+            onPress={() => {
+              !userInvoince ? (
+                <ActivityIndicator />
+              ) : (
+                navigation.navigate("QpayModals", {
+                  userInvoince: userInvoince,
+                })
+              );
+            }}
           >
             <AntDesign name="qrcode" size={30} color={colors.secondaryText} />
             <Text

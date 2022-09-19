@@ -13,6 +13,7 @@ import * as Linking from "expo-linking";
 import { api } from "../../../../../Constants";
 const QpayModal = ({ route }) => {
   const { userInvoince } = route.params;
+
   const { colors } = useTheme();
   const [banks, setBanks] = useState([]);
   const getBanks = () => {
@@ -22,12 +23,13 @@ const QpayModal = ({ route }) => {
         setBanks(res.data.data.urls);
       })
       .catch((err) => {
-        alert(err);
+        alert(err.message);
       });
   };
   useEffect(() => {
     getBanks();
   }, []);
+
   return (
     <View>
       <FlatList

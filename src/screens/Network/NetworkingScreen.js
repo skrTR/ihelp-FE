@@ -48,10 +48,11 @@ const NetworkingScreen = () => {
       isMounted = false;
     };
   }, []);
-
+  console.log(state);
   if (!userProfile) {
     return null;
   }
+
   return (
     <SafeAreaView style={{ backgroundColor: colors.header, flex: 1 }}>
       <Header userSearch={true} />

@@ -8,7 +8,6 @@ import {
   Alert,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,12 +16,14 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import { AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
+import MyPasswordInput from "../../components/MyPasswordInput";
 const PersonSignUpScreen = () => {
   const navigation = useNavigation();
   const [lastName, setLastName] = useState("");
   const [firstName, setFirstName] = useState("");
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
   const [message, setMessage] = useState();
   const [email, setEmail] = useState("");
   const sendMessage = () => {
@@ -102,17 +103,39 @@ const PersonSignUpScreen = () => {
           <Text style={styles.inputHeadText}>Өөрийн нэр:</Text>
           <MyTextInput value={firstName} onChangeText={setFirstName} />
           <Text style={styles.inputHeadText}>Утас:</Text>
-          <MyTextInput value={phone} onChangeText={setPhone} />
+          <MyTextInput
+            value={phone}
+            onChangeText={setPhone}
+            keyboardType="numeric"
+          />
           <Text style={styles.inputHeadText}>И-мэйл хаяг:</Text>
           <MyTextInput value={email} onChangeText={setEmail} />
           <Text style={styles.inputHeadText}>Нууц үг:</Text>
-          <MyTextInput value={password} onChangeText={setPassword} />
+          <MyPasswordInput
+            value={password}
+            onChangeText={setPassword}
+            iconStyle={"#765097"}
+          />
+          <Text style={styles.inputHeadText}>Нууц үг:</Text>
+          <MyPasswordInput
+            value={password1}
+            onChangeText={setPassword1}
+            iconStyle={"#765097"}
+          />
         </View>
         <TouchableOpacity
           style={{ flex: 1, top: 5 }}
           onPress={() => {
+            if (lastName.length < 1) {
+              return alert("Та өөрийн овгоо оруулна уу");
+            } else if (firstName.length < 1) {
+              return alert("Та өөрийн нэрийг оруулна уу");
+            } else if (phone.length < 5) {
+              return alert("Та утасны дугаараа оруулна уу");
+            } else if (password !== password1) {
+              return alert("Нууц үг таарахгүй байна.");
+            }
             sendMessage();
-
             navigation.navigate("PersonSignUpScreen2", {
               firstName: firstName,
               lastName: lastName,

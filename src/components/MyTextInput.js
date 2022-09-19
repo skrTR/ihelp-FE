@@ -1,6 +1,6 @@
 import { StyleSheet, View, TextInput } from "react-native";
 import React from "react";
-
+import { Entypo } from "@expo/vector-icons";
 const MyTextInput = (props) => {
   return (
     <View>

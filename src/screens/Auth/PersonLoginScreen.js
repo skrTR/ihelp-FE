@@ -14,6 +14,7 @@ import MyTextInput from "../../components/MyTextInput";
 import { AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import UserContext from "../../context/UserContext";
+import MyPasswordInput from "../../components/MyPasswordInput";
 
 const PersonLoginScreen = () => {
   const navigation = useNavigation();
@@ -24,7 +25,6 @@ const PersonLoginScreen = () => {
   const signUpHandler = () => {
     state.login(phone, password);
   };
-
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -91,10 +91,10 @@ const PersonLoginScreen = () => {
             <MyTextInput value={phone} onChangeText={setPhone} />
 
             <Text style={styles.inputHeadText}>Нууц үг:</Text>
-            <MyTextInput
+            <MyPasswordInput
               value={password}
               onChangeText={setPassword}
-              secureTextEntry={true}
+              iconStyle={"#765097"}
             />
           </View>
           <View style={{ flex: 1 }}>
@@ -133,6 +133,24 @@ const PersonLoginScreen = () => {
               <Text
                 style={{ color: colors.primary }}
                 onPress={() => navigation.navigate("PersonSignUpScreen")}
+              >
+                энд дар
+              </Text>{" "}
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 15,
+                position: "absolute",
+                top: 130,
+                alignSelf: "center",
+                color: "black",
+              }}
+            >
+              Хэрэв та нууц үгээ мартсан бол{" "}
+              <Text
+                style={{ color: colors.primary }}
+                onPress={() => navigation.navigate("ResetPasswordScreen")}
               >
                 энд дар
               </Text>{" "}

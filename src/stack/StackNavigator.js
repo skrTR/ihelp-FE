@@ -19,7 +19,12 @@ import SplashScreen from "../screens/SplashScreen";
 import PersonSignUpScreen from "../screens/Auth/PersonSignUpScreen";
 import PersonSignUpScreen2 from "../screens/Auth/PersonSignUpScreen2";
 import CompanySignUpScreen from "../screens/Auth/CompanySignUpScreen";
-import VerificationScreen from "../screens/Auth/VerifyScreen";
+import ResetPasswordScreen from "../screens/Auth/ResetPasswordScreen";
+import ResetPasswordScreen2 from "../screens/Auth/ResetPasswordScreen2";
+import PersonAfterLogin from "../screens/Auth/PersonAfterLogin";
+import CompanyAfterLogin from "../screens/Auth/CompanyAfterLogin";
+import CompanyResetPassword1 from "../screens/Auth/CompanyResetPassword1";
+import CompanyResetPassword from "../screens/Auth/CompanyResetPassword";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -109,11 +114,7 @@ const StackNavigator = () => {
             component={PersonLoginScreen}
             options={{ headerShown: false, fullScreenGestureEnabled: true }}
           />
-          <Stack.Screen
-            name="VerifyScreen"
-            component={VerificationScreen}
-            options={{ headerShown: false, fullScreenGestureEnabled: true }}
-          />
+
           <Stack.Screen
             name="PersonSignUpScreen"
             component={PersonSignUpScreen}
@@ -132,6 +133,36 @@ const StackNavigator = () => {
           <Stack.Screen
             name="CompanySignUpScreen"
             component={CompanySignUpScreen}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="ResetPasswordScreen"
+            component={ResetPasswordScreen}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="ResetPasswordScreen2"
+            component={ResetPasswordScreen2}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="PersonAfterLogin"
+            component={PersonAfterLogin}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="CompanyAfterLogin"
+            component={CompanyAfterLogin}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="CompanyResetPassword"
+            component={CompanyResetPassword}
+            options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="CompanyResetPassword1"
+            component={CompanyResetPassword1}
             options={{ headerShown: false, fullScreenGestureEnabled: true }}
           />
         </Stack.Navigator>

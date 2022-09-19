@@ -21,11 +21,12 @@ const CompanySignUpScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [email, setEmail] = useState("");
-  const [isEmployer, setIsEmployer] = useState(false);
+  const [name, setName] = useState("Skra Setup LLC");
+  const [phone, setPhone] = useState("11223344");
+  const [password, setPassword] = useState("123456");
+  const [password1, setPassword1] = useState("123456");
+  const [email, setEmail] = useState("scarynomi1@gmail.com");
+  const [isEmployer, setIsEmployer] = useState(true);
   const [isEmployee, setIsEmployee] = useState(false);
   const signUpHandler = () => {
     axios
@@ -38,10 +39,13 @@ const CompanySignUpScreen = () => {
         isEmployee: isEmployee,
       })
       .then((res) => {
-        navigation.navigate("CompanyLoginScreen");
+        navigation.navigate("CompanyAfterLogin", {
+          SignEmail: email,
+          SignPassword: password,
+        });
       })
       .catch((err) => {
-        Alert.alert(err.message);
+        Alert.alert(err.response.data.error.message);
       });
   };
 
@@ -120,7 +124,7 @@ const CompanySignUpScreen = () => {
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>
             Нууц үг:
           </Text>
-          <MyTextInput value={password} onChangeText={setPassword} />
+          <MyTextInput value={password1} onChangeText={setPassword1} />
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>
             Нууц үг давтах:
           </Text>
@@ -144,9 +148,9 @@ const CompanySignUpScreen = () => {
                   : "checkbox-multiple-marked"
               }
               size={24}
-              color="black"
+              color={colors.primary}
             />
-            <Text>Ажил өгье</Text>
+            <Text style={{ color: colors.primary }}> Ажил олгогч</Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setIsEmployee(!isEmployee)}
@@ -159,9 +163,9 @@ const CompanySignUpScreen = () => {
                   : "checkbox-multiple-marked"
               }
               size={24}
-              color="black"
+              color={colors.primary}
             />
-            <Text>Ажил олгогч</Text>
+            <Text style={{ color: colors.primary }}> Ажил өгье</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={{ flex: 1, top: 35 }} onPress={signUpHandler}>
