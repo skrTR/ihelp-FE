@@ -6,10 +6,15 @@ import {
   ImageBackground,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { api } from "../../../Constants";
 import UserContext from "../../context/UserContext";
@@ -23,18 +28,21 @@ const NetworkingScreen = () => {
   const [followData, setFollowData] = useState([]);
   const [userProfile] = useUserProfile(state.userId);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [maxPage, setMaxPage] = useState();
   let isMounted = true;
   const getFollowData = () => {
     setLoading(true);
     axios
       .get(
-        `${api}/api/v1/posts/${state.userId}/following?limit=4&sort=-createdAt&limit=1000`
+        `${api}/api/v1/posts/${state.userId}/following?page=${currentPage}&sort=-createdAt&limit=3`
       )
-
       .then((res) => {
         if (isMounted) {
-          setFollowData(res.data.data);
+          setFollowData([...followData, ...res.data.data]);
           setLoading(false);
+          console.log(res.data.pagination);
+          setMaxPage(res.data.pagination.pageCount);
         }
       })
       .catch((err) => {
@@ -47,8 +55,18 @@ const NetworkingScreen = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
-  console.log(state);
+  }, [currentPage]);
+  const renderLoader = () => {
+    return loading ? (
+      <ActivityIndicator size={"large"} color={colors.primaryText} />
+    ) : null;
+  };
+
+  const loadMoreItem = () => {
+    if (maxPage > currentPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   if (!userProfile) {
     return null;
   }
@@ -60,7 +78,6 @@ const NetworkingScreen = () => {
         data={followData}
         showsVerticalScrollIndicator={false}
         initialNumToRender={5}
-        onEndReachedThreshold={0}
         ListHeaderComponent={
           <>
             <TouchableOpacity
@@ -118,6 +135,9 @@ const NetworkingScreen = () => {
             />
           </>
         }
+        ListFooterComponent={renderLoader}
+        onEndReached={loadMoreItem}
+        onEndReachedThreshold={0}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => {
           return (

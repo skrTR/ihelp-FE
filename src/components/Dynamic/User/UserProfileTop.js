@@ -100,6 +100,23 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
               }}
             >
               {userProfile.lastName} {userProfile.firstName}{" "}
+              {userProfile.isApproved && (
+                <View
+                  style={{
+                    backgroundColor: colors.primary,
+                    borderRadius: 50,
+                    alignItems: "center",
+                    padding: 2,
+                    alignContent: "center",
+                  }}
+                >
+                  <AntDesign
+                    name="check"
+                    size={12}
+                    color={colors.primaryText}
+                  />
+                </View>
+              )}
             </Text>
             <Text
               style={{

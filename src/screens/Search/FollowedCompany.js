@@ -10,12 +10,13 @@ const FollowedCompany = () => {
   const state = useContext(UserContext);
   const [followingData, setFollowingData] = useState([]);
   const { colors } = useTheme();
+  console.log(state.userId);
   const getFollowerData = () => {
     axios
       .get(
         `${api}/api/v1/follows/${
           state.isCompany ? state.companyId : state.userId
-        }/cv?limit=1000&select=followUserInfo isFollowing`
+        }/cv?limit=1000`
       )
       .then((res) => {
         setFollowingData(res.data.data);
@@ -41,28 +42,8 @@ const FollowedCompany = () => {
                 <DynamicFollowing
                   followUser={item.followUserInfo}
                   isFollowing={item.isFollowing}
+                  id={item.followUser}
                 />
-                // <View>
-                //   {state.isCompany ? (
-                //     <>
-                //       {!item.followUserInfo.organization && (
-                //         <DynamicFollowing
-                //           followUser={item.followUserInfo}
-                //           isFollowing={item.isFollowing}
-                //         />
-                //       )}
-                //     </>
-                //   ) : (
-                //     <>
-                //       {item.followUserInfo.organization && (
-                //         <DynamicFollowing
-                //           followUser={item.followUserInfo}
-                //           isFollowing={item.isFollowing}
-                //         />
-                //       )}
-                //     </>
-                //   )}
-                // </View>
               );
             }}
           />

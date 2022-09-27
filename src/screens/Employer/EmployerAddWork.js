@@ -65,15 +65,15 @@ const EmployerAddWork = () => {
   const [addWork, setAddWork] = useState({
     title: "",
     description: "",
-    do: "",
-    do1: "",
+    do: "Web app",
+    do1: "Mobile App",
     do2: "",
     do3: "",
     schedule: "",
     language: "",
-    skill: "",
-    skill1: "",
-    skill2: "",
+    skill: "JavaScript",
+    skill1: "React JS",
+    skill2: "React Native",
     skill3: "",
     contact: "",
     location: "",
@@ -674,7 +674,7 @@ const EmployerAddWork = () => {
           specialModal={specialModal}
           occupationName={occupationName}
           type={type}
-          salary={salary}
+          salary={addWork.salary ? addWork.salary : ""}
           normalDay={normalDay}
           setNormalDay={setNormalDay}
           checkOrders={checkOrders}

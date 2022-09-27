@@ -26,7 +26,7 @@ const CompanyLoginScreen = () => {
     if (email.length < 0) {
       return alert("Та и-мэйл оруулна уу");
     }
-    if (password.length > 0) {
+    if (password.length < 0) {
       return alert("Та нууц үгээ оруулна уу");
     }
     state.companyLogin(email, password);
@@ -59,7 +59,7 @@ const CompanyLoginScreen = () => {
             animation="pulse"
             iterationCount="infinite"
             direction="alternate"
-            easing="ease-out"
+            easing="ease-in-circ"
             source={require("../../../assets/header.png")}
             style={{ width: 250, height: 90, alignSelf: "center", top: 65 }}
           />

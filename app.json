@@ -40,7 +40,7 @@
     },
 
     "android": {
-      "versionCode": 5,
+      "versionCode": 6,
       "package": "mn.ihelphrnovelist",
       "permissions": ["CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL"],
       "adaptiveIcon": {

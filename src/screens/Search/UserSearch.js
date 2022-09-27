@@ -1,5 +1,4 @@
 import {
-  StyleSheet,
   Text,
   View,
   FlatList,
@@ -184,5 +183,3 @@ const UserSearch = () => {
 };
 
 export default UserSearch;
-
-const styles = StyleSheet.create({});

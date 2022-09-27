@@ -23,6 +23,7 @@ import UserContext from "../../../../context/UserContext";
 import { api } from "../../../../../Constants";
 import Header from "../../../../components/Header/Header";
 import CompanyHeader from "../../../../components/Header/CompanyHeader";
+import Loading from "../../../../components/Loading";
 const WalletScreen = ({ route }) => {
   const { point } = route.params;
   const { colors } = useTheme();
@@ -31,8 +32,10 @@ const WalletScreen = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [transactions, setTransactions] = useState([]);
   const [sendPoint, setSendPoint] = useState(1000);
+  const [loading, setLoading] = useState(false);
   let isMounted = true;
   const postWallet = () => {
+    setLoading(true);
     axios
       .post(
         `${api}/api/v1/cvs/invoice/${
@@ -41,10 +44,16 @@ const WalletScreen = ({ route }) => {
         { amount: sendPoint }
       )
       .then((res) => {
-        console.log(res.data);
+        navigation.push("SendMoneyScreen", {
+          money: sendPoint,
+          invoince: res.data.data,
+        });
+        setModalVisible(!modalVisible);
+        setLoading(false);
       })
       .catch((err) => {
         alert(err.message, "postWallet");
+        setLoading(false);
       });
   };
 
@@ -78,310 +87,327 @@ const WalletScreen = ({ route }) => {
         opacity: modalVisible ? 0.1 : 1,
       }}
     >
-      {state.isCompany ? (
-        <CompanyHeader isBack={true} />
+      {loading ? (
+        <Loading />
       ) : (
-        <Header isBack={true} />
-      )}
-
-      <ScrollView style={{ backgroundColor: colors.background }}>
-        <Text
-          style={{
-            color: colors.primaryText,
-            textAlign: "center",
-            fontFamily: "Sf-bold",
-            marginVertical: 20,
-            fontSize: 20,
-          }}
-        >
-          Хэтэвч
-        </Text>
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{
-            height: 250,
-            borderRadius: 20,
-            marginHorizontal: 10,
-            alignItems: "center",
-            alignContent: "center",
-          }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
-        >
-          <View>
+        <>
+          {state.isCompany ? (
+            <CompanyHeader isBack={true} />
+          ) : (
+            <Header isBack={true} />
+          )}
+          <ScrollView style={{ backgroundColor: colors.background }}>
             <Text
               style={{
-                color: "white",
+                color: colors.primaryText,
                 textAlign: "center",
-                textAlignVertical: "center",
-                marginTop: 80,
-                fontSize: 40,
+                fontFamily: "Sf-bold",
+                marginVertical: 20,
+                fontSize: 20,
               }}
             >
-              {point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              Хэтэвч
             </Text>
-            <Text
+            <LinearGradient
+              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
               style={{
-                color: "white",
-                textAlign: "center",
-                textAlignVertical: "center",
-                fontSize: 30,
-                fontFamily: "Sf-thin",
+                height: 250,
+                borderRadius: 20,
+                marginHorizontal: 10,
+                alignItems: "center",
+                alignContent: "center",
               }}
+              start={[0.0, 0.5]}
+              end={[1.0, 0.5]}
             >
-              ipoint
-            </Text>
-          </View>
-          <Text
-            style={{
-              alignSelf: "flex-end",
-              marginTop: 60,
-              fontSize: 14,
-              color: "white",
-              marginRight: 10,
-              fontFamily: "Sf-thin",
-            }}
-          >
-            1 ipoint = 1000 ₮
-          </Text>
-        </LinearGradient>
-        <View
-          style={{
-            flexDirection: "row",
-            marginHorizontal: 10,
-            marginTop: 25,
-            justifyContent: "space-around",
-          }}
-        >
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#FFB6C1",
-              marginHorizontal: 15,
-              paddingVertical: 8,
-              borderRadius: 10,
-            }}
-            onPress={() => navigation.navigate("PointUseScreen")}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignSelf: "center",
-                paddingHorizontal: 20,
-              }}
-            >
-              <Entypo name="documents" size={24} color={colors.border} />
+              <View>
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                    marginTop: 80,
+                    fontSize: 40,
+                  }}
+                >
+                  {point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </Text>
+                <Text
+                  style={{
+                    color: "white",
+                    textAlign: "center",
+                    textAlignVertical: "center",
+                    fontSize: 30,
+                    fontFamily: "Sf-thin",
+                  }}
+                >
+                  ipoint
+                </Text>
+              </View>
               <Text
-                style={{ textAlign: "center", top: 3, color: colors.border }}
-              >
-                Хэрэглэх
-              </Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#FFB6C1",
-              marginHorizontal: 15,
-              paddingVertical: 8,
-              borderRadius: 10,
-            }}
-            onPress={() => setModalVisible(true)}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignSelf: "center",
-                paddingHorizontal: 20,
-              }}
-            >
-              <AntDesign name="setting" size={24} color={colors.border} />
-              <Text
-                style={{ textAlign: "center", top: 3, color: colors.border }}
-              >
-                {" "}
-                Цэнэглэх
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View
-          style={{ marginHorizontal: 20, backgroundColor: colors.background }}
-        >
-          <Text
-            style={{
-              color: colors.primaryText,
-              textAlign: "center",
-              fontWeight: "bold",
-              marginVertical: 20,
-              fontSize: 20,
-            }}
-          >
-            Гүйлгээний түүх
-          </Text>
-          {transactions.map((item) => {
-            return (
-              <View
                 style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  borderWidth: 1,
-                  padding: 20,
-                  borderRadius: 20,
-                  borderColor: colors.border,
-                  marginTop: 10,
+                  alignSelf: "flex-end",
+                  marginTop: 60,
+                  fontSize: 14,
+                  color: "white",
+                  marginRight: 10,
+                  fontFamily: "Sf-thin",
                 }}
-                key={item._id}
               >
-                <View style={{}}>
-                  <Text style={{ color: colors.primaryText }}>
-                    Пойнт цэнэглэлт
-                  </Text>
-                  <Text style={{ color: colors.primaryText }}>
-                    {moment(item.createdAt).format(
-                      "MMMын DD нд hh цаг:mm минутанд"
-                    )}
-                  </Text>
-                </View>
-                <View style={{ alignItems: "center" }}>
-                  <Text
-                    style={{ color: "green", fontSize: 20, fontWeight: "bold" }}
-                  >
-                    {item.point / 1000} P
-                  </Text>
+                1 ipoint = 1000 ₮
+              </Text>
+            </LinearGradient>
+            <View
+              style={{
+                flexDirection: "row",
+                marginHorizontal: 10,
+                marginTop: 25,
+                justifyContent: "space-around",
+              }}
+            >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#FFB6C1",
+                  marginHorizontal: 15,
+                  paddingVertical: 8,
+                  borderRadius: 10,
+                }}
+                onPress={() => navigation.navigate("PointUseScreen")}
+              >
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    paddingHorizontal: 20,
+                  }}
+                >
+                  <Entypo name="documents" size={24} color={colors.border} />
                   <Text
                     style={{
+                      textAlign: "center",
+                      top: 3,
                       color: colors.border,
-                      fontSize: 20,
-                      fontFamily: "Sf-thin",
                     }}
                   >
-                    {item.point} ₮
+                    Хэрэглэх
                   </Text>
                 </View>
-              </View>
-            );
-          })}
-        </View>
-      </ScrollView>
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            setModalVisible(!modalVisible);
-          }}
-        >
-          <View style={styles.centeredView}>
-            <View style={[styles.modalView]}>
-              <MaterialCommunityIcons
-                name="backspace-outline"
-                size={30}
-                color="black"
+              </TouchableOpacity>
+              <TouchableOpacity
                 style={{
-                  fontSize: 20,
-                  position: "absolute",
-                  right: 20,
-                  marginTop: 10,
+                  backgroundColor: "#FFB6C1",
+                  marginHorizontal: 15,
+                  paddingVertical: 8,
+                  borderRadius: 10,
                 }}
-                onPress={() => setModalVisible(!modalVisible)}
-              />
-              <View style={{}}>
-                <TextInput
-                  value={`${sendPoint}`}
-                  onChangeText={setSendPoint}
-                  keyboardType="number-pad"
+                onPress={() => setModalVisible(true)}
+              >
+                <View
                   style={{
-                    borderWidth: 1,
-                    borderRadius: 10,
-                    padding: 10,
-                    borderColor: colors.border,
+                    flexDirection: "row",
+                    alignSelf: "center",
+                    paddingHorizontal: 20,
                   }}
-                />
-              </View>
-              <Text style={{ textAlign: "right", top: 10 }}>
-                {sendPoint ? `${sendPoint / 1000} ipoint` : "0 ipoint"}
-              </Text>
-              <View
+                >
+                  <AntDesign name="setting" size={24} color={colors.border} />
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      top: 3,
+                      color: colors.border,
+                    }}
+                  >
+                    {" "}
+                    Цэнэглэх
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View
+              style={{
+                marginHorizontal: 20,
+                backgroundColor: colors.background,
+              }}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  marginHorizontal: 10,
-                  marginTop: 25,
-                  justifyContent: "space-around",
+                  color: colors.primaryText,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  marginVertical: 20,
+                  fontSize: 20,
                 }}
               >
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#FFB6C1",
-                    borderRadius: 10,
-                  }}
-                  onPress={() => setModalVisible(!modalVisible)}
-                >
+                Гүйлгээний түүх
+              </Text>
+              {transactions.map((item) => {
+                return (
                   <View
                     style={{
                       flexDirection: "row",
-                      alignSelf: "center",
-                      padding: 10,
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      borderWidth: 1,
+                      padding: 20,
+                      borderRadius: 20,
+                      borderColor: colors.border,
+                      marginTop: 10,
                     }}
+                    key={item._id}
                   >
-                    <AntDesign name="left" size={24} color={colors.border} />
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        top: 3,
-                        color: colors.border,
-                        marginRight: 10,
-                      }}
-                    >
-                      Буцах
-                    </Text>
+                    <View style={{}}>
+                      <Text style={{ color: colors.primaryText }}>
+                        Пойнт цэнэглэлт
+                      </Text>
+                      <Text style={{ color: colors.primaryText }}>
+                        {moment(item.createdAt).format(
+                          "MMMын DD нд hh цаг:mm минутанд"
+                        )}
+                      </Text>
+                    </View>
+                    <View style={{ alignItems: "center" }}>
+                      <Text
+                        style={{
+                          color: "green",
+                          fontSize: 20,
+                          fontWeight: "bold",
+                        }}
+                      >
+                        {item.point / 1000} P
+                      </Text>
+                      <Text
+                        style={{
+                          color: colors.border,
+                          fontSize: 20,
+                          fontFamily: "Sf-thin",
+                        }}
+                      >
+                        {item.point} ₮
+                      </Text>
+                    </View>
                   </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: "#FFB6C1",
-                    borderRadius: 10,
-                    marginLeft: 10,
-                  }}
-                  onPress={() => {
-                    navigation.push("SendMoneyScreen", {
-                      money: sendPoint,
-                      id: state.isCompany ? state.companyId : state.userId,
-                    });
-                    postWallet();
-                    setModalVisible(!modalVisible);
-                  }}
-                >
-                  <View
-                    style={{
-                      flexDirection: "row",
-                      alignSelf: "center",
-                      padding: 10,
-                    }}
-                  >
-                    <MaterialIcons
-                      name="attach-money"
-                      size={24}
-                      color={colors.border}
-                    />
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        top: 3,
-                        color: colors.border,
-                        paddingHorizontal: 3,
-                        marginRight: 10,
-                      }}
-                    >
-                      Авах
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              </View>
+                );
+              })}
             </View>
+          </ScrollView>
+          <View style={styles.centeredView}>
+            <Modal
+              animationType="slide"
+              transparent={true}
+              visible={modalVisible}
+              onRequestClose={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <View style={styles.centeredView}>
+                <View style={[styles.modalView]}>
+                  <MaterialCommunityIcons
+                    name="backspace-outline"
+                    size={30}
+                    color="black"
+                    style={{
+                      fontSize: 20,
+                      position: "absolute",
+                      right: 20,
+                      marginTop: 10,
+                    }}
+                    onPress={() => setModalVisible(!modalVisible)}
+                  />
+                  <View style={{}}>
+                    <TextInput
+                      value={`${sendPoint}`}
+                      onChangeText={setSendPoint}
+                      keyboardType="number-pad"
+                      style={{
+                        borderWidth: 1,
+                        borderRadius: 10,
+                        padding: 10,
+                        borderColor: colors.border,
+                      }}
+                    />
+                  </View>
+                  <Text style={{ textAlign: "right", top: 10 }}>
+                    {sendPoint ? `${sendPoint / 1000} ipoint` : "0 ipoint"}
+                  </Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      marginHorizontal: 10,
+                      marginTop: 25,
+                      justifyContent: "space-around",
+                    }}
+                  >
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#FFB6C1",
+                        borderRadius: 10,
+                      }}
+                      onPress={() => setModalVisible(!modalVisible)}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignSelf: "center",
+                          padding: 10,
+                        }}
+                      >
+                        <AntDesign
+                          name="left"
+                          size={24}
+                          color={colors.border}
+                        />
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            top: 3,
+                            color: colors.border,
+                            marginRight: 10,
+                          }}
+                        >
+                          Буцах
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={{
+                        backgroundColor: "#FFB6C1",
+                        borderRadius: 10,
+                        marginLeft: 10,
+                      }}
+                      onPress={postWallet}
+                    >
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          alignSelf: "center",
+                          padding: 10,
+                        }}
+                      >
+                        <MaterialIcons
+                          name="attach-money"
+                          size={24}
+                          color={colors.border}
+                        />
+                        <Text
+                          style={{
+                            textAlign: "center",
+                            top: 3,
+                            color: colors.border,
+                            paddingHorizontal: 3,
+                            marginRight: 10,
+                          }}
+                        >
+                          Авах
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </View>
+            </Modal>
           </View>
-        </Modal>
-      </View>
+        </>
+      )}
     </SafeAreaView>
   );
 };

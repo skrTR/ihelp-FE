@@ -16,6 +16,7 @@ const ViewUserFollowings = (props) => {
       .get(`${api}/api/v1/follows/${id}/cv`)
       .then((res) => {
         setFollowingData(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         alert(`${err} aaa`);
@@ -33,7 +34,6 @@ const ViewUserFollowings = (props) => {
             data={followingData}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) => {
-              console.log(item);
               return (
                 <View>
                   {item.followUser && (

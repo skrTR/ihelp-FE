@@ -136,7 +136,24 @@ const CompanyTop = (props) => {
                 fontSize: 18,
               }}
             >
-              {name}
+              {name}{" "}
+              {data.isApproved && (
+                <View
+                  style={{
+                    backgroundColor: colors.primary,
+                    borderRadius: 50,
+                    alignItems: "center",
+                    padding: 2,
+                    alignContent: "center",
+                  }}
+                >
+                  <AntDesign
+                    name="check"
+                    size={12}
+                    color={colors.primaryText}
+                  />
+                </View>
+              )}
             </Text>
             <Text
               style={{

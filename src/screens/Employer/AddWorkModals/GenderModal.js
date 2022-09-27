@@ -4,7 +4,7 @@ import ModalHeader from "../../../components/ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
 const GenderModal = (props) => {
-  const { genderModal, setGenderModal, setGender, checkGender } = props;
+  const { genderModal, setGenderModal, checkGender } = props;
   const { colors } = useTheme();
   return (
     <Modal
@@ -20,11 +20,10 @@ const GenderModal = (props) => {
         <View style={{ marginHorizontal: 10 }}>
           {["Эр", "Эм", "хоёул"].map((l, i) => (
             <TouchableOpacity
-              key={i}
               onPress={() => {
-                setGender(l);
                 checkGender(l);
               }}
+              key={i}
             >
               <Text style={[styles.text, { color: colors.primaryText }]}>
                 {l}

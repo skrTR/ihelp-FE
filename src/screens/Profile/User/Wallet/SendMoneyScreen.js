@@ -20,28 +20,13 @@ import Header from "../../../../components/Header/Header";
 import UserContext from "../../../../context/UserContext";
 import CompanyHeader from "../../../../components/Header/CompanyHeader";
 const SendMoneyScreen = (props) => {
-  const { money, id } = props.route.params;
+  const { money, invoince } = props.route.params;
   const state = useContext(UserContext);
   const navigation = useNavigation();
   const [copiedText, setCopiedText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [userInvoince, setUserInvoince] = useState([]);
   const { colors } = useTheme();
-  const getUserData = () => {
-    axios
-      .get(`${api}/api/v1/cvs/${id}?select=invoiceId`)
-      .then((res) => {
-        setUserInvoince(res.data.data.invoiceId);
-        console.log(res.data.data, "a");
-      })
-      .catch((err) => {
-        alert(err, "userData");
-      });
-  };
 
-  useEffect(() => {
-    getUserData();
-  }, []);
   const copyKhanBankDans = () => {
     Clipboard.setStringAsync("5011427285");
   };
@@ -126,13 +111,9 @@ const SendMoneyScreen = (props) => {
               borderColor: colors.border,
             }}
             onPress={() => {
-              !userInvoince ? (
-                <ActivityIndicator />
-              ) : (
-                navigation.navigate("QpayModals", {
-                  userInvoince: userInvoince,
-                })
-              );
+              navigation.navigate("QpayModals", {
+                userInvoince: invoince,
+              });
             }}
           >
             <AntDesign name="qrcode" size={30} color={colors.secondaryText} />

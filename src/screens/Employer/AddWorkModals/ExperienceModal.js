@@ -21,7 +21,7 @@ const ExperienceModal = (props) => {
           clicked={() => setExperienceModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
-          {["0-1", "1-3", "3-5", "5-10", "10-аас дээш", "Xамаагүй"].map(
+          {["0-1", "1-3", "3-5", "5-10", "10-аас дээш", "Хамаагүй"].map(
             (l, i) => (
               <TouchableOpacity
                 onPress={() => {

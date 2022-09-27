@@ -38,6 +38,7 @@ const ViewCompanyProfile = (props) => {
         ) : (
           <Header isBack={true} />
         )}
+        {console.log(companyProfile)}
         <CompanyTop
           cover={companyProfile.cover}
           profile={companyProfile.profile}
@@ -92,36 +93,38 @@ const ViewCompanyProfile = (props) => {
           {loading ? (
             <Spinner />
           ) : (
-            <>
-              <Text
-                style={{
-                  color: colors.primaryText,
-                  fontFamily: "Sf-bold",
-                  fontSize: 20,
-                  marginHorizontal: 20,
-                  marginVertical: 15,
-                }}
-              >
-                Ажлын зарууд
-              </Text>
-              {companyJobs.map((data) => {
-                return (
-                  <View key={data._id}>
-                    <CompanyJobs
-                      id={data._id}
-                      createUserName={data.firstName}
-                      createUserProfile={data.profile}
-                      isEmployer={data.isEmployer}
-                      isEmployee={data.isEmployee}
-                      occupation={data.occupationName}
-                      type={data.type}
-                      salary={data.salary}
-                      count={data.count}
-                    />
-                  </View>
-                );
-              })}
-            </>
+            companyJobs.length > 0 && (
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-bold",
+                    fontSize: 20,
+                    marginHorizontal: 20,
+                    marginVertical: 15,
+                  }}
+                >
+                  Ажлын зарууд
+                </Text>
+                {companyJobs.map((data) => {
+                  return (
+                    <View key={data._id}>
+                      <CompanyJobs
+                        id={data._id}
+                        createUserName={data.firstName}
+                        createUserProfile={data.profile}
+                        isEmployer={data.isEmployer}
+                        isEmployee={data.isEmployee}
+                        occupation={data.occupationName}
+                        type={data.type}
+                        salary={data.salary}
+                        count={data.count}
+                      />
+                    </View>
+                  );
+                })}
+              </>
+            )
           )}
         </View>
       </ScrollView>
