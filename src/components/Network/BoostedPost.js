@@ -7,36 +7,44 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { api } from "../../../Constants";
+import moment from "moment";
 import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Entypo } from "@expo/vector-icons";
+import { Entypo, AntDesign } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
 const fullWidth = Dimensions.get("screen").width;
 const BoostedPost = (props) => {
   const {
     postId,
-    createUser,
+    firstName,
+    lastName,
     body,
     photo,
-
+    profession,
+    workingCompany,
+    createUserProfile,
+    createUserId,
+    createUserStatus,
     likeCount,
     commentCount,
     shareCount,
-    isLiked,
     isCompany,
+    isApproved,
   } = props;
   // Like unlike func
-  const [liked, setLiked] = useState(isLiked);
+  const [isLike, setIsLike] = useState(false);
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [counter, setCounter] = useState(likeCount);
+  const [checkLikeId, setCheckLikeId] = useState([]);
+
   const onLike = () => {
-    if (liked) {
-      setLiked(false);
+    if (isLike) {
+      setIsLike(false);
       axios
         .delete(`${api}/api/v1/likes/${postId}`)
         .then((res) => {
@@ -47,7 +55,7 @@ const BoostedPost = (props) => {
           alert(err.response.data);
         });
     } else {
-      setLiked(true);
+      setIsLike(true);
       axios
         .post(`${api}/api/v1/likes/${postId}`)
         .then((res) => {
@@ -59,7 +67,27 @@ const BoostedPost = (props) => {
         });
     }
   };
-
+  const getCheckLike = () => {
+    {
+      !state.isCompany &&
+        axios
+          .get(`${api}/api/v1/likes/${state.userId}/posts`)
+          .then((res) => {
+            setCheckLikeId(res.data.data);
+          })
+          .catch((err) => {
+            alert(err);
+            console.log(err);
+          });
+    }
+  };
+  useEffect(() => {
+    getCheckLike();
+  }, []);
+  let sonin1 = checkLikeId.map((e) => `${e.post}`);
+  useEffect(() => {
+    setIsLike(sonin1.includes(`${postId}`));
+  }, [checkLikeId]);
   return (
     <>
       {/* User Post */}
@@ -90,17 +118,17 @@ const BoostedPost = (props) => {
               }}
               onPress={() =>
                 isCompany
-                  ? navigation.navigate("ViewCompanyProfile", {
-                      id: createUser._id,
+                  ? navigation.navigate("ViewUserProfile", {
+                      id: createUserId,
                     })
-                  : navigation.navigate("ViewUserProfile", {
-                      id: createUser._id,
+                  : navigation.navigate("ViewCompanyProfile", {
+                      id: createUserId,
                     })
               }
             >
               <ImageBackground
                 source={{
-                  uri: `${api}/upload/${createUser.profile}`,
+                  uri: `${api}/upload/${createUserProfile}`,
                 }}
                 style={{ width: 50, height: 50 }}
                 imageStyle={{ borderRadius: 50 }}
@@ -108,11 +136,11 @@ const BoostedPost = (props) => {
                 <Image
                   style={{ width: 54, height: 54, bottom: 2, right: 2 }}
                   source={
-                    createUser.status === "lookingForJob"
+                    createUserStatus === "lookingForJob"
                       ? require("../../../assets/looking.png")
-                      : createUser.status === "opentowork"
+                      : createUserStatus === "opentowork"
                       ? require("../../../assets/open.png")
-                      : createUser.status === "getEmployee"
+                      : createUserStatus === "getEmployee"
                       ? require("../../../assets/hiring.png")
                       : null
                   }
@@ -120,34 +148,51 @@ const BoostedPost = (props) => {
               </ImageBackground>
               <View style={{ marginLeft: 10 }}>
                 <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
-                  {createUser.lastName} {createUser.firstName}{" "}
+                  {lastName}
+                  {firstName}
+                  {isApproved && (
+                    <View
+                      style={{
+                        backgroundColor: colors.primary,
+                        borderRadius: 50,
+                        alignItems: "center",
+                        alignContent: "center",
+                      }}
+                    >
+                      <AntDesign
+                        name="check"
+                        size={13}
+                        color={colors.primaryText}
+                      />
+                    </View>
+                  )}
                 </Text>
 
-                <>
+                {profession && (
                   <Text
                     style={{
                       color: colors.secondaryText,
                     }}
                   >
-                    {createUser.profession}{" "}
-                    {createUser.workingCompany &&
-                      `@${createUser.workingCompany}`}
+                    {profession} {workingCompany && `@${workingCompany}`}
                   </Text>
-                  <Text
-                    style={{
-                      color: colors.secondaryText,
-                    }}
-                  >
-                    Sponsored
-                  </Text>
-                </>
+                )}
+                <Text
+                  style={{
+                    color: colors.secondaryText,
+                  }}
+                >
+                  Sponsored
+                </Text>
               </View>
             </TouchableOpacity>
             {/* Post settings ooriin*/}
-            {createUser._id === state.userId ? (
+            {createUserId === state.userId ? (
               <TouchableOpacity
                 onPress={() =>
-                  navigation.navigate("PostSettings", { id: postId })
+                  navigation.navigate("PostSettings", {
+                    id: postId,
+                  })
                 }
               >
                 <Entypo
@@ -163,6 +208,7 @@ const BoostedPost = (props) => {
             onPress={() =>
               navigation.navigate("NetworkingPostDetailScreen", {
                 id: postId,
+                isLike: isLike,
               })
             }
           >
@@ -175,7 +221,7 @@ const BoostedPost = (props) => {
             ) : (
               <View style={{ margin: 10 }} />
             )}
-            {/* unshared Zurag */}
+            {/* boosted Zurag */}
             {photo && (
               <>
                 <Image
@@ -211,8 +257,8 @@ const BoostedPost = (props) => {
             fontSize: 12,
           }}
           onPress={() =>
-            navigation.navigate("NetworkingPostDetailScreen", {
-              id: postId,
+            navigation.navigate("PostLikeUser", {
+              postId: postId,
             })
           }
         >
@@ -228,6 +274,7 @@ const BoostedPost = (props) => {
           onPress={() =>
             navigation.navigate("NetworkingPostDetailScreen", {
               id: postId,
+              isLike: isLike,
             })
           }
         >
@@ -243,6 +290,7 @@ const BoostedPost = (props) => {
             onPress={() =>
               navigation.navigate("NetworkingPostDetailScreen", {
                 id: postId,
+                isLike: isLike,
               })
             }
           >
@@ -271,13 +319,13 @@ const BoostedPost = (props) => {
           onPress={onLike}
         >
           <MaterialCommunityIcons
-            name={liked ? "heart-multiple" : "heart-multiple-outline"}
+            name={isLike ? "heart-multiple" : "heart-multiple-outline"}
             size={24}
-            color={liked ? "#FFB6C1" : colors.primaryText}
+            color={isLike ? "#FFB6C1" : colors.primaryText}
           />
 
           <Text style={{ color: colors.secondaryText, marginLeft: 5 }}>
-            {liked ? "Таалагдлаа" : "Таалагдлаа"}
+            {isLike ? "Таалагдлаа" : "Таалагдлаа"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -285,6 +333,7 @@ const BoostedPost = (props) => {
           onPress={() =>
             navigation.navigate("NetworkingPostDetailScreen", {
               id: postId,
+              isLike: isLike,
             })
           }
         >

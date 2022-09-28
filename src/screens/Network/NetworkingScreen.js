@@ -7,55 +7,33 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import {
-  useIsFocused,
-  useNavigation,
-  useTheme,
-} from "@react-navigation/native";
+import React, { useContext } from "react";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { api } from "../../../Constants";
 import UserContext from "../../context/UserContext";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Posts from "../../components/Network/Posts";
 import Header from "../../components/Header/Header";
+import useNetworkingPost from "../../hooks/NetworkingHook/useNetworkingPost";
 const NetworkingScreen = () => {
   const state = useContext(UserContext);
+  const [userProfile] = useUserProfile(state.userId);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [followData, setFollowData] = useState([]);
-  const [userProfile] = useUserProfile(state.userId);
-  const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [maxPage, setMaxPage] = useState();
-  let isMounted = true;
-  const getFollowData = () => {
-    setLoading(true);
-    axios
-      .get(
-        `${api}/api/v1/posts/${state.userId}/following?page=${currentPage}&sort=-createdAt&limit=3`
-      )
-      .then((res) => {
-        if (isMounted) {
-          setFollowData([...followData, ...res.data.data]);
-          setLoading(false);
-          console.log(res.data.pagination);
-          setMaxPage(res.data.pagination.pageCount);
-        }
-      })
-      .catch((err) => {
-        alert(err);
-        setLoading(false);
-      });
-  };
-  useEffect(() => {
-    getFollowData();
-    return () => {
-      isMounted = false;
-    };
-  }, [currentPage]);
+  const [
+    loading,
+    followData,
+    maxPage,
+    currentPage,
+    setCurrentPage,
+    refreshing,
+    getFollowData,
+    setRefreshing,
+  ] = useNetworkingPost(state.userId);
+
   const renderLoader = () => {
     return loading ? (
       <ActivityIndicator size={"large"} color={colors.primaryText} />
@@ -66,6 +44,13 @@ const NetworkingScreen = () => {
     if (maxPage > currentPage) {
       setCurrentPage(currentPage + 1);
     }
+  };
+  const handleLoad = () => {
+    setCurrentPage(1);
+    setRefreshing(true);
+    () => {
+      getFollowData();
+    };
   };
   if (!userProfile) {
     return null;
@@ -78,6 +63,8 @@ const NetworkingScreen = () => {
         data={followData}
         showsVerticalScrollIndicator={false}
         initialNumToRender={5}
+        refreshing={refreshing}
+        onRefresh={handleLoad}
         ListHeaderComponent={
           <>
             <TouchableOpacity

@@ -74,9 +74,8 @@ const EditPost = ({ route }) => {
           });
           xhr.open("PUT", `${api}/api/v1/posts/${id}/photo`);
           xhr.send(formData);
-        } else {
-          navigation.goBack();
         }
+        navigation.goBack();
       })
       .catch((err) => alert(err));
   };
