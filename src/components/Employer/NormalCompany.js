@@ -142,44 +142,46 @@ const NormalCompany = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          backgroundColor: !follow ? "#FFB6C1" : null,
-          marginHorizontal: 5,
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: colors.border,
-          width: "25%",
-          alignContent: "center",
-          height: "50%",
-        }}
-        onPress={onFollow}
-      >
-        <View
+      {data._id === state.companyId ? null : (
+        <TouchableOpacity
           style={{
-            flexDirection: "row",
-            top: 5,
-            alignItems: "center",
-            alignSelf: "center",
+            backgroundColor: !follow ? "#FFB6C1" : null,
+            marginHorizontal: 5,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.border,
+            width: "25%",
+            alignContent: "center",
+            height: "50%",
           }}
+          onPress={onFollow}
         >
-          <AntDesign
-            name={follow ? "deleteuser" : "adduser"}
-            size={24}
-            color={!follow ? colors.border : colors.primaryText}
-          />
-          <Text
+          <View
             style={{
-              textAlign: "center",
-
-              color: !follow ? colors.border : colors.primaryText,
+              flexDirection: "row",
+              top: 5,
+              alignItems: "center",
+              alignSelf: "center",
             }}
           >
-            {" "}
-            {follow ? "Дагадаг" : "Дагах"}
-          </Text>
-        </View>
-      </TouchableOpacity>
+            <AntDesign
+              name={follow ? "deleteuser" : "adduser"}
+              size={24}
+              color={!follow ? colors.border : colors.primaryText}
+            />
+            <Text
+              style={{
+                textAlign: "center",
+
+                color: !follow ? colors.border : colors.primaryText,
+              }}
+            >
+              {" "}
+              {follow ? "Дагадаг" : "Дагах"}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

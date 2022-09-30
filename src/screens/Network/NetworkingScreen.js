@@ -18,22 +18,17 @@ import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Posts from "../../components/Network/Posts";
 import Header from "../../components/Header/Header";
 import useNetworkingPost from "../../hooks/NetworkingHook/useNetworkingPost";
+import useNetworkingBoost from "../../hooks/NetworkingHook/useNetworkingBoost";
+import BoostedPost from "../../components/Network/BoostedPost";
 const NetworkingScreen = () => {
   const state = useContext(UserContext);
   const [userProfile] = useUserProfile(state.userId);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [
-    loading,
-    followData,
-    maxPage,
-    currentPage,
-    setCurrentPage,
-    refreshing,
-    getFollowData,
-    setRefreshing,
-  ] = useNetworkingPost(state.userId);
-
+  const [loading, followData, maxPage, currentPage, setCurrentPage] =
+    useNetworkingPost(state.userId);
+  const [boostLoading, boostData, boostPage, setBoostPage, boostMaxPage] =
+    useNetworkingBoost();
   const renderLoader = () => {
     return loading ? (
       <ActivityIndicator size={"large"} color={colors.primaryText} />
@@ -45,13 +40,7 @@ const NetworkingScreen = () => {
       setCurrentPage(currentPage + 1);
     }
   };
-  const handleLoad = () => {
-    setCurrentPage(1);
-    setRefreshing(true);
-    () => {
-      getFollowData();
-    };
-  };
+
   if (!userProfile) {
     return null;
   }
@@ -63,8 +52,6 @@ const NetworkingScreen = () => {
         data={followData}
         showsVerticalScrollIndicator={false}
         initialNumToRender={5}
-        refreshing={refreshing}
-        onRefresh={handleLoad}
         ListHeaderComponent={
           <>
             <TouchableOpacity
@@ -164,6 +151,37 @@ const NetworkingScreen = () => {
                   isLiked={item.isLiked}
                   isCompany={item.organization}
                   isBoost={item.isBoost}
+                  isApproved={item.isApproved}
+                />
+              )}
+            </View>
+          );
+        }}
+      />
+      <FlatList
+        data={boostData}
+        showsVerticalScrollIndicator={false}
+        initialNumToRender={1}
+        keyExtractor={(item, index) => index}
+        renderItem={({ item }) => {
+          return (
+            <View style={{ backgroundColor: colors.background }}>
+              {item.createUser && (
+                <BoostedPost
+                  postId={item._id}
+                  firstName={item.firstName}
+                  lastName={item.lastName}
+                  body={item.body}
+                  photo={item.photo}
+                  profession={item.profession}
+                  workingCompany={item.workingCompany}
+                  createUserId={item.createUser}
+                  createUserProfile={item.profile}
+                  createUserStatus={item.status}
+                  likeCount={item.like}
+                  commentCount={item.comment}
+                  shareCount={item.share}
+                  isCompany={item.organization}
                   isApproved={item.isApproved}
                 />
               )}

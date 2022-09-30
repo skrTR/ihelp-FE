@@ -97,7 +97,6 @@ const SearchScreen = () => {
               </Text>
             </TouchableOpacity>
           )}
-
           <TouchableOpacity
             style={{
               padding: 10,
@@ -116,11 +115,11 @@ const SearchScreen = () => {
           <TouchableOpacity
             style={{
               padding: 10,
-
               borderWidth: 1,
               borderRadius: 20,
               borderColor: colors.border,
-              marginTop: state.isCompany && 10,
+
+              // marginTop: state.isCompany && 10,
             }}
             onPress={() => navigation.navigate("CategorySearch")}
           >

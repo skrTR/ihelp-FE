@@ -7,14 +7,12 @@ export default (id) => {
   const [followData, setFollowData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [maxPage, setMaxPage] = useState();
-  const [refreshing, setRefreshing] = useState(false);
   let isMounted = true;
   const getFollowData = () => {
     setLoading(true);
-    setRefreshing(true);
     axios
       .get(
-        `${api}/api/v1/posts/${id}/following?page=${currentPage}&sort=-createdAt&limit=5`
+        `${api}/api/v1/posts/${id}/following?page=${currentPage}&sort=-createdAt&limit=4`
       )
       .then((res) => {
         if (isMounted) {
@@ -27,7 +25,6 @@ export default (id) => {
       })
       .finally(() => {
         setLoading(false);
-        setRefreshing(false);
       });
   };
 
@@ -38,14 +35,5 @@ export default (id) => {
     };
   }, [currentPage]);
 
-  return [
-    loading,
-    followData,
-    maxPage,
-    currentPage,
-    setCurrentPage,
-    refreshing,
-    getFollowData,
-    setRefreshing,
-  ];
+  return [loading, followData, maxPage, currentPage, setCurrentPage];
 };

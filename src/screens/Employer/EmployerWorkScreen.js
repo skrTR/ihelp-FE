@@ -2,15 +2,15 @@ import { FlatList, View } from "react-native";
 import React from "react";
 import useUrgentWork from "../../hooks/EmployerHook/useUrgentWork";
 import useSpecialCompany from "../../hooks/EmployerHook/useSpecialCompany";
-import useNormalCompany from "../../hooks/EmployerHook/useNormalCompany";
 import UrgentWork from "../../components/Employer/UrgentWork";
 import SpecialWork from "../../components/Employer/SpecialWork";
 import NormalWork from "../../components/Employer/NormalWork";
+import useNormalWork from "../../hooks/EmployerHook/useNormalWork";
 
 const EmployerWorkScreen = () => {
   const [urgentWork, urgentError] = useUrgentWork();
   const [specialWork] = useSpecialCompany();
-  const [normalWork, normalError] = useNormalCompany();
+  const [normalWork, normalError] = useNormalWork();
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
