@@ -23,11 +23,21 @@ const CvDetailScreen = (props) => {
   const { colors } = useTheme();
   const [userProfile] = useUserProfile(id);
   const navigation = useNavigation();
+  const [experience, setExperience] = useState([]);
+  const [course, setCourse] = useState([]);
+  const [achievement, setAchievment] = useState([]);
+  const [language, setLanguage] = useState([]);
+  const [skill, setSkill] = useState([]);
   const getCvData = () => {
     axios
       .get(`${api}/api/v1/questionnaires/${id}`)
       .then((res) => {
         setData(res.data.data);
+        setSkill(res.data.data.skill);
+        setExperience(res.data.data.experience);
+        setCourse(res.data.data.course);
+        setAchievment(res.data.data.achievement);
+        setLanguage(res.data.data.language);
       })
       .catch((err) => {
         console.log(err);
@@ -39,126 +49,167 @@ const CvDetailScreen = (props) => {
   if (!userProfile) {
     return null;
   }
-  const html = `
-  <html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <style>
-      * {
-    box-sizing: border-box;
-  }   
-      p {
-          font-size: 18px;
-      }
-      .column {
-    float: left;
-    width: 50%;
-    padding: 10px;
-    height: 300px; 
-    align-items: center;
-  }
-  .row:after {
-    content: "";
-    display: table;
-    clear: both;
-    align-items: center;
-  }
-  </style> 
-  <body>
-      <div style="font-family:Arial, Helvetica, sans-serif;">
-          <h1 style="margin-top: 120px;">
-              ${data.lastName} ${data.firstName}
-          </h1>
-          <div class="row">
-          <div class="column">
-              <img width="63%" src="${api}/upload/${data.profile}" alt="">
-          </div>
-          <div class="column"  style="float:right; padding-right: 15%; ">
-              <h3 style="color: #338DFF;"> CONTACTS</h3>
-              <p">Born in Erdenet city, Mongolia <br>
-                  Lives in Ulaanbaatar, Mongolia <br>
-                  <span style="font-size:12px;"> address </span> </p>
-              <br>
-              <a  href="naki.mongolia@gmail.com">naki.mongolia@gmail.com</a> <br>
-              <a  href="namkhaidorj@ihelp.mn">namkhaidorj@ihelp.mn</a> <br>
-              <span  style="font-size: 12px;"> e-mail </span>      
-              <p> 
-                  976-99757475 <br>
-                  <span style="font-size: 12px;"> phone number </span>
-              </p>
-          </div>
-      </div>
-          <h3> <span style="color: #338DFF;">⭐EXPERIENCES </span></h3>
-          <div>
-          ${
-            data.experience &&
-            data.experience.map((e) => {
-              return `<p>· ${e.position}, <span> ${e.company}, ${
-                e.location
-              },</span> ${moment(e.start).format("MM-YYYY")}, ${
-                e.isWorking ? "одоог хүртэл" : moment(e.end).format("MM-YYYY")
-              } </p>`;
-            })
-          }
+  const createDynamicData = () => {
+    var experiences = "";
+    for (let i in experience) {
+      const item = experience[i];
+      experiences =
+        experiences +
+        `<div>
+        <p>· ${item.position}, <span> ${item.company}, ${
+          item.location
+        },</span> ${moment(item.start).format("MM-YYYY")}, ${
+          item.isWorking ? "одоог хүртэл" : moment(item.end).format("MM-YYYY")
+        } </p>
+      </div>`;
+    }
+    var courses = "";
+    for (let i in course) {
+      const courseData = course[i];
+      courses =
+        courses +
+        `<div>
+        <p>· ${courseData.field}, <span> ${courseData.school} ,</span> ${moment(
+          courseData.start
+        ).format("MM-YYYY")}, ${
+          courseData.isStudying
+            ? "Сургалцаж байгаа"
+            : moment(courseData.end).format("MM-YYYY")
+        } </p>
+      </div>`;
+    }
+    var achievements = "";
+    for (let i in achievement) {
+      const achievementData = achievement[i];
+      achievements =
+        achievements +
+        `<div>
+    <p>· ${achievementData.name}, <span> ${achievementData.company} ,</span> ${achievementData.achievementYear} </p>
+  </div>`;
+    }
+    var languages = "";
+    for (let i in language) {
+      const languageData = language[i];
+      languages =
+        languages +
+        `<div>
+    <p>· ${languageData.country}, <span> ${languageData.level}</span>  </p>
+  </div>`;
+    }
+    var skills = "";
+    skills =
+      skills +
+      `<div>
+        ${skill.advantage1 === null ? `<br/>` : `<p>✓ ${skill.advantage1}</p>`}
+        ${skill.advantage2 === null ? `<br/>` : `<p>✓ ${skill.advantage2}</p>`}
+        ${skill.advantage3 === null ? `<br/>` : `<p>✓ ${skill.advantage3}</p>`}
+        ${skill.advantage4 === null ? `<br/>` : `<p>✓ ${skill.advantage4}</p>`} 
+        ${
+          skill.disAdvantage1 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage1}</p>`
+        }
+        ${
+          skill.disAdvantage2 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage2}</p>`
+        }
+        ${
+          skill.disAdvantage3 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage3}</p>`
+        }
+        ${
+          skill.disAdvantage4 === null
+            ? `<br/>`
+            : ` <p>✓ ${skill.disAdvantage4}</p>`
+        }    
+  </div>`;
+
+    const html = `
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <style>
+        * {
+      box-sizing: border-box;
+    }   
+        p {
+            font-size: 18px;
+        }
+        .column {
+      float: left;
+      width: 50%;
+      padding: 10px;
+      height: 300px; 
+      align-items: center;
+    }
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+      align-items: center;
+    }
+    </style> 
+    <body>
+        <div style="font-family:Arial, Helvetica, sans-serif;">
+            <h1 style="margin-top: 120px;">
+                ${data.lastName} ${data.firstName}
+            </h1>
+            <div class="row">
+            <div class="column">
+                <img width="63%" src="${api}/upload/${data.profile}" alt="">
+            </div>
+            <div class="column"  style="float:right; padding-right: 15%; ">
+                <h3 style="color: #338DFF;"> CONTACTS</h3>
+                <p">Born in ${
+                  data.birthPlace === null ? `<br/>` : data.birthPlace
+                } <br>
+                    </p>
+                <br>
+                <a >${userProfile.email}</a> <br>
+                <span  style="font-size: 12px;"> e-mail </span>      
+                <p> 
+                ${userProfile.phone} <br>
+                    <span style="font-size: 12px;"> phone number </span>
+                </p>
+            </div>
         </div>
-          <h3 style="color: #338DFF;">🎓 EDUCATION</h3>
-          <div>
-          ${
-            data.course &&
-            data.course.map((e) => {
-              return `<p>· ${e.school} & ${e.field}, ${moment(e.start).format(
-                "MM-YYYY"
-              )}, ${
-                e.isStudying ? "одоог хүртэл" : moment(e.end).format("MM-YYYY")
-              } </p>`;
-            })
-          }
-          </div>
-          <h3 style="color: #338DFF;">👑 AWARDS</h3>
-          <div>
-          ${
-            data.achievement &&
-            data.achievement.map((e) => {
-              return `<p>· ${e.name}, ${e.company}, ${e.year}</p>`;
-            })
-          }
-          </div>
-          <h3 style="color: #338DFF;">✏️ LANGUAGE</h3>
-          <div>
-          ${
-            data.language &&
-            data.language.map((e) => {
-              return `<p>· <span style="color: blue;">${e.level}</span>: , ${e.country},</p>`;
-            })
-          }
-          </div>
-          <h2 style="color:#338DFF ;">DETAILED SKILLS & ACHIEVEMENTS</h2>
-          ${
-            data.skill &&
-            ` <p>✓ ${data.skill.advantage1}</p>
-          <p>✓ ${data.skill.advantage2}</p>
-          <p>✓ ${data.skill.advantage3}</p>
-          <p>✓ ${data.skill.advantage4}</p>
-          <p>✓ ${data.skill.disAdvantage1}</p>
-          <p>✓ ${data.skill.disAdvantage2}</p>
-          <p>✓ ${data.skill.disAdvantage3}</p>
-          <p>✓ ${data.skill.disAdvantage4}</p>
-          `
-          }
-      </div>
-  </body>
-  </html>
-  `;
+        <h3> <span style="color: #338DFF;">⭐EXPERIENCES </span></h3>
+        <div>
+        ${experiences}
+         </div>
+         <h3 style="color: #338DFF;">🎓 EDUCATION</h3>
+            <div>
+          ${courses}
+            </div>
+            <h3 style="color: #338DFF;">👑 AWARDS</h3>
+            <div>
+           ${achievements}
+            </div>
+            <h3 style="color: #338DFF;">✏️ LANGUAGE</h3>
+            <div>
+           ${languages}
+            </div>
+            <h2 style="color:#338DFF ;">DETAILED SKILLS & ACHIEVEMENTS</h2>
+            <div>
+            ${skills}
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+    return html;
+  };
   const printToFile = async () => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     const { uri } = await Print.printToFileAsync({
-      html,
+      html: createDynamicData(),
     });
     await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
   };
-
   return (
     <SafeAreaView style={{ backgroundColor: colors.header }}>
       <CompanyHeader isBack={true} />
