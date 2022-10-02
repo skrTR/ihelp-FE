@@ -12,7 +12,7 @@ import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import PostSettings from "../screens/Network/PostSettings";
 import EditPost from "../screens/Network/EditPost";
-import BoostPost from "../screens/Profile/User/Wallet/BoostPost";
+import BoostPost from "../screens/Profile/Wallet/BoostPost";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";

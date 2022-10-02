@@ -1,18 +1,11 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  TextInput,
-  FlatList,
-  Image,
-  SafeAreaView,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View, TextInput, FlatList } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import EmployeeData from "../../components/Search/Company/EmployeeData";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import UserContext from "../../context/UserContext";
 
 const AllCompanySearch = () => {
   const [filterData, setFilterData] = useState([]);
@@ -20,6 +13,8 @@ const AllCompanySearch = () => {
   const [search, setSearch] = useState("");
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const insents = useSafeAreaInsets();
+  const state = useContext(UserContext);
   useEffect(() => {
     fetchCompany();
     return () => {};
@@ -31,7 +26,6 @@ const AllCompanySearch = () => {
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
-        setMasterData(responseJson.resullt);
       })
       .catch((error) => {
         alert(error);
@@ -53,9 +47,11 @@ const AllCompanySearch = () => {
       setSearch(text);
     }
   };
-
+  const filtered = filterData.filter((obj) => {
+    return obj.id !== state.companyId;
+  });
   return (
-    <SafeAreaView style={{ backgroundColor: "#141414", height: "100%" }}>
+    <View style={{ marginTop: insents.top }}>
       <View
         style={{
           flexDirection: "row",
@@ -92,8 +88,9 @@ const AllCompanySearch = () => {
           }}
         />
       </View>
+
       <FlatList
-        data={filterData}
+        data={filtered}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => {
           return <EmployeeData item={item} isFollowing={item.isFollowing} />;
@@ -109,12 +106,12 @@ const AllCompanySearch = () => {
                 marginVertical: 20,
               }}
             >
-              Ажил хайгч компани
+              Бүх компани
             </Text>
           </>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

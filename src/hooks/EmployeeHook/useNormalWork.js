@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
+import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [normalWork, setNormalWork] = useState([]);
 
   const [normalError, setNormalError] = useState(null);
   const [normalLoading, setNormalLoading] = useState(false);
-
-  useEffect(() => {
-    setNormalLoading(true);
+  const isFocused = useIsFocused();
+  let isMoutned = true;
+  const getData = () => {
     axios
       .get(`${api}/api/v1/announcements/unspecials`)
       .then((result) => {
-        setNormalWork(result.data.data);
-        setNormalError(null);
-        setNormalLoading(false);
+        if (isMoutned) {
+          setNormalWork(result.data.data);
+          setNormalError(null);
+          setNormalLoading(false);
+        }
       })
       .catch((err) => {
         let message = err.message;
@@ -27,7 +30,14 @@ export default (refresh) => {
         setNormalError(message);
         setNormalLoading(false);
       });
-  }, [refresh]);
+  };
+  useEffect(() => {
+    setNormalLoading(true);
+    getData();
+    () => {
+      isMoutned = false;
+    };
+  }, [isFocused]);
 
   return [normalWork, normalError, normalLoading];
 };

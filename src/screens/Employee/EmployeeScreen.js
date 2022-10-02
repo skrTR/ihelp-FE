@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Animated } from "react-native";
+import { View, TouchableOpacity, Animated, useColorScheme } from "react-native";
 import React, { useContext } from "react";
 import { useTheme } from "@react-navigation/native";
 
@@ -14,6 +14,7 @@ const EmployeeScreen = () => {
   const { colors } = useTheme();
   const Tab = createMaterialTopTabNavigator();
   const insents = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
   function MyTabBar({ state, descriptors, navigation, position }) {
     return (
       <View style={{ flexDirection: "row" }}>
@@ -62,7 +63,14 @@ const EmployeeScreen = () => {
                 borderRadius: 10,
                 borderWidth: 1,
                 borderColor: "white",
-                backgroundColor: !isFocused ? colors.background : "white",
+                backgroundColor:
+                  colorScheme === "dark"
+                    ? !isFocused
+                      ? colors.background
+                      : "white"
+                    : colorScheme === "light" && !isFocused
+                    ? colors.background
+                    : "#FFB6C1",
               }}
             >
               <Animated.Text
@@ -70,7 +78,15 @@ const EmployeeScreen = () => {
                   opacity,
                   fontWeight: "bold",
                   paddingHorizontal: 30,
-                  color: isFocused ? colors.background : colors.primaryText,
+                  color:
+                    colorScheme === "dark"
+                      ? isFocused
+                        ? colors.background
+                        : colors.primaryText
+                      : colorScheme === "light" && isFocused
+                      ? "black"
+                      : colors.primaryText,
+
                   textAlign: "center",
                 }}
               >
@@ -84,7 +100,9 @@ const EmployeeScreen = () => {
   }
   return (
     <>
-      <View style={{ marginTop: insents.top }} />
+      <View
+        style={{ paddingTop: insents.top, backgroundColor: colors.header }}
+      />
       {state.isCompany ? (
         <CompanyHeader isEmployeeAddWork={true} isSearch={true} />
       ) : (

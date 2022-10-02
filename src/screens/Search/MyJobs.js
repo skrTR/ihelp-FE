@@ -12,9 +12,6 @@ const MyJobs = () => {
       .get(
         `${api}/api/v1/jobs/filters?limit=1000&select=percent profile salary type firstName occupationName`
       )
-      // .get(
-      //   `${api}/api/v1/jobs/filters?select=createUser occupation salary type percent&limit=1000`
-      // )
       .then((res) => {
         setJobs(res.data.data);
       })

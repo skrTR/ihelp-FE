@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
+import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [specialCompany, setSpecialCompany] = useState([]);
 
   const [specialCompanyError, setSpecialCompanyError] = useState(null);
   const [specialCompanyLoading, setSpecialCompanyLoading] = useState(false);
-
-  useEffect(() => {
-    setSpecialCompanyLoading(true);
+  const isFocused = useIsFocused();
+  let isMoutned = true;
+  const getData = () => {
     axios
       .get(`${api}/api/v1/profiles/specials/employee`)
       .then((result) => {
-        setSpecialCompany(result.data.data);
-        setSpecialCompanyError(null);
-        setSpecialCompanyLoading(false);
+        if (isMoutned) {
+          setSpecialCompany(result.data.data);
+          setSpecialCompanyError(null);
+          setSpecialCompanyLoading(false);
+        }
       })
       .catch((err) => {
         let message = err.message;
@@ -27,7 +30,14 @@ export default (refresh) => {
         setSpecialCompanyError(message);
         setSpecialCompanyLoading(false);
       });
-  }, [refresh]);
+  };
+  useEffect(() => {
+    setSpecialCompanyLoading(true);
+    getData();
+    () => {
+      isMoutned = false;
+    };
+  }, [refresh, isFocused]);
 
   return [specialCompany, specialCompanyError, specialCompanyLoading];
 };

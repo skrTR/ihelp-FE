@@ -19,7 +19,6 @@ import CustomSearchedModal from "../screens/Search/Work/CustomSearchedModal";
 import AllCompanySearch from "../screens/Search/AllCompanySearch";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
-import CompanyWorkDetail from "../screens/Profile/Company/CompanyWorkDetail";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import EmployerWorkDetail from "../screens/Employer/EmployerWorkDetail";
 import FollowedCompany from "../screens/Search/FollowedCompany";
@@ -159,16 +158,7 @@ const SearchGroup = () => {
             headerLeft: () => <MyBackButton />,
           }}
         />
-        <SearchStack.Screen
-          name="CompanyWorkDetail"
-          component={CompanyWorkDetail}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Ажлын зар",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <SearchStack.Screen
           name="ViewUserProfile"
           component={ViewUserProfile}

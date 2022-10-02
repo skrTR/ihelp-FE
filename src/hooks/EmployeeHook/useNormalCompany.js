@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
+import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [normalCompany, setNormalCompany] = useState([]);
 
   const [normalCompanyError, setNormalCompanyError] = useState(null);
   const [normalCompanyLoading, setNormalCompanyLoading] = useState(false);
-
-  useEffect(() => {
-    setNormalCompanyLoading(true);
+  const isFocused = useIsFocused();
+  let isMounted = true;
+  const getData = () => {
     axios
       .get(`${api}/api/v1/profiles/unspecials/employee`)
       .then((result) => {
-        setNormalCompany(result.data.data);
-        setNormalCompanyError(null);
-        setNormalCompanyLoading(false);
+        if (isMounted) {
+          setNormalCompany(result.data.data);
+          setNormalCompanyError(null);
+          setNormalCompanyLoading(false);
+        }
       })
       .catch((err) => {
         let message = err.message;
@@ -27,7 +30,14 @@ export default (refresh) => {
         setNormalCompanyError(message);
         setNormalCompanyLoading(false);
       });
-  }, [refresh]);
+  };
+  useEffect(() => {
+    setNormalCompanyLoading(true);
+    getData();
+    () => {
+      isMounted = false;
+    };
+  }, [refresh, isFocused]);
 
   return [normalCompany, normalCompanyError, normalCompanyLoading];
 };

@@ -78,9 +78,10 @@ const PersonLoginScreen = () => {
                 textAlign: "center",
                 fontSize: 25,
                 color: "#765097",
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Person
+              Хувь хүн
             </Text>
           </View>
         </ImageBackground>
@@ -119,42 +120,41 @@ const PersonLoginScreen = () => {
                 </Text>
               </ImageBackground>
             </TouchableOpacity>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 15,
-                position: "absolute",
-                top: 100,
-                alignSelf: "center",
-                color: "black",
-              }}
-            >
-              Бүртгүүлэх бол{" "}
+            <View style={{ flex: 1, marginBottom: 20 }}>
               <Text
-                style={{ color: colors.primary }}
-                onPress={() => navigation.navigate("PersonSignUpScreen")}
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                  alignSelf: "center",
+                  color: "black",
+                  marginBottom: 10,
+                }}
               >
-                энд дар
-              </Text>{" "}
-            </Text>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 15,
-                position: "absolute",
-                top: 130,
-                alignSelf: "center",
-                color: "black",
-              }}
-            >
-              Хэрэв та нууц үгээ мартсан бол{" "}
+                Бүртгүүлэх бол{" "}
+                <Text
+                  style={{ color: colors.primary }}
+                  onPress={() => navigation.navigate("PersonSignUpScreen")}
+                >
+                  энд дар
+                </Text>{" "}
+              </Text>
               <Text
-                style={{ color: colors.primary }}
-                onPress={() => navigation.navigate("ResetPasswordScreen")}
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                  alignSelf: "center",
+                  color: "black",
+                }}
               >
-                энд дар
-              </Text>{" "}
-            </Text>
+                Хэрэв та нууц үгээ мартсан бол{" "}
+                <Text
+                  style={{ color: colors.primary }}
+                  onPress={() => navigation.navigate("ResetPasswordScreen")}
+                >
+                  энд дар
+                </Text>{" "}
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -19,19 +18,26 @@ import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
 import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const ViewCompanyProfile = (props) => {
   const { id } = props.route.params;
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [companyProfile] = useCompanyProfile(id);
   const [companyJobs, loading] = useCompanyJobs(id);
+  const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   if (!companyProfile) {
     return null;
   }
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View
+      style={{
+        backgroundColor: colors.header,
+        paddingTop: insents.top,
+      }}
+    >
       <ScrollView showsVerticalScrollIndicator={false}>
         {state.isCompany ? (
           <CompanyHeader isBack={true} />
@@ -118,7 +124,6 @@ const ViewCompanyProfile = (props) => {
                         occupation={data.occupationName}
                         type={data.type}
                         salary={data.salary}
-                        count={data.count}
                       />
                     </View>
                   );
@@ -128,7 +133,7 @@ const ViewCompanyProfile = (props) => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -4,27 +4,30 @@ import {
   FlatList,
   Image,
   TextInput,
-  SafeAreaView,
   ImageBackground,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { api } from "../../../Constants";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import UserData from "../../components/Search/User/UserData";
+import UserContext from "../../context/UserContext";
 const UserSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [search, setSearch] = useState("");
+  const insents = useSafeAreaInsets();
+  const state = useContext(UserContext);
   useEffect(() => {
     fetchUser();
     return () => {};
   }, []);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession&organization=false&limit=1000`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing&organization=false&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -52,73 +55,11 @@ const UserSearch = () => {
       setSearch(text);
     }
   };
-  const ItemView = ({ item }) => {
-    return (
-      <TouchableOpacity
-        style={{
-          flexDirection: "row",
-          marginHorizontal: 10,
-          alignItems: "center",
-        }}
-        onPress={() => navigation.navigate("ViewUserProfile", { id: item._id })}
-      >
-        <ImageBackground
-          style={{ width: 50, height: 50 }}
-          source={{ uri: `${api}/upload/${item.profile}` }}
-          imageStyle={{ borderRadius: 50 }}
-        >
-          <Image
-            source={
-              item.status === "opentowork"
-                ? require("../../../assets/open.png")
-                : item.status === "lookingForJob"
-                ? require("../../../assets/looking.png")
-                : item.status === "getEmployee"
-                ? require("../../../assets/hiring.png")
-                : null
-            }
-            style={{ width: 54, height: 54, right: 2, bottom: 2 }}
-          />
-        </ImageBackground>
-        <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: colors.primaryText }}>
-            {item.lastName} {item.firstName} {console.log(item)}
-            {item.isApproved && (
-              <View
-                style={{
-                  backgroundColor: colors.primary,
-                  borderRadius: 50,
-                  alignItems: "center",
-                  alignContent: "center",
-                }}
-              >
-                <AntDesign name="check" size={10} color={colors.primaryText} />
-              </View>
-            )}
-          </Text>
-          <Text style={{ color: colors.secondaryText }}>
-            {item.profession && `${item.profession}`}
-            {item.workingCompany && `@${item.workingCompany}`}
-          </Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
-
-  const ItemSeparatorView = () => {
-    return (
-      <View
-        style={{
-          height: 0.5,
-          width: "100%",
-          backgroundColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-    );
-  };
+  const filtered = filterData.filter((obj) => {
+    return obj.id !== state.userId;
+  });
   return (
-    <SafeAreaView>
+    <View style={{ marginTop: insents.top }}>
       <View
         style={{
           flexDirection: "row",
@@ -155,10 +96,11 @@ const UserSearch = () => {
       />
       {filterData.length > 0 ? (
         <FlatList
-          data={filterData}
+          data={filtered}
           keyExtractor={(item, index) => index}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
+          renderItem={({ item }) => {
+            return <UserData item={item} isFollowing={item.isFollowing} />;
+          }}
           ListHeaderComponent={
             <>
               <Text
@@ -178,7 +120,7 @@ const UserSearch = () => {
       ) : (
         <Text>Хоосон</Text>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

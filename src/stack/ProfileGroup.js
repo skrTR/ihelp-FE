@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import CompanyProfileScreen from "../screens/Profile/Company/CompanyProfileScreen";
 import UserProfileScreen from "../screens/Profile/User/UserProfileScreen";
-import WalletScreen from "../screens/Profile/User/Wallet/WalletScreen";
-import SendMoneyScreen from "../screens/Profile/User/Wallet/SendMoneyScreen";
-import QpayModal from "../screens/Profile/User/Wallet/QpayModals";
+import WalletScreen from "../screens/Profile/Wallet/WalletScreen";
+import SendMoneyScreen from "../screens/Profile/Wallet/SendMoneyScreen";
+import QpayModal from "../screens/Profile/Wallet/QpayModals";
 import MyBackButton from "../components/Header/MyBackButton";
 import CreateCvScreen from "../screens/Profile/User/Edit/CreateCvScreen";
 import PersonalDetailModal from "../screens/Profile/User/Edit/PersonalDetailModal";
@@ -31,9 +31,9 @@ import CompanySettingModal from "../screens/Profile/Company/CompanySetting/Compa
 import CompanyCreatedWork from "../screens/Profile/Company/CompanySetting/CompanyCreateWork";
 import CompanyUsedProduct from "../screens/Profile/Company/CompanySetting/CompanyUsedProduct";
 import CompanyRecievedCv from "../screens/Profile/Company/CompanySetting/CompanyRecievedCv";
-import PointUseScreen from "../screens/Profile/User/Wallet/PointUseScreen";
-import ProductUsePoint from "../screens/Profile/User/Wallet/ProductUsePoint";
-import BoostPost from "../screens/Profile/User/Wallet/BoostPost";
+import PointUseScreen from "../screens/Profile/Wallet/PointUseScreen";
+import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
+import BoostPost from "../screens/Profile/Wallet/BoostPost";
 import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
 import ChangeAccountModal from "../screens/Profile/ChangeAccountModal";
@@ -56,13 +56,12 @@ import ChangePasswordModal from "../screens/Profile/User/Settings/ChangePassword
 import UserVerifyScreen from "../screens/Profile/User/Settings/UserVerifyScreen";
 import AddPostScreen from "../screens/Network/AddPostScreen";
 import ViewCompanyProfile from "../screens/Dynamic/ViewCompanyProfile";
-import CompanyWorkDetail from "../screens/Profile/Company/CompanyWorkDetail";
 import ViewUserProfile from "../screens/Dynamic/ViewUserProfile";
 import NetworkingPostDetailScreen from "../screens/Network/NetworkingPostDetailScreen";
 import CompanyPortfolia from "../screens/Profile/Company/CompanyEditCoverProfile/CompanyPortfolia";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import ChangeCompanyPassword from "../screens/Profile/Company/CompanySetting/ChangeCompanyPassword";
-import WorkBoostModal from "../screens/Profile/User/Wallet/WorkBoostModal";
+import WorkBoostModal from "../screens/Profile/Wallet/WorkBoostModal";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
@@ -73,6 +72,7 @@ import AddPortfolio from "../screens/Profile/AddPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import CvDetailScreen from "../components/Cv/CvDetailScreen";
 import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
+import PointTypeScreen from "../screens/Profile/Wallet/PointTypeScreen";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -749,6 +749,14 @@ const ProfileGroup = () => {
           }}
         />
         <ProfileStack.Screen
+          name="PointTypeScreen"
+          component={PointTypeScreen}
+          options={{
+            headerShown: false,
+            fullScreenGestureEnabled: true,
+          }}
+        />
+        <ProfileStack.Screen
           name="ViewUserProfile"
           component={ViewUserProfile}
           options={{
@@ -766,16 +774,7 @@ const ProfileGroup = () => {
             headerLeft: () => <MyBackButton />,
           }}
         />
-        <ProfileStack.Screen
-          name="CompanyWorkDetail"
-          component={CompanyWorkDetail}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Ажлын зар",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <ProfileStack.Screen
           name="ViewUserPosts"
           component={ViewUserPost}

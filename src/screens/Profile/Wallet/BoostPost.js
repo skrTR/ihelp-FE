@@ -10,9 +10,9 @@ import {
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
-import { api } from "../../../../../Constants";
-import UserContext from "../../../../context/UserContext";
-import MyButton from "../../../../components/MyButton";
+import { api } from "../../../../Constants";
+import UserContext from "../../../context/UserContext";
+import MyButton from "../../../components/MyButton";
 
 const BoostPost = (props) => {
   const { data } = props.route.params;
@@ -84,7 +84,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/header.png")
+                : require("../../../../assets/header.png")
             }
             style={{
               width: "90%",
@@ -146,7 +146,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/header.png")
+                : require("../../../../assets/header.png")
             }
             style={{
               width: "90%",
@@ -208,7 +208,7 @@ const BoostPost = (props) => {
             source={
               data.photo
                 ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../../assets/header.png")
+                : require("../../../../assets/header.png")
             }
             style={{
               width: "90%",

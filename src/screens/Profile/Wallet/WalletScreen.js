@@ -19,11 +19,11 @@ import {
   MaterialIcons,
 } from "@expo/vector-icons";
 import moment from "moment";
-import UserContext from "../../../../context/UserContext";
-import { api } from "../../../../../Constants";
-import Header from "../../../../components/Header/Header";
-import CompanyHeader from "../../../../components/Header/CompanyHeader";
-import Loading from "../../../../components/Loading";
+import UserContext from "../../../context/UserContext";
+import { api } from "../../../../Constants";
+import Header from "../../../components/Header/Header";
+import CompanyHeader from "../../../components/Header/CompanyHeader";
+import Loading from "../../../components/Loading";
 const WalletScreen = ({ route }) => {
   const { point } = route.params;
   const { colors } = useTheme();

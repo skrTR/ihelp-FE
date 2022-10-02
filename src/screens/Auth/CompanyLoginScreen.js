@@ -85,9 +85,10 @@ const CompanyLoginScreen = () => {
                 textAlign: "center",
                 fontSize: 25,
                 color: colors.primary,
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Company
+              Байгууллага
             </Text>
           </View>
         </ImageBackground>
@@ -129,42 +130,41 @@ const CompanyLoginScreen = () => {
                 </Text>
               </ImageBackground>
             </TouchableOpacity>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 15,
-                position: "absolute",
-                top: 100,
-                alignSelf: "center",
-                color: "black",
-              }}
-            >
-              Бүртгүүлэх бол{" "}
+            <View style={{ flex: 1, marginBottom: 20 }}>
               <Text
-                style={{ color: colors.primary }}
-                onPress={() => navigation.navigate("CompanySignUpScreen")}
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                  alignSelf: "center",
+                  color: "black",
+                }}
               >
-                энд дар
-              </Text>{" "}
-            </Text>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 15,
-                position: "absolute",
-                top: 130,
-                alignSelf: "center",
-                color: "black",
-              }}
-            >
-              Хэрэв та нууц үгээ мартсан бол{" "}
+                Бүртгүүлэх бол{" "}
+                <Text
+                  style={{ color: colors.primary }}
+                  onPress={() => navigation.navigate("CompanySignUpScreen")}
+                >
+                  энд дар
+                </Text>{" "}
+              </Text>
               <Text
-                style={{ color: colors.primary }}
-                onPress={() => navigation.navigate("CompanyResetPassword")}
+                style={{
+                  textAlign: "center",
+                  fontSize: 15,
+                  alignSelf: "center",
+                  color: "black",
+                  marginTop: 10,
+                }}
               >
-                энд дар
-              </Text>{" "}
-            </Text>
+                Хэрэв та нууц үгээ мартсан бол{" "}
+                <Text
+                  style={{ color: colors.primary }}
+                  onPress={() => navigation.navigate("CompanyResetPassword")}
+                >
+                  энд дар
+                </Text>{" "}
+              </Text>
+            </View>
           </View>
         </View>
       </ScrollView>

@@ -99,9 +99,10 @@ const PersonSignUpScreen2 = (props) => {
                 textAlign: "center",
                 fontSize: 25,
                 color: "#765097",
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Person
+              Хувь хүн
             </Text>
           </View>
         </ImageBackground>
@@ -141,47 +142,50 @@ const PersonSignUpScreen2 = (props) => {
             }}
           />
           {counter > 0 ? (
-            <Text style={{ textAlign: "right", marginRight: 10 }}>
+            <Text
+              style={{
+                textAlign: "right",
+                marginRight: 10,
+                paddingBottom: 100,
+              }}
+            >
               {" "}
               Дахин мессеж илгээх 00:{counter}{" "}
             </Text>
           ) : (
-            <TouchableOpacity
+            <Text
               style={{
+                textAlign: "right",
                 marginRight: 10,
-                backgroundColor: "#765097",
-                alignSelf: "flex-end",
-                padding: 10,
-                borderRadius: 10,
+                paddingBottom: 100,
               }}
               onPress={() => {
                 sendMessage();
                 setCounter(59);
               }}
             >
-              <Text style={{ textAlign: "right" }}>Дахин мессеж илгээх</Text>
-            </TouchableOpacity>
+              Дахин мессеж илгээх
+            </Text>
           )}
-
-          <TouchableOpacity style={{}} onPress={signUpHandler}>
-            <ImageBackground
-              source={require("../../../assets/ihelp/personbutton.png")}
-              style={{ height: 100 }}
-            >
-              <Text
-                style={{
-                  top: 45,
-                  fontSize: 18,
-                  color: "white",
-                  textAlign: "center",
-                }}
-              >
-                Нэвтрэх
-              </Text>
-            </ImageBackground>
-          </TouchableOpacity>
         </View>
       </ScrollView>
+      <TouchableOpacity style={{}} onPress={signUpHandler}>
+        <ImageBackground
+          source={require("../../../assets/ihelp/personbutton.png")}
+          style={{ height: 100 }}
+        >
+          <Text
+            style={{
+              top: 45,
+              fontSize: 18,
+              color: "white",
+              textAlign: "center",
+            }}
+          >
+            Нэвтрэх
+          </Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 };

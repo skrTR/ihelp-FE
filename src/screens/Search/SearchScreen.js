@@ -1,9 +1,9 @@
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
@@ -12,12 +12,13 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import axios from "axios";
 import { api } from "../../../Constants";
-
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const SearchScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [score, setScore] = useState();
+  const insents = useSafeAreaInsets();
   const getScore = () => {
     axios
       .get(`${api}/api/v1/questionnaires/${state.userId}?select=score`)
@@ -33,7 +34,7 @@ const SearchScreen = () => {
   }, []);
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: colors.header }}>
+      <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
         {state.isCompany ? (
           <CompanyHeader isNotification={true} isFollowedCompany={true} />
         ) : (
@@ -62,7 +63,7 @@ const SearchScreen = () => {
 
               borderWidth: 1,
               borderRadius: 20,
-              marginVertical: 10,
+              marginTop: 10,
               borderColor: colors.border,
             }}
             onPress={() => navigation.navigate("CompanySearch")}
@@ -80,9 +81,10 @@ const SearchScreen = () => {
                 borderWidth: 1,
                 borderRadius: 20,
                 borderColor: colors.border,
+                marginTop: 10,
               }}
               onPress={() => {
-                if (score > 80) {
+                if (score > 79) {
                   navigation.navigate("MyJobs");
                 } else {
                   alert(
@@ -102,7 +104,7 @@ const SearchScreen = () => {
               padding: 10,
               borderWidth: 1,
               borderRadius: 20,
-              marginVertical: !state.isCompany && 10,
+              marginTop: 10,
               borderColor: colors.border,
             }}
             onPress={() => navigation.navigate("WorkSearch")}
@@ -119,7 +121,7 @@ const SearchScreen = () => {
               borderRadius: 20,
               borderColor: colors.border,
 
-              // marginTop: state.isCompany && 10,
+              marginTop: 10,
             }}
             onPress={() => navigation.navigate("CategorySearch")}
           >
@@ -143,7 +145,7 @@ const SearchScreen = () => {
             </Text>
           </TouchableOpacity>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 };

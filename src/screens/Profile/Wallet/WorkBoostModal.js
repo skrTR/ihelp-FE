@@ -8,8 +8,8 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import UserContext from "../../../../context/UserContext";
-import { api } from "../../../../../Constants";
+import UserContext from "../../../context/UserContext";
+import { api } from "../../../../Constants";
 import axios from "axios";
 import CountDown from "react-native-countdown-component";
 

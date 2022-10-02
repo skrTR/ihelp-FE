@@ -1,4 +1,4 @@
-import { StyleSheet, View, SafeAreaView, FlatList, Text } from "react-native";
+import { StyleSheet, View, FlatList, Text } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useTheme } from "@react-navigation/native";
@@ -7,11 +7,13 @@ import CompanyHeader from "../../components/Header/CompanyHeader";
 import { api } from "../../../Constants";
 import Cvs from "../../components/Cv/Cvs";
 import UserContext from "../../context/UserContext";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const CvScreen = () => {
   const [cvData, setCvData] = useState([]);
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [point, setPoint] = useState([]);
+  const insents = useSafeAreaInsets();
   let isMounted = true;
   const getPermision = () => {
     axios
@@ -51,7 +53,13 @@ const CvScreen = () => {
     return null;
   }
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header, flex: 1 }}>
+    <View
+      style={{
+        backgroundColor: colors.header,
+        flex: 1,
+        paddingTop: insents.top,
+      }}
+    >
       <CompanyHeader isSearch={true} isNotification={true} />
       {point.point > 1000 ? (
         <View style={{ backgroundColor: colors.background }}>
@@ -95,7 +103,7 @@ const CvScreen = () => {
           </View>
         </View>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 

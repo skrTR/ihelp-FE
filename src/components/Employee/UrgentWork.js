@@ -25,6 +25,7 @@ const UrgentWork = (props) => {
     job,
     urgent,
     salary,
+    createUserId,
   } = props;
 
   const navigation = useNavigation();
@@ -191,28 +192,33 @@ const UrgentWork = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        {!state.isCompany && (
-          <View style={{ flexDirection: "row", marginRight: 10 }}>
-            <Ionicons
-              // send
-              name="send-outline"
-              size={26}
-              color="white"
-              style={{ marginRight: 10, top: 1 }}
-              onPress={() =>
-                navigation.navigate("UserSendWorkRequest", { id: id })
-              }
-            />
-            <Icon
-              name={isLike ? "heart" : "heart-outlined"}
-              size={30}
-              color={"white"}
-              onPress={isLike ? unLiked : liked}
-              style={{ textAlign: "right" }}
-            />
-          </View>
+        {createUserId === state.companyId ? (
+          <Text></Text>
+        ) : (
+          !state.isCompany && (
+            <View style={{ flexDirection: "row", marginRight: 10 }}>
+              <Ionicons
+                // send
+                name="send-outline"
+                size={26}
+                color="white"
+                style={{ marginRight: 10, top: 1 }}
+                onPress={() =>
+                  navigation.navigate("UserSendWorkRequest", { id: id })
+                }
+              />
+              <Icon
+                name={isLike ? "heart" : "heart-outlined"}
+                size={30}
+                color={"white"}
+                onPress={isLike ? unLiked : liked}
+                style={{ textAlign: "right" }}
+              />
+            </View>
+          )
         )}
       </View>
+
       {urgent && <DataCountDown createdAt={urgent} />}
     </View>
   );

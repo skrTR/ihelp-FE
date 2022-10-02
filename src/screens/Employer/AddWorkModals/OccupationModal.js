@@ -67,7 +67,7 @@ const OccupationModal = (props) => {
         }}
       >
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: colors.secondaryText }}>{item.name}</Text>
+          <Text style={{ color: colors.primaryText }}>{item.name}</Text>
         </View>
       </TouchableOpacity>
     );

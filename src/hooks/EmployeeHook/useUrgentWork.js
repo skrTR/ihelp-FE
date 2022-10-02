@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
+import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [urgentWork, setUrgentWork] = useState([]);
   const [urgentError, setUrgentError] = useState(null);
   const [urgentLoading, setUrgentLoading] = useState(false);
-
-  useEffect(() => {
-    setUrgentLoading(true);
+  const isFocused = useIsFocused();
+  let isMounted = true;
+  const getData = () => {
     axios
       .get(`${api}/api/v1/announcements/urgents`)
       .then((result) => {
-        setUrgentWork(result.data.data);
-        setUrgentError(null);
-        setUrgentLoading(false);
+        if (isMounted) {
+          setUrgentWork(result.data.data);
+          setUrgentError(null);
+          setUrgentLoading(false);
+        }
       })
       .catch((err) => {
         let message = err.message;
@@ -26,7 +29,13 @@ export default (refresh) => {
         setUrgentError(message);
         setUrgentLoading(false);
       });
-  }, [refresh]);
+  };
+  useEffect(() => {
+    getData();
+    () => {
+      isMounted = false;
+    };
+  }, [refresh, isFocused]);
 
   return [urgentWork, urgentError, urgentLoading];
 };

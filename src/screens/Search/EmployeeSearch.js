@@ -6,18 +6,22 @@ import {
   FlatList,
   SafeAreaView,
 } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import EmployeeData from "../../components/Search/Company/EmployeeData";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import UserContext from "../../context/UserContext";
 
 const EmployeeSearch = () => {
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [search, setSearch] = useState("");
+  const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const insents = useSafeAreaInsets();
   useEffect(() => {
     fetchCompany();
     return () => {};
@@ -50,8 +54,11 @@ const EmployeeSearch = () => {
       setSearch(text);
     }
   };
+  const filtered = filterData.filter((obj) => {
+    return obj.id !== state.companyId;
+  });
   return (
-    <SafeAreaView style={{ backgroundColor: "#141414", height: "100%" }}>
+    <View style={{ marginTop: insents.top }}>
       <View
         style={{
           flexDirection: "row",
@@ -89,7 +96,7 @@ const EmployeeSearch = () => {
         />
       </View>
       <FlatList
-        data={filterData}
+        data={filtered}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => {
           return <EmployeeData item={item} isFollowing={item.isFollowing} />;
@@ -110,7 +117,7 @@ const EmployeeSearch = () => {
           </>
         }
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

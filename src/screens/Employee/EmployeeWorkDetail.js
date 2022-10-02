@@ -2,7 +2,7 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
+  ImageBackground,
   Alert,
   TouchableOpacity,
   ScrollView,
@@ -11,8 +11,12 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
 import { AntDesign } from "@expo/vector-icons";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import {
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "@expo/vector-icons/Entypo";
 import { Ionicons } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
@@ -25,12 +29,13 @@ const EmployeeWorkDetail = (props) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [isLike, setIsLike] = useState(isLiked);
+  const insents = useSafeAreaInsets();
+  const isFocused = useIsFocused();
   const getWorkDetail = () => {
     axios
       .get(`${api}/api/v1/announcements/${id}`)
       .then((res) => {
         setWorkDetail(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         alert(err);
@@ -38,7 +43,7 @@ const EmployeeWorkDetail = (props) => {
   };
   useEffect(() => {
     getWorkDetail();
-  }, []);
+  }, [isFocused]);
   if (!workDetail) {
     return null;
   }
@@ -65,8 +70,15 @@ const EmployeeWorkDetail = (props) => {
         // alert(err);
       });
   };
+
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header, height: "100%" }}>
+    <View
+      style={{
+        backgroundColor: colors.header,
+        height: "100%",
+        paddingTop: insents.top,
+      }}
+    >
       {state.isCompany ? (
         <CompanyHeader isBack={true} />
       ) : (
@@ -99,12 +111,57 @@ const EmployeeWorkDetail = (props) => {
                 padding: 10,
               }}
             >
-              <Image
+              <ImageBackground
                 source={{
                   uri: `${api}/upload/${workDetail.profile}`,
                 }}
-                style={{ width: 80, height: 80, borderRadius: 30 }}
-              />
+                style={{
+                  width: 80,
+                  height: 80,
+                  borderRadius: 30,
+                }}
+                imageStyle={{ borderRadius: 30 }}
+              >
+                {workDetail.isEmployer && (
+                  <View
+                    style={{
+                      backgroundColor: "#ff914d",
+                      borderRadius: 20,
+                      alignItems: "center",
+                      position: "absolute",
+                      alignSelf: "flex-end",
+                      bottom: 0,
+                      padding: 5,
+                    }}
+                  >
+                    <Ionicons
+                      name={"briefcase"}
+                      size={12}
+                      color={colors.primaryText}
+                    />
+                  </View>
+                )}
+                {workDetail.isEmployee && (
+                  <View
+                    style={{
+                      backgroundColor: "#3da4e3",
+                      borderRadius: 20,
+                      alignItems: "center",
+                      position: "absolute",
+                      alignSelf: "flex-end",
+                      bottom: 0,
+                      padding: 5,
+                      right: workDetail.isEmployer ? 20 : 0,
+                    }}
+                  >
+                    <Ionicons
+                      name={"business"}
+                      size={12}
+                      color={colors.primaryText}
+                    />
+                  </View>
+                )}
+              </ImageBackground>
               <View style={{ marginLeft: 10 }}>
                 <Text
                   style={{
@@ -168,118 +225,273 @@ const EmployeeWorkDetail = (props) => {
             </View>
             <View style={{ flexDirection: "row" }}>
               <View>
-                <Text style={{ marginVertical: 4, color: "white" }}>Төрөл</Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Цагийн хуваарь
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Төлбөр
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Байршил
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Хийх ажил
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Туршлага:
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Зөвшөөрөл:
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  Certificate:
-                </Text>
+                {workDetail.occupationName && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Ажиллах чиглэл
+                  </Text>
+                )}
+                {workDetail.do && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Хийх ажил
+                  </Text>
+                )}
+                {workDetail.startDate && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Эхлэх хугацаа
+                  </Text>
+                )}
+
+                {workDetail.time && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Гүйцэтгэх хугацаа
+                  </Text>
+                )}
+                {workDetail.price && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Төлбөр
+                  </Text>
+                )}
+
+                {workDetail.location && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Байршил
+                  </Text>
+                )}
+                {workDetail.experience && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Ур чадвар:
+                  </Text>
+                )}
+                {workDetail.workerNumber && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Ажилчдын тоо:
+                  </Text>
+                )}
+                {workDetail.specialPermission && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Зөвшөөрөл:
+                  </Text>
+                )}
+                {workDetail.certificate && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Certificate:
+                  </Text>
+                )}
+                {workDetail.description && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    Тайлбар:
+                  </Text>
+                )}
               </View>
               <View style={{ marginLeft: 10 }}>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  {workDetail.occupation && workDetail.occupation.name}
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  {workDetail.time}
-                </Text>
-                <Text style={{ marginVertical: 4, color: "white" }}>
-                  {workDetail.price}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    top: 4,
-                  }}
-                >
-                  {workDetail.location}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    top: 12,
-                  }}
-                >
-                  {workDetail.do}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    top: 20,
-                  }}
-                >
-                  {workDetail.experience}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    top: 30,
-                  }}
-                >
-                  {workDetail.specialPermission}
-                </Text>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    top: 30,
-                  }}
-                >
-                  {workDetail.certificate}
-                </Text>
+                {workDetail.occupationName && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    {workDetail.occupationName}
+                  </Text>
+                )}
+
+                {workDetail.do && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.do}
+                  </Text>
+                )}
+
+                {workDetail.startDate && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    {workDetail.startDate}
+                  </Text>
+                )}
+
+                {workDetail.time && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    {workDetail.time}
+                  </Text>
+                )}
+
+                {workDetail.price && (
+                  <Text style={{ color: colors.primaryText, marginTop: 8 }}>
+                    {workDetail.price}
+                  </Text>
+                )}
+                {workDetail.location && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.location}
+                  </Text>
+                )}
+
+                {workDetail.experience && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.experience}
+                  </Text>
+                )}
+                {workDetail.specialPermission && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.specialPermission}
+                  </Text>
+                )}
+
+                {workDetail.certificate && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.certificate}
+                  </Text>
+                )}
+                {workDetail.workerNumber && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                    }}
+                  >
+                    {workDetail.workerNumber} хүнтэй
+                  </Text>
+                )}
+                {workDetail.description && (
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      marginTop: 8,
+                      width: workDetail.description.length > 40 ? "30%" : "90%",
+                    }}
+                  >
+                    {workDetail.description}
+                  </Text>
+                )}
               </View>
             </View>
+            {workDetail.createUser === state.companyId && (
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  marginTop: 8,
+                }}
+              >
+                Зарыг үзсэн хүмүүсийн тоо: {workDetail.count}
+              </Text>
+            )}
           </View>
         </View>
       </ScrollView>
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#2c3539",
-          borderTopRightRadius: 20,
-          position: "absolute",
-          left: 0,
-          right: 0,
-          padding: 20,
-          borderTopLeftRadius: 20,
-          bottom: 0,
-        }}
-        onPress={() =>
-          navigation.navigate("CompanySendWorkRequest", { id: id })
-        }
-      >
-        <Text
+
+      {!state.isCompany ? (
+        <TouchableOpacity
           style={{
-            textAlign: "center",
-            fontSize: 20,
-            color: colors.primaryText,
-            bottom: 5,
+            backgroundColor: "#2c3539",
+            alignItems: "center",
+            borderRadius: 20,
           }}
+          onPress={() =>
+            navigation.navigate("CompanySendWorkRequest", { id: id })
+          }
         >
-          Ажлын санал тавих
-          <Ionicons
-            // send
-            name="send-outline"
-            size={20}
-            color={colors.primaryText}
-            style={{}}
-          />
-        </Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+          <View
+            style={{
+              backgroundColor: "#2c3539",
+              width: "90%",
+              padding: 20,
+            }}
+          >
+            {isCvSent ? (
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "white",
+                  bottom: 5,
+                }}
+              >
+                Ажлын санал тавих{"  "}
+                <Ionicons
+                  // send
+                  name="send-outline"
+                  size={20}
+                  color={colors.primaryText}
+                  style={{}}
+                />
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "white",
+                  bottom: 5,
+                }}
+              >
+                Анкет илгээх{" "}
+                <Ionicons
+                  // send
+                  name="send-outline"
+                  size={20}
+                  color={colors.primaryText}
+                  style={{}}
+                />
+              </Text>
+            )}
+          </View>
+        </TouchableOpacity>
+      ) : state.companyId === workDetail.createUser ? (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#2c3539",
+            borderRadius: 20,
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+          onPress={() =>
+            navigation.navigate("EmployeeEditWork", { data: workDetail })
+          }
+        >
+          <View
+            style={{
+              backgroundColor: "#2c3539",
+            }}
+          >
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 20,
+                color: "white",
+                padding: 15,
+              }}
+            >
+              Зарыг янзлах{"  "}
+              <Ionicons
+                // send
+                name="settings-outline"
+                size={20}
+                color={colors.primaryText}
+                style={{}}
+              />
+            </Text>
+          </View>
+        </TouchableOpacity>
+      ) : null}
+    </View>
   );
 };
 

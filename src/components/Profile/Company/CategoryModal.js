@@ -23,7 +23,6 @@ const CategoryModal = ({
       transparent={true}
       visible={categoryModal}
       onRequestClose={() => {
-        Alert.alert("Modal has been closed.");
         setCategoryModal(!categoryModal);
       }}
     >

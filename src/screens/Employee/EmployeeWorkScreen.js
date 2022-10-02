@@ -21,6 +21,7 @@ const EmployeeWorkScreen = () => {
               <View key={data._id}>
                 <UrgentWork
                   id={data._id}
+                  createUserId={data.createUser}
                   createUserName={data.firstName}
                   createUserProfile={data.profile}
                   isEmployer={data.isEmployer}

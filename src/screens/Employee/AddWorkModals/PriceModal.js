@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 15,
     padding: 10,
-    fontFamily: "Sf-bold",
   },
   border: {
     borderWidth: 1,

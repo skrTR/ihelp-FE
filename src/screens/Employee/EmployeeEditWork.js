@@ -3,6 +3,7 @@ import {
   Text,
   View,
   ScrollView,
+  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
@@ -21,51 +22,51 @@ import WorketNumberModal from "./AddWorkModals/WorkerNumberModal";
 import SpecialModal from "../Employee/AddWorkModals/SpecialModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const EmployeeAddWork = () => {
+const EmployeeEditWork = (props) => {
+  const { data } = props.route.params;
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [isType, setIsType] = useState(1);
-  const [normalDay, setNormalDay] = useState(7);
-  const [specialModal, setSpecialModal] = useState(false);
+
   const navigation = useNavigation();
-  const insents = useSafeAreaInsets();
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
-  const [occupationName, setOccupationName] = useState("");
+  const [occupationName, setOccupationName] = useState(
+    data.occupationName ? data.occupationName : ""
+  );
   // нас сонгох модал
   const [priceModal, setPriceModal] = useState(false);
-  const [price, setPrice] = useState("");
+  const [price, setPrice] = useState(data.price ? data.price : "");
   // time modal
   const [timeModal, setTimeModal] = useState(false);
-  const [time, setTime] = useState("");
+  const [time, setTime] = useState(data.time ? data.time : "");
   // ажилчдийн тоо
   const [workerNumberModal, setWorkerNumberModal] = useState(false);
-  const [workerNumber, setWorkerNumber] = useState("");
+  const [workerNumber, setWorkerNumber] = useState(
+    data.workerNumber ? data.workerNumber : ""
+  );
+  const insents = useSafeAreaInsets();
   const sendWork = () => {
     axios
-      .post(`${api}/api/v1/announcements`, addWork)
+      .put(`${api}/api/v1/announcements/${data._id}`, addWork)
       .then((res) => {
         navigation.goBack();
       })
       .catch((err) => alert(err));
   };
   const [addWork, setAddWork] = useState({
-    description: "",
-    do: "",
-    skill: "",
-    location: "",
-    experience: "",
-    specialPermission: "",
-    certificate: "",
-    price: "Сонгох",
-    time: "Сонгох",
-    workerNumber: "Сонгох",
-    occupation: "",
+    description: data.description ? data.description : "",
+    do: data.do ? data.do : "",
+    skill: data.skill ? data.skill : "",
+    location: data.location ? data.location : "",
+    experience: data.experience ? data.experience : "",
+    specialPermission: data.specialPermission ? data.specialPermission : "",
+    certificate: data.certificate ? data.certificate : "",
+    price: data.price ? data.price : "Сонгох",
+    time: data.time ? data.time : "Сонгох",
+    workerNumber: data.workerNumber ? data.workerNumber : "Сонгох",
+    occupation: data.occupation ? data.occupation : "",
     isCompany: true,
     startDate: "",
-    order: 0,
-    urgent: 0,
-    special: 0,
   });
 
   const [error, setError] = useState({
@@ -205,30 +206,12 @@ const EmployeeAddWork = () => {
       workerNumber: text,
     });
   };
-  const checkOrders = (text, type) => {
-    setSpecialModal(!specialModal);
-    if (type === "normal") {
-      setAddWork({
-        ...addWork,
-        order: text,
-      });
-    } else if (type === "special") {
-      setAddWork({
-        ...addWork,
-        special: text,
-      });
-    } else if (type === "urgent") {
-      setAddWork({
-        ...addWork,
-        urgent: text,
-      });
-    }
-  };
+
   if (!notification) {
     return null;
   }
   return (
-    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
+    <View style={{ backgroundColor: "#141414", paddingTop: insents.top }}>
       <CompanyHeader isBack={true} notification={notification.notification} />
       <View style={{ backgroundColor: colors.background }}>
         <ScrollView
@@ -346,21 +329,7 @@ const EmployeeAddWork = () => {
             text={workerNumber === "" ? "Ажилчдын тоо" : workerNumber}
             onPress={checkWorkerNumber}
           />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Зарын төрөл
-          </Text>
-          <MyButton
-            text={
-              isType === 1
-                ? `Энгийн ${normalDay} хоног`
-                : isType === 2
-                ? `Онцгой ${normalDay} хоног`
-                : isType === 3
-                ? `Яаралтай ${normalDay} хоног`
-                : "Зарын төрөл сонгох"
-            }
-            onPress={checkOrders}
-          />
+
           <TouchableOpacity
             style={{
               backgroundColor: "#FFB6C1",
@@ -372,7 +341,7 @@ const EmployeeAddWork = () => {
             }}
             onPress={sendWork}
           >
-            <Text style={{ textAlign: "center", color: "black" }}>Нийтлэх</Text>
+            <Text style={{ textAlign: "center", color: "black" }}>Өөрчлөх</Text>
           </TouchableOpacity>
           <View style={{ marginBottom: 200 }} />
         </ScrollView>
@@ -405,22 +374,11 @@ const EmployeeAddWork = () => {
         setWorkerNumberModal={setWorkerNumberModal}
         checkWorkerNumber={checkWorkerNumber}
       />
-      <SpecialModal
-        setSpecialModal={setSpecialModal}
-        specialModal={specialModal}
-        occupationName={occupationName}
-        salary={price}
-        normalDay={normalDay}
-        setNormalDay={setNormalDay}
-        checkOrders={checkOrders}
-        isType={isType}
-        setIsType={setIsType}
-      />
     </View>
   );
 };
 
-export default EmployeeAddWork;
+export default EmployeeEditWork;
 
 const styles = StyleSheet.create({
   button: {

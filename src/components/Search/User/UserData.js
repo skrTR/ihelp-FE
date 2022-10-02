@@ -1,14 +1,18 @@
-import { Text, View, TouchableOpacity, ImageBackground } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  ImageBackground,
+  Image,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import axios from "axios";
 import { api } from "../../../../Constants";
 import UserContext from "../../../context/UserContext";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import Verify from "../../Verify";
 import FollowButton from "../../FollowButton";
-const EmployeeData = (props) => {
+const UserData = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { isFollowing, item } = props;
@@ -45,7 +49,6 @@ const EmployeeData = (props) => {
         });
     }
   };
-
   return (
     <>
       <View
@@ -66,62 +69,32 @@ const EmployeeData = (props) => {
           }
         >
           <ImageBackground
-            source={{
-              uri: `${api}/upload/${item.profile}`,
-            }}
-            style={{
-              width: 50,
-              height: 50,
-            }}
-            imageStyle={{ borderRadius: 30 }}
+            style={{ width: 50, height: 50 }}
+            source={{ uri: `${api}/upload/${item.profile}` }}
+            imageStyle={{ borderRadius: 50 }}
           >
-            {item.isEmployer && (
-              <View
-                style={{
-                  backgroundColor: "#ff914d",
-                  borderRadius: 20,
-                  alignItems: "center",
-                  position: "absolute",
-                  alignSelf: "flex-end",
-                  bottom: 0,
-                  padding: 5,
-                }}
-              >
-                <Ionicons
-                  name={"briefcase"}
-                  size={6}
-                  color={colors.primaryText}
-                />
-              </View>
-            )}
-            {item.isEmployee && (
-              <View
-                style={{
-                  backgroundColor: "#3da4e3",
-                  borderRadius: 20,
-                  alignItems: "center",
-                  position: "absolute",
-                  alignSelf: "flex-end",
-                  bottom: 0,
-                  padding: 5,
-                  right: item.isEmployer ? 12 : 0,
-                }}
-              >
-                <Ionicons
-                  name={"business"}
-                  size={6}
-                  color={colors.primaryText}
-                />
-              </View>
-            )}
+            <Image
+              source={
+                item.status === "opentowork"
+                  ? require("../../../../assets/open.png")
+                  : item.status === "lookingForJob"
+                  ? require("../../../../assets/looking.png")
+                  : item.status === "getEmployee"
+                  ? require("../../../../assets/hiring.png")
+                  : null
+              }
+              style={{ width: 54, height: 54, right: 2, bottom: 2 }}
+            />
           </ImageBackground>
 
           <View style={{ marginLeft: 10 }}>
             <Text style={{ color: colors.primaryText }}>
-              {item.firstName} {item.isApproved && <Verify size={10} />}
+              {item.lastName} {item.firstName}{" "}
+              {item.isApproved && <Verify size={10} />}
             </Text>
             <Text style={{ color: colors.secondaryText }}>
-              {item.categoryName}
+              {item.profession && `${item.profession}`}
+              {item.workingCompany && `@${item.workingCompany}`}
             </Text>
           </View>
         </TouchableOpacity>
@@ -151,4 +124,4 @@ const EmployeeData = (props) => {
   );
 };
 
-export default EmployeeData;
+export default UserData;

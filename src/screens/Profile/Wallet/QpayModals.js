@@ -10,7 +10,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useTheme } from "@react-navigation/native";
 import * as Linking from "expo-linking";
-import { api } from "../../../../../Constants";
+import { api } from "../../../../Constants";
 const QpayModal = ({ route }) => {
   const { userInvoince } = route.params;
 

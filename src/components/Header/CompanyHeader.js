@@ -1,4 +1,11 @@
-import { Image, View, TouchableOpacity, Text, Alert } from "react-native";
+import {
+  Image,
+  View,
+  TouchableOpacity,
+  Text,
+  Alert,
+  useColorScheme,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -21,6 +28,7 @@ const CompanyHeader = (props) => {
   const state = useContext(UserContext);
   const [companyProfile, setCompanyProfile] = useState(null);
   let isMounted = true;
+  const colorScheme = useColorScheme();
   const loadCompanyProfile = () => {
     axios
       .get(
@@ -48,7 +56,7 @@ const CompanyHeader = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#141414",
+        backgroundColor: colors.header,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         bottom: 0,
@@ -64,9 +72,10 @@ const CompanyHeader = (props) => {
           justifyContent: "space-between",
           alignItems: "center",
           marginHorizontal: 20,
+          width: "100%",
         }}
       >
-        <View>
+        <View style={{ width: "30%" }}>
           {isBack ? (
             <AntDesign
               name="left"
@@ -95,22 +104,39 @@ const CompanyHeader = (props) => {
             />
           ) : null}
         </View>
-        <View>
-          <Image
-            source={require("../../../assets/ihelp/logo.png")}
-            style={{
-              width: 90,
-              height: 50,
-              resizeMode: "contain",
-            }}
-          />
+        <View style={{ width: "30%" }}>
+          {colorScheme === "dark" ? (
+            <Image
+              source={require("../../../assets/ihelp/logo.png")}
+              style={{
+                width: 90,
+                height: 50,
+                resizeMode: "contain",
+              }}
+            />
+          ) : (
+            <Image
+              source={require("../../../assets/logo-dark.png")}
+              style={{
+                width: 90,
+                height: 50,
+                resizeMode: "contain",
+              }}
+            />
+          )}
         </View>
-        <View style={{ flexDirection: "row" }}>
+        <View
+          style={{
+            width: "30%",
+            right: 35,
+          }}
+        >
           {isEmployerAddWork ? (
             <Ionicons
               name="add"
               size={30}
               color={colors.primaryText}
+              style={{ alignSelf: "flex-end" }}
               onPress={() => {
                 companyProfile.isApproved
                   ? navigation.navigate("EmployerAddWork")
@@ -136,6 +162,7 @@ const CompanyHeader = (props) => {
               name="add"
               size={30}
               color={colors.primaryText}
+              style={{ alignSelf: "flex-end" }}
               onPress={() => {
                 companyProfile.isApproved
                   ? navigation.navigate("EmployeeAddWork")
@@ -164,7 +191,7 @@ const CompanyHeader = (props) => {
                 name="md-notifications-outline"
                 size={30}
                 color={colors.primaryText}
-                style={{ marginRight: 10 }}
+                style={{ marginRight: 10, alignSelf: "flex-end" }}
               />
               {companyProfile.notification ? (
                 <View

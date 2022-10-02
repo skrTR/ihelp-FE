@@ -1,21 +1,24 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
+import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [specialWork, setSpecialWork] = useState([]);
 
   const [specialError, setSpecialError] = useState(null);
   const [specialLoading, setSpecialLoading] = useState(false);
-
-  useEffect(() => {
-    setSpecialLoading(true);
+  const isFocused = useIsFocused();
+  let isMoutned = true;
+  const getData = () => {
     axios
       .get(`${api}/api/v1/announcements/specials`)
       .then((result) => {
-        setSpecialWork(result.data.data);
-        setSpecialError(null);
-        setSpecialLoading(false);
+        if (isMoutned) {
+          setSpecialWork(result.data.data);
+          setSpecialError(null);
+          setSpecialLoading(false);
+        }
       })
       .catch((err) => {
         let message = err.message;
@@ -27,7 +30,14 @@ export default (refresh) => {
         setSpecialError(message);
         setSpecialLoading(false);
       });
-  }, [refresh]);
+  };
+  useEffect(() => {
+    setSpecialLoading(true);
+    getData();
+    () => {
+      isMoutned = false;
+    };
+  }, [refresh, isFocused]);
 
   return [specialWork, specialError, specialLoading];
 };

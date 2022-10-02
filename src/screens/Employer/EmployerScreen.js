@@ -85,7 +85,12 @@ const EmployerScreen = () => {
   }
   return (
     <>
-      <View style={{ marginTop: insents.top }} />
+      <View
+        style={{
+          paddingTop: insents.top,
+          backgroundColor: colors.header,
+        }}
+      />
       {state.isCompany ? (
         <CompanyHeader isEmployerAddWork={true} isSearch={true} />
       ) : (

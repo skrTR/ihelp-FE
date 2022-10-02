@@ -20,6 +20,7 @@ import {
 import UserContext from "../../context/UserContext";
 import Header from "../../components/Header/Header";
 import CompanyHeader from "../../components/Header/CompanyHeader";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const EmployerWorkDetail = (props) => {
   const state = useContext(UserContext);
   const { id, isLiked } = props.route.params;
@@ -29,12 +30,12 @@ const EmployerWorkDetail = (props) => {
   const [isLike, setIsLike] = useState(isLiked);
   const [isCvSent, setIsCvSent] = useState(false);
   const [checkCvId, setCheckCvId] = useState([]);
+  const insents = useSafeAreaInsets();
   const getWorkDetail = () => {
     axios
-      .get(`${api}/api/v1/jobs/${id}?sort=-createdAt`)
+      .get(`${api}/api/v1/jobs/${id}`)
       .then((res) => {
         setWorkDetail(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         alert(err);
@@ -52,7 +53,6 @@ const EmployerWorkDetail = (props) => {
       })
       .catch((err) => {
         Alert.alert(err.response.data.error.message);
-        // Alert.alert(err.response)
       });
   };
   const getCheckCv = () => {
@@ -104,7 +104,7 @@ const EmployerWorkDetail = (props) => {
     return null;
   }
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       {state.isCompany ? (
         <CompanyHeader isBack={true} />
       ) : (
@@ -215,39 +215,45 @@ const EmployerWorkDetail = (props) => {
             <View style={{ flexDirection: "row", bottom: 8 }}>
               <View>
                 {workDetail.type === "Сонгох" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
-                    Төрөл
-                  </Text>
+                  <Text style={{ marginBottom: 8, color: "white" }}>Төрөл</Text>
                 )}
-                {workDetail.schedule === "" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
-                    Цагийн хуваарь
-                  </Text>
-                )}
+
                 {workDetail.salary === "" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
-                    Цалин
-                  </Text>
+                  <Text style={{ marginBottom: 8, color: "white" }}>Цалин</Text>
                 )}
                 {workDetail.location === "" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
+                  <Text style={{ marginBottom: 8, color: "white" }}>
                     Байршил
+                  </Text>
+                )}
+                {workDetail.gender === "Сонгох" ? null : (
+                  <Text style={{ marginBottom: 8, color: "white" }}>Хүйс</Text>
+                )}
+                {workDetail.schedule === "" ? null : (
+                  <Text style={{ marginBottom: 8, color: "white" }}>
+                    Цагийн хуваарь
                   </Text>
                 )}
               </View>
               <View style={{ marginLeft: 30 }}>
                 {workDetail.type === "Сонгох" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginBottom: 8,
+                    }}
+                  >
                     {workDetail.type}
                   </Text>
                 )}
-                {workDetail.schedule === "" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
-                    {workDetail.schedule}
-                  </Text>
-                )}
+
                 {workDetail.salary === "" ? null : (
-                  <Text style={{ marginVertical: 4, color: "white" }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginBottom: 8,
+                    }}
+                  >
                     {workDetail.salary}
                   </Text>
                 )}
@@ -256,10 +262,32 @@ const EmployerWorkDetail = (props) => {
                     style={{
                       width: workDetail.location.length > 40 ? "30%" : "90%",
                       color: "white",
-                      top: 4,
+                      marginBottom: 8,
                     }}
                   >
                     {workDetail.location}
+                  </Text>
+                )}
+                {workDetail.gender === "Сонгох" ? null : (
+                  <Text
+                    style={{
+                      color: "white",
+
+                      marginBottom: 8,
+                    }}
+                  >
+                    {workDetail.gender}
+                  </Text>
+                )}
+                {workDetail.schedule === "" ? null : (
+                  <Text
+                    style={{
+                      color: "white",
+                      width: workDetail.schedule.length > 40 ? "30%" : "90%",
+                      marginBottom: 8,
+                    }}
+                  >
+                    {workDetail.schedule}
                   </Text>
                 )}
               </View>
@@ -325,6 +353,9 @@ const EmployerWorkDetail = (props) => {
                     color={"#64e986"}
                   />
                   <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Чадвар:{" "}
+                  </Text>
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill}
                   </Text>
                 </View>
@@ -336,6 +367,9 @@ const EmployerWorkDetail = (props) => {
                     size={20}
                     color={"#64e986"}
                   />
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Чадвар2:{" "}
+                  </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill1}
                   </Text>
@@ -349,6 +383,9 @@ const EmployerWorkDetail = (props) => {
                     color={"#64e986"}
                   />
                   <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Чадвар3:{" "}
+                  </Text>
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill2}
                   </Text>
                 </View>
@@ -361,34 +398,29 @@ const EmployerWorkDetail = (props) => {
                     color={"#64e986"}
                   />
                   <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Чадвар4:{" "}
+                  </Text>
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill3}
                   </Text>
                 </View>
               )}
               {workDetail.education === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row" }}>
+                <View style={{ flexDirection: "row", top: 4 }}>
                   <MaterialCommunityIcons
                     name="head-dots-horizontal-outline"
                     size={20}
                     color={"#64e986"}
                   />
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Боловсрол:{" "}
+                  </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.education}
                   </Text>
                 </View>
               )}
-              {workDetail.gender === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
-                  <Text style={{ color: "white", left: 5, top: 3 }}>
-                    {workDetail.gender}
-                  </Text>
-                </View>
-              )}
+
               {workDetail.language === "" ? null : (
                 <View style={{ flexDirection: "row" }}>
                   <MaterialCommunityIcons
@@ -396,6 +428,9 @@ const EmployerWorkDetail = (props) => {
                     size={20}
                     color={"#64e986"}
                   />
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Хэлний чадвар:{" "}
+                  </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.language}
                   </Text>
@@ -409,6 +444,9 @@ const EmployerWorkDetail = (props) => {
                     color={"#64e986"}
                   />
                   <Text style={{ color: "white", left: 5, top: 3 }}>
+                    Ажлын туршлага жилээр:{" "}
+                  </Text>
+                  <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.experience}
                   </Text>
                 </View>
@@ -416,7 +454,7 @@ const EmployerWorkDetail = (props) => {
             </View>
           </View>
         </View>
-        {!state.isCompany && (
+        {!state.isCompany ? (
           <TouchableOpacity
             style={{
               backgroundColor: "#2c3539",
@@ -471,9 +509,45 @@ const EmployerWorkDetail = (props) => {
               )}
             </View>
           </TouchableOpacity>
-        )}
+        ) : state.companyId === workDetail.createUser ? (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#2c3539",
+              alignItems: "center",
+              borderRadius: 20,
+              marginBottom: 200,
+            }}
+            onPress={() => sendCv(workDetail._id)}
+          >
+            <View
+              style={{
+                backgroundColor: "#2c3539",
+                width: "90%",
+                padding: 20,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "white",
+                  bottom: 5,
+                }}
+              >
+                Зарыг янзлах
+                <Ionicons
+                  // send
+                  name="settings-outline"
+                  size={20}
+                  color={colors.primaryText}
+                  style={{}}
+                />
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ) : null}
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

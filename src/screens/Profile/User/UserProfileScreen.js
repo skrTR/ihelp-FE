@@ -1,10 +1,4 @@
-import {
-  SafeAreaView,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { ScrollView, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
@@ -24,6 +18,7 @@ import EmptyData from "../../../components/Profile/User/Empty/EmptyData";
 import { api } from "../../../../Constants";
 import Posts from "../../../components/Network/Posts";
 import UserPortf from "../../../components/Profile/User/UserPortf";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const UserProfileScreen = () => {
   const state = useContext(UserContext);
   const navigation = useNavigation();
@@ -31,6 +26,7 @@ const UserProfileScreen = () => {
   const [cv] = useCv(state.userId);
   const { colors } = useTheme();
   const [activityData, setActivityData] = useState([]);
+  const insents = useSafeAreaInsets();
   useEffect(() => {
     getActivityData();
   }, []);
@@ -48,7 +44,7 @@ const UserProfileScreen = () => {
     return null;
   }
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       {/* Header */}
       <ProfileHeader
         notificationCount={userProfile.notification}
@@ -200,7 +196,7 @@ const UserProfileScreen = () => {
           onPress={() => navigation.navigate("AddPostScreen")}
         />
       </LinearGradient>
-    </SafeAreaView>
+    </View>
   );
 };
 

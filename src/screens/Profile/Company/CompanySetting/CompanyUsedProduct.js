@@ -41,7 +41,7 @@ const CompanyUsedProduct = () => {
             }}
             key={e._id}
             onPress={() =>
-              navigation.navigate("CompanyWorkDetail", { id: e.job })
+              navigation.navigate("EmployerWorkDetail", { id: e.job })
             }
           >
             <View style={{}}>

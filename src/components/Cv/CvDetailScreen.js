@@ -3,7 +3,6 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
 } from "react-native";
@@ -17,6 +16,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Border from "../Border";
 import moment from "moment";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const CvDetailScreen = (props) => {
   const { id } = props.route.params;
   const [data, setData] = useState([]);
@@ -28,6 +28,8 @@ const CvDetailScreen = (props) => {
   const [achievement, setAchievment] = useState([]);
   const [language, setLanguage] = useState([]);
   const [skill, setSkill] = useState([]);
+  const [family, setFamily] = useState([]);
+  const insents = useSafeAreaInsets();
   const getCvData = () => {
     axios
       .get(`${api}/api/v1/questionnaires/${id}`)
@@ -38,6 +40,7 @@ const CvDetailScreen = (props) => {
         setCourse(res.data.data.course);
         setAchievment(res.data.data.achievement);
         setLanguage(res.data.data.language);
+        setFamily(res.data.data.family);
       })
       .catch((err) => {
         console.log(err);
@@ -211,7 +214,7 @@ const CvDetailScreen = (props) => {
     await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
   };
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       <CompanyHeader isBack={true} />
       <ScrollView
         style={{ backgroundColor: colors.background }}
@@ -241,12 +244,12 @@ const CvDetailScreen = (props) => {
             >
               Холбоо барих
             </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              Born in {data.birthPlace}
-            </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              Lives in {data.location}
-            </Text>
+            {data.birthPlace && (
+              <Text style={{ color: colors.primaryText, textAlign: "right" }}>
+                Born in {data.birthPlace}
+              </Text>
+            )}
+
             <Text style={{ color: colors.primary, textAlign: "right" }}>
               {userProfile.email}
             </Text>
@@ -264,7 +267,7 @@ const CvDetailScreen = (props) => {
         </View>
 
         <View style={{ marginHorizontal: 10 }}>
-          {data.experience && (
+          {experience.length > 0 && (
             <>
               <Text
                 style={{
@@ -291,32 +294,51 @@ const CvDetailScreen = (props) => {
                         style={{ width: 60, height: 60 }}
                       />
                       <View style={{ marginLeft: 10 }}>
-                        <Text
-                          style={{
-                            fontFamily: "Sf-bold",
-                            color: colors.primaryText,
-                          }}
-                        >
-                          Компани: {e.company}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Албан тушаал: {e.position}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Цагийн төрөл: {e.type}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Хаяг: {e.location}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажилд орсон: {e.start && e.start.slice(0, 10)}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажлаас гарсан: {e.end && e.end.slice(0, 10)}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажлаас гарсан шалтгаан: {e.exitCause}
-                        </Text>
+                        {e.company && (
+                          <Text
+                            style={{
+                              fontFamily: "Sf-bold",
+                              color: colors.primaryText,
+                            }}
+                          >
+                            Компани: {e.company}
+                          </Text>
+                        )}
+                        {e.position && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Албан тушаал: {e.position}
+                          </Text>
+                        )}
+                        {e.type && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Цагийн төрөл: {e.type}
+                          </Text>
+                        )}
+                        {e.location && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Хаяг: {e.location}
+                          </Text>
+                        )}
+                        {e.start && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Ажилд орсон: {moment(e.start).format("YYYY-MM-DD")}
+                          </Text>
+                        )}
+                        {e.isWorking ? (
+                          <Text style={{ color: colors.primaryText }}>
+                            Ажиллаж байгаа
+                          </Text>
+                        ) : (
+                          <>
+                            <Text style={{ color: colors.primaryText }}>
+                              Ажлаас гарсан:{" "}
+                              {moment(e.end).format("YYYY-MM-DD")}
+                            </Text>
+                            <Text style={{ color: colors.primaryText }}>
+                              Ажлаас гарсан шалтгаан: {e.exitCause}
+                            </Text>
+                          </>
+                        )}
                       </View>
                     </View>
                     <Border margin={10} />
@@ -325,7 +347,7 @@ const CvDetailScreen = (props) => {
               })}
             </>
           )}
-          {data.course && (
+          {course.length > 0 && (
             <>
               <Text
                 style={{
@@ -352,26 +374,35 @@ const CvDetailScreen = (props) => {
                         style={{ width: 60, height: 60 }}
                       />
                       <View style={{ marginLeft: 10 }}>
-                        <Text
-                          style={{
-                            fontFamily: "Sf-bold",
-                            color: colors.primaryText,
-                          }}
-                        >
-                          Сургууль: {e.school}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Анги: {e.grade}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Чиглэл: {e.field}
-                        </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Элссэн огноо: {e.start && e.start.slice(0, 10)}
-                        </Text>
+                        {e.school && (
+                          <Text
+                            style={{
+                              fontFamily: "Sf-bold",
+                              color: colors.primaryText,
+                            }}
+                          >
+                            Сургууль: {e.school}
+                          </Text>
+                        )}
+                        {e.grade && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Анги: {e.grade}
+                          </Text>
+                        )}
+                        {e.field && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Чиглэл: {e.field}
+                          </Text>
+                        )}
+                        {e.start && (
+                          <Text style={{ color: colors.primaryText }}>
+                            Элссэн огноо: {moment(e.start).format("YYYY-MM-DD")}
+                          </Text>
+                        )}
+
                         {e.end ? (
                           <Text style={{ color: colors.primaryText }}>
-                            Гарсан огноо: {e.end && e.end.slice(0, 10)}
+                            Төгссөн огноо: {moment(e.end).format("YYYY-MM-DD")}
                           </Text>
                         ) : (
                           <Text style={{ color: colors.primaryText }}>
@@ -386,7 +417,7 @@ const CvDetailScreen = (props) => {
               })}
             </>
           )}
-          {data.achievement && (
+          {achievement.length > 0 && (
             <>
               <Text
                 style={{
@@ -406,20 +437,27 @@ const CvDetailScreen = (props) => {
                         marginTop: 10,
                       }}
                     >
-                      <Text
-                        style={{
-                          fontFamily: "Sf-bold",
-                          color: colors.primaryText,
-                        }}
-                      >
-                        Компани: {e.company}
-                      </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Нэр: {e.name}
-                      </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Он: {e.year}
-                      </Text>
+                      {e.company && (
+                        <Text
+                          style={{
+                            fontFamily: "Sf-bold",
+                            color: colors.primaryText,
+                          }}
+                        >
+                          Компани: {e.company}
+                        </Text>
+                      )}
+                      {e.name && (
+                        <Text style={{ color: colors.primaryText }}>
+                          Нэр: {e.name}
+                        </Text>
+                      )}
+
+                      {e.achievementYear && (
+                        <Text style={{ color: colors.primaryText }}>
+                          Он: {e.achievementYear}
+                        </Text>
+                      )}
                     </View>
                     <Border margin={10} />
                   </View>
@@ -427,7 +465,7 @@ const CvDetailScreen = (props) => {
               })}
             </>
           )}
-          {data.language && (
+          {language.length > 0 && (
             <>
               <Text
                 style={{
@@ -447,17 +485,21 @@ const CvDetailScreen = (props) => {
                         marginTop: 10,
                       }}
                     >
-                      <Text
-                        style={{
-                          fontFamily: "Sf-bold",
-                          color: colors.primaryText,
-                        }}
-                      >
-                        Улс: {e.country}
-                      </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Чадвар: {e.level}
-                      </Text>
+                      {e.country && (
+                        <Text
+                          style={{
+                            fontFamily: "Sf-bold",
+                            color: colors.primaryText,
+                          }}
+                        >
+                          Улс: {e.country}
+                        </Text>
+                      )}
+                      {e.level && (
+                        <Text style={{ color: colors.primaryText }}>
+                          Чадвар: {e.level}
+                        </Text>
+                      )}
                     </View>
                     <Border margin={10} />
                   </View>
@@ -465,7 +507,7 @@ const CvDetailScreen = (props) => {
               })}
             </>
           )}
-          {data.family && (
+          {family.length > 0 && (
             <>
               <Text
                 style={{
@@ -476,7 +518,7 @@ const CvDetailScreen = (props) => {
               >
                 Гэр бүлийн мэдээлэл
               </Text>
-              {data.family.map((e) => {
+              {family.map((e) => {
                 return (
                   <View key={e._id}>
                     <View
@@ -526,7 +568,8 @@ const CvDetailScreen = (props) => {
               })}
             </>
           )}
-          {data.skill && (
+
+          {skill.advantage1 !== null && (
             <>
               <Text
                 style={{
@@ -544,44 +587,44 @@ const CvDetailScreen = (props) => {
                   marginTop: 10,
                 }}
               >
-                {data.skill.advantage1 && (
+                {skill.advantage1 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Чадвар1: {data.skill.advantage1}
+                    Чадвар1: {skill.advantage1}
                   </Text>
                 )}
-                {data.skill.advantage2 && (
+                {skill.advantage2 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Чадвар2: {data.skill.advantage2}
+                    Чадвар2: {skill.advantage2}
                   </Text>
                 )}
-                {data.skill.advantage3 && (
+                {skill.advantage3 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Чадвар3: {data.skill.advantage3}
+                    Чадвар3: {skill.advantage3}
                   </Text>
                 )}
-                {data.skill.advantage4 && (
+                {skill.advantage4 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Чадвар4: {data.skill.advantage4}
+                    Чадвар4: {skill.advantage4}
                   </Text>
                 )}
-                {data.skill.disAdvantage1 && (
+                {skill.disAdvantage1 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Сул тал1: {data.skill.disAdvantage1}
+                    Сул тал1: {skill.disAdvantage1}
                   </Text>
                 )}
-                {data.skill.disAdvantage2 && (
+                {skill.disAdvantage2 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Сул тал2: {data.skill.disAdvantage2}
+                    Сул тал2: {skill.disAdvantage2}
                   </Text>
                 )}
-                {data.skill.disAdvantage3 && (
+                {skill.disAdvantage3 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Сул тал3: {data.skill.disAdvantage3}
+                    Сул тал3: {skill.disAdvantage3}
                   </Text>
                 )}
-                {data.skill.disAdvantage4 && (
+                {skill.disAdvantage4 && (
                   <Text style={{ color: colors.primaryText }}>
-                    Сул тал4: {data.skill.disAdvantage4}
+                    Сул тал4: {skill.disAdvantage4}
                   </Text>
                 )}
               </View>
@@ -640,7 +683,7 @@ const CvDetailScreen = (props) => {
         </TouchableOpacity>
         <View style={{ marginVertical: 100 }} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

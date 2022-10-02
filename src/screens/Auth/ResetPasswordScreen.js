@@ -85,9 +85,10 @@ const ResetPasswordScreen2 = () => {
                 textAlign: "center",
                 fontSize: 25,
                 color: "#765097",
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Person
+              Хувь хүн
             </Text>
           </View>
         </ImageBackground>

@@ -1,28 +1,24 @@
-import {
-  SafeAreaView,
-  Text,
-  View,
-  FlatList,
-  Image,
-  TouchableOpacity,
-} from "react-native";
-import React, { useEffect, useState } from "react";
+import { Text, View, FlatList, TouchableOpacity } from "react-native";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../Constants";
-import MyButton from "../../components/MyButton";
 import Empty from "../../components/Empty";
 import NormalWork from "../../components/Employer/NormalWork";
 import SearchByCategory from "./Work/SearchByCategory";
-import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import UserContext from "../../context/UserContext";
+import CompanyHeader from "../../components/Header/CompanyHeader";
+import Header from "../../components/Header/Header";
 const CategorySearch = () => {
   const { colors } = useTheme();
-  const navigation = useNavigation();
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [choosedId, setChoosedId] = useState("629051d64be9675d77e5230f");
   const [choosedName, setChoosedName] = useState("Сонгох");
   const [refresh, setRefresh] = useState(false);
+  const insents = useSafeAreaInsets();
+  const state = useContext(UserContext);
   const getWorkSearch = () => {
     axios
       .get(
@@ -41,59 +37,18 @@ const CategorySearch = () => {
   }, [refresh]);
   return (
     <>
-      <SafeAreaView
-        style={{ backgroundColor: "#141414", opacity: modalVisible ? 0.2 : 1 }}
+      <View
+        style={{
+          backgroundColor: colors.header,
+          opacity: modalVisible ? 0.2 : 1,
+          paddingTop: insents.top,
+        }}
       >
-        <View
-          style={{
-            backgroundColor: "#141414",
-            borderBottomLeftRadius: 20,
-            borderBottomRightRadius: 20,
-            bottom: 0,
-            borderBottomWidth: 1,
-            borderLeftWidth: 1,
-            borderRightWidth: 1,
-            borderColor: colors.border,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginHorizontal: 20,
-            }}
-          >
-            <View>
-              <AntDesign
-                name="left"
-                size={25}
-                color={colors.primaryText}
-                onPress={() => navigation.goBack()}
-              />
-            </View>
-            <View>
-              <Image
-                source={require("../../../assets/ihelp/logo.png")}
-                style={{
-                  width: 90,
-                  height: 50,
-                  resizeMode: "contain",
-                }}
-              />
-            </View>
-            <View style={{ flexDirection: "row" }}>
-              <SimpleLineIcons
-                name="equalizer"
-                size={25}
-                color={colors.primaryText}
-                onPress={() => {
-                  navigation.navigate("CustomSearchModal");
-                }}
-              />
-            </View>
-          </View>
-        </View>
+        {state.isCompany ? (
+          <CompanyHeader isBack={true} />
+        ) : (
+          <Header isBack={true} />
+        )}
         <View style={{ height: "100%", backgroundColor: colors.background }}>
           <TouchableOpacity
             style={{
@@ -139,7 +94,7 @@ const CategorySearch = () => {
             </View>
           )}
         </View>
-      </SafeAreaView>
+      </View>
       <SearchByCategory
         setModalVisible={setModalVisible}
         modalVisible={modalVisible}

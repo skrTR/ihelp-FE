@@ -49,7 +49,7 @@ const Cvs = ({ item }) => {
                 marginHorizontal: 5,
               }}
             />
-
+            {console.log(item)}
             <View>
               <Text
                 style={{
@@ -79,31 +79,35 @@ const Cvs = ({ item }) => {
                 Боловсрол:{" "}
                 <Text style={{ fontFamily: "Sf-regular" }}>Доктор</Text>
               </Text>
-              <Text
-                style={{
-                  color: colors.primaryText,
-                  fontFamily: "Sf-thin",
-                  fontSize: 14,
-                }}
-              >
-                Ажлын туршлага:{" "}
-                <Text style={{ fontFamily: "Sf-regular" }}>
-                  {item.experiences}
+              {!item.experiences === 0 && (
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
+                    fontSize: 14,
+                  }}
+                >
+                  Ажлын туршлага:{" "}
+                  <Text style={{ fontFamily: "Sf-regular" }}>
+                    {item.experiences}
+                  </Text>
                 </Text>
-              </Text>
-              <Text
-                style={{
-                  paddingVertical: 5,
-                  color: colors.primaryText,
-                  fontFamily: "Sf-thin",
-                  fontSize: 14,
-                }}
-              >
-                Цалингийн хүлээлт:{" "}
-                <Text style={{ fontFamily: "Sf-regular" }}>
-                  {item.salaryExpectation}
+              )}
+              {item.salaryExpectation && (
+                <Text
+                  style={{
+                    paddingVertical: 5,
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
+                    fontSize: 14,
+                  }}
+                >
+                  Цалингийн хүлээлт:{" "}
+                  <Text style={{ fontFamily: "Sf-regular" }}>
+                    {item.salaryExpectation}
+                  </Text>
                 </Text>
-              </Text>
+              )}
             </View>
           </TouchableOpacity>
         </View>

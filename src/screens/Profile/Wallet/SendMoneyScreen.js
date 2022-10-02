@@ -15,10 +15,9 @@ import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Clipboard from "expo-clipboard";
-import { api } from "../../../../../Constants";
-import Header from "../../../../components/Header/Header";
-import UserContext from "../../../../context/UserContext";
-import CompanyHeader from "../../../../components/Header/CompanyHeader";
+import Header from "../../../components/Header/Header";
+import UserContext from "../../../context/UserContext";
+import CompanyHeader from "../../../components/Header/CompanyHeader";
 const SendMoneyScreen = (props) => {
   const { money, invoince } = props.route.params;
   const state = useContext(UserContext);

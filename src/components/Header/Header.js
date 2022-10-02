@@ -29,7 +29,7 @@ const Header = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#141414",
+        backgroundColor: colors.header,
         borderBottomLeftRadius: 20,
         borderBottomRightRadius: 20,
         bottom: 0,

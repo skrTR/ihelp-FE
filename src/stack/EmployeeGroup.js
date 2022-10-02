@@ -8,13 +8,13 @@ import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import EmployeeAddWork from "../screens/Employee/EmployeeAddWork";
 import EmployeeSavedWork from "../screens/Employee/EmployeeSavedWork";
 import MyBackButton from "../components/Header/MyBackButton";
-import CompanyWorkDetail from "../screens/Profile/Company/CompanyWorkDetail";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 const EmployeeGroup = () => {
   const EmployeeStack = createNativeStackNavigator();
   return (
@@ -33,6 +33,11 @@ const EmployeeGroup = () => {
         <EmployeeStack.Screen
           name="EmployeeAddWork"
           component={EmployeeAddWork}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployeeStack.Screen
+          name="EmployeeEditWork"
+          component={EmployeeEditWork}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
         <EmployeeStack.Screen
@@ -117,16 +122,7 @@ const EmployeeGroup = () => {
           component={NotificationScreen}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
-        <EmployeeStack.Screen
-          name="CompanyWorkDetail"
-          component={CompanyWorkDetail}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Ажлын зар",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <EmployeeStack.Screen
           name="ViewPortfolio"
           component={ViewPortfolio}

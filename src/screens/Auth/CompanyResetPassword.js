@@ -15,7 +15,7 @@ import { AntDesign } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import axios from "axios";
 import { api } from "../../../Constants";
-import Spinner from "../../components/Spinner";
+
 import Loading from "../../components/Loading";
 
 const CompanyResetPassword = () => {
@@ -95,9 +95,10 @@ const CompanyResetPassword = () => {
                 textAlign: "center",
                 fontSize: 25,
                 color: colors.primary,
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Company
+              Байгууллага
             </Text>
           </View>
         </ImageBackground>

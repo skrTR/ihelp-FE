@@ -21,11 +21,11 @@ const CompanySignUpScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [name, setName] = useState("Skra Setup LLC");
-  const [phone, setPhone] = useState("11223344");
-  const [password, setPassword] = useState("123456");
-  const [password1, setPassword1] = useState("123456");
-  const [email, setEmail] = useState("scarynomi1@gmail.com");
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
+  const [email, setEmail] = useState("");
   const [isEmployer, setIsEmployer] = useState(true);
   const [isEmployee, setIsEmployee] = useState(false);
   const signUpHandler = () => {
@@ -102,9 +102,10 @@ const CompanySignUpScreen = () => {
                 textAlign: "center",
                 fontSize: 25,
                 color: colors.primary,
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Company
+              Байгууллага
             </Text>
           </View>
         </ImageBackground>

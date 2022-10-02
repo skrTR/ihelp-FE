@@ -85,9 +85,10 @@ const CompanyResetPassword1 = (props) => {
                 textAlign: "center",
                 fontSize: 25,
                 color: colors.primary,
+                fontFamily: "Sf-Nunito",
               }}
             >
-              Company
+              Байгууллага
             </Text>
           </View>
         </ImageBackground>

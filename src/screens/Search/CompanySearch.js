@@ -1,63 +1,25 @@
 import { View, TouchableOpacity, Text, Image } from "react-native";
-import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useContext } from "react";
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from "react-native-safe-area-context";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import UserContext from "../../context/UserContext";
+import CompanyHeader from "../../components/Header/CompanyHeader";
+import Header from "../../components/Header/Header";
 const CompanySearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
+  const state = useContext(UserContext);
+  const insents = useSafeAreaInsets();
   return (
-    <SafeAreaView style={{ backgroundColor: "#141414" }}>
-      <View
-        style={{
-          backgroundColor: "#141414",
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-          bottom: 0,
-          borderBottomWidth: 1,
-          borderLeftWidth: 1,
-          borderRightWidth: 1,
-          borderColor: colors.border,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginHorizontal: 20,
-          }}
-        >
-          <View>
-            <AntDesign
-              name="left"
-              size={25}
-              color={colors.primaryText}
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-          <View>
-            <Image
-              source={require("../../../assets/ihelp/logo.png")}
-              style={{
-                width: 90,
-                height: 50,
-                resizeMode: "contain",
-              }}
-            />
-          </View>
-          <View style={{ flexDirection: "row" }}>
-            <SimpleLineIcons
-              name="equalizer"
-              size={25}
-              color={colors.primaryText}
-              onPress={() => {
-                navigation.navigate("CompanyFilterModal");
-              }}
-            />
-          </View>
-        </View>
-      </View>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
+      {state.isCompany ? (
+        <CompanyHeader isBack={true} />
+      ) : (
+        <Header isBack={true} />
+      )}
       <View
         style={{
           backgroundColor: colors.background,
@@ -119,7 +81,7 @@ const CompanySearch = () => {
           </Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

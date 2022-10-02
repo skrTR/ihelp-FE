@@ -5,6 +5,7 @@ import { darkTheme } from "./src/themes/dark.js";
 import StackNavigator from "./src/stack/StackNavigator";
 import { UserStore } from "./src/context/UserContext";
 import { useFonts } from "expo-font";
+import { StatusBar } from "expo-status-bar";
 
 export default function App() {
   const colorScheme = useColorScheme();
@@ -15,6 +16,7 @@ export default function App() {
     "Sf-regular": require("./assets/fonts/SF-Pro-Text-Regular.otf"),
     "Sf-medium": require("./assets/fonts/SF-Pro-Text-Medium.otf"),
     "Sf-thin": require("./assets/fonts/SF-Pro-Text-Thin.otf"),
+    "Sf-Nunito": require("./assets/fonts/Nunito-Medium.ttf"),
   });
 
   if (!loaded) {
@@ -24,6 +26,7 @@ export default function App() {
     <NavigationContainer theme={colorScheme === "dark" ? darkTheme : darkTheme}>
       <UserStore>
         <StackNavigator />
+        <StatusBar style="light" />
       </UserStore>
     </NavigationContainer>
   );

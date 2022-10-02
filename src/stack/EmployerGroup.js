@@ -7,7 +7,6 @@ import EmployerAddWork from "../screens/Employer/EmployerAddWork";
 import MyBackButton from "../components/Header/MyBackButton";
 import UserSavedWork from "../screens/Profile/User/Settings/UserSavedWork";
 import UserWorkDetail from "../screens/Profile/User/Settings/UserWorkDetail";
-import CompanyWorkDetail from "../screens/Profile/Company/CompanyWorkDetail";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
@@ -109,16 +108,7 @@ const EmployerGroup = () => {
           component={NotificationScreen}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
-        <EmployerStack.Screen
-          name="CompanyWorkDetail"
-          component={CompanyWorkDetail}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Ажлын зар",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <EmployerStack.Screen
           name="ViewPortfolio"
           component={ViewPortfolio}

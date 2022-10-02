@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import React, { useContext } from "react";
 import { useTheme } from "@react-navigation/native";
 import UserContext from "../../../context/UserContext";
@@ -12,17 +12,19 @@ import CompanyPortf from "../../../components/Profile/Company/CompanyPortf";
 import Spinner from "../../../components/Spinner";
 import CompanyJobs from "../../../components/Profile/Company/CompanyJobs";
 import EmptyData from "../../../components/Profile/User/Empty/EmptyData";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const CompanyProfileScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const [companyProfile] = useCompanyProfile(state.companyId);
   const [companyJobs, loading] = useCompanyJobs(state.companyId);
+  const insents = useSafeAreaInsets();
   if (!companyProfile) {
     return null;
   }
 
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       <ProfileHeader
         notificationCount={companyProfile.notification}
         firstName={companyProfile.firstName}
@@ -113,7 +115,7 @@ const CompanyProfileScreen = () => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
