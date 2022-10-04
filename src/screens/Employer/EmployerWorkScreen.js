@@ -30,6 +30,7 @@ const EmployerWorkScreen = () => {
                   urgent={data.urgent}
                   salary={data.salary}
                   isSentCv={data.isSentCv}
+                  createUserId={data.createUser}
                 />
               </View>
             );
@@ -46,6 +47,8 @@ const EmployerWorkScreen = () => {
                   occupation={data.occupationName}
                   type={data.type}
                   salary={data.salary}
+                  createUserId={data.createUser}
+                  special={data.special}
                 />
               </View>
             );
@@ -66,6 +69,8 @@ const EmployerWorkScreen = () => {
               occupation={item.occupationName}
               type={item.type}
               salary={item.salary}
+              createUserId={item.createUser}
+              order={item.order}
             />
           </>
         );

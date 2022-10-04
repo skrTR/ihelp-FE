@@ -12,12 +12,15 @@ export default () => {
   const NormalCompanyData = () => {
     setNormalCompanyLoading(true);
     axios
-      .get(`${api}/api/v1/profiles/unspecials/employer`)
+      .get(
+        `${api}/api/v1/profiles/unspecials/employer?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing&isApproved=true`
+      )
       .then((result) => {
         if (isMounted) {
           setNormalCompany(result.data.data);
           setNormalCompanyError(null);
           setNormalCompanyLoading(false);
+          console.log(result.data.data);
         }
       })
       .catch((err) => {

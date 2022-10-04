@@ -13,6 +13,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import Icon from "@expo/vector-icons/Entypo";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
+import moment from "moment";
+import DataCountDown from "./DataCountDown";
 const NormalWork = (props) => {
   const {
     id,
@@ -23,6 +25,8 @@ const NormalWork = (props) => {
     salary,
     isEmployee,
     isEmployer,
+    createUserId,
+    order,
   } = props;
 
   const navigation = useNavigation();
@@ -189,6 +193,27 @@ const NormalWork = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
+        {createUserId === state.companyId && (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderRadius: 20,
+              marginRight: 20,
+              alignItems: "center",
+            }}
+            onPress={() =>
+              navigation.navigate("BoostEmployerWork", {
+                id: id,
+                type: "Normal",
+              })
+            }
+          >
+            <Text style={{ color: "black" }}>
+              {order < moment().format() ? "Зар идэвхжүүлэх" : "Сунгах"}
+            </Text>
+          </TouchableOpacity>
+        )}
         {!state.isCompany && (
           <View style={{}}>
             <Icon
@@ -201,6 +226,9 @@ const NormalWork = (props) => {
           </View>
         )}
       </View>
+      {createUserId === state.companyId && order && (
+        <DataCountDown createdAt={order} text={"Энгийн зарын дуусах хугацаа"} />
+      )}
     </View>
   );
 };

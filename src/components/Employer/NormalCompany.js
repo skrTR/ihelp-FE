@@ -142,7 +142,26 @@ const NormalCompany = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      {data._id === state.companyId ? null : (
+      {data._id === state.companyId ? (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#FFB6C1",
+            padding: 10,
+            borderRadius: 20,
+            marginRight: 20,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            navigation.navigate("ProductUsePoint", {
+              type: "SpecialCompanyEmployer",
+            });
+          }}
+        >
+          <Text style={{ color: "black" }}>
+            {data.employerSpecial ? "Cунгах" : "Онцлох болох"}
+          </Text>
+        </TouchableOpacity>
+      ) : (
         <TouchableOpacity
           style={{
             backgroundColor: !follow ? "#FFB6C1" : null,

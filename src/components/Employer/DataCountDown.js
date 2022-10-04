@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CountDown from "react-native-countdown-component";
 import moment from "moment";
 import { useTheme } from "@react-navigation/native";
-const DataCountDown = ({ createdAt }) => {
+const DataCountDown = ({ createdAt, text }) => {
   const [totalDuration, setTotalDuration] = useState(0);
   const { colors } = useTheme();
   useEffect(() => {
@@ -33,7 +33,8 @@ const DataCountDown = ({ createdAt }) => {
               left: 2,
             }}
           >
-            CV хүлээн авах эцсийн хугацаа:{" "}
+            {/* CV хүлээн авах эцсийн хугацаа:{" "} */}
+            {text}:{" "}
           </Text>
           <CountDown
             until={totalDuration}

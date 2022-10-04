@@ -16,6 +16,8 @@ import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
 import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
+import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -35,6 +37,26 @@ const EmployerGroup = () => {
           name="EmployerAddWork"
           component={EmployerAddWork}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployerStack.Screen
+          name="BoostEmployerWork"
+          component={BoostEmployerWork}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Идэвхжүүлэх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployerStack.Screen
+          name="ProductUsePoint"
+          component={ProductUsePoint}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Идэвхжүүлэх",
+            headerLeft: () => <MyBackButton />,
+          }}
         />
       </EmployerStack.Group>
       <EmployerStack.Group>

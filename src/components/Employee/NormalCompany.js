@@ -3,7 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   ImageBackground,
 } from "react-native";
 import React, { useContext, useState } from "react";
@@ -14,7 +13,7 @@ import UserContext from "../../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 const NormalCompany = (props) => {
-  const { data, isFollowing, loading } = props;
+  const { data, isFollowing } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
@@ -143,7 +142,26 @@ const NormalCompany = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      {data._id === state.companyId ? null : (
+      {data._id === state.companyId ? (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#FFB6C1",
+            padding: 10,
+            borderRadius: 20,
+            marginRight: 20,
+            alignItems: "center",
+          }}
+          onPress={() => {
+            navigation.navigate("ProductUsePoint", {
+              type: "SpecialCompanyEmployee",
+            });
+          }}
+        >
+          <Text style={{ color: "black" }}>
+            {data.employeeSpecial ? "Cунгах" : "Онцлох болох"}
+          </Text>
+        </TouchableOpacity>
+      ) : (
         <TouchableOpacity
           style={{
             backgroundColor: !follow ? "#FFB6C1" : null,

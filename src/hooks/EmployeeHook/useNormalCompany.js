@@ -12,7 +12,9 @@ export default (refresh) => {
   let isMounted = true;
   const getData = () => {
     axios
-      .get(`${api}/api/v1/profiles/unspecials/employee`)
+      .get(
+        `${api}/api/v1/profiles/unspecials/employee?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing&isApproved=true`
+      )
       .then((result) => {
         if (isMounted) {
           setNormalCompany(result.data.data);

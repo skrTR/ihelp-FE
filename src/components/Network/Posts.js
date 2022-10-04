@@ -273,7 +273,7 @@ const Posts = (props) => {
               </ImageBackground>
               <View style={{ marginLeft: 10 }}>
                 <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
-                  {isShared ? sharedUserLastName : lastName}
+                  {isShared ? sharedUserLastName : lastName}{" "}
                   {isShared ? sharedUserFirstName : firstName}
                   {isApproved && (
                     <View

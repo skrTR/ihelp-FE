@@ -73,6 +73,8 @@ import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import CvDetailScreen from "../components/Cv/CvDetailScreen";
 import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
 import PointTypeScreen from "../screens/Profile/Wallet/PointTypeScreen";
+import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
+import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -670,7 +672,7 @@ const ProfileGroup = () => {
             options={{
               headerShown: true,
               // presentation: "formSheet",
-              title: "Пост сонгох",
+              title: "Идэвхжүүлэх",
               headerLeft: () => <MyBackButton />,
               fullScreenGestureEnabled: true,
             }}
@@ -754,6 +756,26 @@ const ProfileGroup = () => {
           options={{
             headerShown: false,
             fullScreenGestureEnabled: true,
+          }}
+        />
+        <ProfileStack.Screen
+          name="BoostEmployerWork"
+          component={BoostEmployerWork}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ажлын зар",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="BoostEmployeeWork"
+          component={BoostEmployeeWork}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ажлын зар",
+            headerLeft: () => <MyBackButton />,
           }}
         />
         <ProfileStack.Screen

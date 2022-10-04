@@ -14,6 +14,7 @@ import Icon from "@expo/vector-icons/Entypo";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
+import moment from "moment";
 const UrgentWork = (props) => {
   const {
     id,
@@ -192,34 +193,59 @@ const UrgentWork = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-        {createUserId === state.companyId ? (
-          <Text></Text>
-        ) : (
-          !state.isCompany && (
-            <View style={{ flexDirection: "row", marginRight: 10 }}>
-              <Ionicons
-                // send
-                name="send-outline"
-                size={26}
-                color="white"
-                style={{ marginRight: 10, top: 1 }}
-                onPress={() =>
-                  navigation.navigate("UserSendWorkRequest", { id: id })
-                }
-              />
-              <Icon
-                name={isLike ? "heart" : "heart-outlined"}
-                size={30}
-                color={"white"}
-                onPress={isLike ? unLiked : liked}
-                style={{ textAlign: "right" }}
-              />
-            </View>
-          )
+        {createUserId === state.companyId && (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderRadius: 20,
+              marginRight: 20,
+              alignItems: "center",
+            }}
+            onPress={() =>
+              navigation.navigate("BoostEmployeeWork", {
+                id: id,
+                type: "Urgent",
+              })
+            }
+          >
+            <Text style={{ color: "black" }}>
+              {urgent < moment().format() ? "Зар идэвхжүүлэх" : "Сунгах"}
+            </Text>
+          </TouchableOpacity>
+        )}
+        {!state.isCompany && (
+          <View style={{ flexDirection: "row", marginRight: 10 }}>
+            <Ionicons
+              // send
+              name="send-outline"
+              size={26}
+              color="white"
+              style={{ marginRight: 10, top: 1 }}
+              onPress={() =>
+                navigation.navigate("UserSendWorkRequest", { id: id })
+              }
+            />
+            <Icon
+              name={isLike ? "heart" : "heart-outlined"}
+              size={30}
+              color={"white"}
+              onPress={isLike ? unLiked : liked}
+              style={{ textAlign: "right" }}
+            />
+          </View>
         )}
       </View>
-
-      {urgent && <DataCountDown createdAt={urgent} />}
+      {urgent && (
+        <DataCountDown
+          createdAt={urgent}
+          text={
+            createUserId === state.companyId
+              ? "Яааралтай зарын дуусах хугацаа"
+              : "CV хүлээн авах эцсийн хугацаа"
+          }
+        />
+      )}
     </View>
   );
 };

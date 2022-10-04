@@ -11,6 +11,7 @@ import { api } from "../../../Constants";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
+import moment from "moment";
 const SpecialCompany = (props) => {
   const { data, isFollowing } = props;
   const navigation = useNavigation();
@@ -22,7 +23,7 @@ const SpecialCompany = (props) => {
       setFollow(false);
       axios
         .post(
-          `${api}/api/v1/follows/${data.id}/${
+          `${api}/api/v1/follows/${data._id}/${
             state.isCompany ? state.companyId : state.userId
           }`
         )
@@ -36,7 +37,7 @@ const SpecialCompany = (props) => {
       setFollow(true);
       axios
         .post(
-          `${api}/api/v1/follows/${data.id}/${
+          `${api}/api/v1/follows/${data._id}/${
             state.isCompany ? state.companyId : state.userId
           }`
         )
@@ -121,7 +122,7 @@ const SpecialCompany = (props) => {
         </ImageBackground>
         <View style={{ marginLeft: 10 }}>
           <Text style={{ color: "white", fontWeight: "bold" }}>
-            {data.name}
+            {data.firstName}
           </Text>
           <Text
             style={{
@@ -137,44 +138,65 @@ const SpecialCompany = (props) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
-        style={{
-          backgroundColor: !follow ? "#FFB6C1" : null,
-          marginHorizontal: 5,
-          borderRadius: 10,
-          borderWidth: 1,
-          borderColor: colors.border,
-          width: "25%",
-          alignContent: "center",
-          height: "50%",
-        }}
-        onPress={onFollow}
-      >
-        <View
+      {data._id === state.companyId ? (
+        <TouchableOpacity
           style={{
-            flexDirection: "row",
-            top: 5,
+            backgroundColor: "#FFB6C1",
+            padding: 10,
+            borderRadius: 20,
+            marginRight: 20,
             alignItems: "center",
-            alignSelf: "center",
+          }}
+          onPress={() => {
+            navigation.navigate("ProductUsePoint", {
+              type: "SpecialCompanyEmployee",
+            });
           }}
         >
-          <AntDesign
-            name={follow ? "deleteuser" : "adduser"}
-            size={24}
-            color={!follow ? colors.border : colors.primaryText}
-          />
-          <Text
+          <Text style={{ color: "black" }}>
+            {data.employeeSpecial && "Cунгах"}
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            backgroundColor: !follow ? "#FFB6C1" : null,
+            marginHorizontal: 5,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.border,
+            width: "25%",
+            alignContent: "center",
+            height: "50%",
+          }}
+          onPress={onFollow}
+        >
+          <View
             style={{
-              textAlign: "center",
-
-              color: !follow ? colors.border : colors.primaryText,
+              flexDirection: "row",
+              top: 5,
+              alignItems: "center",
+              alignSelf: "center",
             }}
           >
-            {" "}
-            {follow ? "Дагадаг" : "Дагах"}
-          </Text>
-        </View>
-      </TouchableOpacity>
+            <AntDesign
+              name={follow ? "deleteuser" : "adduser"}
+              size={24}
+              color={!follow ? colors.border : colors.primaryText}
+            />
+            <Text
+              style={{
+                textAlign: "center",
+
+                color: !follow ? colors.border : colors.primaryText,
+              }}
+            >
+              {" "}
+              {follow ? "Дагадаг" : "Дагах"}
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

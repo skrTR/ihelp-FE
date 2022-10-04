@@ -39,6 +39,7 @@ const EmployeeWorkScreen = () => {
               <View key={data._id}>
                 <SpecialWork
                   id={data._id}
+                  createUserId={data.createUser}
                   createUserName={data.firstName}
                   createUserProfile={data.profile}
                   isEmployer={data.isEmployer}
@@ -46,6 +47,7 @@ const EmployeeWorkScreen = () => {
                   occupation={data.occupationName}
                   salary={data.price}
                   job={data.do}
+                  special={data.special}
                 />
               </View>
             );
@@ -65,6 +67,8 @@ const EmployeeWorkScreen = () => {
             occupation={item.occupationName}
             price={item.price}
             job={item.do}
+            createUserId={item.createUser}
+            order={item.order}
           />
         );
       }}

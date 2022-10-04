@@ -3,6 +3,7 @@ import LottieView from "lottie-react-native";
 import { View, Text, Image } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
+import * as Animatable from "react-native-animatable";
 const Loading = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -10,7 +11,7 @@ const Loading = () => {
     <View
       style={{ alignItems: "center", justifyContent: "center", height: "100%" }}
     >
-      <AntDesign
+      {/* <AntDesign
         name="arrowleft"
         size={30}
         color="#ffffff"
@@ -21,20 +22,26 @@ const Loading = () => {
           zIndex: 2,
         }}
         onPress={() => navigation.goBack()}
-      />
+      /> */}
       <Image
         source={require("../../assets/ihelp/logo.png")}
         style={{ width: 300, height: 100, resizeMode: "contain" }}
       />
       <LottieView
-        source={require("../../assets/newLoading.json")}
+        source={require("../../assets/testLoading.json")}
         loop={true}
         autoPlay={true}
         style={{ width: 300, height: 300 }}
       />
-      <Text style={{ color: colors.primaryText, fontSize: 30 }}>
+      <Animatable.Text
+        animation="pulse"
+        iterationCount="infinite"
+        direction="alternate"
+        easing="ease-out"
+        style={{ color: colors.primaryText, fontSize: 30 }}
+      >
         Та түр хүлээнэ үү
-      </Text>
+      </Animatable.Text>
     </View>
   );
 };

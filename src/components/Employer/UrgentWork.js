@@ -15,6 +15,7 @@ import Icon from "@expo/vector-icons/Entypo";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import { Ionicons } from "@expo/vector-icons";
+import moment from "moment";
 const UrgentWork = (props) => {
   const {
     id,
@@ -26,6 +27,7 @@ const UrgentWork = (props) => {
     type,
     urgent,
     salary,
+    createUserId,
   } = props;
 
   const navigation = useNavigation();
@@ -227,6 +229,28 @@ const UrgentWork = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
+        {createUserId === state.companyId && (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderRadius: 20,
+              marginRight: 20,
+              alignItems: "center",
+            }}
+            onPress={() =>
+              navigation.navigate("BoostEmployerWork", {
+                id: id,
+                type: "Urgent",
+              })
+            }
+          >
+            <Text style={{ color: "black" }}>
+              {urgent < moment().format() ? "Зар идэвхжүүлэх" : "Сунгах"}
+            </Text>
+          </TouchableOpacity>
+        )}
+
         {!state.isCompany && (
           <View style={{ flexDirection: "row", marginRight: 10 }}>
             <Ionicons
@@ -246,7 +270,16 @@ const UrgentWork = (props) => {
           </View>
         )}
       </View>
-      {urgent && <DataCountDown createdAt={urgent} />}
+      {urgent && (
+        <DataCountDown
+          createdAt={urgent}
+          text={
+            createUserId === state.companyId
+              ? "Яааралтай зарын дуусах хугацаа"
+              : "CV хүлээн авах эцсийн хугацаа"
+          }
+        />
+      )}
     </View>
   );
 };
