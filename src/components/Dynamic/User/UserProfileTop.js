@@ -14,6 +14,8 @@ import { MaterialCommunityIcons, AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import { api } from "../../../../Constants";
 import UserContext from "../../../context/UserContext";
+import FollowButton from "../../FollowButton";
+import Verify from "../../Verify";
 
 const fullWidth = Dimensions.get("screen").width;
 const fullHeight = Dimensions.get("screen").height;
@@ -92,7 +94,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           <View style={{}}>
             <Text
               style={{
-                bottom: 15,
+                bottom: 12,
                 position: "absolute",
                 color: colors.primaryText,
                 fontFamily: "Sf-bold",
@@ -100,27 +102,11 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
               }}
             >
               {userProfile.lastName} {userProfile.firstName}{" "}
-              {userProfile.isApproved && (
-                <View
-                  style={{
-                    backgroundColor: colors.primary,
-                    borderRadius: 50,
-                    alignItems: "center",
-                    padding: 2,
-                    alignContent: "center",
-                  }}
-                >
-                  <AntDesign
-                    name="check"
-                    size={12}
-                    color={colors.primaryText}
-                  />
-                </View>
-              )}
+              {userProfile.isApproved && <Verify size={12} />}
             </Text>
             <Text
               style={{
-                bottom: 0,
+                bottom: -3,
                 position: "absolute",
                 fontFamily: "Sf-thin",
                 color: colors.secondaryText,
@@ -135,67 +121,53 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
       <View
         style={{
           flexDirection: "row",
-          flex: 1,
           marginHorizontal: 5,
-          justifyContent: "space-around",
+          justifyContent: "space-between",
           bottom: 30,
         }}
       >
         <TouchableOpacity
           style={{
             backgroundColor: "#FFB6C1",
-            marginHorizontal: 5,
-            paddingVertical: 2,
-            alignItems: "center",
             borderRadius: 10,
-            flex: 0.66,
+            justifyContent: "center",
+            alignItems: "center",
+            width: "70%",
           }}
           onPress={() =>
             navigation.navigate("UserSendWorkRequest", { id: userProfile._id })
           }
         >
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <MaterialCommunityIcons
-              name="cube-send"
-              size={24}
-              color={colors.border}
-              style={{ top: 5 }}
-            />
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
             <Text
               style={{
                 textAlign: "center",
-                top: 8,
                 color: colors.border,
-                right: 5,
+                padding: 10,
               }}
             >
-              {" "}
-              Ажлын санал илгээх{"   "}
+              Ажлын санал илгээх
             </Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#FFB6C1",
-            marginHorizontal: 5,
-            paddingVertical: 8,
-            borderRadius: 10,
-            flex: 0.34,
-          }}
+        <FollowButton
           onPress={onFollow}
-        >
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <AntDesign
-              name={following ? "deleteuser" : "adduser"}
-              size={24}
-              color={colors.border}
-            />
-            <Text style={{ textAlign: "center", top: 3, color: colors.border }}>
-              {" "}
-              {following ? "Дагадаг" : "Дагах"}
-            </Text>
-          </View>
-        </TouchableOpacity>
+          follow={following}
+          style={{
+            backgroundColor: following ? null : "#FFB6C1",
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.border,
+            width: "28%",
+            alignContent: "center",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        />
       </View>
       <View
         style={{

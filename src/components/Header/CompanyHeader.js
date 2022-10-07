@@ -142,7 +142,7 @@ const CompanyHeader = (props) => {
                   ? navigation.navigate("EmployerAddWork")
                   : Alert.alert(
                       "",
-                      "Та эхлээд манай компанитай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
+                      "Та эхлээд манай байгууллагатай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
                       [
                         {
                           text: "Буцах",
@@ -191,7 +191,7 @@ const CompanyHeader = (props) => {
                 name="md-notifications-outline"
                 size={30}
                 color={colors.primaryText}
-                style={{ marginRight: 10, alignSelf: "flex-end" }}
+                style={{ marginRight: 5, alignSelf: "flex-end" }}
               />
               {companyProfile.notification ? (
                 <View

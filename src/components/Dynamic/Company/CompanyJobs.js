@@ -9,6 +9,7 @@ import React from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../../Constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import moment from "moment";
 const CompanyJobs = (props) => {
   const {
     id,
@@ -19,6 +20,7 @@ const CompanyJobs = (props) => {
     occupation,
     type,
     salary,
+    order,
   } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -30,6 +32,7 @@ const CompanyJobs = (props) => {
         paddingVertical: 15,
         marginVertical: 4,
         borderRadius: 10,
+        opacity: order > moment().format() ? 0.4 : 1,
       }}
       onPress={() => navigation.navigate("EmployerWorkDetail", { id })}
     >

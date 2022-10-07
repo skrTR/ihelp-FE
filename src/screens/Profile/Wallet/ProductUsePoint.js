@@ -67,7 +67,7 @@ const ProductUsePoint = ({ route }) => {
   const BoostEmployerCompany = (point, date, day) => {
     Alert.alert(
       "Санамж",
-      `Та ажил хийе дээр ${date} сараар онцлох компани болсноор таны пойнт - ноос ${point} пойнт хасагдахыг анхаарна уу`,
+      `Та ажил хийе дээр ${date} сараар онцлох байгууллага болсноор таны пойнт - ноос ${point} пойнт хасагдахыг анхаарна уу`,
       [
         {
           text: "Үгүй",
@@ -82,7 +82,7 @@ const ProductUsePoint = ({ route }) => {
                 employerSpecial: day,
               })
               .then((res) => {
-                alert("Амжиллтай ажил хийе дээр онцлох компани боллоо");
+                alert("Амжиллтай ажил хийе дээр онцлох байгууллага боллоо");
                 navigation.goBack();
               })
               .catch((err) => {
@@ -96,7 +96,7 @@ const ProductUsePoint = ({ route }) => {
   const BoostEmployeeCompany = (point, date, day) => {
     Alert.alert(
       "Санамж",
-      `Та ажил хийе дээр ${date} сараар онцлох компани болсноор таны пойнт - ноос ${point} пойнт хасагдахыг анхаарна уу`,
+      `Та ажил хийе дээр ${date} сараар онцлох байгууллага болсноор таны пойнт - ноос ${point} пойнт хасагдахыг анхаарна уу`,
       [
         {
           text: "Үгүй",
@@ -111,7 +111,7 @@ const ProductUsePoint = ({ route }) => {
                 employeeSpecial: day,
               })
               .then((res) => {
-                alert("Амжиллтай ажил өгье дээр онцлох компани боллоо");
+                alert("Амжиллтай ажил өгье дээр онцлох байгууллага боллоо");
                 navigation.goBack();
               })
               .catch((err) => {

@@ -132,7 +132,7 @@ const UrgentWork = (props) => {
         }}
       >
         <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
+          style={{ flexDirection: "row", alignItems: "center", width: "80%" }}
           onPress={() =>
             navigation.navigate("EmployerWorkDetail", {
               id: id,
@@ -271,14 +271,23 @@ const UrgentWork = (props) => {
         )}
       </View>
       {urgent && (
-        <DataCountDown
-          createdAt={urgent}
-          text={
-            createUserId === state.companyId
-              ? "Яааралтай зарын дуусах хугацаа"
-              : "CV хүлээн авах эцсийн хугацаа"
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("EmployerWorkDetail", {
+              id: id,
+              isLiked: isLike,
+            })
           }
-        />
+        >
+          <DataCountDown
+            createdAt={urgent}
+            text={
+              createUserId === state.companyId
+                ? "Яааралтай зарын дуусах хугацаа"
+                : "CV хүлээн авах эцсийн хугацаа"
+            }
+          />
+        </TouchableOpacity>
       )}
     </View>
   );

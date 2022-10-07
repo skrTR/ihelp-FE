@@ -213,7 +213,7 @@ const Posts = (props) => {
         </>
       )}
       {/* User Post */}
-      <View style={{ marginTop: !isShared && 10 }}>
+      <View style={{ marginTop: !isShared ? 10 : 0 }}>
         {/* User detail and body and photos */}
         <View
           style={{

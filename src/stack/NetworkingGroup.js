@@ -68,7 +68,7 @@ const NetworkingGroup = () => {
           options={{
             fullScreenGestureEnabled: true,
             presentation: "formSheet",
-            title: "Пост янзлах",
+            title: "Нийтлэл янзлах",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -120,7 +120,7 @@ const NetworkingGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Хэрэглэгчийн пост",
+            title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -160,7 +160,7 @@ const NetworkingGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Пост бүүстлэх",
+            title: "Нийтлэл идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
         />

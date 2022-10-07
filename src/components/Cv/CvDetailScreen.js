@@ -301,7 +301,7 @@ const CvDetailScreen = (props) => {
                               color: colors.primaryText,
                             }}
                           >
-                            Компани: {e.company}
+                            Байгууллага: {e.company}
                           </Text>
                         )}
                         {e.position && (
@@ -444,7 +444,7 @@ const CvDetailScreen = (props) => {
                             color: colors.primaryText,
                           }}
                         >
-                          Компани: {e.company}
+                          Байгууллага: {e.company}
                         </Text>
                       )}
                       {e.name && (

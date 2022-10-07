@@ -63,6 +63,7 @@ const EmployerSearch = () => {
           alignItems: "center",
           marginHorizontal: 10,
           justifyContent: "space-around",
+          marginTop: 10,
         }}
       >
         <AntDesign
@@ -72,7 +73,7 @@ const EmployerSearch = () => {
           onPress={() => navigation.goBack()}
         />
         <TextInput
-          placeholder="Хайх утга..."
+          placeholder="Хайх утга"
           value={search}
           onChangeText={(text) => searchFilter(text)}
           style={{
@@ -83,6 +84,7 @@ const EmployerSearch = () => {
             borderRadius: 20,
             color: colors.primaryText,
           }}
+          placeholderTextColor={"#cccccccc"}
         />
         <SimpleLineIcons
           name="equalizer"
@@ -110,7 +112,7 @@ const EmployerSearch = () => {
                 marginVertical: 20,
               }}
             >
-              Ажил олгогч компани
+              Ажил олгогч байгууллага
             </Text>
           </>
         }

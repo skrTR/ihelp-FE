@@ -29,7 +29,6 @@ const CompanySearch = () => {
         <TouchableOpacity
           style={{
             padding: 10,
-
             borderWidth: 1,
             borderRadius: 20,
             borderColor: colors.border,
@@ -38,7 +37,7 @@ const CompanySearch = () => {
           onPress={() => navigation.navigate("EmployerSearch")}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
-            Ажил олгогч компани хайх
+            Ажил олгогч байгууллага
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -58,7 +57,7 @@ const CompanySearch = () => {
               color: colors.primaryText,
             }}
           >
-            Ажил хайгч компани хайх
+            Ажил хайгч байгууллага
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

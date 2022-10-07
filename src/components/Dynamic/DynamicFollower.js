@@ -12,6 +12,7 @@ import axios from "axios";
 import UserContext from "../../context/UserContext";
 import { api } from "../../../Constants";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import FollowButton from "../FollowButton";
 const DynamicFollower = (props) => {
   const { followUser, isFollowing, id } = props;
   const { colors } = useTheme();
@@ -78,8 +79,8 @@ const DynamicFollower = (props) => {
                 uri: `${api}/upload/${followUser.profile}`,
               }}
               style={{
-                width: 50,
-                height: 50,
+                width: 70,
+                height: 70,
                 borderRadius: 30,
               }}
               imageStyle={{ borderRadius: 30 }}
@@ -195,44 +196,20 @@ const DynamicFollower = (props) => {
           </TouchableOpacity>
         )}
 
-        <TouchableOpacity
+        <FollowButton
+          onPress={onFollow}
+          follow={follow}
           style={{
-            backgroundColor: !follow ? "#FFB6C1" : null,
+            backgroundColor: follow ? null : "#FFB6C1",
             marginHorizontal: 5,
             borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            width: "25%",
             alignContent: "center",
-            height: "80%",
+            padding: 10,
+            width: 100,
           }}
-          onPress={onFollow}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              top: 5,
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <AntDesign
-              name={follow ? "deleteuser" : "adduser"}
-              size={24}
-              color={!follow ? colors.border : colors.primaryText}
-            />
-            <Text
-              style={{
-                textAlign: "center",
-
-                color: !follow ? colors.border : colors.primaryText,
-              }}
-            >
-              {" "}
-              {follow ? "Дагадаг" : "Дагах"}
-            </Text>
-          </View>
-        </TouchableOpacity>
+        />
       </View>
       <View
         style={{

@@ -346,14 +346,15 @@ const EmployerWorkDetail = (props) => {
             </Text>
             <View style={{ marginLeft: 10 }}>
               {workDetail.skill === "" ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
-                  <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Чадвар:{" "}
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      left: 5,
+                      top: 3,
+                    }}
+                  >
+                    • Чадвар:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill}
@@ -361,14 +362,9 @@ const EmployerWorkDetail = (props) => {
                 </View>
               )}
               {workDetail.skill1 === "" ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Чадвар2:{" "}
+                    • Чадвар2:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill1}
@@ -376,14 +372,15 @@ const EmployerWorkDetail = (props) => {
                 </View>
               )}
               {workDetail.skill2 === "" ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
-                  <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Чадвар3:{" "}
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
+                  <Text
+                    style={{
+                      color: "white",
+                      left: 5,
+                      top: 3,
+                    }}
+                  >
+                    • Чадвар3:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill2}
@@ -391,14 +388,9 @@ const EmployerWorkDetail = (props) => {
                 </View>
               )}
               {workDetail.skill3 === "" ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Чадвар4:{" "}
+                    • Чадвар4:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.skill3}
@@ -406,14 +398,9 @@ const EmployerWorkDetail = (props) => {
                 </View>
               )}
               {workDetail.education === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row", top: 4 }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Боловсрол:{" "}
+                    • Боловсрол:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.education}
@@ -422,14 +409,9 @@ const EmployerWorkDetail = (props) => {
               )}
 
               {workDetail.language === "" ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Хэлний чадвар:{" "}
+                    • Хэлний чадвар:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.language}
@@ -437,14 +419,9 @@ const EmployerWorkDetail = (props) => {
                 </View>
               )}
               {workDetail.experience === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <MaterialCommunityIcons
-                    name="head-dots-horizontal-outline"
-                    size={20}
-                    color={"#64e986"}
-                  />
+                <View style={{ flexDirection: "row", marginVertical: 5 }}>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
-                    Ажлын туршлага жилээр:{" "}
+                    • Ажлын туршлага жилээр:{" "}
                   </Text>
                   <Text style={{ color: "white", left: 5, top: 3 }}>
                     {workDetail.experience}

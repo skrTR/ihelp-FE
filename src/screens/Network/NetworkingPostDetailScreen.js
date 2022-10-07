@@ -215,7 +215,7 @@ const NetworkingPostDetailScreen = (props) => {
       </View>
       <ScrollView>
         {/* Middle content */}
-        <View style={{ marginTop: postDetail.isShare && 10 }}>
+        <View style={{ marginTop: postDetail.isShare ? 10 : 0 }}>
           {/* User detail and body and photos */}
           <View
             style={{
@@ -405,7 +405,7 @@ const NetworkingPostDetailScreen = (props) => {
               {liked ? "Таалагдлаа" : "Таалагдлаа"}
             </Text>
           </TouchableOpacity>
-          <View style={{ flexDirection: "row" }}>
+          <TouchableOpacity style={{ flexDirection: "row" }}>
             <MaterialCommunityIcons
               name="comment-text-multiple-outline"
               size={24}
@@ -414,7 +414,7 @@ const NetworkingPostDetailScreen = (props) => {
             <Text style={{ color: colors.secondaryText, marginLeft: 5 }}>
               Сэтгэгдэл
             </Text>
-          </View>
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => navigation.navigate("SharePostModal", { id: id })}
             style={{ flexDirection: "row" }}

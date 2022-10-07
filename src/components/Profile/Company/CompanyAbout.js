@@ -30,7 +30,7 @@ const CompanyAbout = (props) => {
             fontSize: 20,
           }}
         >
-          Компанийн мэдээлэл
+          Байгууллагын мэдээлэл
         </Text>
         <SimpleLineIcons
           name="pencil"

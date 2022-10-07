@@ -44,7 +44,6 @@ const ViewCompanyProfile = (props) => {
         ) : (
           <Header isBack={true} />
         )}
-        {console.log(companyProfile)}
         <CompanyTop
           cover={companyProfile.cover}
           profile={companyProfile.profile}
@@ -124,6 +123,7 @@ const ViewCompanyProfile = (props) => {
                         occupation={data.occupationName}
                         type={data.type}
                         salary={data.salary}
+                        order={data.order}
                       />
                     </View>
                   );

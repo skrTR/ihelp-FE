@@ -26,7 +26,7 @@ const CompanyPortf = (props) => {
             fontSize: 20,
           }}
         >
-          Компанийн портфолиа
+          Байгууллагын портфолиа
         </Text>
       </View>
 

@@ -97,7 +97,7 @@ const SpecialWork = (props) => {
         }}
       >
         <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
+          style={{ flexDirection: "row", alignItems: "center", width: "80%" }}
           onPress={() =>
             navigation.navigate("EmployerWorkDetail", {
               id: id,

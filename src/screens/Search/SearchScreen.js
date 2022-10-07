@@ -1,4 +1,5 @@
 import {
+  Alert,
   ScrollView,
   StyleSheet,
   Text,
@@ -40,13 +41,15 @@ const SearchScreen = () => {
         ) : (
           <Header isFollowedCompany={true} />
         )}
-        <ScrollView style={{ backgroundColor: colors.background }}>
+        <ScrollView
+          style={{ backgroundColor: colors.background, marginHorizontal: 10 }}
+        >
           <TouchableOpacity
             style={{
               padding: 10,
 
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -62,7 +65,7 @@ const SearchScreen = () => {
               padding: 10,
 
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -70,7 +73,7 @@ const SearchScreen = () => {
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
               {" "}
-              Компани хайх{" "}
+              Байгууллага хайх
             </Text>
           </TouchableOpacity>
           {!state.isCompany && (
@@ -79,7 +82,7 @@ const SearchScreen = () => {
                 padding: 10,
 
                 borderWidth: 1,
-                borderRadius: 20,
+                borderRadius: 10,
                 borderColor: colors.border,
                 marginTop: 10,
               }}
@@ -87,8 +90,22 @@ const SearchScreen = () => {
                 if (score > 79) {
                   navigation.navigate("MyJobs");
                 } else {
-                  alert(
-                    "Та өөрийн анкетын оноог 80 хүргэснээр өөрт тохирох үзэх боломжтой"
+                  Alert.alert(
+                    "Анхаар",
+                    "Та өөрийн анкетыг 80%-с дээш бөглөснөөр өөрт тохирох зарыг үзэх боломжтой",
+                    [
+                      {
+                        text: "Үгүй",
+                        style: "cancel",
+                      },
+                      {
+                        text: "Анкет янзлах",
+                        onPress: () =>
+                          navigation.navigate("ProfileStack", {
+                            screen: "UserProfileScreen",
+                          }),
+                      },
+                    ]
                   );
                 }
               }}
@@ -103,7 +120,7 @@ const SearchScreen = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -118,7 +135,7 @@ const SearchScreen = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               borderColor: colors.border,
 
               marginTop: 10,
@@ -128,20 +145,6 @@ const SearchScreen = () => {
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
               {" "}
               Салбараар зар хайх{" "}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 20,
-              borderColor: colors.border,
-              marginTop: 10,
-            }}
-            onPress={() => state.logout()}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              Logout
             </Text>
           </TouchableOpacity>
         </ScrollView>

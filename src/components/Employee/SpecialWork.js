@@ -10,10 +10,9 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 
-import Icon from "@expo/vector-icons/Entypo";
+import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
-import Ionicons from "@expo/vector-icons/Ionicons";
 import moment from "moment";
 import DataCountDown from "./DataCountDown";
 const SpecialWork = (props) => {
@@ -97,7 +96,7 @@ const SpecialWork = (props) => {
         }}
       >
         <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
+          style={{ flexDirection: "row", alignItems: "center", width: "80%" }}
           onPress={() =>
             navigation.navigate("EmployeeWorkDetail", { id, isLiked: isLike })
           }
@@ -212,12 +211,21 @@ const SpecialWork = (props) => {
         )}
         {!state.isCompany && (
           <View style={{}}>
-            <Icon
+            <Entypo
               name={isLike ? "heart" : "heart-outlined"}
               size={30}
               color={"white"}
               onPress={isLike ? unLiked : liked}
               style={{ textAlign: "right", marginRight: 20 }}
+            />
+            <MaterialCommunityIcons
+              name="offer"
+              size={30}
+              color="white"
+              style={{ marginRight: 10, marginTop: 10 }}
+              onPress={() =>
+                navigation.navigate("CompanySendWorkRequest", { id: id })
+              }
             />
           </View>
         )}

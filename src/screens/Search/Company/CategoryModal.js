@@ -60,6 +60,7 @@ const CategoryModal = (props) => {
           flexDirection: "row",
           marginHorizontal: 10,
           alignItems: "center",
+          width: "100%",
         }}
         onPress={() => {
           setOccupationName(item.name);
@@ -98,7 +99,7 @@ const CategoryModal = (props) => {
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader text="Салбар" clicked={() => setOccupationModal(false)} />
         <TextInput
-          placeholder="Хайх утга..."
+          placeholder="Хайх утга"
           value={search}
           onChangeText={(text) => searchFilter(text)}
           style={{
@@ -108,6 +109,7 @@ const CategoryModal = (props) => {
             marginBottom: 10,
             marginHorizontal: 10,
           }}
+          placeholderTextColor={"#cccccccc"}
         />
         <View style={{ marginHorizontal: 10 }}>
           <FlatList

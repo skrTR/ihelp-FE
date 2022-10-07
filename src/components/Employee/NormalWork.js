@@ -16,6 +16,7 @@ import UserContext from "../../context/UserContext";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import moment from "moment";
 import DataCountDown from "./DataCountDown";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 const NormalWork = (props) => {
   const {
     id,
@@ -98,7 +99,7 @@ const NormalWork = (props) => {
         }}
       >
         <TouchableOpacity
-          style={{ flexDirection: "row", alignItems: "center" }}
+          style={{ flexDirection: "row", alignItems: "center", width: "80%" }}
           onPress={() =>
             navigation.navigate("EmployeeWorkDetail", {
               id: id,
@@ -223,6 +224,15 @@ const NormalWork = (props) => {
               color={"white"}
               onPress={isLike ? unLiked : liked}
               style={{ textAlign: "right", marginRight: 20 }}
+            />
+            <MaterialCommunityIcons
+              name="offer"
+              size={30}
+              color="white"
+              style={{ marginRight: 10, marginTop: 10 }}
+              onPress={() =>
+                navigation.navigate("CompanySendWorkRequest", { id: id })
+              }
             />
           </View>
         )}

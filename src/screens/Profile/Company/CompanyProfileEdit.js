@@ -103,12 +103,12 @@ const CompanyProfileEdit = ({ route }) => {
   return (
     <View style={{ marginHorizontal: 20 }}>
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Компани тухай
+        Байгууллагын тухай
       </Text>
       <FormText
         value={companyProfile.about}
         onChangeText={checkAbout}
-        errorText="Компани мэдээлэл 2 оос дээш тэмдэгтээс тогтоно."
+        errorText="Байгууллага мэдээлэл 2 оос дээш тэмдэгтээс тогтоно."
         errorShow={error.about}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -117,7 +117,7 @@ const CompanyProfileEdit = ({ route }) => {
       <FormText
         value={companyProfile.web}
         onChangeText={checkWeb}
-        errorText="Компани web 2 оос дээш тэмдэгтээс тогтоно."
+        errorText="Байгууллага web 2 оос дээш тэмдэгтээс тогтоно."
         errorShow={error.web}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>

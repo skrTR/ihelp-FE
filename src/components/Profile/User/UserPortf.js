@@ -6,15 +6,17 @@ import {
   Text,
   TouchableOpacity,
 } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import SimpleLineIcons from "@expo/vector-icons/SimpleLineIcons";
 import { api } from "../../../../Constants";
+import UserContext from "../../../context/UserContext";
 const fullWidth = Dimensions.get("screen").width;
 
 const UserPortf = (props) => {
-  const { image1, image2, image3, image4, image5, image6 } = props;
+  const { image1, image2, image3, image4, image5, image6, id } = props;
   const { colors } = useTheme();
+  const state = useContext(UserContext);
   const navigation = useNavigation();
   return (
     <>
@@ -35,15 +37,17 @@ const UserPortf = (props) => {
             right: 5,
           }}
         >
-          Хэрэглэгчийн портфолиа
+          Зурагт танилцуулга
         </Text>
-        <SimpleLineIcons
-          name="pencil"
-          size={24}
-          color={colors.primaryText}
-          style={{}}
-          onPress={() => navigation.navigate("UserPortfolio")}
-        />
+        {state.userId === id && (
+          <SimpleLineIcons
+            name="pencil"
+            size={24}
+            color={colors.primaryText}
+            style={{}}
+            onPress={() => navigation.navigate("UserPortfolio")}
+          />
+        )}
       </View>
       <TouchableOpacity
         onPress={() =>

@@ -296,13 +296,13 @@ const EmployeeAddWork = () => {
             errorShow={error.specialPermission}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Certificate
+            Батламж
           </Text>
           <FormText
-            placeholder="Certificate"
+            placeholder=" Батламж"
             value={addWork.certificate}
             onChangeText={checkCertificate}
-            errorText="certificate зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
+            errorText=" Батламж урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.certificate}
           />
 

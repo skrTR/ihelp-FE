@@ -18,13 +18,14 @@ const NetworkingTextInput = (props) => {
         style={[
           styles.inputField,
           props.style,
-          { backgroundColor: colors.border, color: "white" },
+          { backgroundColor: colors.border, color: "white", height: 43 },
         ]}
         {...props}
         autoCorrect={false}
         autoCapitalize="none"
         selectionColor={"#FFB6C1"}
-        placeholder="Та сэтгэгдэлээ үлдээнэ үү..."
+        placeholder="Та сэтгэгдлээ үлдээнэ үү"
+        placeholderTextColor={"#cccccc"}
       />
       <TouchableOpacity onPress={props.onPress}>
         <MaterialCommunityIcons

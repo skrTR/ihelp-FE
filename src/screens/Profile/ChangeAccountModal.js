@@ -114,7 +114,7 @@ const ChangeAccountModal = () => {
                 fontSize: 20,
               }}
             >
-              Компани хаяг{" "}
+              Байгууллагын хаяг{" "}
             </Text>
             <TouchableOpacity
               style={{

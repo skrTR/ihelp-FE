@@ -235,7 +235,7 @@ const CreateCvScreen = (props) => {
                           size={16}
                           color={colors.primary}
                         />{" "}
-                        Компани:{" "}
+                        Байгууллага:{" "}
                       </Text>
                       {item.company}
                     </Text>
@@ -562,7 +562,7 @@ const CreateCvScreen = (props) => {
                     <Text
                       style={{ color: colors.primaryText, fontWeight: "200" }}
                     >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Компани: </Text>
+                      <Text style={{ fontFamily: "Sf-bold" }}>Байгууллага: </Text>
                       {item.company}
                     </Text>
                     <Text

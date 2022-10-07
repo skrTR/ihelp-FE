@@ -49,6 +49,7 @@ const Header = (props) => {
               size={25}
               color={colors.primaryText}
               onPress={() => navigation.goBack()}
+              style={{ right: 5 }}
             />
           ) : isEmployerSaved ? (
             <SimpleLineIcons
@@ -86,7 +87,7 @@ const Header = (props) => {
           ) : isFollowedCompany ? (
             <SimpleLineIcons
               name="user-following"
-              size={25}
+              size={23}
               color={colors.primaryText}
               onPress={() => navigation.navigate("FollowedCompany")}
             />
@@ -118,7 +119,7 @@ const Header = (props) => {
                 name="md-notifications-outline"
                 size={30}
                 color={colors.primaryText}
-                style={{ marginRight: 10 }}
+                style={{ left: 5 }}
               />
               {userProfile.notification ? (
                 <View
@@ -126,10 +127,10 @@ const Header = (props) => {
                     position: colors.primary,
                     backgroundColor: "red",
                     borderRadius: 20,
-                    paddingHorizontal: 3.5,
                     position: "absolute",
                     top: 0,
-                    right: 20,
+                    right: 10,
+                    paddingHorizontal: 3.5,
                   }}
                 >
                   <Text
@@ -137,7 +138,7 @@ const Header = (props) => {
                       color: colors.primaryText,
                       fontFamily: "Sf-bold",
                       padding: 3,
-                      fontSize: 10,
+                      fontSize: 8,
                     }}
                   >
                     {userProfile.notification}

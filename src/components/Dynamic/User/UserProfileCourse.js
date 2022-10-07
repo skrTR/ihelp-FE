@@ -47,7 +47,12 @@ const UserProfileCourse = ({ data }) => {
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.schoolPhoto}` }}
-                    style={{ width: 50, height: 50, resizeMode: "cover" }}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      resizeMode: "cover",
+                      borderRadius: 10,
+                    }}
                   />
                 </TouchableOpacity>
                 <View style={{ marginHorizontal: 10, bottom: 3 }}>

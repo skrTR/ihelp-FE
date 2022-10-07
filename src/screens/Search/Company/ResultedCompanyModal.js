@@ -41,7 +41,7 @@ const ResultedCompanyModal = (props) => {
           }}
         />
       ) : (
-        <Empty text="Таны хайсан салбарын профайл байхгүй байна" />
+        <Empty text="Илэрц байхгүй" />
       )}
     </View>
   );

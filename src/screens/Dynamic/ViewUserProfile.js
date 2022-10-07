@@ -15,6 +15,7 @@ import Posts from "../../components/Network/Posts";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import UserPortf from "../../components/Profile/User/UserPortf";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const ViewUserProfile = (props) => {
   const { id } = props.route.params;
   const [userProfile, profileLoading] = useUserProfile(id);
@@ -22,6 +23,7 @@ const ViewUserProfile = (props) => {
   const { colors } = useTheme();
   const [activityData, setActivityData] = useState([]);
   const state = useContext(UserContext);
+  const insents = useSafeAreaInsets();
   const getActivityData = () => {
     axios
       .get(`${api}/api/v1/posts/${id}/user`)
@@ -40,7 +42,9 @@ const ViewUserProfile = (props) => {
     return null;
   }
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <SafeAreaView
+      style={{ backgroundColor: colors.header, paddingTop: insents.top }}
+    >
       {/* Header */}
       {state.isCompany ? (
         <CompanyHeader isBack={true} />
@@ -71,6 +75,7 @@ const ViewUserProfile = (props) => {
               image4={userProfile.portfolio.image4}
               image5={userProfile.portfolio.image5}
               image6={userProfile.portfolio.image6}
+              id={userProfile.id}
             />
           )}
 

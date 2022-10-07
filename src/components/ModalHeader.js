@@ -22,6 +22,7 @@ const ModalHeader = (props) => {
           style={{
             color: colors.primaryText,
             fontFamily: "Sf-bold",
+            fontSize: 15,
           }}
         >
           {props.text}

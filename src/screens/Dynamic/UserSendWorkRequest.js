@@ -17,7 +17,7 @@ const UserSendWorkRequest = ({ route }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [description, setDescription] = useState("");
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState();
   const [occupation, setOccupation] = useState("");
   const SendRequestWork = () => {
     axios
@@ -37,50 +37,54 @@ const UserSendWorkRequest = ({ route }) => {
   return (
     <View style={{ marginHorizontal: 20 }}>
       <TextInput
-        placeholder="Ажлын байр"
+        placeholder="Гарчиг"
         value={occupation}
         onChangeText={setOccupation}
         style={{
           marginTop: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
+        placeholderTextColor={"#cccccccc"}
       />
       <TextInput
-        placeholder="Цалин"
-        value={salary.toString()}
+        placeholder="Ажлын хөлс"
+        value={salary}
         onChangeText={setSalary}
         style={{
           marginTop: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
+        placeholderTextColor={"#cccccccc"}
+        keyboardType={"numeric"}
       />
       <TextInput
         placeholder="Тайлбар"
         value={description}
         onChangeText={setDescription}
+        placeholderTextColor={"#cccccccc"}
         style={{
           marginVertical: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
       />
       <TouchableOpacity
         style={{
-          padding: 10,
+          padding: 15,
           backgroundColor: "#FFB6C1",
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 10,
           opacity: occupation === "" ? 0.2 : 1,
         }}
         disabled={occupation === "" ? true : false}

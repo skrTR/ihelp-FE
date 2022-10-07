@@ -57,96 +57,98 @@ const DynamicFollowing = (props) => {
           flexDirection: "row",
           alignItems: "center",
           marginHorizontal: 20,
-          marginTop: 10,
+          marginVertical: 7,
           justifyContent: "space-between",
         }}
       >
         {followUser.organization ? (
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-            }}
-            onPress={() =>
-              navigation.navigate("ViewCompanyProfile", {
-                id: id,
-              })
-            }
-          >
-            <ImageBackground
-              source={{
-                uri: `${api}/upload/${followUser.profile}`,
-              }}
+          <>
+            <TouchableOpacity
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 30,
+                flexDirection: "row",
+                alignItems: "center",
               }}
-              imageStyle={{ borderRadius: 30 }}
+              onPress={() =>
+                navigation.navigate("ViewCompanyProfile", {
+                  id: id,
+                })
+              }
             >
-              {followUser.isEmployer && (
-                <View
+              <ImageBackground
+                source={{
+                  uri: `${api}/upload/${followUser.profile}`,
+                }}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 30,
+                }}
+                imageStyle={{ borderRadius: 30 }}
+              >
+                {followUser.isEmployer && (
+                  <View
+                    style={{
+                      backgroundColor: "#ff914d",
+                      borderRadius: 20,
+                      alignItems: "center",
+                      position: "absolute",
+                      alignSelf: "flex-end",
+                      bottom: 0,
+                      padding: 4,
+                    }}
+                  >
+                    <Ionicons
+                      name={"briefcase"}
+                      size={8}
+                      color={colors.primaryText}
+                    />
+                  </View>
+                )}
+                {followUser.isEmployee && (
+                  <View
+                    style={{
+                      backgroundColor: "#3da4e3",
+                      borderRadius: 20,
+                      alignItems: "center",
+                      position: "absolute",
+                      alignSelf: "flex-end",
+                      bottom: 0,
+                      padding: 4,
+                      right: followUser.isEmployer ? 14 : 0,
+                    }}
+                  >
+                    <Ionicons
+                      name={"business"}
+                      size={8}
+                      color={colors.primaryText}
+                    />
+                  </View>
+                )}
+              </ImageBackground>
+              <View>
+                <Text
                   style={{
-                    backgroundColor: "#ff914d",
-                    borderRadius: 20,
-                    alignItems: "center",
-                    position: "absolute",
-                    alignSelf: "flex-end",
-                    bottom: 0,
-                    padding: 4,
+                    marginTop: 10,
+                    fontWeight: "bold",
+                    color: colors.primaryText,
+                    marginLeft: 10,
                   }}
                 >
-                  <Ionicons
-                    name={"briefcase"}
-                    size={8}
-                    color={colors.primaryText}
-                  />
-                </View>
-              )}
-              {followUser.isEmployee && (
-                <View
+                  {followUser.firstName}
+                </Text>
+                <Text
                   style={{
-                    backgroundColor: "#3da4e3",
-                    borderRadius: 20,
-                    alignItems: "center",
-                    position: "absolute",
-                    alignSelf: "flex-end",
-                    bottom: 0,
-                    padding: 4,
-                    right: followUser.isEmployer ? 14 : 0,
+                    marginVertical: 5,
+                    marginLeft: 10,
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
                   }}
                 >
-                  <Ionicons
-                    name={"business"}
-                    size={8}
-                    color={colors.primaryText}
-                  />
-                </View>
-              )}
-            </ImageBackground>
-            <View>
-              <Text
-                style={{
-                  marginTop: 10,
-                  fontWeight: "bold",
-                  color: colors.primaryText,
-                  marginLeft: 10,
-                }}
-              >
-                {followUser.firstName}
-              </Text>
-              <Text
-                style={{
-                  marginVertical: 5,
-                  marginLeft: 10,
-                  color: colors.primaryText,
-                  fontFamily: "Sf-thin",
-                }}
-              >
-                {followUser.category}
-              </Text>
-            </View>
-          </TouchableOpacity>
+                  {followUser.category}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </>
         ) : (
           <TouchableOpacity
             style={{
@@ -164,8 +166,8 @@ const DynamicFollowing = (props) => {
                 uri: `${api}/upload/${followUser.profile}`,
               }}
               style={{
-                width: 50,
-                height: 50,
+                width: 60,
+                height: 60,
                 borderRadius: 30,
               }}
               imageStyle={{ borderRadius: 30 }}
@@ -204,19 +206,12 @@ const DynamicFollowing = (props) => {
             borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            width: "25%",
             alignContent: "center",
-            height: "80%",
+            padding: 10,
+            width: 100,
           }}
         />
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
     </>
   );
 };

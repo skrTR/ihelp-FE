@@ -10,7 +10,7 @@ import {
   RefreshControl,
   ScrollView,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { api } from "../../../Constants";
@@ -21,178 +21,107 @@ import Header from "../../components/Header/Header";
 import useNetworkingPost from "../../hooks/NetworkingHook/useNetworkingPost";
 import useNetworkingBoost from "../../hooks/NetworkingHook/useNetworkingBoost";
 import BoostedPost from "../../components/Network/BoostedPost";
+import axios from "axios";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const NetworkingScreen = () => {
   const state = useContext(UserContext);
   const [userProfile] = useUserProfile(state.userId);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [renderItem, setRenderItem] = useState(4);
-  const [loading, followData, maxPage, currentPage, setCurrentPage] =
-    useNetworkingPost(state.userId);
-  const [refresh, setRefresh] = useState(false);
-  // const [boostLoading, boostData, boostMaxPage, boostPage, setBoostPage] =
-  //   useNetworkingBoost();
-  const handleRefresh = () => {
-    setCurrentPage(1);
-    setRefresh(false);
+  const [loading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
+  const [error, setError] = useState(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [boostPage, setBoostPage] = useState(1);
+  const insents = useSafeAreaInsets();
+  useEffect(() => {
+    makeRequest();
+  }, [page, refreshing]);
+  const makeRequest = async () => {
+    const apiUrl = `${api}/api/v1/posts/${state.userId}/following?page=${page}&sort=-createdAt&limit=3`;
+    await fetch(apiUrl)
+      .then((res) => res.json())
+      .then((resJson) => {
+        let datas = resJson.data;
+        setData(data.concat(datas));
+        setLoading(false);
+        setRefreshing(false);
+        setError(null);
+      })
+      .catch((err) => {
+        setError(err);
+      });
   };
-  if (!userProfile) {
-    return null;
-  }
-
+  const handleRefresh = () => {
+    setRefreshing(true);
+    setData([]);
+    setPage(1);
+  };
+  const listFooterRender = () => {
+    loading ? <ActivityIndicator /> : null;
+  };
+  const handleMore = () => {
+    setPage(page + 1);
+    setLoading(true);
+  };
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header, flex: 1 }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       <Header userSearch={true} />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl refreshing={refresh} onRefresh={handleRefresh} />
-        }
-        onMomentumScrollEnd={(e) => {
-          const scrollPosition = e.nativeEvent.contentOffset.y;
-          const scrollViewHeight = e.nativeEvent.layoutMeasurement.height;
-          const contentHeight = e.nativeEvent.contentSize.height;
-          const isScrolledBottom = scrollViewHeight + scrollPosition;
-          if (
-            isScrolledBottom >= contentHeight - 50 &&
-            currentPage <= followData.length
-          ) {
-            if (currentPage < maxPage) {
-              setCurrentPage(currentPage + 1);
-            }
-          }
+      <FlatList
+        data={data}
+        renderItem={({ item }) => {
+          return (
+            <>
+              {item && (
+                <Posts
+                  postId={item._id}
+                  createUserId={item.createUser}
+                  createUserProfile={item.profile}
+                  createUserStatus={item.status}
+                  firstName={item.firstName}
+                  lastName={item.lastName}
+                  profession={item.profession}
+                  workingCompany={item.workingCompany}
+                  createdAt={item.createdAt}
+                  body={item.body}
+                  photo={item.photo}
+                  isShared={item.isShare}
+                  sharedUserFirstName={
+                    item.shareInfo && item.shareInfo.firstName
+                  }
+                  sharedUserLastName={item.shareInfo && item.shareInfo.lastName}
+                  sharedUserProfile={item.shareInfo && item.shareInfo.profile}
+                  sharedId={item.shareInfo && item.shareInfo.createUser}
+                  sharedCreatedAt={item.shareInfo && item.shareInfo.createdAt}
+                  sharedBody={item.shareInfo && item.shareInfo.body}
+                  sharedPhoto={item.shareInfo && item.shareInfo.photo}
+                  sharedUserProfession={
+                    item.shareInfo && item.shareInfo.profession
+                  }
+                  sharedUserWorkingCompany={
+                    item.shareInfo && item.shareInfo.workingCompany
+                  }
+                  likeCount={item.like}
+                  commentCount={item.comment}
+                  shareCount={item.share}
+                  isLiked={item.isLiked}
+                  isCompany={item.organization}
+                  isBoost={item.isBoost}
+                  isApproved={item.isApproved}
+                />
+              )}
+            </>
+          );
         }}
-      >
-        <TouchableOpacity
-          onPress={() => navigation.navigate("AddPostScreen")}
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            borderWidth: 1,
-            borderColor: colors.border,
-            padding: 10,
-            paddingBottom: 20,
-            justifyContent: "space-between",
-            marginTop: 10,
-            backgroundColor: colors.background,
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <ImageBackground
-              source={{ uri: `${api}/upload/${userProfile.profile}` }}
-              style={{ width: 50, height: 50 }}
-              imageStyle={{ borderRadius: 50 }}
-            >
-              <Image
-                style={{ width: 54, height: 54, bottom: 2, right: 2 }}
-                source={
-                  userProfile.status === "lookingForJob"
-                    ? require("../../../assets/looking.png")
-                    : userProfile.status === "opentowork"
-                    ? require("../../../assets/open.png")
-                    : userProfile.status === "getEmployee"
-                    ? require("../../../assets/hiring.png")
-                    : null
-                }
-              />
-            </ImageBackground>
-            <View style={{ marginLeft: 10 }}>
-              <Text style={{ color: colors.secondaryText }}>
-                Та хэлэх зүйлээ бичнэ үү?
-              </Text>
-            </View>
-          </View>
-          <FontAwesome5
-            name="images"
-            size={24}
-            color="#FFB6C1"
-            style={{ marginRight: 10 }}
-          />
-        </TouchableOpacity>
-        <View
-          style={{
-            borderWidth: 1,
-            borderColor: colors.border,
-            marginTop: 10,
-          }}
-        />
-        {followData.map((item, index) => {
-          if (index + 1 <= renderItem) {
-            return (
-              <View style={{ backgroundColor: colors.background }} key={index}>
-                {item.createUser && (
-                  <Posts
-                    postId={item._id}
-                    createUserId={item.createUser}
-                    createUserProfile={item.profile}
-                    createUserStatus={item.status}
-                    firstName={item.firstName}
-                    lastName={item.lastName}
-                    profession={item.profession}
-                    workingCompany={item.workingCompany}
-                    createdAt={item.createdAt}
-                    body={item.body}
-                    photo={item.photo}
-                    isShared={item.isShare}
-                    sharedUserFirstName={
-                      item.shareInfo && item.shareInfo.firstName
-                    }
-                    sharedUserLastName={
-                      item.shareInfo && item.shareInfo.lastName
-                    }
-                    sharedUserProfile={item.shareInfo && item.shareInfo.profile}
-                    sharedId={item.shareInfo && item.shareInfo.createUser}
-                    sharedCreatedAt={item.shareInfo && item.shareInfo.createdAt}
-                    sharedBody={item.shareInfo && item.shareInfo.body}
-                    sharedPhoto={item.shareInfo && item.shareInfo.photo}
-                    sharedUserProfession={
-                      item.shareInfo && item.shareInfo.profession
-                    }
-                    sharedUserWorkingCompany={
-                      item.shareInfo && item.shareInfo.workingCompany
-                    }
-                    likeCount={item.like}
-                    commentCount={item.comment}
-                    shareCount={item.share}
-                    isLiked={item.isLiked}
-                    isCompany={item.organization}
-                    isBoost={item.isBoost}
-                    isApproved={item.isApproved}
-                  />
-                )}
-              </View>
-            );
-          }
-        })}
-        {/* {boostData.map((item, index) => {
-          if (index + 1 <= renderItem) {
-            return (
-              <View style={{ backgroundColor: colors.background }}>
-                {item.createUser && (
-                  <BoostedPost
-                    postId={item._id}
-                    firstName={item.firstName}
-                    lastName={item.lastName}
-                    body={item.body}
-                    photo={item.photo}
-                    profession={item.profession}
-                    workingCompany={item.workingCompany}
-                    createUserId={item.createUser}
-                    createUserProfile={item.profile}
-                    createUserStatus={item.status}
-                    likeCount={item.like}
-                    commentCount={item.comment}
-                    shareCount={item.share}
-                    isCompany={item.organization}
-                    isApproved={item.isApproved}
-                  />
-                )}
-              </View>
-            );
-          }
-        })} */}
-      </ScrollView>
-    </SafeAreaView>
+        keyExtractor={(item, index) => index}
+        ListFooterComponent={listFooterRender}
+        refreshing={refreshing}
+        onRefresh={handleRefresh}
+        onEndReached={handleMore}
+        onEndReachedThreshold={0}
+      />
+    </View>
   );
 };
 

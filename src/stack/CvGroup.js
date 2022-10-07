@@ -47,7 +47,7 @@ const CvGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Хэрэглэгчийн пост",
+            title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
         />

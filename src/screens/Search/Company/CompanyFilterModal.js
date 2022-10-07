@@ -16,19 +16,25 @@ const CompanyFilterModal = (props) => {
   const { colors } = useTheme();
 
   return (
-    <View>
+    <View style={{ marginHorizontal: 10 }}>
       {/* Salbar */}
       <TouchableOpacity
         style={{
           padding: 10,
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 10,
           marginTop: 10,
           borderColor: colors.border,
+          backgroundColor: occupationName ? colors.border : colors.background,
         }}
         onPress={() => setOccupationModal(true)}
       >
-        <Text style={{ textAlign: "center", color: colors.primaryText }}>
+        <Text
+          style={{
+            textAlign: "center",
+            color: colors.primaryText,
+          }}
+        >
           {occupationName ? `${occupationName}` : "Салбар"}
         </Text>
       </TouchableOpacity>
@@ -36,13 +42,19 @@ const CompanyFilterModal = (props) => {
         style={{
           padding: 10,
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 10,
           marginTop: 10,
           borderColor: colors.border,
+          backgroundColor: typeName ? colors.border : colors.background,
         }}
         onPress={() => setTypeModal(true)}
       >
-        <Text style={{ textAlign: "center", color: colors.primaryText }}>
+        <Text
+          style={{
+            textAlign: "center",
+            color: colors.primaryText,
+          }}
+        >
           {typeName ? `${typeName}` : "Чиглэл"}
         </Text>
       </TouchableOpacity>
@@ -53,7 +65,7 @@ const CompanyFilterModal = (props) => {
           style={{
             padding: 10,
             borderWidth: 1,
-            borderRadius: 20,
+            borderRadius: 10,
             marginTop: 10,
             borderColor: colors.border,
           }}
@@ -71,21 +83,14 @@ const CompanyFilterModal = (props) => {
               typeName: typeName,
             })
           }
+          style={{
+            backgroundColor: "#FFB6C1",
+            borderRadius: 10,
+            padding: 10,
+            marginTop: 10,
+          }}
         >
-          <LinearGradient
-            colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-            start={[0.0, 0.5]}
-            end={[1.0, 0.5]}
-            style={{
-              borderRadius: 18,
-              padding: 10,
-              marginTop: 10,
-            }}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              Хайх
-            </Text>
-          </LinearGradient>
+          <Text style={{ textAlign: "center", color: "black" }}>Хайх</Text>
         </TouchableOpacity>
       )}
 

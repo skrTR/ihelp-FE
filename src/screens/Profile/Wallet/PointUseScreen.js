@@ -24,8 +24,8 @@ const PointUseScreen = () => {
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             {state.isCompany
-              ? "Зар болон компани идэвхжүүлэх"
-              : "Нетворкинг пост идэвхжүүлэх"}
+              ? "Зар болон байгууллага идэвхжүүлэх"
+              : "Нетворкинг нийтлэл идэвхжүүлэх"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity

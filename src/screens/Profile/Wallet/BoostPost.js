@@ -52,7 +52,7 @@ const BoostPost = (props) => {
         boost: boostDay,
       })
       .then((res) => {
-        Alert.alert("Амжиллтай", "Таны пост бүүстлэгдлээ", [
+        Alert.alert("Амжиллтай", "Таны нийтлэл идэвхжилээ", [
           {
             text: "Буцах",
             onPress: () => navigation.goBack(),

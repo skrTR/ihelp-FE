@@ -91,7 +91,7 @@ const UserActivityModal = () => {
                             Та{" "}
                             {item.postId.createUser &&
                               `${item.postId.createUser.lastName} ${item.postId.createUser.firstName}`}{" "}
-                            пост нь дээр коммэнт бичсэн байна.{" "}
+                            нийтлэл нь дээр коммэнт бичсэн байна.{" "}
                           </Text>
                           <Text
                             style={{
@@ -180,7 +180,7 @@ const UserActivityModal = () => {
                           Та{" "}
                           {item.postId.createUser &&
                             `${item.postId.createUser.lastName} ${item.postId.createUser.firstName}`}{" "}
-                          постыг хуваалцсан байна.{" "}
+                          нийтлэлийг хуваалцсан байна.{" "}
                         </Text>
                         <Text
                           style={{
@@ -258,7 +258,7 @@ const UserActivityModal = () => {
                         Танд{" "}
                         {item.postId.createUser &&
                           `${item.postId.createUser.lastName} ${item.postId.createUser.firstName}`}{" "}
-                        пост таалагдсан байна.{" "}
+                        нийтлэл таалагдсан байна.{" "}
                       </Text>
                       <Text
                         style={{ color: colors.secondaryText, fontSize: 12 }}
@@ -407,7 +407,7 @@ const UserActivityModal = () => {
                     </ImageBackground>
                     <View style={{ flex: 3, marginHorizontal: 5 }}>
                       <Text style={{ color: colors.primaryText }}>
-                        Та олон нийтийн сүлжээнд шинэ пост орууллаа.
+                        Та олон нийтийн сүлжээнд шинэ нийтлэл орууллаа.
                       </Text>
                       <Text
                         style={{ color: colors.secondaryText, fontSize: 12 }}

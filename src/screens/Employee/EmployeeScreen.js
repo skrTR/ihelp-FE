@@ -75,7 +75,6 @@ const EmployeeScreen = () => {
             >
               <Animated.Text
                 style={{
-                  opacity,
                   fontWeight: "bold",
                   paddingHorizontal: 30,
                   color:
@@ -110,7 +109,7 @@ const EmployeeScreen = () => {
       )}
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Screen name="Ажлын зар" component={EmployeeWorkScreen} />
-        <Tab.Screen name="Компани" component={EmployeeCompanyScreen} />
+        <Tab.Screen name="Байгууллага" component={EmployeeCompanyScreen} />
       </Tab.Navigator>
     </>
   );

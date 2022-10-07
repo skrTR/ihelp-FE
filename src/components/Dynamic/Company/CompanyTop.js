@@ -17,6 +17,8 @@ import {
 import { api } from "../../../../Constants";
 import axios from "axios";
 import UserContext from "../../../context/UserContext";
+import Verify from "../../Verify";
+import FollowButton from "../../FollowButton";
 const fullWidth = Dimensions.get("screen").width;
 const fullHeight = Dimensions.get("screen").height;
 const CompanyTop = (props) => {
@@ -70,28 +72,7 @@ const CompanyTop = (props) => {
         });
     }
   };
-  // const getCheckCv = () => {
-  //   {
-  //     !state.isCompany &&
-  //       axios
-  //         .get(`${api}/api/v1/applies/${state.userId}/apply`)
-  //         .then((res) => {
-  //           setCheckCvId(res.data.data);
-  //           console.log(res.data.data);
-  //         })
-  //         .catch((err) => {
-  //           alert(err);
-  //           console.log(err);
-  //         });
-  //   }
-  // };
-  // useEffect(() => {
-  //   getCheckCv();
-  // }, []);
-  // let cvCheck = checkCvId.map((e) => `${e.job}`);
-  // useEffect(() => {
-  //   setIsCvSent(cvCheck.includes(`${id}`));
-  // }, [checkCvId]);
+
   return (
     <>
       {/* Cover */}
@@ -159,7 +140,7 @@ const CompanyTop = (props) => {
               style={{
                 color: colors.secondaryText,
                 fontSize: 11,
-                width: "90%",
+                width: "70%",
               }}
             >
               {category}
@@ -167,7 +148,7 @@ const CompanyTop = (props) => {
           </View>
         </View>
         {/* Employer employee status */}
-        <View style={{ marginTop: 25, marginRight: 10 }}>
+        <View style={{ marginTop: 25 }}>
           {data.isEmployer && (
             <View
               style={{
@@ -175,7 +156,7 @@ const CompanyTop = (props) => {
                 flexDirection: "row",
                 marginTop: 5,
                 borderColor: colors.border,
-                borderRadius: 20,
+                borderRadius: 10,
                 alignItems: "center",
                 padding: 2,
                 paddingEnd: 15,
@@ -209,7 +190,7 @@ const CompanyTop = (props) => {
                 marginTop: 5,
                 borderWidth: 1,
                 borderColor: colors.border,
-                borderRadius: 20,
+                borderRadius: 10,
                 alignItems: "center",
                 padding: 2,
                 paddingHorizontal: 5,
@@ -242,7 +223,7 @@ const CompanyTop = (props) => {
           style={{
             flexDirection: "row",
             flex: 1,
-            marginHorizontal: 5,
+            marginHorizontal: 10,
             justifyContent: "space-around",
           }}
         >
@@ -252,9 +233,9 @@ const CompanyTop = (props) => {
                 <TouchableOpacity
                   style={{
                     backgroundColor: "#FFB6C1",
-                    marginHorizontal: 5,
                     paddingVertical: 2,
                     alignItems: "center",
+                    justifyContent: "center",
                     borderRadius: 10,
                     flex: 0.66,
                   }}
@@ -266,33 +247,14 @@ const CompanyTop = (props) => {
                   }}
                 >
                   {/* Профайл янзлах */}
-                  <View
+                  <Text
                     style={{
-                      flexDirection: "row",
-                      alignSelf: "center",
-                      alignItems: "center",
-                      top: 6,
+                      color: colors.border,
+                      fontSize: 12,
                     }}
                   >
-                    <MaterialCommunityIcons
-                      name="file-send-outline"
-                      size={16}
-                      color={colors.border}
-                      style={{ left: 2 }}
-                    />
-
-                    <Text
-                      style={{
-                        textAlign: "center",
-                        color: colors.border,
-                        fontSize: 12,
-                        right: 3,
-                      }}
-                    >
-                      {" "}
-                      Анкет илгээх{"   "}
-                    </Text>
-                  </View>
+                    Анкет илгээх
+                  </Text>
                 </TouchableOpacity>
               )}
             </>
@@ -307,78 +269,44 @@ const CompanyTop = (props) => {
                 alignItems: "center",
                 borderRadius: 10,
                 flex: 0.66,
+                justifyContent: "center",
               }}
               onPress={() =>
                 navigation.navigate("CompanySendWorkRequest", { id: id })
               }
             >
               {/* Профайл янзлах */}
-              <View
+
+              <Text
                 style={{
-                  flexDirection: "row",
-                  alignSelf: "center",
-                  alignItems: "center",
-                  top: 6,
+                  textAlign: "center",
+                  color: colors.border,
+                  fontSize: 12,
                 }}
               >
-                <MaterialCommunityIcons
-                  name="cube-send"
-                  size={16}
-                  color={colors.border}
-                  style={{ left: 2 }}
-                />
-                <Text
-                  style={{
-                    textAlign: "center",
-                    color: colors.border,
-                    fontSize: 12,
-                    right: 3,
-                  }}
-                >
-                  {" "}
-                  Ажлын санал тавих{"  "}
-                </Text>
-              </View>
+                Ажлын санал тавих
+              </Text>
             </TouchableOpacity>
           )}
 
           {/* Тохиргоо */}
-          <TouchableOpacity
+          <FollowButton
+            onPress={onFollow}
+            follow={following}
             style={{
-              backgroundColor: !following ? "#FFB6C1" : null,
-              marginHorizontal: 5,
-              paddingVertical: 8,
+              backgroundColor: following ? null : "#FFB6C1",
               borderRadius: 10,
-              flex: 0.34,
               borderWidth: 1,
               borderColor: colors.border,
+              width: 120,
+              alignContent: "center",
+              padding: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              flex: 0.34,
             }}
-            onPress={onFollow}
-          >
-            <View
-              style={{
-                flexDirection: "row",
-                alignSelf: "center",
-                alignItems: "center",
-              }}
-            >
-              <AntDesign
-                name={following ? "deleteuser" : "adduser"}
-                size={16}
-                color={!following ? colors.border : colors.primaryText}
-              />
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: !following ? colors.border : colors.primaryText,
-                  fontSize: 12,
-                }}
-              >
-                {" "}
-                {following ? "Дагадаг" : "Дагах"}
-              </Text>
-            </View>
-          </TouchableOpacity>
+            fontStyle={{ fontSize: 12 }}
+          />
         </View>
         {/* Follower Following Jobs */}
         <View

@@ -39,14 +39,14 @@ const StackNavigator = () => {
     <>
       {state.isLoggedIn ? (
         <Tab.Navigator
-          initialRouteName="Ажил хийе"
+          initialRouteName="Ажилтан авна"
           sceneContainerStyle={{ backgroundColor: colors.background }}
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if (route.name === "Ажил өгье") {
+              if (route.name === "Ажил авна") {
                 iconName = focused ? "briefcase" : "briefcase-outline";
-              } else if (route.name === "Ажил хийе") {
+              } else if (route.name === "Ажилтан авна") {
                 iconName = focused ? "business" : "business-outline";
               } else if (route.name === "Нетворк") {
                 iconName = focused ? "people-sharp" : "people-outline";
@@ -74,12 +74,12 @@ const StackNavigator = () => {
           />
 
           <Tab.Screen
-            name="Ажил өгье"
+            name="Ажил авна"
             component={EmployeeGroup}
             options={{ headerShown: false }}
           />
           <Tab.Screen
-            name="Ажил хийе"
+            name="Ажилтан авна"
             component={EmployerGroup}
             options={{ headerShown: false }}
           />

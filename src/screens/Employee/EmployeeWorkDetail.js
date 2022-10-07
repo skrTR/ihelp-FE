@@ -18,7 +18,7 @@ import {
 } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "@expo/vector-icons/Entypo";
-import { Ionicons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
 import Header from "../../components/Header/Header";
 import CompanyHeader from "../../components/Header/CompanyHeader";
@@ -95,7 +95,7 @@ const EmployeeWorkDetail = (props) => {
               backgroundColor: "#2c3539",
               paddingVertical: 10,
               justifyContent: "space-between",
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
             }}
             onPress={() =>
@@ -126,7 +126,7 @@ const EmployeeWorkDetail = (props) => {
                   <View
                     style={{
                       backgroundColor: "#ff914d",
-                      borderRadius: 20,
+                      borderRadius: 10,
                       alignItems: "center",
                       position: "absolute",
                       alignSelf: "flex-end",
@@ -145,7 +145,7 @@ const EmployeeWorkDetail = (props) => {
                   <View
                     style={{
                       backgroundColor: "#3da4e3",
-                      borderRadius: 20,
+                      borderRadius: 10,
                       alignItems: "center",
                       position: "absolute",
                       alignSelf: "flex-end",
@@ -187,11 +187,11 @@ const EmployeeWorkDetail = (props) => {
                 <Text
                   style={{ color: colors.primaryText, fontFamily: "Sf-bold" }}
                 >
-                  Нийт ажлын байр: {workDetail.announcementNumber}
+                  Нийт оруулсан зар: {workDetail.announcementNumber}
                 </Text>
               </View>
             </View>
-            <AntDesign name="right" size={50} color={colors.primaryText} />
+            <AntDesign name="right" size={40} color={colors.primaryText} />
           </TouchableOpacity>
           <View
             style={{
@@ -232,7 +232,7 @@ const EmployeeWorkDetail = (props) => {
                 )}
                 {workDetail.do && (
                   <Text style={{ color: colors.primaryText, marginTop: 8 }}>
-                    Хийх ажил
+                    Үндсэн үйлчилгээ
                   </Text>
                 )}
                 {workDetail.startDate && (
@@ -248,7 +248,7 @@ const EmployeeWorkDetail = (props) => {
                 )}
                 {workDetail.price && (
                   <Text style={{ color: colors.primaryText, marginTop: 8 }}>
-                    Төлбөр
+                    Үнийн санал
                   </Text>
                 )}
 
@@ -274,7 +274,7 @@ const EmployeeWorkDetail = (props) => {
                 )}
                 {workDetail.certificate && (
                   <Text style={{ color: colors.primaryText, marginTop: 8 }}>
-                    Certificate:
+                    Батламж:
                   </Text>
                 )}
                 {workDetail.description && (
@@ -339,17 +339,17 @@ const EmployeeWorkDetail = (props) => {
                     {workDetail.experience}
                   </Text>
                 )}
-                {workDetail.specialPermission && (
+
+                {workDetail.workerNumber && (
                   <Text
                     style={{
                       color: colors.primaryText,
                       marginTop: 8,
                     }}
                   >
-                    {workDetail.specialPermission}
+                    {workDetail.workerNumber} хүнтэй
                   </Text>
                 )}
-
                 {workDetail.certificate && (
                   <Text
                     style={{
@@ -360,14 +360,15 @@ const EmployeeWorkDetail = (props) => {
                     {workDetail.certificate}
                   </Text>
                 )}
-                {workDetail.workerNumber && (
+
+                {workDetail.specialPermission && (
                   <Text
                     style={{
                       color: colors.primaryText,
                       marginTop: 8,
                     }}
                   >
-                    {workDetail.workerNumber} хүнтэй
+                    {workDetail.specialPermission}!
                   </Text>
                 )}
                 {workDetail.description && (
@@ -402,7 +403,8 @@ const EmployeeWorkDetail = (props) => {
           style={{
             backgroundColor: "#2c3539",
             alignItems: "center",
-            borderRadius: 20,
+            borderRadius: 10,
+            marginHorizontal: 10,
           }}
           onPress={() =>
             navigation.navigate("CompanySendWorkRequest", { id: id })
@@ -413,6 +415,9 @@ const EmployeeWorkDetail = (props) => {
               backgroundColor: "#2c3539",
               width: "90%",
               padding: 20,
+              alignItems: "center",
+              justifyContent: "center",
+              flexDirection: "row",
             }}
           >
             <Text
@@ -420,25 +425,27 @@ const EmployeeWorkDetail = (props) => {
                 textAlign: "center",
                 fontSize: 20,
                 color: "white",
-                bottom: 5,
+                bottom: 3,
               }}
             >
               Ажлын санал тавих{"  "}
-              <Ionicons
-                // send
-                name="send-outline"
-                size={20}
-                color={colors.primaryText}
-                style={{}}
-              />
             </Text>
+            <MaterialCommunityIcons
+              name="offer"
+              size={26}
+              color={colors.primaryText}
+              style={{ marginRight: 10, bottom: 2 }}
+              onPress={() =>
+                navigation.navigate("CompanySendWorkRequest", { id: id })
+              }
+            />
           </View>
         </TouchableOpacity>
       ) : state.companyId === workDetail.createUser ? (
         <TouchableOpacity
           style={{
             backgroundColor: "#2c3539",
-            borderRadius: 20,
+            borderRadius: 10,
             alignItems: "center",
             justifyContent: "center",
           }}

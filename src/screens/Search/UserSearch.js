@@ -65,6 +65,7 @@ const UserSearch = () => {
           flexDirection: "row",
           alignItems: "center",
           marginHorizontal: 10,
+          marginTop: 10,
         }}
       >
         <AntDesign
@@ -74,9 +75,10 @@ const UserSearch = () => {
           onPress={() => navigation.goBack()}
         />
         <TextInput
-          placeholder="Хайх утга..."
+          placeholder="Хайх утга"
           value={search}
           onChangeText={(text) => searchFilter(text)}
+          placeholderTextColor={"#cccccccc"}
           style={{
             backgroundColor: colors.border,
             padding: 10,

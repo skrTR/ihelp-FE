@@ -65,6 +65,7 @@ const EmployeeSearch = () => {
           alignItems: "center",
           marginHorizontal: 10,
           justifyContent: "space-around",
+          marginTop: 10,
         }}
       >
         <AntDesign
@@ -74,9 +75,10 @@ const EmployeeSearch = () => {
           onPress={() => navigation.goBack()}
         />
         <TextInput
-          placeholder="Хайх утга..."
+          placeholder="Хайх утга"
           value={search}
           onChangeText={(text) => searchFilter(text)}
+          placeholderTextColor={"#cccccccc"}
           style={{
             backgroundColor: colors.border,
             padding: 10,
@@ -112,7 +114,7 @@ const EmployeeSearch = () => {
                 marginVertical: 20,
               }}
             >
-              Ажил хайгч компани
+              Ажил хайгч байгууллага
             </Text>
           </>
         }

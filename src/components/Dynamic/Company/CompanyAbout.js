@@ -29,7 +29,7 @@ const CompanyAbout = (props) => {
             fontSize: 20,
           }}
         >
-          Компанийн мэдээлэл
+          Байгууллагын мэдээлэл
         </Text>
       </View>
       {/* About */}

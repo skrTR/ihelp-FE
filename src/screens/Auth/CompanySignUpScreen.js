@@ -111,7 +111,7 @@ const CompanySignUpScreen = () => {
         </ImageBackground>
         <View style={{ top: 10, marginHorizontal: 20 }}>
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>
-            Компанийн нэр:
+            Байгууллагын нэр:
           </Text>
           <MyTextInput value={name} onChangeText={setName} />
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>

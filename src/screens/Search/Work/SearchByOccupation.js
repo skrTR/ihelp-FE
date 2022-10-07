@@ -61,6 +61,7 @@ const SearchByOccupation = (props) => {
           marginHorizontal: 10,
           alignItems: "center",
           backgroundColor: colors.background,
+          width: "100%",
         }}
         onPress={() => {
           setRefresh(true);
@@ -115,7 +116,7 @@ const SearchByOccupation = (props) => {
               onPress={() => setModalVisible(false)}
             />
             <TextInput
-              placeholder="Хайх утга..."
+              placeholder="Хайх утга"
               value={search}
               onChangeText={(text) => searchFilter(text)}
               style={{
@@ -125,6 +126,7 @@ const SearchByOccupation = (props) => {
                 marginLeft: 10,
                 borderRadius: 20,
               }}
+              placeholderTextColor={"#cccccccc"}
             />
           </View>
           <FlatList

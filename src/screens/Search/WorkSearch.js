@@ -15,7 +15,7 @@ const WorkSearch = () => {
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [choosedId, setChoosedId] = useState("62905a514be9675d77e52356");
-  const [choosedName, setChoosedName] = useState("Сонгох");
+  const [choosedName, setChoosedName] = useState("Мэргэжил сонгох");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
@@ -56,9 +56,13 @@ const WorkSearch = () => {
               padding: 10,
               borderColor: colors.border,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               marginHorizontal: 10,
+              backgroundColor:
+                choosedName === "Мэргэжил сонгох"
+                  ? colors.background
+                  : colors.border,
             }}
             onPress={() => setModalVisible(true)}
           >
@@ -91,7 +95,7 @@ const WorkSearch = () => {
             />
           ) : (
             <View>
-              <Empty text="Таны хайсан ажлын байр одоогоор байхгүй байна" />
+              <Empty text="Илэрц байхгүй" />
             </View>
           )}
         </View>

@@ -38,7 +38,7 @@ const HomeScreen = () => {
             }}
           />
           <Text style={{ fontFamily: "Sf-thin", color: "white", fontSize: 30 }}>
-            Компани
+            Байгууллага
           </Text>
         </ImageBackground>
       </Pressable>

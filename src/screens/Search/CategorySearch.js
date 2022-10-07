@@ -15,7 +15,7 @@ const CategorySearch = () => {
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [choosedId, setChoosedId] = useState("629051d64be9675d77e5230f");
-  const [choosedName, setChoosedName] = useState("Категори сонгох");
+  const [choosedName, setChoosedName] = useState("Салбар сонгох");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
@@ -55,10 +55,14 @@ const CategorySearch = () => {
               padding: 10,
 
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               borderColor: colors.border,
               marginTop: 10,
               marginHorizontal: 10,
+              backgroundColor:
+                choosedName === "Салбар сонгох"
+                  ? colors.background
+                  : colors.border,
             }}
             onPress={() => setModalVisible(true)}
           >

@@ -53,6 +53,7 @@ const EmployeeData = (props) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          marginVertical: 7,
         }}
       >
         <TouchableOpacity
@@ -70,15 +71,15 @@ const EmployeeData = (props) => {
               uri: `${api}/upload/${item.profile}`,
             }}
             style={{
-              width: 50,
-              height: 50,
+              width: 60,
+              height: 60,
             }}
             imageStyle={{ borderRadius: 30 }}
           >
             {item.isEmployer && (
               <View
                 style={{
-                  backgroundColor: "#ff914d",
+                  backgroundColor: "#3da4e3",
                   borderRadius: 20,
                   alignItems: "center",
                   position: "absolute",
@@ -88,7 +89,7 @@ const EmployeeData = (props) => {
                 }}
               >
                 <Ionicons
-                  name={"briefcase"}
+                  name={"business"}
                   size={6}
                   color={colors.primaryText}
                 />
@@ -97,7 +98,7 @@ const EmployeeData = (props) => {
             {item.isEmployee && (
               <View
                 style={{
-                  backgroundColor: "#3da4e3",
+                  backgroundColor: "#ff914d",
                   borderRadius: 20,
                   alignItems: "center",
                   position: "absolute",
@@ -108,7 +109,7 @@ const EmployeeData = (props) => {
                 }}
               >
                 <Ionicons
-                  name={"business"}
+                  name={"briefcase"}
                   size={6}
                   color={colors.primaryText}
                 />
@@ -130,23 +131,18 @@ const EmployeeData = (props) => {
           follow={follow}
           style={{
             backgroundColor: follow ? null : "#FFB6C1",
-            marginHorizontal: 5,
+            marginHorizontal: 15,
             borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            width: "25%",
+            width: 100,
             alignContent: "center",
-            height: "80%",
+            padding: 10,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         />
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
     </>
   );
 };

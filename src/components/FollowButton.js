@@ -14,23 +14,18 @@ const FollowButton = (props) => {
       <View
         style={{
           flexDirection: "row",
-          top: 5,
           alignItems: "center",
-          alignSelf: "center",
+          justifyContent: "center",
         }}
       >
-        <AntDesign
-          name={props.follow ? "deleteuser" : "adduser"}
-          size={24}
-          color={props.follow ? colors.primaryText : colors.border}
-        />
         <Text
           style={{
             textAlign: "center",
             color: props.follow ? colors.primaryText : colors.border,
+            ...props.fontStyle,
           }}
         >
-          {props.follow ? "Дагадаг" : "   Дагаx"}
+          {props.follow ? "Дагасан" : "Дагах"}
         </Text>
       </View>
     </TouchableOpacity>

@@ -48,7 +48,7 @@ const PostSettings = ({ route }) => {
           <Text
             style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
           >
-            Пост янзлах
+            Нийтлэл янзлах
           </Text>
         </TouchableOpacity>
         {/* Line */}
@@ -70,7 +70,7 @@ const PostSettings = ({ route }) => {
           <Text
             style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
           >
-            Пост boostleh
+            Hийтлэл идэвхжүүлэх
           </Text>
         </TouchableOpacity>
         {/* Line */}
@@ -87,7 +87,7 @@ const PostSettings = ({ route }) => {
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
           onPress={() =>
-            Alert.alert("Та постоо устгахдаа итгэлтэй байна уу?", "", [
+            Alert.alert("Та нийтлэлээ устгахдаа итгэлтэй байна уу?", "", [
               {
                 text: "Болих",
                 style: "cancel",
@@ -100,7 +100,7 @@ const PostSettings = ({ route }) => {
           <Text
             style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
           >
-            Пост устгах
+            Нийтлэл устгах
           </Text>
         </TouchableOpacity>
         {/* Line */}

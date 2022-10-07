@@ -16,24 +16,6 @@ const EmployeeWorkScreen = () => {
       showsVerticalScrollIndicator={false}
       ListHeaderComponent={
         <>
-          {urgentWork.map((data) => {
-            return (
-              <View key={data._id}>
-                <UrgentWork
-                  id={data._id}
-                  createUserId={data.createUser}
-                  createUserName={data.firstName}
-                  createUserProfile={data.profile}
-                  isEmployer={data.isEmployer}
-                  isEmployee={data.isEmployee}
-                  occupation={data.occupationName}
-                  urgent={data.urgent}
-                  salary={data.price}
-                  job={data.do}
-                />
-              </View>
-            );
-          })}
           {specialWork.map((data) => {
             return (
               <View key={data._id}>

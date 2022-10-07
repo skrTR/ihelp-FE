@@ -29,6 +29,9 @@ import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import NetworkingPostDetailScreen from "../screens/Network/NetworkingPostDetailScreen";
+import SharePostModal from "../screens/Network/SharePostModal";
+import UserProfileScreen from "../screens/Profile/User/UserProfileScreen";
 const SearchGroup = () => {
   const SearchStack = createNativeStackNavigator();
   return (
@@ -191,7 +194,7 @@ const SearchGroup = () => {
           component={ViewUserFollowings}
           options={{
             fullScreenGestureEnabled: true,
-            title: "Дагадаг",
+            title: "Дагасан хаягууд",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
           }}
@@ -202,7 +205,7 @@ const SearchGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Хэрэглэгчийн пост",
+            title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -211,15 +214,18 @@ const SearchGroup = () => {
           component={NotificationScreen}
           options={{
             headerShown: false,
-            fullScreenGestureEnabled: true,
+            presentation: "formSheet",
+            title: "Мэдэгдлүүд",
+            headerLeft: () => <MyBackButton />,
           }}
         />
+
         <SearchStack.Screen
           name="FollowedCompany"
           component={FollowedCompany}
           options={{
             fullScreenGestureEnabled: true,
-            title: "Дагадаг компани",
+            title: "Дагасан байгууллага",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
           }}
@@ -229,9 +235,34 @@ const SearchGroup = () => {
           component={CompanyFilterModal}
           options={{
             fullScreenGestureEnabled: true,
-            title: "Компани сортлох",
+            title: "Байгууллага нарийвчлах",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
+          }}
+        />
+        <SearchStack.Screen
+          name="UserProfileScreen"
+          component={UserProfileScreen}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <SearchStack.Screen
+          name="NetworkingPostDetailScreen"
+          component={NetworkingPostDetailScreen}
+          options={{
+            headerShown: false,
+            presentation: "formSheet",
+            title: "Нийтлэл дэлгэрэнгүй",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <SearchStack.Screen
+          name="SharePostModal"
+          component={SharePostModal}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Нийтлэл хуваалцах",
+            headerLeft: () => <MyBackButton />,
           }}
         />
         <SearchStack.Screen
@@ -239,7 +270,7 @@ const SearchGroup = () => {
           component={ResultedCompanyModal}
           options={{
             fullScreenGestureEnabled: true,
-            title: "Компани",
+            title: "Байгууллага",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
           }}
@@ -249,6 +280,7 @@ const SearchGroup = () => {
           component={ViewPortfolio}
           options={{
             headerShown: false,
+            presentation: "formSheet",
           }}
         />
       </SearchStack.Group>

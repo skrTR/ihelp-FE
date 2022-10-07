@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
@@ -16,6 +17,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Border from "../../components/Border";
 import UserContext from "../../context/UserContext";
+import moment from "moment/moment";
 
 const EmployerSendWorkModal = (props) => {
   const { id, isSentCv } = props.route.params;
@@ -178,63 +180,133 @@ const EmployerSendWorkModal = (props) => {
         showsVerticalScrollIndicator={false}
       >
         <View
-          style={{ marginHorizontal: 10, flexDirection: "row", marginTop: 10 }}
+          style={{
+            flexDirection: "row",
+            marginHorizontal: 20,
+            alignItems: "center",
+            marginVertical: 10,
+          }}
         >
           <Image
             source={{ uri: `${api}/upload/${data.profile}` }}
-            style={{ width: 100, height: 100 }}
+            style={{ width: 120, height: 120, borderRadius: 10 }}
           />
           {/* Holboo barih */}
-          <View
-            style={{
-              alignContent: "flex-end",
-              width: "75%",
-            }}
-          >
+          <View style={{ marginLeft: 10 }}>
             <Text
               style={{
                 color: colors.primaryText,
-                fontFamily: "Sf-bold",
-                fontSize: 18,
-                textAlign: "right",
+                // fontFamily: "Sf-bold",
+                fontWeight: "bold",
+                fontSize: 22,
               }}
             >
               Холбоо барих
             </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              Born in {data.birthPlace}
-            </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              Lives in {data.location}
-            </Text>
-            <Text style={{ color: colors.primary, textAlign: "right" }}>
-              {userProfile.email}
-            </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              И-мэйл
-            </Text>
-            <Text style={{ color: colors.primary, textAlign: "right" }}>
-              {userProfile.phone}
-            </Text>
-            <Text style={{ color: colors.primaryText, textAlign: "right" }}>
-              Утасны дугаар
-            </Text>
+
+            {userProfile.email && (
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                    fontFamily: "Sf-thin",
+                  }}
+                >
+                  И-мэйл
+                </Text>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                  }}
+                >
+                  {userProfile.email}
+                </Text>
+              </>
+            )}
+            {userProfile.phone && (
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                    fontFamily: "Sf-thin",
+                  }}
+                >
+                  Утасны дугаар
+                </Text>
+                <Text style={{ color: colors.primaryText, fontSize: 14 }}>
+                  {userProfile.phone}
+                </Text>
+              </>
+            )}
           </View>
           {/* Experience */}
         </View>
-
-        <View style={{ marginHorizontal: 10 }}>
+        <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
+          <View style={{ alignItems: "center" }}>
+            {data.birthPlace && (
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                    fontFamily: "Sf-thin",
+                  }}
+                >
+                  Төрсөн газар
+                </Text>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                  }}
+                >
+                  {data.birthPlace}
+                </Text>
+              </>
+            )}
+          </View>
+          <View style={{ alignItems: "center" }}>
+            {data.location && (
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                    fontFamily: "Sf-thin",
+                  }}
+                >
+                  Амьдардаг газар
+                </Text>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontSize: 14,
+                  }}
+                >
+                  {data.location}
+                </Text>
+              </>
+            )}
+          </View>
+        </View>
+        <View style={{ marginHorizontal: 20 }}>
+          <Border margin={10} />
           {data.experience && (
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
+                  marginTop: 10,
                 }}
               >
                 Ажлын туршлага
               </Text>
+
               {data.experience.map((e) => {
                 return (
                   <>
@@ -249,34 +321,141 @@ const EmployerSendWorkModal = (props) => {
                     >
                       <Image
                         source={{ uri: `${api}/upload/${e.companyPhoto}` }}
-                        style={{ width: 60, height: 60 }}
+                        style={{ width: 60, height: 60, borderRadius: 10 }}
                       />
                       <View style={{ marginLeft: 10 }}>
                         <Text
                           style={{
-                            fontFamily: "Sf-bold",
+                            fontWeight: "500",
                             color: colors.primaryText,
+                            fontSize: 16,
                           }}
                         >
-                          Компани: {e.company}
+                          Байгууллага:
+                          <Text
+                            style={{
+                              fontWeight: "bold",
+                              color: colors.primaryText,
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.company}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Албан тушаал: {e.position}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Албан тушаал:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.position}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Цагийн төрөл: {e.type}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Төрөл:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.type}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Хаяг: {e.location}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Хаяг:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.location}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажилд орсон: {e.start && e.start.slice(0, 10)}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Эхэлсэн:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {moment(e.start).format("YYYY-MM-DD")}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажлаас гарсан: {e.end && e.end.slice(0, 10)}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Дууссан:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {moment(e.end).format("YYYY-MM-DD")}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажлаас гарсан шалтгаан: {e.exitCause}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Гарсан шалтгаан:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.exitCause}
+                          </Text>
                         </Text>
                       </View>
                     </View>
@@ -290,7 +469,7 @@ const EmployerSendWorkModal = (props) => {
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
                 }}
@@ -311,7 +490,7 @@ const EmployerSendWorkModal = (props) => {
                     >
                       <Image
                         source={{ uri: `${api}/upload/${e.schoolPhoto}` }}
-                        style={{ width: 60, height: 60 }}
+                        style={{ width: 60, height: 60, borderRadius: 10 }}
                       />
                       <View style={{ marginLeft: 10 }}>
                         <Text
@@ -323,17 +502,17 @@ const EmployerSendWorkModal = (props) => {
                           Сургууль: {e.school}
                         </Text>
                         <Text style={{ color: colors.primaryText }}>
-                          Анги: {e.grade}
+                          Дамжаа: {e.grade}
                         </Text>
                         <Text style={{ color: colors.primaryText }}>
-                          Чиглэл: {e.field}
+                          Мэргэжил: {e.field}
                         </Text>
                         <Text style={{ color: colors.primaryText }}>
-                          Элссэн огноо: {e.start && e.start.slice(0, 10)}
+                          Элссэн: {e.start && e.start.slice(0, 10)}
                         </Text>
                         {e.end ? (
                           <Text style={{ color: colors.primaryText }}>
-                            Гарсан огноо: {e.end && e.end.slice(0, 10)}
+                            Төгссөн: {e.end && e.end.slice(0, 10)}
                           </Text>
                         ) : (
                           <Text style={{ color: colors.primaryText }}>
@@ -352,7 +531,7 @@ const EmployerSendWorkModal = (props) => {
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
                 }}
@@ -375,7 +554,7 @@ const EmployerSendWorkModal = (props) => {
                           color: colors.primaryText,
                         }}
                       >
-                        Компани: {e.company}
+                        Байгууллага: {e.company}
                       </Text>
                       <Text style={{ color: colors.primaryText }}>
                         Нэр: {e.name}
@@ -394,7 +573,7 @@ const EmployerSendWorkModal = (props) => {
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
                 }}
@@ -417,7 +596,7 @@ const EmployerSendWorkModal = (props) => {
                           color: colors.primaryText,
                         }}
                       >
-                        Улс: {e.country}
+                        Хэл: {e.country}
                       </Text>
                       <Text style={{ color: colors.primaryText }}>
                         Чадвар: {e.level}
@@ -433,7 +612,7 @@ const EmployerSendWorkModal = (props) => {
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
                 }}
@@ -495,7 +674,7 @@ const EmployerSendWorkModal = (props) => {
             <>
               <Text
                 style={{
-                  color: colors.primary,
+                  color: colors.primaryText,
                   fontFamily: "Sf-bold",
                   fontSize: 22,
                 }}
@@ -554,47 +733,16 @@ const EmployerSendWorkModal = (props) => {
             </>
           )}
         </View>
-        {/* Tatah */}
-        <TouchableOpacity
-          style={{
-            padding: 10,
-            borderWidth: 1,
-            borderRadius: 20,
-            borderColor: colors.border,
-            marginTop: 10,
-            marginHorizontal: 10,
-          }}
-          onPress={printToFile}
-        >
-          <Text style={{ textAlign: "center", color: colors.primaryText }}>
-            Татах
-          </Text>
-        </TouchableOpacity>
-        {/* Ajliin sanal tavih */}
-        <TouchableOpacity
-          style={{
-            padding: 10,
-
-            borderWidth: 1,
-            borderRadius: 20,
-            borderColor: colors.border,
-            margin: 10,
-          }}
-          onPress={sendCv}
-        >
-          <Text style={{ textAlign: "center", color: colors.primaryText }}>
-            {isSentCv ? "Анкет илгээгдсэн" : "Анкет илгээх"}
-          </Text>
-        </TouchableOpacity>
         {/* Profile ruu ochih */}
         <TouchableOpacity
           style={{
             padding: 10,
 
             borderWidth: 1,
-            borderRadius: 20,
+            borderRadius: 10,
             borderColor: colors.border,
             marginHorizontal: 10,
+            marginTop: 10,
           }}
           onPress={() => {
             navigation.navigate("Профайл", {
@@ -606,6 +754,64 @@ const EmployerSendWorkModal = (props) => {
             Анкет янзлах
           </Text>
         </TouchableOpacity>
+        {/* Tatah */}
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.border,
+            marginTop: 10,
+            marginHorizontal: 10,
+          }}
+          onPress={printToFile}
+        >
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            Татах
+          </Text>
+        </TouchableOpacity>
+
+        {/* Ajliin sanal tavih */}
+        <TouchableOpacity
+          style={{
+            padding: 10,
+
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.border,
+            margin: 10,
+            backgroundColor: "#FFB6C1",
+            opacity: data.score > 79 ? 1 : 0.3,
+          }}
+          onPress={() => {
+            if (data.score > 79) {
+              sendCv();
+            } else {
+              Alert.alert(
+                "Анхаар",
+                "Та өөрийн анкетыг 80%-с дээш бөглөснөөр анкет илгээх боломжтой",
+                [
+                  {
+                    text: "Үгүй",
+                    style: "cancel",
+                  },
+                  {
+                    text: "Анкет янзлах",
+                    onPress: () =>
+                      navigation.navigate("ProfileStack", {
+                        screen: "UserProfileScreen",
+                      }),
+                  },
+                ]
+              );
+            }
+          }}
+        >
+          <Text style={{ textAlign: "center", color: "black" }}>
+            {isSentCv ? "Анкет илгээгдсэн" : "Анкет илгээх"}
+          </Text>
+        </TouchableOpacity>
+
         <View style={{ marginVertical: 100 }} />
       </ScrollView>
     </SafeAreaView>

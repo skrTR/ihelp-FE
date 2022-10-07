@@ -1,4 +1,11 @@
-import { Text, View, Image, TextInput, TouchableOpacity } from "react-native";
+import {
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import UserContext from "../../context/UserContext";
@@ -26,12 +33,14 @@ const SharePostModal = (props) => {
     return null;
   }
   return (
-    <View style={{ backgroundColor: colors.background, marginHorizontal: 20 }}>
+    <ScrollView
+      style={{ backgroundColor: colors.background, marginHorizontal: 20 }}
+    >
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          margin: 20,
+          marginVertical: 20,
         }}
       >
         <Image
@@ -51,23 +60,20 @@ const SharePostModal = (props) => {
       <View
         style={{
           borderWidth: 1,
-          marginHorizontal: 20,
           padding: 10,
           borderRadius: 10,
           borderColor: "#b0b3b8",
         }}
       >
         <TextInput
-          placeholder="Та хэлэх зүйлээ бичнэ үү?"
+          placeholder="Та хэлэх зүйлээ бичнэ үү"
           multiline={true}
-          numberOfLines={10}
           onChangeText={setShareText}
           value={shareText}
           placeholderTextColor={colors.primaryText}
           style={{
             color: colors.primaryText,
-
-            paddingVertical: 200,
+            paddingBottom: 100,
           }}
         />
       </View>
@@ -77,14 +83,14 @@ const SharePostModal = (props) => {
         style={{
           alignSelf: "flex-end",
           padding: 10,
-          margin: 20,
+          marginVertical: 20,
           backgroundColor: "#FFB6C1",
-          borderRadius: 20,
+          borderRadius: 10,
         }}
       >
         <Text style={{ color: colors.border }}> Хуваалцах </Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

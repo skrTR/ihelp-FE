@@ -5,7 +5,7 @@ import { useTheme } from "@react-navigation/native";
 const Empty = (props) => {
   const { colors } = useTheme();
   return (
-    <View style={{ marginTop: 250, ...props }}>
+    <View style={{ marginTop: 250, ...props, height: "100%" }}>
       <Animatable.Image
         animation="slideInDown"
         iterationCount="infinite"
@@ -24,8 +24,9 @@ const Empty = (props) => {
           marginHorizontal: 20,
           textAlign: "center",
           color: colors.primaryText,
-          fontFamily: "Sf-bold",
+          fontFamily: "Sf-thin",
           fontSize: 20,
+          marginBottom: 200,
         }}
         animation="slideInUp"
         iterationCount="infinite"

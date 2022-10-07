@@ -16,7 +16,7 @@ const CompanySendWorkRequest = ({ route }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [description, setDescription] = useState("");
-  const [salary, setSalary] = useState(0);
+  const [salary, setSalary] = useState();
   const [name, setName] = useState("");
   const SendRequestWork = () => {
     axios
@@ -36,30 +36,33 @@ const CompanySendWorkRequest = ({ route }) => {
   return (
     <View style={{ marginHorizontal: 20 }}>
       <TextInput
-        placeholder="Ажлын санал"
+        placeholder="Гарчиг"
         value={name}
         onChangeText={setName}
         style={{
           marginTop: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
+        placeholderTextColor={"#cccccccc"}
       />
       <TextInput
-        placeholder="Цалин"
-        value={salary.toString()}
+        placeholder="Ажлын хөлс"
+        value={salary}
         onChangeText={setSalary}
         style={{
           marginTop: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
+        placeholderTextColor={"#cccccccc"}
+        keyboardType={"numeric"}
       />
       <TextInput
         placeholder="Тайлбар"
@@ -69,20 +72,21 @@ const CompanySendWorkRequest = ({ route }) => {
           marginVertical: 10,
           borderWidth: 1,
           padding: 15,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           color: colors.primaryText,
         }}
+        placeholderTextColor={"#cccccccc"}
       />
       <TouchableOpacity
         style={{
-          padding: 10,
+          padding: 15,
           backgroundColor: "#FFB6C1",
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 10,
           opacity: name === "" ? 0.2 : 1,
         }}
-        disabled={name === "" ? true : false}
+        disabled={salary ? true : false}
         onPress={SendRequestWork}
       >
         <Text style={{ textAlign: "center" }}>Илгээх</Text>

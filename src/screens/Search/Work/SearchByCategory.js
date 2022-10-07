@@ -60,6 +60,7 @@ const SearchByCategory = (props) => {
           flexDirection: "row",
           marginHorizontal: 10,
           alignItems: "center",
+          width: "100%",
           backgroundColor: colors.background,
         }}
         onPress={() => {
@@ -115,8 +116,9 @@ const SearchByCategory = (props) => {
               onPress={() => setModalVisible(false)}
             />
             <TextInput
-              placeholder="Хайх утга..."
+              placeholder="Хайх утга"
               value={search}
+              placeholderTextColor={"#cccccccc"}
               onChangeText={(text) => searchFilter(text)}
               style={{
                 backgroundColor: colors.border,

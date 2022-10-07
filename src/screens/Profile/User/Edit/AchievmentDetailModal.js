@@ -93,13 +93,13 @@ const AchievmentDetailModal = ({ route }) => {
         keyboardType="numeric"
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Шагнал гардуулсан компани
+        Шагнал гардуулсан байгууллага
       </Text>
       <FormText
-        placeholder="Шагнал гардуулсан компани"
+        placeholder="Шагнал гардуулсан байгууллага"
         value={achievement.company}
         onChangeText={checkCompany}
-        errorText="Шагнал гардуулсан компани урт 2-20 тэмдэгтээс тогтоно."
+        errorText="Шагнал гардуулсан байгууллага урт 2-20 тэмдэгтээс тогтоно."
         errorShow={error.company}
       />
 

@@ -89,10 +89,10 @@ const AchievmentAddModal = () => {
         Шагнал гардуулсан газар
       </Text>
       <FormText
-        placeholder="Шагнал гардуулсан компани"
+        placeholder="Шагнал гардуулсан байгууллага"
         value={achievement.company}
         onChangeText={checkCompany}
-        errorText="Шагнал гардуулсан компани урт 2-20 тэмдэгтээс тогтоно."
+        errorText="Шагнал гардуулсан байгууллага урт 2-20 тэмдэгтээс тогтоно."
         errorShow={error.company}
       />
       <LinearGradientButton onClick={sendPersonalDetail} />

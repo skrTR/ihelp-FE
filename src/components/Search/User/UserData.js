@@ -56,6 +56,7 @@ const UserData = (props) => {
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
+          marginVertical: 7,
         }}
       >
         <TouchableOpacity
@@ -65,11 +66,11 @@ const UserData = (props) => {
             alignItems: "center",
           }}
           onPress={() =>
-            navigation.navigate("ViewCompanyProfile", { id: item._id })
+            navigation.navigate("ViewUserProfile", { id: item._id })
           }
         >
           <ImageBackground
-            style={{ width: 50, height: 50 }}
+            style={{ width: 60, height: 60 }}
             source={{ uri: `${api}/upload/${item.profile}` }}
             imageStyle={{ borderRadius: 50 }}
           >
@@ -103,23 +104,18 @@ const UserData = (props) => {
           follow={follow}
           style={{
             backgroundColor: follow ? null : "#FFB6C1",
-            marginHorizontal: 5,
+            marginHorizontal: 15,
             borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            width: "25%",
+            width: 100,
             alignContent: "center",
-            height: "80%",
+            padding: 10,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         />
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
     </>
   );
 };

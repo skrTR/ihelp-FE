@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
 import Posts from "../../components/Network/Posts";
+import Empty from "../../components/Empty";
 
 const ViewUserPost = (props) => {
   const { id } = props.route.params;
@@ -23,8 +24,8 @@ const ViewUserPost = (props) => {
     getActivityData();
   }, []);
   return (
-    <ScrollView>
-      {activityData &&
+    <ScrollView style={{ height: "100%" }}>
+      {activityData.length > 0 ? (
         activityData.map((item) => {
           return (
             <View key={item._id} style={{}}>
@@ -67,7 +68,12 @@ const ViewUserPost = (props) => {
               )}
             </View>
           );
-        })}
+        })
+      ) : (
+        <View style={{ height: "100%" }}>
+          <Empty text="Оруулсан нийтлэл байхгүй байна" />
+        </View>
+      )}
     </ScrollView>
   );
 };

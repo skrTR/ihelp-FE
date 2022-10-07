@@ -12,6 +12,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import UserContext from "../../context/UserContext";
 import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
+import FollowButton from "../FollowButton";
 const NormalCompany = (props) => {
   const { data, isFollowing } = props;
   const navigation = useNavigation();
@@ -162,44 +163,21 @@ const NormalCompany = (props) => {
           </Text>
         </TouchableOpacity>
       ) : (
-        <TouchableOpacity
+        <FollowButton
+          onPress={onFollow}
+          follow={follow}
           style={{
-            backgroundColor: !follow ? "#FFB6C1" : null,
-            marginHorizontal: 5,
+            backgroundColor: follow ? null : "#FFB6C1",
             borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            width: "25%",
+            width: 100,
             alignContent: "center",
-            height: "50%",
+            padding: 10,
+            alignItems: "center",
+            justifyContent: "center",
           }}
-          onPress={onFollow}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              top: 5,
-              alignItems: "center",
-              alignSelf: "center",
-            }}
-          >
-            <AntDesign
-              name={follow ? "deleteuser" : "adduser"}
-              size={24}
-              color={!follow ? colors.border : colors.primaryText}
-            />
-            <Text
-              style={{
-                textAlign: "center",
-
-                color: !follow ? colors.border : colors.primaryText,
-              }}
-            >
-              {" "}
-              {follow ? "Дагадаг" : "Дагах"}
-            </Text>
-          </View>
-        </TouchableOpacity>
+        />
       )}
     </View>
   );

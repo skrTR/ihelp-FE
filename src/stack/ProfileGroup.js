@@ -630,7 +630,7 @@ const ProfileGroup = () => {
             options={{
               headerShown: false,
               presentation: "formSheet",
-              title: "Компани нэвтрэх",
+              title: "Байгууллага нэвтрэх",
               headerLeft: () => <MyBackButton />,
             }}
           />
@@ -685,7 +685,7 @@ const ProfileGroup = () => {
             options={{
               headerShown: true,
               // presentation: "formSheet",
-              title: "Пост бүүстлэх",
+              title: "Нийтлэл идэвхжүүлэх",
               headerLeft: () => <MyBackButton />,
               fullScreenGestureEnabled: true,
             }}
@@ -815,7 +815,7 @@ const ProfileGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Хэрэглэгчийн пост",
+            title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
         />

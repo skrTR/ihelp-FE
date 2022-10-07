@@ -188,7 +188,7 @@ const ExperienceDetailModal = ({ route }) => {
             style={{ marginTop: 10 }}
           >
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Компани
+              Байгууллага
             </Text>
             <View
               style={{
