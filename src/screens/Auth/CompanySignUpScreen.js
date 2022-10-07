@@ -166,7 +166,7 @@ const CompanySignUpScreen = () => {
               size={24}
               color={colors.primary}
             />
-            <Text style={{ color: colors.primary }}> Ажил өгье</Text>
+            <Text style={{ color: colors.primary }}> Ажил гүйцэтгэгч</Text>
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={{ flex: 1, top: 35 }} onPress={signUpHandler}>

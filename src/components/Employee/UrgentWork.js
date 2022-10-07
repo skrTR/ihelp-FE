@@ -169,7 +169,6 @@ const UrgentWork = (props) => {
               }}
             >
               {occupation}
-              {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
             <Text

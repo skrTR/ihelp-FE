@@ -75,6 +75,8 @@ import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
 import PointTypeScreen from "../screens/Profile/Wallet/PointTypeScreen";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
+import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -767,6 +769,16 @@ const ProfileGroup = () => {
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
+        />
+        <ProfileStack.Screen
+          name="EmployeeEditWork"
+          component={EmployeeEditWork}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <ProfileStack.Screen
+          name="EmployerEditWork"
+          component={EmployerEditWork}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
         <ProfileStack.Screen
           name="BoostEmployeeWork"

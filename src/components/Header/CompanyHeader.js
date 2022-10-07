@@ -7,7 +7,7 @@ import {
   useColorScheme,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { Ionicons, AntDesign, MaterialIcons } from "@expo/vector-icons";
+import { Ionicons, AntDesign, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import * as Linking from "expo-linking";
@@ -96,8 +96,8 @@ const CompanyHeader = (props) => {
               }
             />
           ) : isFollowedCompany ? (
-            <MaterialIcons
-              name="follow-the-signs"
+            <SimpleLineIcons
+              name="user-following"
               size={25}
               color={colors.primaryText}
               onPress={() => navigation.navigate("FollowedCompany")}

@@ -15,7 +15,7 @@ const CategorySearch = () => {
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [choosedId, setChoosedId] = useState("629051d64be9675d77e5230f");
-  const [choosedName, setChoosedName] = useState("Сонгох");
+  const [choosedName, setChoosedName] = useState("Категори сонгох");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);

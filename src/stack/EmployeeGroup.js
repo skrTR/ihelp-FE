@@ -15,6 +15,7 @@ import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
+import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
 const EmployeeGroup = () => {
   const EmployeeStack = createNativeStackNavigator();
   return (
@@ -56,6 +57,16 @@ const EmployeeGroup = () => {
           name="ViewCompanyProfile"
           component={ViewCompanyProfile}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployeeStack.Screen
+          name="BoostEmployeeWork"
+          component={BoostEmployeeWork}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Идэвхжүүлэх",
+            headerLeft: () => <MyBackButton />,
+          }}
         />
         <EmployeeStack.Screen
           name="ViewUserFollower"

@@ -54,6 +54,7 @@ const EmployerSearch = () => {
     <View
       style={{
         paddingTop: insents.top,
+        height: "100%",
       }}
     >
       <View

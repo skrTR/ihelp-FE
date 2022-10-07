@@ -59,7 +59,7 @@ const UserSearch = () => {
     return obj.id !== state.userId;
   });
   return (
-    <View style={{ marginTop: insents.top }}>
+    <View style={{ marginTop: insents.top, height: "100%" }}>
       <View
         style={{
           flexDirection: "row",

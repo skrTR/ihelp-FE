@@ -415,43 +415,23 @@ const EmployeeWorkDetail = (props) => {
               padding: 20,
             }}
           >
-            {isCvSent ? (
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  color: "white",
-                  bottom: 5,
-                }}
-              >
-                Ажлын санал тавих{"  "}
-                <Ionicons
-                  // send
-                  name="send-outline"
-                  size={20}
-                  color={colors.primaryText}
-                  style={{}}
-                />
-              </Text>
-            ) : (
-              <Text
-                style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  color: "white",
-                  bottom: 5,
-                }}
-              >
-                Анкет илгээх{" "}
-                <Ionicons
-                  // send
-                  name="send-outline"
-                  size={20}
-                  color={colors.primaryText}
-                  style={{}}
-                />
-              </Text>
-            )}
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 20,
+                color: "white",
+                bottom: 5,
+              }}
+            >
+              Ажлын санал тавих{"  "}
+              <Ionicons
+                // send
+                name="send-outline"
+                size={20}
+                color={colors.primaryText}
+                style={{}}
+              />
+            </Text>
           </View>
         </TouchableOpacity>
       ) : state.companyId === workDetail.createUser ? (

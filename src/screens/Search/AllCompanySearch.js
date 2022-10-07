@@ -51,7 +51,7 @@ const AllCompanySearch = () => {
     return obj.id !== state.companyId;
   });
   return (
-    <View style={{ marginTop: insents.top }}>
+    <View style={{ marginTop: insents.top, height: "100%" }}>
       <View
         style={{
           flexDirection: "row",

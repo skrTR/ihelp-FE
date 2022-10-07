@@ -454,98 +454,102 @@ const EmployerWorkDetail = (props) => {
             </View>
           </View>
         </View>
-        {!state.isCompany ? (
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#2c3539",
-              alignItems: "center",
-              borderRadius: 20,
-            }}
-            onPress={() => sendCv(workDetail._id)}
-          >
-            <View
+        <View style={{ paddingBottom: 100 }}>
+          {!state.isCompany ? (
+            <TouchableOpacity
               style={{
                 backgroundColor: "#2c3539",
-                width: "90%",
-                padding: 20,
+                alignItems: "center",
+                borderRadius: 20,
               }}
+              onPress={() => sendCv(workDetail._id)}
             >
-              {isCvSent ? (
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                    color: "white",
-                    bottom: 5,
-                  }}
-                >
-                  Анкет илгээсэн байна{" "}
-                  <Ionicons
-                    // send
-                    name="send-outline"
-                    size={20}
-                    color={colors.primaryText}
-                    style={{}}
-                  />
-                </Text>
-              ) : (
-                <Text
-                  style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                    color: "white",
-                    bottom: 5,
-                  }}
-                >
-                  Анкет илгээх{" "}
-                  <Ionicons
-                    // send
-                    name="send-outline"
-                    size={20}
-                    color={colors.primaryText}
-                    style={{}}
-                  />
-                </Text>
-              )}
-            </View>
-          </TouchableOpacity>
-        ) : state.companyId === workDetail.createUser ? (
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#2c3539",
-              alignItems: "center",
-              borderRadius: 20,
-              marginBottom: 200,
-            }}
-            onPress={() => sendCv(workDetail._id)}
-          >
-            <View
-              style={{
-                backgroundColor: "#2c3539",
-                width: "90%",
-                padding: 20,
-              }}
-            >
-              <Text
+              <View
                 style={{
-                  textAlign: "center",
-                  fontSize: 20,
-                  color: "white",
-                  bottom: 5,
+                  backgroundColor: "#2c3539",
+                  width: "90%",
+                  padding: 20,
                 }}
               >
-                Зарыг янзлах
-                <Ionicons
-                  // send
-                  name="settings-outline"
-                  size={20}
-                  color={colors.primaryText}
-                  style={{}}
-                />
-              </Text>
-            </View>
-          </TouchableOpacity>
-        ) : null}
+                {isCvSent ? (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 20,
+                      color: "white",
+                      bottom: 5,
+                    }}
+                  >
+                    Анкет илгээсэн байна{" "}
+                    <Ionicons
+                      // send
+                      name="send-outline"
+                      size={20}
+                      color={colors.primaryText}
+                      style={{}}
+                    />
+                  </Text>
+                ) : (
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 20,
+                      color: "white",
+                      bottom: 5,
+                    }}
+                  >
+                    Анкет илгээх{" "}
+                    <Ionicons
+                      // send
+                      name="send-outline"
+                      size={20}
+                      color={colors.primaryText}
+                      style={{}}
+                    />
+                  </Text>
+                )}
+              </View>
+            </TouchableOpacity>
+          ) : state.companyId === workDetail.createUser ? (
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#2c3539",
+                alignItems: "center",
+                borderRadius: 20,
+                marginBottom: 200,
+              }}
+              onPress={() =>
+                navigation.navigate("EmployerEditWork", { data: workDetail })
+              }
+            >
+              <View
+                style={{
+                  backgroundColor: "#2c3539",
+                  width: "90%",
+                  padding: 20,
+                }}
+              >
+                <Text
+                  style={{
+                    textAlign: "center",
+                    fontSize: 20,
+                    color: "white",
+                    bottom: 5,
+                  }}
+                >
+                  Зарыг янзлах
+                  <Ionicons
+                    // send
+                    name="settings-outline"
+                    size={20}
+                    color={colors.primaryText}
+                    style={{}}
+                  />
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ) : null}
+        </View>
       </ScrollView>
     </View>
   );

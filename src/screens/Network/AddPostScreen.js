@@ -146,7 +146,7 @@ const AddPostScreen = () => {
             right: 3,
           }}
         >
-          Мэдээлэл оруулах
+          Нийтлэл оруулах
         </Text>
         {postText.length > 0 ? (
           <TouchableOpacity onPress={sendNetworkingPost}>

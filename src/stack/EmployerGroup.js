@@ -18,6 +18,7 @@ import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
+import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -31,6 +32,11 @@ const EmployerGroup = () => {
         <EmployerStack.Screen
           name="EmployerWorkDetail"
           component={EmployerWorkDetail}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployerStack.Screen
+          name="EmployerEditWork"
+          component={EmployerEditWork}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
         <EmployerStack.Screen

@@ -27,6 +27,8 @@ import ResultedCompanyModal from "../screens/Search/Company/ResultedCompanyModal
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
+import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
 const SearchGroup = () => {
   const SearchStack = createNativeStackNavigator();
   return (
@@ -132,6 +134,16 @@ const SearchGroup = () => {
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
           }}
+        />
+        <SearchStack.Screen
+          name="EmployeeEditWork"
+          component={EmployeeEditWork}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <SearchStack.Screen
+          name="EmployerEditWork"
+          component={EmployerEditWork}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
         <SearchStack.Screen
           name="CompanySendWorkRequest"

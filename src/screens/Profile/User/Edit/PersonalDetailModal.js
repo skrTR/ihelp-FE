@@ -27,6 +27,7 @@ const PersonalDetailModal = (props) => {
   const [date, setDate] = useState(new Date(Date.now()));
   const [modalVisible, setModalVisible] = useState(false);
   const [experienceModal, setExperienceModal] = useState(false);
+  console.log(data);
   const showPicker = () => {
     setIsPickerShow(true);
   };

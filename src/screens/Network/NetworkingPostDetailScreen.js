@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Keyboard,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -29,7 +30,6 @@ const NetworkingPostDetailScreen = (props) => {
         .get(`${api}/api/v1/posts/${id}`)
         .then((res) => {
           setPostDetail(res.data.data);
-          console.log(res.data.data);
         })
         .catch((err) => {
           alert(err);
@@ -68,6 +68,8 @@ const NetworkingPostDetailScreen = (props) => {
       .post(`${api}/api/v1/comments/${id}`, { description: commentText })
       .then((res) => {
         setRefresh(true);
+        setCommentText("");
+        Keyboard.dismiss();
       })
       .catch((err) => {
         alert(err);
@@ -135,7 +137,8 @@ const NetworkingPostDetailScreen = (props) => {
                   {postDetail.lastName} {postDetail.firstName}
                 </Text>
                 <Text style={{ color: colors.secondaryText }}>
-                  {postDetail.profession} {`@${postDetail.workingCompany}`}
+                  {postDetail.profession}{" "}
+                  {postDetail.workingCompany && `@${postDetail.workingCompany}`}
                 </Text>
                 <Text
                   style={{

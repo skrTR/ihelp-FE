@@ -26,12 +26,16 @@ const NetworkingScreen = () => {
   const [userProfile] = useUserProfile(state.userId);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [renderItem, setRenderItem] = useState(5);
+  const [renderItem, setRenderItem] = useState(4);
   const [loading, followData, maxPage, currentPage, setCurrentPage] =
     useNetworkingPost(state.userId);
-  const [boostLoading, boostData, boostMaxPage, boostPage, setBoostPage] =
-    useNetworkingBoost();
-
+  const [refresh, setRefresh] = useState(false);
+  // const [boostLoading, boostData, boostMaxPage, boostPage, setBoostPage] =
+  //   useNetworkingBoost();
+  const handleRefresh = () => {
+    setCurrentPage(1);
+    setRefresh(false);
+  };
   if (!userProfile) {
     return null;
   }
@@ -41,6 +45,9 @@ const NetworkingScreen = () => {
       <Header userSearch={true} />
       <ScrollView
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refresh} onRefresh={handleRefresh} />
+        }
         onMomentumScrollEnd={(e) => {
           const scrollPosition = e.nativeEvent.contentOffset.y;
           const scrollViewHeight = e.nativeEvent.layoutMeasurement.height;
@@ -50,8 +57,9 @@ const NetworkingScreen = () => {
             isScrolledBottom >= contentHeight - 50 &&
             currentPage <= followData.length
           ) {
-            setCurrentPage(currentPage + 1);
-            setBoostPage(boostPage + 1);
+            if (currentPage < maxPage) {
+              setCurrentPage(currentPage + 1);
+            }
           }
         }}
       >
@@ -111,7 +119,7 @@ const NetworkingScreen = () => {
         {followData.map((item, index) => {
           if (index + 1 <= renderItem) {
             return (
-              <View style={{ backgroundColor: colors.background }}>
+              <View style={{ backgroundColor: colors.background }} key={index}>
                 {item.createUser && (
                   <Posts
                     postId={item._id}
@@ -156,7 +164,7 @@ const NetworkingScreen = () => {
             );
           }
         })}
-        {boostData.map((item, index) => {
+        {/* {boostData.map((item, index) => {
           if (index + 1 <= renderItem) {
             return (
               <View style={{ backgroundColor: colors.background }}>
@@ -182,7 +190,7 @@ const NetworkingScreen = () => {
               </View>
             );
           }
-        })}
+        })} */}
       </ScrollView>
     </SafeAreaView>
   );

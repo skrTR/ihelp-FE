@@ -19,13 +19,13 @@ import * as Animatable from "react-native-animatable";
 import MyPasswordInput from "../../components/MyPasswordInput";
 const PersonSignUpScreen = () => {
   const navigation = useNavigation();
-  const [lastName, setLastName] = useState("Ganbat");
-  const [firstName, setFirstName] = useState("Namkhaidorj");
-  const [phone, setPhone] = useState("99757475");
-  const [password, setPassword] = useState("123456");
-  const [password1, setPassword1] = useState("123456");
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [password, setPassword] = useState("");
+  const [password1, setPassword1] = useState("");
   const [message, setMessage] = useState();
-  const [email, setEmail] = useState("gg@gg.com");
+  const [email, setEmail] = useState("");
   const sendMessage = () => {
     axios
       .post(`${api}/api/v1/cvs/send`, { phone: phone })
