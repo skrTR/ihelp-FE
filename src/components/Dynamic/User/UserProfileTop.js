@@ -160,7 +160,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           style={{
             backgroundColor: following ? null : "#FFB6C1",
             borderRadius: 10,
-            borderWidth: 1,
+            borderWidth: following ? 1 : null,
             borderColor: colors.border,
             width: "28%",
             alignContent: "center",

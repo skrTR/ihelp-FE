@@ -12,7 +12,7 @@ const EmptyData = (props) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   return (
-    <>
+    <View style={{ marginBottom: 10 }}>
       <Text
         style={{
           color: colors.primaryText,
@@ -45,10 +45,12 @@ const EmptyData = (props) => {
               alignItems: "center",
               justifyContent: "center",
             }}
+            imageStyle={{ borderRadius: 10 }}
           >
             <Ionicons name={props.icon} size={24} color={colors.primaryText} />
           </ImageBackground>
           <Text style={{ fontSize: 30, color: colors.primaryText }}>
+            {" "}
             {props.inTitle}
           </Text>
         </View>
@@ -71,7 +73,7 @@ const EmptyData = (props) => {
           <Text style={{ color: colors.border }}>Нэмэх</Text>
         </TouchableOpacity>
       </View>
-    </>
+    </View>
   );
 };
 

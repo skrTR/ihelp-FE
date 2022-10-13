@@ -3,29 +3,25 @@ import {
   Text,
   View,
   Modal,
-  TextInput,
-  SafeAreaView,
   ScrollView,
-  ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Clipboard from "expo-clipboard";
 import Header from "../../../components/Header/Header";
 import UserContext from "../../../context/UserContext";
 import CompanyHeader from "../../../components/Header/CompanyHeader";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const SendMoneyScreen = (props) => {
   const { money, invoince } = props.route.params;
   const state = useContext(UserContext);
   const navigation = useNavigation();
-  const [copiedText, setCopiedText] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const { colors } = useTheme();
-
+  const insents = useSafeAreaInsets();
   const copyKhanBankDans = () => {
     Clipboard.setStringAsync("5011427285");
   };
@@ -41,10 +37,11 @@ const SendMoneyScreen = (props) => {
   };
 
   return (
-    <SafeAreaView
+    <View
       style={{
         backgroundColor: colors.header,
         opacity: modalVisible ? 0.1 : 1,
+        paddingTop: insents.top,
       }}
     >
       {state.isCompany ? (
@@ -365,7 +362,7 @@ const SendMoneyScreen = (props) => {
           </Modal>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -391,7 +388,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     width: "70%",
-    height: "40%",
+    height: "60%",
     padding: 35,
   },
 });

@@ -5,12 +5,13 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+  Pressable,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { api } from "../../../../../Constants";
 
 const ProfilePictureView = ({ route }) => {
@@ -61,7 +62,7 @@ const ProfilePictureView = ({ route }) => {
     });
     xhr.open("PUT", `${api}/api/v1/cvs/profile`);
     xhr.send(formData);
-    Alert.alert("Амжиллтай хадгаллаа", "", [
+    Alert.alert("Амжилтай хадгаллаа", "", [
       { text: "ОК", onPress: () => navigation.goBack() },
     ]);
   };
@@ -120,34 +121,38 @@ const ProfilePictureView = ({ route }) => {
         <TouchableOpacity
           style={{
             backgroundColor: !profileImage ? "#FFB6C1" : colors.border,
-            padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 8,
           }}
           onPress={openImageProfileLibrary}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
               paddingHorizontal: 20,
             }}
           >
-            Cонгох
+            {"  "}Cонгох{"  "}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: profileImage ? "#FFB6C1" : colors.border,
-            padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
+            padding: 5,
+            justifyContent: "center",
+            alignItems: "center",
           }}
           disabled={profileImage ? false : true}
           onPress={uploadProfileImage}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
               color: !profileImage ? colors.secondaryText : "black",
-              paddingHorizontal: 10,
+              paddingHorizontal: 25,
             }}
           >
             Хадгалах

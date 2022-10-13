@@ -8,11 +8,13 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Verify from "../../Verify";
 import FollowButton from "../../FollowButton";
+import SearchByCategory from "../../../screens/Search/Work/SearchByCategory";
 const EmployeeData = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const { isFollowing, item } = props;
   const state = useContext(UserContext);
+
   const [follow, setFollow] = useState(isFollowing);
   const onFollow = () => {
     if (follow) {
@@ -48,23 +50,23 @@ const EmployeeData = (props) => {
 
   return (
     <>
-      <View
+      <TouchableOpacity
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
           marginVertical: 7,
         }}
+        onPress={() =>
+          navigation.navigate("ViewCompanyProfile", { id: item._id })
+        }
       >
-        <TouchableOpacity
+        <View
           style={{
             flexDirection: "row",
             marginHorizontal: 10,
             alignItems: "center",
           }}
-          onPress={() =>
-            navigation.navigate("ViewCompanyProfile", { id: item._id })
-          }
         >
           <ImageBackground
             source={{
@@ -125,7 +127,7 @@ const EmployeeData = (props) => {
               {item.categoryName}
             </Text>
           </View>
-        </TouchableOpacity>
+        </View>
         <FollowButton
           onPress={onFollow}
           follow={follow}
@@ -142,7 +144,7 @@ const EmployeeData = (props) => {
             justifyContent: "center",
           }}
         />
-      </View>
+      </TouchableOpacity>
     </>
   );
 };

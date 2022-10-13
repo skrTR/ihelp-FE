@@ -10,7 +10,6 @@ const FollowedCompany = () => {
   const state = useContext(UserContext);
   const [followingData, setFollowingData] = useState([]);
   const { colors } = useTheme();
-  console.log(state.userId);
   const getFollowerData = () => {
     axios
       .get(
@@ -20,7 +19,6 @@ const FollowedCompany = () => {
       )
       .then((res) => {
         setFollowingData(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
         alert(`${err} aaa`);
@@ -30,23 +28,47 @@ const FollowedCompany = () => {
   useEffect(() => {
     getFollowerData();
   }, []);
+
   return (
     <SafeAreaView style={{ backgroundColor: colors.header }}>
       <View style={{ backgroundColor: colors.background }}>
         {followingData.length > 0 ? (
-          <FlatList
-            data={followingData}
-            keyExtractor={(item, index) => index}
-            renderItem={({ item }) => {
-              return (
-                <DynamicFollowing
-                  followUser={item.followUserInfo}
-                  isFollowing={item.isFollowing}
-                  id={item.followUser}
-                />
-              );
-            }}
-          />
+          <>
+            <View style={{ marginBottom: 7 }} />
+
+            <FlatList
+              data={followingData}
+              keyExtractor={(item, index) => index}
+              renderItem={({ item }) => {
+                return (
+                  <>
+                    {state.isCompany && (
+                      <>
+                        {!item.followUserInfo.organization && (
+                          <DynamicFollowing
+                            followUser={item.followUserInfo}
+                            isFollowing={item.isFollowing}
+                            id={item.followUser}
+                          />
+                        )}
+                      </>
+                    )}
+                    {!state.isCompany && (
+                      <>
+                        {item.followUserInfo.organization && (
+                          <DynamicFollowing
+                            followUser={item.followUserInfo}
+                            isFollowing={item.isFollowing}
+                            id={item.followUser}
+                          />
+                        )}
+                      </>
+                    )}
+                  </>
+                );
+              }}
+            />
+          </>
         ) : (
           <Empty text="Таныг хүн дагаагүй байна" />
         )}

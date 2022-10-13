@@ -60,6 +60,7 @@ const DynamicFollower = (props) => {
           marginHorizontal: 20,
           marginTop: 10,
           justifyContent: "space-between",
+          marginVertical: 7,
         }}
       >
         {followUser.organization ? (
@@ -79,9 +80,9 @@ const DynamicFollower = (props) => {
                 uri: `${api}/upload/${followUser.profile}`,
               }}
               style={{
-                width: 70,
-                height: 70,
-                borderRadius: 30,
+                width: 60,
+                height: 60,
+                borderRadius: 10,
               }}
               imageStyle={{ borderRadius: 30 }}
             >
@@ -165,9 +166,9 @@ const DynamicFollower = (props) => {
                 uri: `${api}/upload/${followUser.profile}`,
               }}
               style={{
-                width: 50,
-                height: 50,
-                borderRadius: 30,
+                width: 60,
+                height: 60,
+                borderRadius: 10,
               }}
               imageStyle={{ borderRadius: 30 }}
             ></ImageBackground>
@@ -211,13 +212,6 @@ const DynamicFollower = (props) => {
           }}
         />
       </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
     </>
   );
 };

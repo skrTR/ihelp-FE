@@ -5,12 +5,12 @@ import {
   Image,
   ActivityIndicator,
   Alert,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { api } from "../../../../../Constants";
 
 const CompanyProfilePicture = ({ route }) => {

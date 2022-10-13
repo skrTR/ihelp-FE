@@ -23,13 +23,10 @@ import useCv from "../../../../hooks/ProfileDetail/User/useCv";
 import useUserProfile from "../../../../hooks/ProfileDetail/User/useUserProfile";
 const CreateCvScreen = (props) => {
   const { id } = props.route.params;
-  const [cv, cvLoading] = useCv(id);
-  const [userProfile, profileLoading] = useUserProfile(id);
+  const [cv] = useCv(id);
+  const [userProfile] = useUserProfile(id);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  // if (profileLoading || cvLoading) {
-  //   return <Spinner />;
-  // }
 
   if (!cv) {
     return null;
@@ -77,7 +74,7 @@ const CreateCvScreen = (props) => {
           padding: 10,
           justifyContent: "space-between",
           marginVertical: 2,
-          borderRadius: 20,
+          borderRadius: 10,
         }}
         onPress={() => navigation.navigate("PersonalDetailModal", { data: cv })}
       >
@@ -217,7 +214,7 @@ const CreateCvScreen = (props) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginVertical: 2,
-                    borderRadius: 20,
+                    borderRadius: 10,
                   }}
                   onPress={() =>
                     navigation.navigate("AchievmentDetailModal", {
@@ -304,6 +301,7 @@ const CreateCvScreen = (props) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                imageStyle={{ borderRadius: 10 }}
               >
                 <Ionicons
                   name={"medal-outline"}
@@ -317,8 +315,8 @@ const CreateCvScreen = (props) => {
               </Text>
             </View>
             <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-              Та өөрийн гавьяа шагнал талаар мэдээлэл оруулснаар суурь чадвараа
-              таниулах боломжтой
+              Та өөрийн гавьяа шагналын талаар мэдээлэл оруулж анкетаа илүү
+              дэлгэрүүлнэ үү
             </Text>
             <TouchableOpacity
               style={{
@@ -381,7 +379,7 @@ const CreateCvScreen = (props) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginVertical: 2,
-                    borderRadius: 20,
+                    borderRadius: 10,
                   }}
                 >
                   <View>
@@ -477,9 +475,10 @@ const CreateCvScreen = (props) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                imageStyle={{ borderRadius: 10 }}
               >
                 <Ionicons
-                  name={"medal-outline"}
+                  name={"school-outline"}
                   size={24}
                   color={colors.primaryText}
                 />
@@ -490,8 +489,8 @@ const CreateCvScreen = (props) => {
               </Text>
             </View>
             <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-              Та өөрийн боловсролын талаар мэдээлэл оруулснаар суурь чадвараа
-              таниулах боломжтой
+              Та өөрийн боловсролын талаар мэдээлэл оруулж анкетаа илүү
+              дэлгэрүүлнэ үү
             </Text>
             <TouchableOpacity
               style={{
@@ -539,7 +538,6 @@ const CreateCvScreen = (props) => {
         {cv.experience.length > 0 ? (
           <View>
             {cv.experience.map((item) => {
-              console.log(item);
               return (
                 <TouchableOpacity
                   onPress={() =>
@@ -555,56 +553,68 @@ const CreateCvScreen = (props) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginVertical: 2,
-                    borderRadius: 20,
+                    borderRadius: 10,
                   }}
                 >
                   <View>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Байгууллага: </Text>
-                      {item.company}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginVertical: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Албан тушаал:{" "}
+                    {item.company && (
+                      <Text
+                        style={{ color: colors.primaryText, fontWeight: "200" }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Байгууллага:{" "}
+                        </Text>
+                        {item.company}
                       </Text>
-                      {item.position}
-                    </Text>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Төрөл: </Text>
-                      {item.type}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginVertical: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Хаяг: </Text>
-                      {item.location}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        fontWeight: "200",
-                        marginBottom: 5,
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Ажилд орсон:{" "}
+                    )}
+                    {item.position && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          marginVertical: 5,
+                          fontWeight: "200",
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Албан тушаал:{" "}
+                        </Text>
+                        {item.position}
                       </Text>
-                      {moment(item.start).format("YYYY")}
-                    </Text>
+                    )}
+                    {item.type && (
+                      <Text
+                        style={{ color: colors.primaryText, fontWeight: "200" }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>Төрөл: </Text>
+                        {item.type}
+                      </Text>
+                    )}
+                    {item.location && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          marginVertical: 5,
+                          fontWeight: "200",
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>Хаяг: </Text>
+                        {item.location}
+                      </Text>
+                    )}
+                    {item.start && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          fontWeight: "200",
+                          marginBottom: 5,
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Ажилд орсон:{" "}
+                        </Text>
+                        {moment(item.start).format("YYYY")}
+                      </Text>
+                    )}
                     {item.isWorking ? (
                       <Text
                         style={{
@@ -628,54 +638,64 @@ const CreateCvScreen = (props) => {
                         {item.end && item.end.slice(0, 4)}
                       </Text>
                     )}
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginVertical: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Холбогдох албан тушаалтан:{" "}
+                    {item.contactInfo && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          marginVertical: 5,
+                          fontWeight: "200",
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Холбогдох албан тушаалтан:{" "}
+                        </Text>
+                        {item.contactInfo}
                       </Text>
-                      {item.contactInfo}
-                    </Text>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Гарсан шалтгаан:{" "}
+                    )}
+                    {item.exitCause && (
+                      <Text
+                        style={{ color: colors.primaryText, fontWeight: "200" }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Гарсан шалтгаан:{" "}
+                        </Text>
+                        {item.exitCause}
                       </Text>
-                      {item.exitCause}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginVertical: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Шагнал: </Text>
-                      {item.achievements}
-                    </Text>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        Хийсэн ажил:{" "}
+                    )}
+                    {item.achievements && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          marginVertical: 5,
+                          fontWeight: "200",
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>Шагнал: </Text>
+                        {item.achievements}
                       </Text>
-                      {item.do}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginTop: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>Тайлбар: </Text>
-                      {item.description}
-                    </Text>
+                    )}
+                    {item.do && (
+                      <Text
+                        style={{ color: colors.primaryText, fontWeight: "200" }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>
+                          Хийсэн ажил:{" "}
+                        </Text>
+                        {item.do}
+                      </Text>
+                    )}
+                    {item.description && (
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          marginTop: 5,
+                          fontWeight: "200",
+                        }}
+                      >
+                        <Text style={{ fontFamily: "Sf-bold" }}>Тайлбар: </Text>
+                        {item.description}
+                      </Text>
+                    )}
                   </View>
                   <SimpleLineIcons
                     name="pencil"
@@ -711,9 +731,10 @@ const CreateCvScreen = (props) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                imageStyle={{ borderRadius: 10 }}
               >
                 <Ionicons
-                  name={"medal-outline"}
+                  name={"bar-chart-outline"}
                   size={24}
                   color={colors.primaryText}
                 />
@@ -724,8 +745,8 @@ const CreateCvScreen = (props) => {
               </Text>
             </View>
             <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-              Та өөрийн туршлагын талаар мэдээлэл оруулснаар суурь чадвараа
-              таниулах боломжтой
+              Та өөрийн ажлын туршлагын талаар мэдээлэл оруулж анкетаа илүү
+              дэлгэрүүлнэ үү
             </Text>
             <TouchableOpacity
               style={{
@@ -783,7 +804,7 @@ const CreateCvScreen = (props) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     marginVertical: 2,
-                    borderRadius: 20,
+                    borderRadius: 10,
                   }}
                   onPress={() =>
                     navigation.navigate("FamilyDetailModal", {
@@ -917,9 +938,10 @@ const CreateCvScreen = (props) => {
                   alignItems: "center",
                   justifyContent: "center",
                 }}
+                imageStyle={{ borderRadius: 10 }}
               >
                 <Ionicons
-                  name={"medal-outline"}
+                  name={"md-people-outline"}
                   size={24}
                   color={colors.primaryText}
                 />
@@ -930,8 +952,8 @@ const CreateCvScreen = (props) => {
               </Text>
             </View>
             <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-              Та өөрийн ойр дотны хүний талаар мэдээлэл оруулснаар яааралтай үед
-              холбоо барих боломжтой
+              Та өөрийн гэр бүлийн талаар мэдээлэл оруулж анкетаа илүү
+              дэлгэрүүлнэ үү
             </Text>
             <TouchableOpacity
               style={{
@@ -966,7 +988,7 @@ const CreateCvScreen = (props) => {
               marginVertical: 10,
             }}
           >
-            Хэлний чадвар
+            Гадаад хэл
           </Text>
           <AntDesign
             name="pluscircleo"
@@ -996,7 +1018,7 @@ const CreateCvScreen = (props) => {
                       flexDirection: "row",
                       justifyContent: "space-between",
                       alignItems: "center",
-                      borderRadius: 20,
+                      borderRadius: 10,
                       marginBottom: 5,
                     }}
                   >
@@ -1042,21 +1064,22 @@ const CreateCvScreen = (props) => {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
+                  imageStyle={{ borderRadius: 10 }}
                 >
                   <Ionicons
-                    name={"medal-outline"}
+                    name={"earth"}
                     size={24}
                     color={colors.primaryText}
                   />
                 </ImageBackground>
                 <Text style={{ fontSize: 30, color: colors.primaryText }}>
                   {" "}
-                  Хэлний чадвар
+                  Гадаад хэл
                 </Text>
               </View>
               <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-                Та өөрийн хэлний чадварыг талаар мэдээлэл оруулснаар суурь
-                чадвараа таниулах боломжтой
+                Та өөрийн гадаад хэлний мэдлэгийн талаар мэдээлэл оруулж анкетаа
+                илүү дэлгэрүүлнэ үү
               </Text>
               <TouchableOpacity
                 style={{
@@ -1115,7 +1138,7 @@ const CreateCvScreen = (props) => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   marginVertical: 2,
-                  borderRadius: 20,
+                  borderRadius: 10,
                 }}
                 onPress={() =>
                   navigation.navigate("SkillDetailModal", { data: cv.skill })
@@ -1303,7 +1326,7 @@ const CreateCvScreen = (props) => {
             }}
             style={{
               backgroundColor: colors.border,
-              borderRadius: 20,
+              borderRadius: 10,
               padding: 10,
               marginTop: 15,
             }}

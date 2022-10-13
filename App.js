@@ -6,7 +6,7 @@ import StackNavigator from "./src/stack/StackNavigator";
 import { UserStore } from "./src/context/UserContext";
 import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
-
+import { RootSiblingParent } from "react-native-root-siblings";
 export default function App() {
   const colorScheme = useColorScheme();
 
@@ -24,10 +24,12 @@ export default function App() {
   }
   return (
     <NavigationContainer theme={colorScheme === "dark" ? darkTheme : darkTheme}>
-      <UserStore>
-        <StackNavigator />
-        <StatusBar style="light" />
-      </UserStore>
+      <RootSiblingParent>
+        <UserStore>
+          <StackNavigator />
+          <StatusBar style="light" />
+        </UserStore>
+      </RootSiblingParent>
     </NavigationContainer>
   );
 }

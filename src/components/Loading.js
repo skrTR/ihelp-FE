@@ -38,7 +38,7 @@ const Loading = () => {
         iterationCount="infinite"
         direction="alternate"
         easing="ease-out"
-        style={{ color: colors.primaryText, fontSize: 30 }}
+        style={{ color: colors.primaryText, fontSize: 30, fontWeight: "100" }}
       >
         Та түр хүлээнэ үү
       </Animatable.Text>

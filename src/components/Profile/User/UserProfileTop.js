@@ -149,19 +149,28 @@ const UserProfileTop = ({ userProfile, cv }) => {
         </View>
         <TouchableOpacity
           style={{
-            alignItems: "center",
-            marginRight: 10,
             top: 40,
+            position: "absolute",
+            right: 0,
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() =>
             navigation.navigate("WalletScreen", {
               point: userProfile.point,
+              userName: userProfile.firstName,
             })
           }
         >
           <LinearGradient
             colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-            style={{ padding: 4, paddingHorizontal: 20, borderRadius: 10 }}
+            style={{
+              padding: 4,
+              paddingHorizontal: 10,
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             start={[0.0, 0.5]}
             end={[1.0, 0.5]}
           >
@@ -194,55 +203,47 @@ const UserProfileTop = ({ userProfile, cv }) => {
         <TouchableOpacity
           style={{
             backgroundColor: "#FFB6C1",
-            marginHorizontal: 5,
             paddingVertical: 2,
             alignItems: "center",
             borderRadius: 10,
             flex: 0.66,
+            marginRight: 5,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() =>
             navigation.navigate("CreateCvScreen", { id: userProfile._id })
           }
         >
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <Entypo
-              name="documents"
-              size={24}
-              color={colors.border}
-              style={{ top: 5 }}
-            />
-            <Text
-              style={{
-                textAlign: "center",
-                top: 8,
-                color: colors.border,
-                right: 5,
-              }}
-            >
-              {" "}
-              Анкет янзлах{"   "}
-            </Text>
-            <CircularProgress
-              value={cv.score}
-              activeStrokeColor={"#3A1C71"}
-              activeStrokeSecondaryColor={"#D76D77"}
-              inActiveStrokeOpacity={0.5}
-              progressValueColor={colors.border}
-              valueSuffix={"%"}
-              delay={1000}
-              radius={18}
-              activeStrokeWidth={5}
-              inActiveStrokeWidth={5}
-            />
-          </View>
+          <Text
+            style={{
+              color: colors.border,
+            }}
+          >
+            {" "}
+            Анкет янзлах{"   "}
+          </Text>
+          <CircularProgress
+            value={cv.score}
+            activeStrokeColor={"#3A1C71"}
+            activeStrokeSecondaryColor={"#D76D77"}
+            inActiveStrokeOpacity={0.5}
+            progressValueColor={colors.border}
+            valueSuffix={"%"}
+            delay={1000}
+            radius={18}
+            activeStrokeWidth={5}
+            inActiveStrokeWidth={5}
+          />
         </TouchableOpacity>
         <TouchableOpacity
           style={{
             backgroundColor: "#FFB6C1",
-            marginHorizontal: 5,
-            paddingVertical: 8,
             borderRadius: 10,
             flex: 0.34,
+            alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() =>
             navigation.navigate("UserSettingsScreen", {
@@ -251,13 +252,10 @@ const UserProfileTop = ({ userProfile, cv }) => {
             })
           }
         >
-          <View style={{ flexDirection: "row", alignSelf: "center" }}>
-            <AntDesign name="setting" size={24} color={colors.border} />
-            <Text style={{ textAlign: "center", top: 3, color: colors.border }}>
-              {" "}
-              Тохиргоо
-            </Text>
-          </View>
+          <Text style={{ textAlign: "center", color: colors.border }}>
+            {" "}
+            Тохиргоо
+          </Text>
         </TouchableOpacity>
       </View>
       <View

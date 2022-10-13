@@ -26,11 +26,21 @@ const EmployerSendWorkModal = (props) => {
   const { colors } = useTheme();
   const [userProfile] = useUserProfile(state.userId);
   const navigation = useNavigation();
+  const [experience, setExperience] = useState([]);
+  const [course, setCourse] = useState([]);
+  const [achievement, setAchievment] = useState([]);
+  const [language, setLanguage] = useState([]);
+  const [skill, setSkill] = useState([]);
   const getCvData = () => {
     axios
       .get(`${api}/api/v1/questionnaires/${state.userId}`)
       .then((res) => {
         setData(res.data.data);
+        setSkill(res.data.data.skill);
+        setExperience(res.data.data.experience);
+        setCourse(res.data.data.course);
+        setAchievment(res.data.data.achievement);
+        setLanguage(res.data.data.language);
       })
       .catch((err) => {
         console.log(err);
@@ -53,9 +63,85 @@ const EmployerSendWorkModal = (props) => {
     return null;
   }
 
-  const html = `
+  const createDynamicData = () => {
+    var experiences = "";
+    for (let i in experience) {
+      const item = experience[i];
+      experiences =
+        experiences +
+        `<div>
+        <p>· ${item.position}, <span> ${item.company}, ${
+          item.location
+        },</span> ${moment(item.start).format("MM-YYYY")}, ${
+          item.isWorking ? "одоог хүртэл" : moment(item.end).format("MM-YYYY")
+        } </p>
+      </div>`;
+    }
+    var courses = "";
+    for (let i in course) {
+      const courseData = course[i];
+      courses =
+        courses +
+        `<div>
+        <p>· ${courseData.field}, <span> ${courseData.school} ,</span> ${moment(
+          courseData.start
+        ).format("MM-YYYY")}, ${
+          courseData.isStudying
+            ? "Сургалцаж байгаа"
+            : moment(courseData.end).format("MM-YYYY")
+        } </p>
+      </div>`;
+    }
+    var achievements = "";
+    for (let i in achievement) {
+      const achievementData = achievement[i];
+      achievements =
+        achievements +
+        `<div>
+    <p>· ${achievementData.name}, <span> ${achievementData.company} ,</span> ${achievementData.achievementYear} </p>
+  </div>`;
+    }
+    var languages = "";
+    for (let i in language) {
+      const languageData = language[i];
+      languages =
+        languages +
+        `<div>
+    <p>· ${languageData.country}, <span> ${languageData.level}</span>  </p>
+  </div>`;
+    }
+    var skills = "";
+    skills =
+      skills +
+      `<div>
+        ${skill.advantage1 === null ? `<br/>` : `<p>✓ ${skill.advantage1}</p>`}
+        ${skill.advantage2 === null ? `<br/>` : `<p>✓ ${skill.advantage2}</p>`}
+        ${skill.advantage3 === null ? `<br/>` : `<p>✓ ${skill.advantage3}</p>`}
+        ${skill.advantage4 === null ? `<br/>` : `<p>✓ ${skill.advantage4}</p>`} 
+        ${
+          skill.disAdvantage1 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage1}</p>`
+        }
+        ${
+          skill.disAdvantage2 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage2}</p>`
+        }
+        ${
+          skill.disAdvantage3 === null
+            ? `<br/>`
+            : `<p>✓ ${skill.disAdvantage3}</p>`
+        }
+        ${
+          skill.disAdvantage4 === null
+            ? `<br/>`
+            : ` <p>✓ ${skill.disAdvantage4}</p>`
+        }    
+  </div>`;
+
+    const html = `
     <html lang="en">
-  
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -92,83 +178,49 @@ const EmployerSendWorkModal = (props) => {
             </div>
             <div class="column"  style="float:right; padding-right: 15%; ">
                 <h3 style="color: #338DFF;"> CONTACTS</h3>
-                <p">Born in Erdenet city, Mongolia <br>
-                    Lives in Ulaanbaatar, Mongolia <br>
-                    <span style="font-size:12px;"> address </span> </p>
+                <p">Born in ${
+                  data.birthPlace === null ? `<br/>` : data.birthPlace
+                } <br>
+                    </p>
                 <br>
-                <a  href="naki.mongolia@gmail.com">naki.mongolia@gmail.com</a> <br>
-                <a  href="namkhaidorj@ihelp.mn">namkhaidorj@ihelp.mn</a> <br>
+                <a >${userProfile.email}</a> <br>
                 <span  style="font-size: 12px;"> e-mail </span>      
                 <p> 
-                    976-99757475 <br>
+                ${userProfile.phone} <br>
                     <span style="font-size: 12px;"> phone number </span>
                 </p>
             </div>
         </div>
-            <h3> <span style="color: #338DFF;">⭐EXPERIENCES </span></h3>
+        <h3> <span style="color: #338DFF;">⭐EXPERIENCES </span></h3>
+        <div>
+        ${experiences}
+         </div>
+         <h3 style="color: #338DFF;">🎓 EDUCATION</h3>
             <div>
-              ${
-                data.experience &&
-                data.experience.map((e) => {
-                  return e.end;
-                })
-              }
-              </div>
-            <h3 style="color: #338DFF;">🎓 EDUCATION</h3>
-            <div>
-                <p>· International Business Management & Marketing, Pre-master’s program, University of Sheffield, UK,
-                    2019-2020</p>
-                <p>· Bachelor of International Economic Relations, National University of Mongolia (NUM), School of
-                    International Relations and Public Administration (SIRPA), 2012 to 2016</p>
-                <p>· High school education, Erdmiin san school, Erdenet city, Mongolia, 2009-2012</p>
+          ${courses}
             </div>
             <h3 style="color: #338DFF;">👑 AWARDS</h3>
             <div>
-                <p>· Best of the year, Bloomberg TV Mongolia, National News Corporation LLC, 2019 </p>
-                <p>· The Leader Youngman of the Year, Mongolian Youth Organization, 2018</p>
-                <p>· The first place in the essay contest, “Passport to the world”, Education USA /EARC/, 2016</p>
-                <p>· The best delegate prize of the Model United Nations, awarded by NUM-SIRPA, 2015</p>
-                <p>· Student’s scholarship awarded by Zorig Foundation & LG, 2014 </p>
-                <p>· 3rd place in essay contest of World peaceful day, 2012</p>
-            </div>
-            <h3 style="color: #338DFF;">💻 COMPUTER SKILLS</h3>
-            <div>
-                <p>· <span style="color: blue;">Basic: </span>Windows software, macOS</p>
-                <p>· <span style="color: blue;">Intermediate: </span>Camtasia Studio, Microsoft Dynamic NAV</p>
-                <p>· <span style="color: blue;">Advanced: </span>Google apps; Microsoft office; other online platforms</p>
+           ${achievements}
             </div>
             <h3 style="color: #338DFF;">✏️ LANGUAGE</h3>
             <div>
-                <p>· <span style="color: blue;">Native: </span> Mongolian, <span style="color: blue;"> Advanced:
-                    </span>English</p>
-            </div>
-            <h3 style="color: #338DFF;">🎲 HOBBIES AND INTERESTS</h3>
-            <div>
-                <p>· <span style="color: blue;"> Hosting: </span>Morning View Series – Motivational & inspirational content
-                    that interviews successful leaders to share their experience, principles & philosophy to youth -
-                    <br> <span><a href=" www.youtube.com/c/morningviewseries"> www.youtube.com/c/morningviewseries</a>
-                    </span>
-                </p>
-                <p>· <span style="color: blue;"> Volunteering: </span>One Asia 2015</p>
-                <p>· <span style="color: blue;"> Public speaking: </span>World Speech day 2016; NUM-SIRPA UN Model 2015;
-                    Mongolian National Orator Championship 2015; Scientific conferences etc.</p>
+           ${languages}
             </div>
             <h2 style="color:#338DFF ;">DETAILED SKILLS & ACHIEVEMENTS</h2>
-            <p>✓ Experienced in business planning, customer acquisition, negotiation, communication and event organization
-            </p>
-            <p>✓ Expanded acquaintance and communication</p>
-            <p>✓ Increased interpretation skills and ability to make understand individual</p>
-            <p>✓ Improved leadership skills</p>
-            <p>✓ Enhanced skills in research and development</p>
-            <p>✓ Strengthened motivation to reach targeted goals and ambition</p>
+            <div>
+            ${skills}
+            </div>
         </div>
     </body>
     </html>
     `;
+    return html;
+  };
   const printToFile = async () => {
     // On iOS/android prints the given html. On web prints the HTML from the current page.
     const { uri } = await Print.printToFileAsync({
-      html,
+      html: createDynamicData(),
     });
     await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
   };
@@ -419,14 +471,7 @@ const EmployerSendWorkModal = (props) => {
                             {moment(e.start).format("YYYY-MM-DD")}
                           </Text>
                         </Text>
-                        <Text
-                          style={{
-                            color: colors.primaryText,
-                            fontWeight: "200",
-                            fontSize: 16,
-                          }}
-                        >
-                          Дууссан:
+                        {e.isWorking ? (
                           <Text
                             style={{
                               color: colors.primaryText,
@@ -434,29 +479,50 @@ const EmployerSendWorkModal = (props) => {
                               fontSize: 16,
                             }}
                           >
-                            {" "}
-                            {moment(e.end).format("YYYY-MM-DD")}
+                            Ажиллаж байгаа
                           </Text>
-                        </Text>
-                        <Text
-                          style={{
-                            color: colors.primaryText,
-                            fontWeight: "200",
-                            fontSize: 16,
-                          }}
-                        >
-                          Гарсан шалтгаан:
-                          <Text
-                            style={{
-                              color: colors.primaryText,
-                              fontWeight: "400",
-                              fontSize: 16,
-                            }}
-                          >
-                            {" "}
-                            {e.exitCause}
-                          </Text>
-                        </Text>
+                        ) : (
+                          <>
+                            <Text
+                              style={{
+                                color: colors.primaryText,
+                                fontWeight: "200",
+                                fontSize: 16,
+                              }}
+                            >
+                              Дууссан:
+                              <Text
+                                style={{
+                                  color: colors.primaryText,
+                                  fontWeight: "400",
+                                  fontSize: 16,
+                                }}
+                              >
+                                {" "}
+                                {moment(e.end).format("YYYY-MM-DD")}
+                              </Text>
+                            </Text>
+                            <Text
+                              style={{
+                                color: colors.primaryText,
+                                fontWeight: "200",
+                                fontSize: 16,
+                              }}
+                            >
+                              Гарсан шалтгаан:
+                              <Text
+                                style={{
+                                  color: colors.primaryText,
+                                  fontWeight: "400",
+                                  fontSize: 16,
+                                }}
+                              >
+                                {" "}
+                                {e.exitCause}
+                              </Text>
+                            </Text>
+                          </>
+                        )}
                       </View>
                     </View>
                     <Border margin={10} />
@@ -495,28 +561,110 @@ const EmployerSendWorkModal = (props) => {
                       <View style={{ marginLeft: 10 }}>
                         <Text
                           style={{
-                            fontFamily: "Sf-bold",
+                            fontWeight: "500",
                             color: colors.primaryText,
+                            fontSize: 16,
                           }}
                         >
-                          Сургууль: {e.school}
+                          Сургууль:
+                          <Text
+                            style={{
+                              fontWeight: "bold",
+                              color: colors.primaryText,
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.school}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Дамжаа: {e.grade}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Дамжаа:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.grade}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Мэргэжил: {e.field}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Мэргэжил:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.field}
+                          </Text>
                         </Text>
-                        <Text style={{ color: colors.primaryText }}>
-                          Элссэн: {e.start && e.start.slice(0, 10)}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Элссэн:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {moment(e.start).format("YYYY-MM-DD")}
+                          </Text>
                         </Text>
+
                         {e.end ? (
-                          <Text style={{ color: colors.primaryText }}>
-                            Төгссөн: {e.end && e.end.slice(0, 10)}
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "200",
+                              fontSize: 16,
+                            }}
+                          >
+                            Төгссөн:
+                            <Text
+                              style={{
+                                color: colors.primaryText,
+                                fontWeight: "400",
+                                fontSize: 16,
+                              }}
+                            >
+                              {" "}
+                              {moment(e.end).format("YYYY-MM-DD")}
+                            </Text>
                           </Text>
                         ) : (
-                          <Text style={{ color: colors.primaryText }}>
-                            Төгссөн
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            Сурч байгаа
                           </Text>
                         )}
                       </View>
@@ -550,17 +698,60 @@ const EmployerSendWorkModal = (props) => {
                     >
                       <Text
                         style={{
-                          fontFamily: "Sf-bold",
+                          fontWeight: "500",
                           color: colors.primaryText,
+                          fontSize: 16,
                         }}
                       >
-                        Байгууллага: {e.company}
+                        Байгууллага:
+                        <Text
+                          style={{
+                            fontWeight: "bold",
+                            color: colors.primaryText,
+                            fontSize: 16,
+                          }}
+                        >
+                          {" "}
+                          {e.company}
+                        </Text>
                       </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Нэр: {e.name}
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          fontWeight: "200",
+                          fontSize: 16,
+                        }}
+                      >
+                        Нэр:
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "400",
+                            fontSize: 16,
+                          }}
+                        >
+                          {" "}
+                          {e.name}
+                        </Text>
                       </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Он: {e.year}
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          fontWeight: "200",
+                          fontSize: 16,
+                        }}
+                      >
+                        Он:
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "400",
+                            fontSize: 16,
+                          }}
+                        >
+                          {" "}
+                          {e.achievementYear}
+                        </Text>
                       </Text>
                     </View>
                     <Border margin={10} />
@@ -592,14 +783,41 @@ const EmployerSendWorkModal = (props) => {
                     >
                       <Text
                         style={{
-                          fontFamily: "Sf-bold",
+                          fontWeight: "500",
                           color: colors.primaryText,
+                          fontSize: 16,
                         }}
                       >
-                        Хэл: {e.country}
+                        Хэл:
+                        <Text
+                          style={{
+                            fontWeight: "bold",
+                            color: colors.primaryText,
+                            fontSize: 16,
+                          }}
+                        >
+                          {" "}
+                          {e.country}
+                        </Text>
                       </Text>
-                      <Text style={{ color: colors.primaryText }}>
-                        Чадвар: {e.level}
+                      <Text
+                        style={{
+                          color: colors.primaryText,
+                          fontWeight: "200",
+                          fontSize: 16,
+                        }}
+                      >
+                        Чадвар:
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "400",
+                            fontSize: 16,
+                          }}
+                        >
+                          {" "}
+                          {e.level}
+                        </Text>
                       </Text>
                     </View>
                     <Border margin={10} />
@@ -630,37 +848,129 @@ const EmployerSendWorkModal = (props) => {
                       key={e._id}
                     >
                       {e.who && (
-                        <Text style={{ color: colors.primaryText }}>
-                          Хэн болох: {e.who}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Хэн болох:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.who}
+                          </Text>
                         </Text>
                       )}
                       {e.lastName && e.firstName && (
                         <Text
                           style={{
                             color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
                           }}
                         >
-                          Овог нэр: {e.lastName} {e.firstName}
+                          Овог нэр:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.lastName} {e.firstName}
+                          </Text>
                         </Text>
                       )}
                       {e.profession && (
-                        <Text style={{ color: colors.primaryText }}>
-                          Мэргэжил: {e.profession}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Мэргэжил:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.profession}
+                          </Text>
                         </Text>
                       )}
                       {e.birthPlace && (
-                        <Text style={{ color: colors.primaryText }}>
-                          Төрсөн газар: {e.birthPlace}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Төрсөн газар:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.birthPlace}
+                          </Text>
                         </Text>
                       )}
                       {e.birthYear && (
-                        <Text style={{ color: colors.primaryText }}>
-                          Төрсөн он: {e.birthYear}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Төрсөн он:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.birthYear}
+                          </Text>
                         </Text>
                       )}
                       {e.workingCompany && (
-                        <Text style={{ color: colors.primaryText }}>
-                          Ажилдаг газар: {e.workingCompany}
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontWeight: "200",
+                            fontSize: 16,
+                          }}
+                        >
+                          Ажилдаг газар:
+                          <Text
+                            style={{
+                              color: colors.primaryText,
+                              fontWeight: "400",
+                              fontSize: 16,
+                            }}
+                          >
+                            {" "}
+                            {e.workingCompany}
+                          </Text>
                         </Text>
                       )}
                     </View>
@@ -689,43 +999,171 @@ const EmployerSendWorkModal = (props) => {
                 }}
               >
                 {data.skill.advantage1 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Чадвар1: {data.skill.advantage1}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Чадвар1:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.advantage1}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.advantage2 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Чадвар2: {data.skill.advantage2}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Чадвар2:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.advantage2}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.advantage3 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Чадвар3: {data.skill.advantage3}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Чадвар3:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.advantage3}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.advantage4 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Чадвар4: {data.skill.advantage4}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Чадвар4:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.advantage4}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.disAdvantage1 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Сул тал1: {data.skill.disAdvantage1}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Сул тал:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.disAdvantage1}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.disAdvantage2 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Сул тал2: {data.skill.disAdvantage2}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Сул тал2:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.disAdvantage2}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.disAdvantage3 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Сул тал3: {data.skill.disAdvantage3}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Сул тал3:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.disAdvantage3}
+                    </Text>
                   </Text>
                 )}
                 {data.skill.disAdvantage4 && (
-                  <Text style={{ color: colors.primaryText }}>
-                    Сул тал4: {data.skill.disAdvantage4}
+                  <Text
+                    style={{
+                      color: colors.primaryText,
+                      fontWeight: "200",
+                      fontSize: 16,
+                    }}
+                  >
+                    Сул тал4:
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        fontWeight: "400",
+                        fontSize: 16,
+                      }}
+                    >
+                      {" "}
+                      {data.skill.disAdvantage4}
+                    </Text>
                   </Text>
                 )}
               </View>
@@ -798,8 +1236,9 @@ const EmployerSendWorkModal = (props) => {
                   {
                     text: "Анкет янзлах",
                     onPress: () =>
-                      navigation.navigate("ProfileStack", {
-                        screen: "UserProfileScreen",
+                      navigation.navigate("Профайл", {
+                        screen: "CreateCvScreen",
+                        params: { id: state.userId },
                       }),
                   },
                 ]

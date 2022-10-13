@@ -1,9 +1,10 @@
 import { Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 const ModalHeader = (props) => {
   const { colors } = useTheme();
+  const navigation = useNavigation();
   return (
     <>
       <View
@@ -22,7 +23,7 @@ const ModalHeader = (props) => {
           style={{
             color: colors.primaryText,
             fontFamily: "Sf-bold",
-            fontSize: 15,
+            fontSize: 18,
           }}
         >
           {props.text}

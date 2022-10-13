@@ -91,6 +91,13 @@ const UserProfileScreen = () => {
           ) : (
             <UserProfileCourse data={cv.course} />
           )}
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              marginBottom: 10,
+            }}
+          />
           {userProfile.portfolio ? (
             <UserPortf
               image1={userProfile.portfolio.image1}
@@ -102,10 +109,10 @@ const UserProfileScreen = () => {
             />
           ) : (
             <EmptyData
-              title={"Портфолио"}
-              inTitle={"Портфолио?"}
+              title={"Зурган танилцуулга"}
+              inTitle={"Зураг?"}
               description={"Та өөрийн хийсэн ажлын зургийг оруулах боломжтой"}
-              icon={"school-outline"}
+              icon={"camera-reverse-outline"}
               id={userProfile._id}
               screenDetail={"AddPortfolio"}
             />

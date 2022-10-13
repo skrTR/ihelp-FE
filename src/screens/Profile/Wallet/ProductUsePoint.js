@@ -16,6 +16,8 @@ import UserContext from "../../../context/UserContext";
 import moment from "moment";
 import DataCountDown from "../../../components/Employer/DataCountDown";
 import Loading from "../../../components/Loading";
+import ModalHeader from "../../../components/ModalHeader";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const ProductUsePoint = ({ route }) => {
   const { type } = route.params;
   const { colors } = useTheme();
@@ -25,6 +27,7 @@ const ProductUsePoint = ({ route }) => {
   const state = useContext(UserContext);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const insents = useSafeAreaInsets();
   let isMounted = true;
   useEffect(() => {
     if (type === "EmployeeBoost") {
@@ -132,7 +135,19 @@ const ProductUsePoint = ({ route }) => {
       {loading ? (
         <Loading />
       ) : (
-        <ScrollView style={{ backgroundColor: colors.background }}>
+        <ScrollView
+          style={{
+            backgroundColor: colors.background,
+            paddingTop: insents.top,
+          }}
+        >
+          <ModalHeader
+            text={
+              type === "SpecialCompanyEmployee"
+                ? "Онцлох компани болох"
+                : "Идэвхжүүлэх"
+            }
+          />
           {type === "EmployeeBoost" ? (
             <>
               {employeeJobs.map((data) => {
@@ -1106,7 +1121,7 @@ const ProductUsePoint = ({ route }) => {
                     padding: 10,
                     marginTop: 10,
                     marginHorizontal: 20,
-                    borderRadius: 50,
+                    borderRadius: 10,
                   }}
                   onPress={() => {
                     BoostEmployeeCompany(100, 1, 30);
@@ -1125,7 +1140,7 @@ const ProductUsePoint = ({ route }) => {
                     padding: 10,
                     marginTop: 10,
                     marginHorizontal: 20,
-                    borderRadius: 50,
+                    borderRadius: 10,
                   }}
                   onPress={() => {
                     BoostEmployeeCompany(250, 3, 90);
@@ -1144,7 +1159,7 @@ const ProductUsePoint = ({ route }) => {
                     padding: 10,
                     marginTop: 10,
                     marginHorizontal: 20,
-                    borderRadius: 50,
+                    borderRadius: 10,
                   }}
                   onPress={() => {
                     BoostEmployeeCompany(400, 6, 180);
@@ -1164,7 +1179,7 @@ const ProductUsePoint = ({ route }) => {
                     padding: 10,
                     marginTop: 10,
                     marginHorizontal: 20,
-                    borderRadius: 50,
+                    borderRadius: 10,
                   }}
                   onPress={() => {
                     BoostEmployeeCompany(600, 12, 365);

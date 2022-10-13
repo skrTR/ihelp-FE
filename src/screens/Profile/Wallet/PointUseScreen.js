@@ -12,9 +12,8 @@ const PointUseScreen = () => {
       <View style={{ marginHorizontal: 20 }}>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
             paddingVertical: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -30,9 +29,8 @@ const PointUseScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -46,9 +44,8 @@ const PointUseScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -62,9 +59,8 @@ const PointUseScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
             paddingVertical: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,

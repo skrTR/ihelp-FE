@@ -9,7 +9,7 @@ const MyButton = (props) => {
       style={{
         padding: 10,
         borderWidth: 1,
-        borderRadius: 20,
+        borderRadius: 10,
         borderColor: colors.border,
       }}
       onPress={props.onPress}

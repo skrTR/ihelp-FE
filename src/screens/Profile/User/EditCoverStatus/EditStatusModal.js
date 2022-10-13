@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   TextInput,
+  ScrollView,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -42,7 +43,7 @@ const EditStatusModal = (props) => {
     });
   };
   return (
-    <View>
+    <ScrollView keyboardShouldPersistTaps={"handled"}>
       <Image
         source={{
           uri: `${api}/upload/${data.profile}`,
@@ -89,6 +90,7 @@ const EditStatusModal = (props) => {
           // value={}
           value={personalCv.profession}
           onChangeText={checkProfession}
+          placeholderTextColor={"#cccccccc"}
         />
 
         <Text
@@ -114,6 +116,7 @@ const EditStatusModal = (props) => {
           }}
           value={personalCv.workingCompany}
           onChangeText={checkWorkingCompany}
+          placeholderTextColor={"#cccccccc"}
         />
       </View>
       <Text
@@ -127,7 +130,7 @@ const EditStatusModal = (props) => {
         }}
       >
         Та дээрх мэдээллийг оруулснаар өөрийгөө бусад хэрэглэгч нарт таниулах
-        бөгөөд энэ нь тус платформыг хэрэглэх бүхий л явцад таны нэрний доор
+        бөгөөд энэ нь тус платформыг хэрэглэх бүхий л явцад таны нэрийн доор
         үзэгдэх болно.
       </Text>
       <Text></Text>
@@ -146,7 +149,7 @@ const EditStatusModal = (props) => {
         style={{
           backgroundColor: personalCv.profession ? "#FFB6C1" : colors.border,
           padding: 6,
-          borderRadius: 20,
+          borderRadius: 10,
           alignSelf: "flex-end",
           marginTop: 20,
           marginRight: 20,
@@ -215,7 +218,7 @@ const EditStatusModal = (props) => {
           }}
         />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

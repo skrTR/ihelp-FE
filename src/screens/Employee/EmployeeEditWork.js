@@ -5,6 +5,7 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -206,7 +207,34 @@ const EmployeeEditWork = (props) => {
       workerNumber: text,
     });
   };
-
+  const deleteJob = () => {
+    Alert.alert(
+      "Анхаар",
+      "Та өөрийн оруулсан ажлын зарыг устгахдаа итгэлтэй байна уу",
+      [
+        {
+          text: "Үгүй",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Тийм",
+          onPress: () => {
+            axios
+              .delete(`${api}/api/v1/announcements/${data._id}`)
+              .then((res) => {
+                navigation.navigate("Ажил авна", { screen: "EmployeeScreen" });
+                alert("Зар амжилтай устлаа");
+              })
+              .catch((err) => {
+                let message = err.response.data.error.message;
+                alert(message);
+              });
+          },
+        },
+      ]
+    );
+  };
   if (!notification) {
     return null;
   }
@@ -342,6 +370,19 @@ const EmployeeEditWork = (props) => {
             onPress={sendWork}
           >
             <Text style={{ textAlign: "center", color: "black" }}>Өөрчлөх</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "red",
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 20,
+              borderColor: colors.border,
+              marginTop: 10,
+            }}
+            onPress={deleteJob}
+          >
+            <Text style={{ textAlign: "center", color: "black" }}>Устгах</Text>
           </TouchableOpacity>
           <View style={{ marginBottom: 200 }} />
         </ScrollView>

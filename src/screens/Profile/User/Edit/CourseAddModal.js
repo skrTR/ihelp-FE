@@ -180,7 +180,7 @@ const CourseAddModal = () => {
         <FormText
           value={course.field}
           onChangeText={checkField}
-          errorText="Мэргэжил 1-20 тэмдэгтээс тогтоно."
+          errorText="Мэргэжил 1-20 тэмдэгтээс тогтоно"
           errorShow={error.field}
         />
         {/* elssen ognoo */}
@@ -190,7 +190,7 @@ const CourseAddModal = () => {
         <FormText
           value={course.start}
           onChangeText={checkStart}
-          errorText="Элссэн огноо 4-10 тэмдэгтээс тогтоно."
+          errorText="Элссэн огноо 4-10 тэмдэгтээс тогтоно"
           errorShow={error.start}
           keyboardType="numeric"
         />
@@ -237,7 +237,7 @@ const CourseAddModal = () => {
               placeholder="Төгссөн огноо"
               value={course.end && course.end.slice(0, 10)}
               onChangeText={checkEnd}
-              errorText="Төгссөн огноо урт 4-20 тэмдэгтээс тогтоно."
+              errorText="Төгссөн огноо 4-10 тэмдэгтээс тогтоно"
               errorShow={error.end}
               keyboardType="numeric"
             />
@@ -251,7 +251,7 @@ const CourseAddModal = () => {
           placeholder="Голч дүн"
           value={course.grade}
           onChangeText={checkGrade}
-          errorText="Голч дүн урт 3-20 тэмдэгтээс тогтоно."
+          errorText="Голч дүн 1-5 тэмдэгтээс тогтоно"
           errorShow={error.grade}
           keyboardType="numeric"
         />

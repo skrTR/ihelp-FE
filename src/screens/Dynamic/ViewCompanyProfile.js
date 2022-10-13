@@ -3,9 +3,10 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  useColorScheme,
   View,
 } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import useCompanyProfile from "../../hooks/ProfileDetail/Company/useCompanyProfile";
 import useCompanyJobs from "../../hooks/ProfileDetail/Company/useCompanyJobs";
@@ -19,12 +20,17 @@ import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
+import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
 const ViewCompanyProfile = (props) => {
   const { id } = props.route.params;
   const navigation = useNavigation();
   const { colors } = useTheme();
+  const [isType, setIsType] = useState(true);
   const [companyProfile] = useCompanyProfile(id);
   const [companyJobs, loading] = useCompanyJobs(id);
+  const [companyAnnoucement] = useCompanyAnnoucement(id);
+  const colorScheme = useColorScheme();
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   if (!companyProfile) {
@@ -50,7 +56,9 @@ const ViewCompanyProfile = (props) => {
           point={companyProfile.point}
           name={companyProfile.firstName}
           category={companyProfile.categoryName}
-          jobCount={companyProfile.jobNumber}
+          jobCount={
+            companyProfile.jobNumber + companyProfile.announcementNumber
+          }
           followerCount={companyProfile.follower}
           followingCount={companyProfile.following}
           isFollow={companyProfile.isFollowing}
@@ -94,42 +102,141 @@ const ViewCompanyProfile = (props) => {
               </>
             </TouchableOpacity>
           )}
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontFamily: "Sf-bold",
+              fontSize: 20,
+              marginHorizontal: 20,
+              marginVertical: 15,
+            }}
+          >
+            Ажлын зарууд
+          </Text>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity
+              accessibilityRole="button"
+              style={{
+                flex: 1,
+                padding: 10,
+                margin: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: "white",
+                backgroundColor:
+                  colorScheme === "dark"
+                    ? !isType
+                      ? colors.background
+                      : "white"
+                    : colorScheme === "light" && isType
+                    ? colors.background
+                    : "#FFB6C1",
+              }}
+              onPress={() => setIsType(true)}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  paddingHorizontal: 30,
+                  color:
+                    colorScheme === "dark"
+                      ? isType
+                        ? colors.background
+                        : colors.primaryText
+                      : colorScheme === "light" && !isType
+                      ? "black"
+                      : colors.primaryText,
 
-          {loading ? (
-            <Spinner />
+                  textAlign: "center",
+                }}
+              >
+                Ажилтан авна
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              accessibilityRole="button"
+              onPress={() => setIsType(false)}
+              style={{
+                flex: 1,
+                padding: 10,
+                margin: 10,
+                borderRadius: 10,
+                borderWidth: 1,
+                borderColor: "white",
+                backgroundColor:
+                  colorScheme === "dark"
+                    ? isType
+                      ? colors.background
+                      : "white"
+                    : colorScheme === "light" && !isType
+                    ? colors.background
+                    : "#FFB6C1",
+              }}
+            >
+              <Text
+                style={{
+                  fontWeight: "bold",
+                  paddingHorizontal: 30,
+                  color:
+                    colorScheme === "dark"
+                      ? !isType
+                        ? colors.background
+                        : colors.primaryText
+                      : colorScheme === "light" && isType
+                      ? "black"
+                      : colors.primaryText,
+
+                  textAlign: "center",
+                }}
+              >
+                Ажил авна
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {isType ? (
+            <>
+              {companyJobs.length > 0 && (
+                <>
+                  {companyJobs.map((data) => {
+                    return (
+                      <View key={data._id}>
+                        <CompanyJobs
+                          id={data._id}
+                          createUserName={data.firstName}
+                          createUserProfile={data.profile}
+                          isEmployer={data.isEmployer}
+                          isEmployee={data.isEmployee}
+                          occupation={data.occupationName}
+                          type={data.type}
+                          salary={data.salary}
+                          order={data.order}
+                        />
+                      </View>
+                    );
+                  })}
+                </>
+              )}
+            </>
           ) : (
-            companyJobs.length > 0 && (
-              <>
-                <Text
-                  style={{
-                    color: colors.primaryText,
-                    fontFamily: "Sf-bold",
-                    fontSize: 20,
-                    marginHorizontal: 20,
-                    marginVertical: 15,
-                  }}
-                >
-                  Ажлын зарууд
-                </Text>
-                {companyJobs.map((data) => {
-                  return (
-                    <View key={data._id}>
-                      <CompanyJobs
-                        id={data._id}
-                        createUserName={data.firstName}
-                        createUserProfile={data.profile}
-                        isEmployer={data.isEmployer}
-                        isEmployee={data.isEmployee}
-                        occupation={data.occupationName}
-                        type={data.type}
-                        salary={data.salary}
-                        order={data.order}
-                      />
-                    </View>
-                  );
-                })}
-              </>
-            )
+            <>
+              {companyAnnoucement.map((data) => {
+                return (
+                  <View key={data._id}>
+                    <CompanyAnnoucements
+                      id={data._id}
+                      createUserName={data.firstName}
+                      createUserProfile={data.profile}
+                      isEmployer={data.isEmployer}
+                      isEmployee={data.isEmployee}
+                      occupation={data.occupationName}
+                      type={data.do}
+                      salary={data.price}
+                      order={data.order}
+                    />
+                  </View>
+                );
+              })}
+            </>
           )}
         </View>
       </ScrollView>

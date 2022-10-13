@@ -5,19 +5,17 @@ import { useIsFocused } from "@react-navigation/native";
 
 export default (refresh) => {
   const [normalWork, setNormalWork] = useState([]);
+  const [refreshings, setRefreshings] = useState(false);
 
-  const [normalError, setNormalError] = useState(null);
-  const [normalLoading, setNormalLoading] = useState(false);
   const isFocused = useIsFocused();
   let isMoutned = true;
   const getData = () => {
     axios
-      .get(`${api}/api/v1/announcements/unspecials`)
+      .get(`${api}/api/v1/announcements/unspecials?limit=10`)
       .then((result) => {
         if (isMoutned) {
           setNormalWork(result.data.data);
-          setNormalError(null);
-          setNormalLoading(false);
+          setRefreshings(false);
         }
       })
       .catch((err) => {
@@ -27,17 +25,14 @@ export default (refresh) => {
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
-        setNormalError(message);
-        setNormalLoading(false);
       });
   };
   useEffect(() => {
-    setNormalLoading(true);
     getData();
     () => {
       isMoutned = false;
     };
-  }, [isFocused]);
+  }, [isFocused, refresh]);
 
-  return [normalWork, normalError, normalLoading];
+  return [normalWork, refreshings, setRefreshings];
 };

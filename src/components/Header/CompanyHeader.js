@@ -22,6 +22,8 @@ const CompanyHeader = (props) => {
     isSearch,
     isNotification,
     isFollowedCompany,
+    workSort,
+    userSort,
   } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -101,6 +103,13 @@ const CompanyHeader = (props) => {
               size={25}
               color={colors.primaryText}
               onPress={() => navigation.navigate("FollowedCompany")}
+            />
+          ) : userSort ? (
+            <SimpleLineIcons
+              name="equalizer"
+              size={25}
+              color={colors.primaryText}
+              onPress={() => navigation.navigate("UserSortModal")}
             />
           ) : null}
         </View>
@@ -218,6 +227,14 @@ const CompanyHeader = (props) => {
                 </View>
               ) : null}
             </TouchableOpacity>
+          ) : workSort ? (
+            <SimpleLineIcons
+              name="equalizer"
+              size={25}
+              color={colors.primaryText}
+              onPress={() => navigation.navigate("CustomSearchModal")}
+              style={{ alignSelf: "flex-end" }}
+            />
           ) : null}
         </View>
       </View>

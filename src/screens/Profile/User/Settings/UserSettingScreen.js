@@ -19,36 +19,15 @@ import {
 import UserContext from "../../../../context/UserContext";
 import { api } from "../../../../../Constants";
 import axios from "axios";
+import UserDeleteModal from "./UserDeleteModal";
 const UserSettingsScreen = ({ route }) => {
   const { userProfile, cv } = route.params;
   const navigation = useNavigation();
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const [loading, setLoading] = useState(false);
-  const userDelete = () => {
-    Alert.alert("Та өөрийн профайл устгахдаа", "итгэлтэй байна уу?", [
-      {
-        text: "Болих",
-        onPress: () => {
-          console.log("Cancel Pressed");
-        },
-        style: "cancel",
-      },
-      {
-        text: "Устгах",
-        onPress: () => {
-          axios
-            .delete(`${api}/api/v1/cvs/${state.userId}`)
-            .then((res) => {
-              state.logout();
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        },
-      },
-    ]);
-  };
+  const [deleteModal, setDeleteModal] = useState(false);
+
   const changePassword = () => {
     setLoading(true);
     Alert.alert(
@@ -56,7 +35,7 @@ const UserSettingsScreen = ({ route }) => {
       `${state.phone} дугаарлуу 6 тэмдэгтэй код очно`,
       [
         {
-          text: "Cancel",
+          text: "Болих",
           onPress: () => setLoading(false),
           style: "үгүй",
         },
@@ -70,7 +49,14 @@ const UserSettingsScreen = ({ route }) => {
                 setLoading(false);
               })
               .catch((err) => {
-                console.log(err, "a");
+                let message = err.response.data.error.message;
+                Alert.alert("Санамж", message, [
+                  {
+                    text: "Ойлголоо",
+                    onPress: () => console.log("OK Pressed"),
+                  },
+                ]);
+
                 setLoading(false);
               });
           },
@@ -86,239 +72,250 @@ const UserSettingsScreen = ({ route }) => {
     );
   }
   return (
-    <View style={{ marginHorizontal: 20, flex: 1 }}>
-      {/* Status */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() =>
-          navigation.navigate("EditStatusModal", {
-            data: userProfile,
-            cvData: cv,
-          })
-        }
-      >
-        <MaterialCommunityIcons
-          name="view-list"
-          size={28}
-          color={colors.primaryText}
-        />
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+    <>
+      <View style={{ marginHorizontal: 20, flex: 1 }}>
+        {/* Status */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() =>
+            navigation.navigate("EditStatusModal", {
+              data: userProfile,
+              cvData: cv,
+            })
+          }
         >
-          Статус
-        </Text>
-      </TouchableOpacity>
-      {/* Line */}
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Activity */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() => navigation.navigate("UserActivityModal")}
-      >
-        <Feather name="activity" size={28} color={colors.primaryText} />
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-        >
-          Идэвхи
-        </Text>
-      </TouchableOpacity>
-      {/* Line */}
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Ирсэн ажлын санал */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() => {
-          navigation.navigate("UserRecievedJob");
-        }}
-      >
-        <MaterialIcons
-          name="work-outline"
-          size={28}
-          color={colors.primaryText}
-        />
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-        >
-          Ирсэн ажлын санал
-        </Text>
-      </TouchableOpacity>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Илгээсэн ажлын санал */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() => {
-          navigation.navigate("UserSendWorkHistory");
-        }}
-      >
-        <FontAwesome5
-          name="network-wired"
-          size={22}
-          color={colors.primaryText}
-        />
-
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-        >
-          Илгээсэн ажлын санал
-        </Text>
-      </TouchableOpacity>
-      {/* Line */}
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Хадгалсан ажлын байр */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() => navigation.navigate("UserSavedWork")}
-      >
-        <MaterialIcons name="save-alt" size={28} color={colors.primaryText} />
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-        >
-          Хадгалсан ажлын байр
-        </Text>
-      </TouchableOpacity>
-      {/* Line */}
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Нууц үг солих */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={changePassword}
-      >
-        <MaterialCommunityIcons
-          name="form-textbox-password"
-          size={28}
-          color={colors.primaryText}
-        />
-        <View>
+          <MaterialCommunityIcons
+            name="view-list"
+            size={26}
+            color={colors.primaryText}
+          />
           <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
-            Нууц үг солих
+            Статус
           </Text>
-        </View>
-      </TouchableOpacity>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={userDelete}
-      >
-        <MaterialCommunityIcons
-          name="delete-forever"
-          size={28}
-          color={colors.primaryText}
-        />
-        <View>
-          <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-          >
-            Өөрийн профайл устгах
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-      {/* Баталгаажуулах */}
-      <TouchableOpacity
-        style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
-        onPress={() =>
-          navigation.navigate("UserVerifyScreen", {
-            data: userProfile,
-            cvData: cv,
-          })
-        }
-      >
-        <Octicons name="verified" size={28} color={colors.primaryText} />
-        <View>
-          <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
-          >
-            Профайл баталгаажуулах
-          </Text>
-        </View>
-      </TouchableOpacity>
-      <View
-        style={{
-          borderWidth: 0.5,
-          borderColor: colors.border,
-          marginVertical: 10,
-        }}
-      />
-
-      <TouchableOpacity
-        style={{
-          bottom: 50,
-          position: "absolute",
-          alignSelf: "center",
-          alignItems: "center",
-        }}
-        onPress={() => state.logout()}
-      >
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
+        </TouchableOpacity>
+        {/* Line */}
+        <View
           style={{
-            flexDirection: "row",
-            alignItems: "center",
-            padding: 10,
-            borderRadius: 20,
-            paddingHorizontal: 20,
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
           }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
+        />
+        {/* Activity */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => navigation.navigate("UserActivityModal")}
         >
-          <SimpleLineIcons name="logout" size={24} color={colors.primaryText} />
+          <Feather name="activity" size={26} color={colors.primaryText} />
           <Text
-            style={{
-              color: colors.primaryText,
-              fontWeight: "bold",
-              fontSize: 18,
-            }}
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
-            {" "}
-            Гарах
+            Идэвхи
           </Text>
-        </LinearGradient>
-      </TouchableOpacity>
-    </View>
+        </TouchableOpacity>
+        {/* Line */}
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Ирсэн ажлын санал */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => {
+            navigation.navigate("UserRecievedJob");
+          }}
+        >
+          <MaterialIcons
+            name="work-outline"
+            size={26}
+            color={colors.primaryText}
+          />
+          <Text
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
+          >
+            Ирсэн ажлын санал
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Илгээсэн ажлын санал */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => {
+            navigation.navigate("UserSendWorkHistory");
+          }}
+        >
+          <FontAwesome5
+            name="network-wired"
+            size={20}
+            color={colors.primaryText}
+          />
+
+          <Text
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
+          >
+            Илгээсэн ажлын санал
+          </Text>
+        </TouchableOpacity>
+        {/* Line */}
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Хадгалсан ажлын байр */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => navigation.navigate("UserSavedWork")}
+        >
+          <MaterialIcons name="save-alt" size={26} color={colors.primaryText} />
+          <Text
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
+          >
+            Хадгалсан ажлын байр
+          </Text>
+        </TouchableOpacity>
+        {/* Line */}
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Нууц үг солих */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={changePassword}
+        >
+          <MaterialCommunityIcons
+            name="form-textbox-password"
+            size={26}
+            color={colors.primaryText}
+          />
+          <View>
+            <Text
+              style={{
+                color: colors.primaryText,
+                marginLeft: 20,
+                fontSize: 16,
+              }}
+            >
+              Нууц үг солих
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => setDeleteModal(!deleteModal)}
+        >
+          <MaterialCommunityIcons
+            name="delete-forever"
+            size={26}
+            color={colors.primaryText}
+          />
+          <View>
+            <Text
+              style={{
+                color: colors.primaryText,
+                marginLeft: 20,
+                fontSize: 16,
+              }}
+            >
+              Өөрийн профайл устгах
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Баталгаажуулах */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() =>
+            navigation.navigate("UserVerifyScreen", {
+              data: userProfile,
+              cvData: cv,
+            })
+          }
+        >
+          <Octicons name="verified" size={26} color={colors.primaryText} />
+          <View>
+            <Text
+              style={{
+                color: colors.primaryText,
+                marginLeft: 20,
+                fontSize: 16,
+              }}
+            >
+              Профайл баталгаажуулах
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+        {/* Гарах */}
+        <TouchableOpacity
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
+          onPress={() => state.logout()}
+        >
+          <SimpleLineIcons name="logout" size={22} color={colors.primaryText} />
+
+          <View>
+            <Text
+              style={{
+                color: colors.primaryText,
+                marginLeft: 20,
+                fontSize: 16,
+              }}
+            >
+              {" "}
+              Гарах
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 5,
+          }}
+        />
+      </View>
+      <UserDeleteModal
+        deleteModal={deleteModal}
+        setDeleteModal={setDeleteModal}
+        id={state.userId}
+      />
+    </>
   );
 };
 

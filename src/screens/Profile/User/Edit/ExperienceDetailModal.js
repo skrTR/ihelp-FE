@@ -58,7 +58,7 @@ const ExperienceDetailModal = ({ route }) => {
     company: data.company,
     position: data.position,
     location: data.location,
-    type: data.type,
+    type: data.type ? data.type : "Сонгох",
     company: data.company,
     companyPhoto: data.companyPhoto,
   });
@@ -194,7 +194,7 @@ const ExperienceDetailModal = ({ route }) => {
               style={{
                 backgroundColor: colors.secondaryText,
                 padding: 2,
-                borderRadius: 20,
+                borderRadius: 10,
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
@@ -266,10 +266,10 @@ const ExperienceDetailModal = ({ route }) => {
               style={{
                 backgroundColor: colors.secondaryText,
                 padding: 12,
-                borderRadius: 20,
+                borderRadius: 10,
               }}
             >
-              <Text style={{ fontSize: 16 }}>{type && type}</Text>
+              <Text style={{ fontSize: 16 }}>{type}</Text>
             </View>
           </TouchableOpacity>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -370,14 +370,14 @@ const ExperienceDetailModal = ({ route }) => {
             onPress={sendPersonalDetail}
             style={{
               marginTop: 20,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <LinearGradient
               colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
               style={{
                 paddingVertical: 10,
-                borderRadius: 20,
+                borderRadius: 10,
               }}
               start={[0.0, 0.5]}
               end={[1.0, 0.5]}
@@ -392,9 +392,9 @@ const ExperienceDetailModal = ({ route }) => {
             onPress={deleteExperience}
             style={{
               marginTop: 20,
-              borderRadius: 20,
+              borderRadius: 10,
               paddingVertical: 10,
-              borderRadius: 20,
+              borderRadius: 10,
               borderWidth: 1,
               borderColor: colors.border,
             }}
@@ -411,7 +411,7 @@ const ExperienceDetailModal = ({ route }) => {
               marginTop: 20,
               borderWidth: 1,
               borderColor: colors.border,
-              borderRadius: 20,
+              borderRadius: 10,
               padding: 10,
             }}
           />

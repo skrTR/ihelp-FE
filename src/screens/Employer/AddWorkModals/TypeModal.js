@@ -19,14 +19,14 @@ const TypeModal = (props) => {
         <ModalHeader text="Цагийн төрөл" clicked={() => setTypeModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
           {[
-            "Бүтэн цаг",
-            "Хагас цаг",
-            "freelancer",
-            "self-employed",
-            "contract",
-            "intern",
-            "apprentice",
-            "seasonal",
+            "Сонгох",
+            "Үндсэн ажил",
+            "Цагийн ажил",
+            "Чөлөөт ажилтан",
+            "Гэрээгээр",
+            "Дадлага",
+            "Аппрентис",
+            "Улирлын чанартай",
           ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {

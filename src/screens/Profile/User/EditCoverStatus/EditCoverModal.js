@@ -6,12 +6,12 @@ import {
   ActivityIndicator,
   Alert,
   Dimensions,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { api } from "../../../../../Constants";
 const fullWidth = Dimensions.get("screen").width;
 const fullHeight = Dimensions.get("screen").height;
@@ -120,13 +120,13 @@ const EditCoverModal = ({ route }) => {
           style={{
             backgroundColor: !coverImage ? "#FFB6C1" : colors.border,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           onPress={openImageCoverLibrary}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 16,
               paddingHorizontal: 20,
             }}
           >
@@ -137,14 +137,14 @@ const EditCoverModal = ({ route }) => {
           style={{
             backgroundColor: coverImage ? "#FFB6C1" : colors.border,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           disabled={coverImage ? false : true}
           onPress={uploadCoverImage}
         >
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 16,
               color: !coverImage ? colors.secondaryText : "black",
               paddingHorizontal: 10,
             }}

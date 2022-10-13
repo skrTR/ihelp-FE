@@ -36,7 +36,9 @@ const CompanyProfileScreen = () => {
           point={companyProfile.point}
           name={companyProfile.firstName}
           category={companyProfile.categoryName}
-          jobCount={companyProfile.jobNumber}
+          jobCount={
+            companyProfile.jobNumber + companyProfile.announcementNumber
+          }
           followerCount={companyProfile.follower}
           followingCount={companyProfile.following}
           isFollow={companyProfile.isFollowing}

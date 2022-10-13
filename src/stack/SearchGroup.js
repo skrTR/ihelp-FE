@@ -32,6 +32,8 @@ import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
 import NetworkingPostDetailScreen from "../screens/Network/NetworkingPostDetailScreen";
 import SharePostModal from "../screens/Network/SharePostModal";
 import UserProfileScreen from "../screens/Profile/User/UserProfileScreen";
+import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
+import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 const SearchGroup = () => {
   const SearchStack = createNativeStackNavigator();
   return (
@@ -136,6 +138,16 @@ const SearchGroup = () => {
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
+          }}
+        />
+        <SearchStack.Screen
+          name="EmployerSendWorkModal"
+          component={EmployerSendWorkModal}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет илгээх",
+            headerLeft: () => <MyBackButton />,
           }}
         />
         <SearchStack.Screen
@@ -282,6 +294,11 @@ const SearchGroup = () => {
             headerShown: false,
             presentation: "formSheet",
           }}
+        />
+        <SearchStack.Screen
+          name="EmployeeWorkDetail"
+          component={EmployeeWorkDetail}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
       </SearchStack.Group>
     </SearchStack.Navigator>

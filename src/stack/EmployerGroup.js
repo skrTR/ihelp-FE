@@ -19,6 +19,8 @@ import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
 import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
+import AddWorkTypeModal from "../screens/Employer/AddWorkTypeModal";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -58,7 +60,7 @@ const EmployerGroup = () => {
           name="ProductUsePoint"
           component={ProductUsePoint}
           options={{
-            headerShown: true,
+            headerShown: false,
             presentation: "formSheet",
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
@@ -78,6 +80,16 @@ const EmployerGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Хадгалсан ажлын байр",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployerStack.Screen
+          name="AddWorkTypeModal"
+          component={AddWorkTypeModal}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ажлын зар оруулах",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -163,6 +175,11 @@ const EmployerGroup = () => {
             title: "Дагасан",
             headerLeft: () => <MyBackButton />,
           }}
+        />
+        <EmployerStack.Screen
+          name="EmployeeWorkDetail"
+          component={EmployeeWorkDetail}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
       </EmployerStack.Group>
     </EmployerStack.Navigator>

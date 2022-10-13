@@ -157,7 +157,7 @@ const DynamicFollowing = (props) => {
             }}
             onPress={() =>
               navigation.navigate("ViewUserProfile", {
-                id: followUser._id,
+                id: id,
               })
             }
           >

@@ -140,20 +140,28 @@ const CompanyTop = (props) => {
         {/* Settings */}
         <TouchableOpacity
           style={{
+            top: 60,
+            position: "absolute",
+            right: 5,
             alignItems: "center",
-            top: 19,
-
-            marginRight: 10,
+            justifyContent: "center",
           }}
           onPress={() =>
             navigation.navigate("WalletScreen", {
               point: point,
+              userName: name,
             })
           }
         >
           <LinearGradient
             colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-            style={{ padding: 4, paddingHorizontal: 20, borderRadius: 10 }}
+            style={{
+              padding: 4,
+              paddingHorizontal: 10,
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
             start={[0.0, 0.5]}
             end={[1.0, 0.5]}
           >
@@ -164,7 +172,7 @@ const CompanyTop = (props) => {
                 color={colors.primaryText}
               />
 
-              <Text style={{ color: "white" }}> {numFormatter(point)} </Text>
+              <Text style={{ color: "white" }}>{numFormatter(point)}</Text>
             </View>
             <Text style={{ color: colors.primaryText, fontFamily: "Sf-thin" }}>
               Хэтэвч
@@ -188,6 +196,7 @@ const CompanyTop = (props) => {
               marginHorizontal: 5,
               paddingVertical: 2,
               alignItems: "center",
+              justifyContent: "center",
               borderRadius: 10,
               flex: 0.66,
             }}
@@ -196,17 +205,9 @@ const CompanyTop = (props) => {
             }
           >
             {/* Профайл янзлах */}
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
-              <Entypo
-                name="documents"
-                size={24}
-                color={colors.border}
-                style={{ top: 5 }}
-              />
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Text
                 style={{
-                  textAlign: "center",
-                  top: 8,
                   color: colors.border,
                 }}
               >
@@ -222,15 +223,13 @@ const CompanyTop = (props) => {
               paddingVertical: 8,
               borderRadius: 10,
               flex: 0.34,
+              alignItems: "center",
+              justifyContent: "center",
             }}
             onPress={() => navigation.navigate("CompanySettingModal")}
           >
-            <View style={{ flexDirection: "row", alignSelf: "center" }}>
-              <AntDesign name="setting" size={24} color={colors.border} />
-              <Text
-                style={{ textAlign: "center", top: 3, color: colors.border }}
-              >
-                {" "}
+            <View style={{ alignItems: "center", justifyContent: "center" }}>
+              <Text style={{ textAlign: "center", color: colors.border }}>
                 Тохиргоо
               </Text>
             </View>

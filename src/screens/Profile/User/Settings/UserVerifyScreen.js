@@ -13,6 +13,7 @@ import * as ImagePicker from "expo-image-picker";
 import { ScrollView } from "react-native-gesture-handler";
 import { api } from "../../../../../Constants";
 import { LinearGradient } from "expo-linear-gradient";
+import Loading from "../../../../components/Loading";
 const UserVerifyScreen = (props) => {
   const { data } = props.route.params;
   const [frontIdCard, setFrontIdCard] = useState();
@@ -25,6 +26,62 @@ const UserVerifyScreen = (props) => {
   const [uploadTotal, setUploadTotal] = useState(0);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { colors } = useTheme();
+  const productCamera1 = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setFrontIdCard(response.uri);
+      }
+    }
+  };
+  const productCamera2 = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setBackIdCard(response.uri);
+      }
+    }
+  };
+  const productCamera3 = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setSelfiePhoto(response.uri);
+      }
+    }
+  };
+  const productCamera4 = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      alert("Зургийн эрхийг нээнэ үү");
+    }
+    if (status === "granted") {
+      const response = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+      });
+      if (!response.cancelled) {
+        setContractPhoto(response.uri);
+      }
+    }
+  };
   const openImageProfileLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -164,34 +221,7 @@ const UserVerifyScreen = (props) => {
     });
   };
   if (uploadTotal > 0) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ marginBottom: 20, fontWeight: "bold", fontSize: 16 }}>
-          Түр хүлээнэ үү. Зургийг илгээж байна...
-        </Text>
-
-        <View
-          style={{
-            height: 50,
-            backgroundColor: "red",
-            width: 200,
-          }}
-        >
-          <View
-            style={{
-              height: 50,
-              backgroundColor: "green",
-              width: uploadProgress * 2,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "white", flex: 1, marginTop: 15 }}>
-              {uploadProgress}%
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
+    return <Loading />;
   }
 
   return (
@@ -264,7 +294,8 @@ const UserVerifyScreen = (props) => {
       >
         1. Иргэний үнэмлэх (Урд тал)
       </Text>
-      <View
+      <TouchableOpacity
+        onPress={openImageProfileLibrary}
         style={{
           width: "80%",
           height: 200,
@@ -298,7 +329,7 @@ const UserVerifyScreen = (props) => {
             style={{ marginTop: 80 }}
           />
         )}
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           flexDirection: "row",
@@ -309,14 +340,13 @@ const UserVerifyScreen = (props) => {
       >
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageProfileLibrary}
+          onPress={productCamera1}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -324,9 +354,8 @@ const UserVerifyScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -336,20 +365,6 @@ const UserVerifyScreen = (props) => {
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            paddingVertical: 10,
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: colors.border,
-            paddingHorizontal: 20,
-            backgroundColor: "#FFB6C1",
-          }}
-          onPress={sendVerify}
-        >
-          <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
 
@@ -373,7 +388,8 @@ const UserVerifyScreen = (props) => {
       >
         2. Иргэний үнэмлэх (Ард тал)
       </Text>
-      <View
+      <TouchableOpacity
+        onPress={openImageProfileLibrary}
         style={{
           width: "80%",
           height: 200,
@@ -407,7 +423,7 @@ const UserVerifyScreen = (props) => {
             style={{ marginTop: 80 }}
           />
         )}
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           flexDirection: "row",
@@ -418,14 +434,13 @@ const UserVerifyScreen = (props) => {
       >
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageProfileLibrary1}
+          onPress={productCamera2}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -433,9 +448,8 @@ const UserVerifyScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -445,20 +459,6 @@ const UserVerifyScreen = (props) => {
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            paddingVertical: 10,
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: colors.border,
-            paddingHorizontal: 20,
-            backgroundColor: "#FFB6C1",
-          }}
-          onPress={sendVerify}
-        >
-          <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
       {/* back card end */}
@@ -493,7 +493,8 @@ const UserVerifyScreen = (props) => {
         Тайлбар: Иргэний үнэмлэхээ гартаа барин камер луу харуулан өөрийн selfie
         зургийг авч илгээх
       </Text>
-      <View
+      <TouchableOpacity
+        onPress={openImageProfileLibrary}
         style={{
           width: "80%",
           height: 200,
@@ -527,7 +528,7 @@ const UserVerifyScreen = (props) => {
             style={{ marginTop: 80 }}
           />
         )}
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           flexDirection: "row",
@@ -538,14 +539,13 @@ const UserVerifyScreen = (props) => {
       >
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageProfileLibrary2}
+          onPress={productCamera3}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -553,9 +553,8 @@ const UserVerifyScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -565,20 +564,6 @@ const UserVerifyScreen = (props) => {
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг сонгох
           </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            paddingVertical: 10,
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: colors.border,
-            paddingHorizontal: 20,
-            backgroundColor: "#FFB6C1",
-          }}
-          onPress={sendVerify}
-        >
-          <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
         </TouchableOpacity>
       </View>
       {/* selfie end */}
@@ -693,7 +678,8 @@ const UserVerifyScreen = (props) => {
           Огноо: (Жил.Сар.Өдөр)
         </Text>
       </View>
-      <View
+      <TouchableOpacity
+        onPress={openImageProfileLibrary}
         style={{
           width: "80%",
           height: 200,
@@ -727,7 +713,7 @@ const UserVerifyScreen = (props) => {
             style={{ marginTop: 80 }}
           />
         )}
-      </View>
+      </TouchableOpacity>
       <View
         style={{
           flexDirection: "row",
@@ -738,14 +724,13 @@ const UserVerifyScreen = (props) => {
       >
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
           }}
-          onPress={openImageProfileLibrary3}
+          onPress={productCamera4}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Зураг дарах
@@ -753,9 +738,8 @@ const UserVerifyScreen = (props) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={{
-            borderRadius: 20,
+            borderRadius: 10,
             paddingVertical: 10,
-            borderRadius: 20,
             borderWidth: 1,
             borderColor: colors.border,
             paddingHorizontal: 20,
@@ -766,45 +750,23 @@ const UserVerifyScreen = (props) => {
             Зураг сонгох
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            borderRadius: 20,
-            paddingVertical: 10,
-            borderRadius: 20,
-            borderWidth: 1,
-            borderColor: colors.border,
-            paddingHorizontal: 20,
-            backgroundColor: "#FFB6C1",
-          }}
-          onPress={sendVerify}
-        >
-          <Text style={{ textAlign: "center", color: "black" }}>Хадгалах</Text>
-        </TouchableOpacity>
       </View>
       {/* Өргөдөл end*/}
       {/* Илгээх */}
       <TouchableOpacity
         onPress={sendVerify}
         style={{
-          borderRadius: 20,
+          borderRadius: 10,
           paddingVertical: 10,
-          borderRadius: 20,
           marginBottom: 20,
           marginHorizontal: 10,
+          paddingVertical: 10,
+          borderRadius: 10,
+          paddingHorizontal: 20,
+          backgroundColor: "#FFB6C1",
         }}
       >
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{
-            paddingVertical: 10,
-            borderRadius: 20,
-            paddingHorizontal: 20,
-          }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
-        >
-          <Text style={{ color: "white", textAlign: "center" }}> Илгээх </Text>
-        </LinearGradient>
+        <Text style={{ color: "black", textAlign: "center" }}> Илгээх </Text>
       </TouchableOpacity>
     </ScrollView>
   );

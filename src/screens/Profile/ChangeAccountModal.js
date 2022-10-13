@@ -3,7 +3,6 @@ import React, { useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import jwt_decode from "jwt-decode";
 import UserContext from "../../context/UserContext";
-import { MaterialIcons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { api } from "../../../Constants";
 const ChangeAccountModal = () => {
   const { colors } = useTheme();
@@ -85,15 +84,6 @@ const ChangeAccountModal = () => {
                   {decoded.firstName} {decoded.lastName}
                 </Text>
               </View>
-              {/* <MaterialCommunityIcons
-                name={
-                  !state.isCompany
-                    ? "checkbox-blank-circle"
-                    : "checkbox-blank-circle-outline"
-                }
-                size={24}
-                color={colors.primaryText}
-              /> */}
             </TouchableOpacity>
           </>
         ) : companyDecoded ? (
@@ -159,23 +149,17 @@ const ChangeAccountModal = () => {
           flexDirection: "row",
           alignItems: "center",
           marginTop: 20,
-          alignSelf: "center",
           borderWidth: 1,
           borderColor: colors.border,
           borderRadius: 10,
           marginHorizontal: 10,
           padding: 5,
           paddingHorizontal: 20,
+          justifyContent: "center",
         }}
         onPress={logout}
       >
-        <MaterialIcons name="logout" size={22} color={colors.primaryText} />
-
-        <Text
-          style={{ color: colors.primaryText, marginLeft: 10, fontSize: 15 }}
-        >
-          Гарах
-        </Text>
+        <Text style={{ color: colors.primaryText, fontSize: 15 }}>Гарах</Text>
       </TouchableOpacity>
       {/* {companyDecoded ? (
         <View style={{}}>

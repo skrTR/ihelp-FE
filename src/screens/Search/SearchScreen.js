@@ -101,8 +101,9 @@ const SearchScreen = () => {
                       {
                         text: "Анкет янзлах",
                         onPress: () =>
-                          navigation.navigate("ProfileStack", {
-                            screen: "UserProfileScreen",
+                          navigation.navigate("Профайл", {
+                            screen: "CreateCvScreen",
+                            params: { id: state.userId },
                           }),
                       },
                     ]

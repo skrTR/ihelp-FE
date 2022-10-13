@@ -53,7 +53,7 @@ const SpecialCompany = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#454545",
+        backgroundColor: "#2c3539",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -144,7 +144,7 @@ const SpecialCompany = (props) => {
           style={{
             backgroundColor: "#FFB6C1",
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             marginRight: 20,
             alignItems: "center",
           }}

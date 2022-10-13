@@ -4,11 +4,10 @@ import {
   FlatList,
   Image,
   TextInput,
-  ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -27,7 +26,8 @@ const UserSearch = () => {
     return () => {};
   }, []);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing&organization=false&limit=1000`;
+    // const apiURL = `${api}/api/v1/cvs`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -98,7 +98,7 @@ const UserSearch = () => {
       />
       {filterData.length > 0 ? (
         <FlatList
-          data={filtered}
+          data={filtered.sort((a, b) => b.score - a.score)}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => {
             return <UserData item={item} isFollowing={item.isFollowing} />;

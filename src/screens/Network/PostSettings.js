@@ -1,9 +1,18 @@
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Dimensions,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { AntDesign, Feather, SimpleLineIcons } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../Constants";
+import Toast from "react-native-root-toast";
+const { height } = Dimensions.get("window");
 const PostSettings = ({ route }) => {
   const { id } = route.params;
   const navigation = useNavigation();
@@ -24,8 +33,22 @@ const PostSettings = ({ route }) => {
     axios
       .delete(`${api}/api/v1/posts/${id}`)
       .then((res) => {
-        console.log(res.data.data);
-        navigation.goBack();
+        Toast.show("Амжилтай устгалаа", {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "#FFB6C1",
+        });
+        navigation.navigate({
+          name: "NetworkingScreen",
+          params: { indexId: id },
+          merge: true,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -44,9 +67,9 @@ const PostSettings = ({ route }) => {
             navigation.navigate("EditPost", { id: id, postData: postData })
           }
         >
-          <Feather name="edit" size={28} color={colors.primaryText} />
+          <Feather name="edit" size={26} color={colors.primaryText} />
           <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
             Нийтлэл янзлах
           </Text>
@@ -66,9 +89,9 @@ const PostSettings = ({ route }) => {
           style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
           onPress={() => navigation.navigate("BoostPost", { data: postData })}
         >
-          <SimpleLineIcons name="energy" size={28} color={colors.primaryText} />
+          <SimpleLineIcons name="energy" size={26} color={colors.primaryText} />
           <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
             Hийтлэл идэвхжүүлэх
           </Text>
@@ -96,9 +119,9 @@ const PostSettings = ({ route }) => {
             ])
           }
         >
-          <AntDesign name="delete" size={28} color={colors.primaryText} />
+          <AntDesign name="delete" size={26} color={colors.primaryText} />
           <Text
-            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 18 }}
+            style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
             Нийтлэл устгах
           </Text>

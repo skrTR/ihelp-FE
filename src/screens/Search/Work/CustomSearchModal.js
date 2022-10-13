@@ -97,7 +97,7 @@ const CustomSearchModal = () => {
     <>
       <View style={{ backgroundColor: colors.background, flex: 1 }}>
         <View style={{ backgroundColor: colors.background, height: "100%" }}>
-          {/* Нас */}
+          {/* Мэргэжил */}
           <TouchableOpacity
             style={{
               padding: 10,
@@ -106,12 +106,13 @@ const CustomSearchModal = () => {
               marginTop: 10,
               borderColor: colors.border,
             }}
-            onPress={() => setAgeModal(true)}
+            onPress={() => setOccupationModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {age ? `${age} нас` : "Hас"}
+              {occupationName ? `${occupationName}` : "Мэргэжил сонгох"}
             </Text>
           </TouchableOpacity>
+          {/*  , , Цалин сонгох, Хүйс сонгох,  */}
           {/* Боловсрол */}
           <TouchableOpacity
             style={{
@@ -130,10 +131,10 @@ const CustomSearchModal = () => {
                 color: !education ? colors.primaryText : "black",
               }}
             >
-              {education ? `${education}` : "Боловсрол"}
+              {education ? `${education}` : "Боловсрол сонгох"}
             </Text>
           </TouchableOpacity>
-          {/* Туршлага жилээр */}
+          {/* Ажлын туршлага */}
           <TouchableOpacity
             style={{
               padding: 10,
@@ -145,10 +146,10 @@ const CustomSearchModal = () => {
             onPress={() => setExperienceModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {experience ? `${experience} жил` : "Туршлага"}
+              {experience ? `${experience} жил` : "Ажлын туршлага"}
             </Text>
           </TouchableOpacity>
-          {/* Хүйс */}
+          {/* Цагийн төрөл */}
           <TouchableOpacity
             style={{
               padding: 10,
@@ -157,25 +158,10 @@ const CustomSearchModal = () => {
               marginTop: 10,
               borderColor: colors.border,
             }}
-            onPress={() => setGenderModal(true)}
+            onPress={() => setTypeModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {gender ? `${gender}` : "Хүйс"}
-            </Text>
-          </TouchableOpacity>
-          {/* Level */}
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 20,
-              marginTop: 10,
-              borderColor: colors.border,
-            }}
-            onPress={() => setLevelModal(true)}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {level ? `${level}` : "Албан тушаал"}
+              {type ? `${type}` : "Цагын төрөл"}
             </Text>
           </TouchableOpacity>
           {/* Цалин */}
@@ -193,7 +179,7 @@ const CustomSearchModal = () => {
               {salary ? `${salary}` : "Цалин"}
             </Text>
           </TouchableOpacity>
-          {/* Mergejil */}
+          {/* Хүйс */}
           <TouchableOpacity
             style={{
               padding: 10,
@@ -202,25 +188,10 @@ const CustomSearchModal = () => {
               marginTop: 10,
               borderColor: colors.border,
             }}
-            onPress={() => setOccupationModal(true)}
+            onPress={() => setGenderModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {occupationName ? `${occupationName}` : "Мэргэжил"}
-            </Text>
-          </TouchableOpacity>
-          {/* Цагийн төрөл */}
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 20,
-              marginTop: 10,
-              borderColor: colors.border,
-            }}
-            onPress={() => setTypeModal(true)}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {type ? `${type}` : "Цагийн төрөл"}
+              {gender ? `${gender}` : "Хүйс"}
             </Text>
           </TouchableOpacity>
           {/* Хайх */}

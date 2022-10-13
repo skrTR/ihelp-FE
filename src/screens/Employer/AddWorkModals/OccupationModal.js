@@ -100,7 +100,7 @@ const OccupationModal = (props) => {
           clicked={() => setOccupationModal(false)}
         />
         <TextInput
-          placeholder="Хайх утга..."
+          placeholder="Хайх утга"
           value={search}
           onChangeText={(text) => searchFilter(text)}
           style={{
@@ -111,10 +111,12 @@ const OccupationModal = (props) => {
             marginHorizontal: 10,
             color: colors.primaryText,
           }}
+          placeholderTextColor={"#cccccccc"}
         />
         <View style={{ marginHorizontal: 10 }}>
+          {/* sort((a, b) => a.name.localeCompare(b.name)) */}
           <FlatList
-            data={filterData}
+            data={filterData.sort((a, b) => a.name.localeCompare(b.name))}
             keyExtractor={(item, index) => index}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}

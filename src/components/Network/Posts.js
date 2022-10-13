@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   ImageBackground,
 } from "react-native";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, setTimeout } from "react";
 import { api } from "../../../Constants";
 import moment from "moment";
 import axios from "axios";
@@ -64,7 +64,8 @@ const Posts = (props) => {
           setCounter(counter - 1);
         })
         .catch((err) => {
-          alert(err.response.data);
+          console.log(err.message);
+          // alert(err.response.data);
         });
     } else {
       setIsLike(true);
@@ -100,9 +101,10 @@ const Posts = (props) => {
   useEffect(() => {
     setIsLike(sonin1.includes(`${postId}`));
   }, [checkLikeId]);
+
   return (
     <>
-      {/* Shared user */}
+      {/* Shared user1 */}
       {isShared && (
         <>
           <View
@@ -546,6 +548,7 @@ const Posts = (props) => {
           marginHorizontal: 10,
         }}
       />
+
       {/* Zuraas  */}
       <View style={{ backgroundColor: colors.border, paddingVertical: 2 }} />
     </>

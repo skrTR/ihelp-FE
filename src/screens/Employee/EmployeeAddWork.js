@@ -11,24 +11,24 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import FormText from "../../components/FormText";
 import MyButton from "../../components/MyButton";
-
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import OccupationModal from "../Employer/AddWorkModals/OccupationModal";
 import PriceModal from "./AddWorkModals/PriceModal";
 import TimeModal from "./AddWorkModals/TimeModal";
-import WorketNumberModal from "./AddWorkModals/WorkerNumberModal";
-import SpecialModal from "../Employee/AddWorkModals/SpecialModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import SpecialPermissionModal from "./AddWorkModals/SpecialPermissionModal";
+import SpecialModal from "./AddWorkModals/SpecialModal";
 
 const EmployeeAddWork = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [isType, setIsType] = useState(1);
-  const [normalDay, setNormalDay] = useState(7);
   const [specialModal, setSpecialModal] = useState(false);
   const navigation = useNavigation();
   const insents = useSafeAreaInsets();
+  // Тусгай зөвшөөрөл сонгох модал
+  const [specialPermission, setSpecialPermission] = useState(false);
+  const [permission, setPermission] = useState("");
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
@@ -38,31 +38,37 @@ const EmployeeAddWork = () => {
   // time modal
   const [timeModal, setTimeModal] = useState(false);
   const [time, setTime] = useState("");
-  // ажилчдийн тоо
-  const [workerNumberModal, setWorkerNumberModal] = useState(false);
-  const [workerNumber, setWorkerNumber] = useState("");
+
   const sendWork = () => {
-    axios
-      .post(`${api}/api/v1/announcements`, addWork)
-      .then((res) => {
-        navigation.goBack();
-      })
-      .catch((err) => alert(err));
+    // if (addWork.occupation === "") {
+    //   return alert("Чиглэлээ сонгоно уу");
+    // }
+    // if (addWork.price === "Сонгох") {
+    //   return alert("Үнийн санал сонгоно уу");
+    // }
+    // if (addWork.time === "Сонгох") {
+    //   return alert("Зарцуулах цаг хугацаа сонгоно уу");
+    // }
+    // if (addWork.specialPermission === "Сонгох") {
+    //   return alert("Тусгай зөвшөөрөл сонгоно уу");
+    // }
+    // axios
+    //   .post(`${api}/api/v1/announcements`, addWork)
+    //   .then((res) => {
+    //     navigation.goBack();
+    //   })
+    //   .catch((err) => alert(err));
+    setSpecialModal(true);
   };
   const [addWork, setAddWork] = useState({
-    description: "",
+    occupation: "",
     do: "",
-    skill: "",
-    location: "",
     experience: "",
-    specialPermission: "",
-    certificate: "",
     price: "Сонгох",
     time: "Сонгох",
-    workerNumber: "Сонгох",
-    occupation: "",
+    specialPermission: "Сонгох",
+    description: "",
     isCompany: true,
-    startDate: "",
     order: 0,
     urgent: 0,
     special: 0,
@@ -111,28 +117,6 @@ const EmployeeAddWork = () => {
       do: text,
     });
   };
-  const checkSkill = (text) => {
-    setError({
-      ...error,
-      skill: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill: text,
-    });
-  };
-  const checkLocation = (text) => {
-    setError({
-      ...error,
-      location: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      location: text,
-    });
-  };
   const checkExperience = (text) => {
     setError({
       ...error,
@@ -142,39 +126,6 @@ const EmployeeAddWork = () => {
     setAddWork({
       ...addWork,
       experience: text,
-    });
-  };
-  const checkSpecialPermission = (text) => {
-    setError({
-      ...error,
-      specialPermission: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      specialPermission: text,
-    });
-  };
-  const checkCertificate = (text) => {
-    setError({
-      ...error,
-      certificate: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      certificate: text,
-    });
-  };
-  const checkStartDate = (text) => {
-    setError({
-      ...error,
-      startDate: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      startDate: text,
     });
   };
   const checkOccupation = (id) => {
@@ -198,32 +149,14 @@ const EmployeeAddWork = () => {
       time: text,
     });
   };
-  const checkWorkerNumber = (text) => {
-    setWorkerNumberModal(!workerNumberModal);
+  const checkSpecialPermission = (text) => {
+    setSpecialPermission(!specialPermission);
     setAddWork({
       ...addWork,
-      workerNumber: text,
+      specialPermission: text,
     });
   };
-  const checkOrders = (text, type) => {
-    setSpecialModal(!specialModal);
-    if (type === "normal") {
-      setAddWork({
-        ...addWork,
-        order: text,
-      });
-    } else if (type === "special") {
-      setAddWork({
-        ...addWork,
-        special: text,
-      });
-    } else if (type === "urgent") {
-      setAddWork({
-        ...addWork,
-        urgent: text,
-      });
-    }
-  };
+
   if (!notification) {
     return null;
   }
@@ -236,44 +169,21 @@ const EmployeeAddWork = () => {
           showsVerticalScrollIndicator={false}
         >
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Тайлбар
+            Чиглэл сонгох
           </Text>
-          <FormText
-            placeholder="Тайлбар"
-            value={addWork.description}
-            onChangeText={checkDescription}
-            errorText="Тайлбар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.description}
+          <MyButton
+            text={occupationName === "" ? "Чиглэл сонгох" : `${occupationName}`}
+            onPress={checkOccupation}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хийх ажил
+            Үндсэн үйлчилгээ
           </Text>
           <FormText
-            placeholder="Хийх ажил"
+            placeholder="Үндсэн үйлчилгээ"
             value={addWork.do}
             onChangeText={checkDo}
-            errorText="Хийх ажил урт 4-20 тэмдэгтээс тогтоно."
+            errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.do}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ур чадвар
-          </Text>
-          <FormText
-            placeholder=" Ур чадвар"
-            value={addWork.skill}
-            onChangeText={checkSkill}
-            errorText=" Ур чадвар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хаяг
-          </Text>
-          <FormText
-            placeholder="Хаяг"
-            value={addWork.location}
-            onChangeText={checkLocation}
-            errorText="Хаяг урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.location}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Туршлага
@@ -285,46 +195,7 @@ const EmployeeAddWork = () => {
             errorText="Туршлага урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.experience}
           />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Тусгай зөвшөөрөл
-          </Text>
-          <FormText
-            placeholder="Тусгай зөвшөөрөл"
-            value={addWork.specialPermission}
-            onChangeText={checkSpecialPermission}
-            errorText="Тусгай зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.specialPermission}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Батламж
-          </Text>
-          <FormText
-            placeholder=" Батламж"
-            value={addWork.certificate}
-            onChangeText={checkCertificate}
-            errorText=" Батламж урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.certificate}
-          />
 
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Эхлэх хугацаа
-          </Text>
-          <FormText
-            placeholder="Эхлэх хугацаа"
-            value={addWork.startDate}
-            onChangeText={checkStartDate}
-            errorText="Эхлэх хугацаа зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.startDate}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Мэргэжил сонгох
-          </Text>
-          <MyButton
-            text={
-              occupationName === "" ? "Мэргэжил сонгох" : `${occupationName}`
-            }
-            onPress={checkOccupation}
-          />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Үнийн санал
           </Text>
@@ -340,33 +211,30 @@ const EmployeeAddWork = () => {
             onPress={checkTime}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ажилчдын тоо
+            Тусгай зөвшөөрөл
           </Text>
           <MyButton
-            text={workerNumber === "" ? "Ажилчдын тоо" : workerNumber}
-            onPress={checkWorkerNumber}
+            text={permission === "" ? "Тусгай зөвшөөрөл" : permission}
+            onPress={checkSpecialPermission}
           />
+
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Зарын төрөл
+            Нэмэлт тайлбар
           </Text>
-          <MyButton
-            text={
-              isType === 1
-                ? `Энгийн ${normalDay} хоног`
-                : isType === 2
-                ? `Онцгой ${normalDay} хоног`
-                : isType === 3
-                ? `Яаралтай ${normalDay} хоног`
-                : "Зарын төрөл сонгох"
-            }
-            onPress={checkOrders}
+          <FormText
+            placeholder="Нэмэлт тайлбар"
+            value={addWork.description}
+            onChangeText={checkDescription}
+            errorText="Нэмэлт тайлбар урт 4-20 тэмдэгтээс тогтоно."
+            errorShow={error.description}
           />
+
           <TouchableOpacity
             style={{
               backgroundColor: "#FFB6C1",
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               borderColor: colors.border,
               marginTop: 10,
             }}
@@ -398,23 +266,18 @@ const EmployeeAddWork = () => {
         setTimeModal={setTimeModal}
         checkTime={checkTime}
       />
-      {/* WorkerNumber сонгох */}
-      <WorketNumberModal
-        setWorkerNumber={setWorkerNumber}
-        workerNumberModal={workerNumberModal}
-        setWorkerNumberModal={setWorkerNumberModal}
-        checkWorkerNumber={checkWorkerNumber}
+      {/* Тусгай зөвшөөрөл сонгох */}
+      <SpecialPermissionModal
+        setSpecialPermission={setSpecialPermission}
+        specialPermission={specialPermission}
+        setPermission={setPermission}
+        checkSpecialPermission={checkSpecialPermission}
       />
       <SpecialModal
-        setSpecialModal={setSpecialModal}
         specialModal={specialModal}
+        setSpecialModal={setSpecialModal}
+        data={addWork}
         occupationName={occupationName}
-        salary={price}
-        normalDay={normalDay}
-        setNormalDay={setNormalDay}
-        checkOrders={checkOrders}
-        isType={isType}
-        setIsType={setIsType}
       />
     </View>
   );

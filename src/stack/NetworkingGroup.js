@@ -19,6 +19,7 @@ import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import PostLikeUser from "../screens/Network/PostLikeUser";
 import UserSearch from "../screens/Search/UserSearch";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import CommentDetailModal from "../screens/Network/CommentDetailModal";
 const NetworkingGroup = () => {
   const NetworkingStack = createNativeStackNavigator();
   return (
@@ -70,6 +71,7 @@ const NetworkingGroup = () => {
             presentation: "formSheet",
             title: "Нийтлэл янзлах",
             headerLeft: () => <MyBackButton />,
+            headerShown: false,
           }}
         />
         <NetworkingStack.Screen
@@ -177,6 +179,15 @@ const NetworkingGroup = () => {
           component={ViewPortfolio}
           options={{
             headerShown: false,
+          }}
+        />
+        <NetworkingStack.Screen
+          name="CommentDetailModal"
+          component={CommentDetailModal}
+          options={{
+            presentation: "formSheet",
+            title: "Сэтгэгдэл",
+            headerLeft: () => <MyBackButton />,
           }}
         />
         {/* <NetworkingStack.Screen */}

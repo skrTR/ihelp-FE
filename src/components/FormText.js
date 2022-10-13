@@ -22,13 +22,19 @@ const FormText = (props) => {
             { backgroundColor: colors.secondaryText, fontSize: 16 },
           ]}
           placeholderTextColor={colors.secondaryText}
+          selectionColor={"#FFB6C1"}
         />
       </View>
       {props.errorShow && (
         <Animatable.Text
           animation="fadeInLeft"
           duration={500}
-          style={{ color: "#E83350", fontSize: 12, marginTop: 5 }}
+          style={{
+            color: "#E83350",
+            fontSize: 12,
+            marginTop: 5,
+            fontWeight: "300",
+          }}
         >
           {props.errorText}
         </Animatable.Text>
@@ -43,7 +49,7 @@ const styles = StyleSheet.create({
   inputField: {
     // backgroundColor: "white",
     padding: 10,
-    borderRadius: 20,
+    borderRadius: 10,
     shadowColor: "#000",
     width: "100%",
     shadowOffset: {

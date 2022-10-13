@@ -225,15 +225,6 @@ const NormalWork = (props) => {
               onPress={isLike ? unLiked : liked}
               style={{ textAlign: "right", marginRight: 20 }}
             />
-            <MaterialCommunityIcons
-              name="offer"
-              size={30}
-              color="white"
-              style={{ marginRight: 10, marginTop: 10 }}
-              onPress={() =>
-                navigation.navigate("CompanySendWorkRequest", { id: id })
-              }
-            />
           </View>
         )}
       </View>

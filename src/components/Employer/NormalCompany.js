@@ -148,7 +148,7 @@ const NormalCompany = (props) => {
           style={{
             backgroundColor: "#FFB6C1",
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             marginRight: 20,
             alignItems: "center",
           }}

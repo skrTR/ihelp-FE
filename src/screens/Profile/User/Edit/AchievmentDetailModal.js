@@ -6,7 +6,6 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
 import { api } from "../../../../../Constants";
-import moment from "moment";
 const AchievmentDetailModal = ({ route }) => {
   const { data } = route.params;
   const navigation = useNavigation();

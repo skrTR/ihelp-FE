@@ -8,10 +8,9 @@ import {
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
-import moment from "moment";
 import FollowButton from "../FollowButton";
 const SpecialCompany = (props) => {
   const { data, isFollowing } = props;
@@ -53,7 +52,7 @@ const SpecialCompany = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#454545",
+        backgroundColor: "#2c3539",
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -143,10 +142,14 @@ const SpecialCompany = (props) => {
         <TouchableOpacity
           style={{
             backgroundColor: "#FFB6C1",
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.border,
+            width: 100,
+            alignContent: "center",
             padding: 10,
-            borderRadius: 20,
-            marginRight: 20,
             alignItems: "center",
+            justifyContent: "center",
           }}
           onPress={() => {
             navigation.navigate("ProductUsePoint", {

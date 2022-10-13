@@ -77,6 +77,7 @@ import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWo
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
 import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
+import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -436,7 +437,7 @@ const ProfileGroup = () => {
               options={{
                 headerShown: true,
                 presentation: "formSheet",
-                title: "Ковер солих",
+                title: "Ковер зураг солих",
                 headerLeft: () => <MyBackButton />,
               }}
             />
@@ -672,7 +673,7 @@ const ProfileGroup = () => {
             name="ProductUsePoint"
             component={ProductUsePoint}
             options={{
-              headerShown: true,
+              headerShown: false,
               // presentation: "formSheet",
               title: "Идэвхжүүлэх",
               headerLeft: () => <MyBackButton />,
@@ -835,6 +836,11 @@ const ProfileGroup = () => {
           options={{
             headerShown: false,
           }}
+        />
+        <ProfileStack.Screen
+          name="EmployeeWorkDetail"
+          component={EmployeeWorkDetail}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
       </ProfileStack.Group>
     </ProfileStack.Navigator>

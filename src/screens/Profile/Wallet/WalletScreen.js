@@ -24,8 +24,9 @@ import { api } from "../../../../Constants";
 import Header from "../../../components/Header/Header";
 import CompanyHeader from "../../../components/Header/CompanyHeader";
 import Loading from "../../../components/Loading";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const WalletScreen = ({ route }) => {
-  const { point } = route.params;
+  const { point, userName } = route.params;
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const navigation = useNavigation();
@@ -33,6 +34,7 @@ const WalletScreen = ({ route }) => {
   const [transactions, setTransactions] = useState([]);
   const [sendPoint, setSendPoint] = useState(1000);
   const [loading, setLoading] = useState(false);
+  const insents = useSafeAreaInsets();
   let isMounted = true;
   const postWallet = () => {
     setLoading(true);
@@ -81,10 +83,11 @@ const WalletScreen = ({ route }) => {
   }, []);
 
   return (
-    <SafeAreaView
+    <View
       style={{
         backgroundColor: colors.header,
         opacity: modalVisible ? 0.1 : 1,
+        paddingTop: insents.top,
       }}
     >
       {loading ? (
@@ -120,6 +123,18 @@ const WalletScreen = ({ route }) => {
               start={[0.0, 0.5]}
               end={[1.0, 0.5]}
             >
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  fontFamily: "Sf-regular",
+                  fontSize: 20,
+                  position: "absolute",
+                  top: 10,
+                  left: 10,
+                }}
+              >
+                {userName}
+              </Text>
               <View>
                 <Text
                   style={{
@@ -147,11 +162,12 @@ const WalletScreen = ({ route }) => {
               <Text
                 style={{
                   alignSelf: "flex-end",
-                  marginTop: 60,
                   fontSize: 14,
                   color: "white",
-                  marginRight: 10,
                   fontFamily: "Sf-thin",
+                  position: "absolute",
+                  bottom: 10,
+                  right: 10,
                 }}
               >
                 1 ipoint = 1000 ₮
@@ -176,16 +192,14 @@ const WalletScreen = ({ route }) => {
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignSelf: "center",
                     paddingHorizontal: 20,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <Entypo name="documents" size={24} color={colors.border} />
                   <Text
                     style={{
                       textAlign: "center",
-                      top: 3,
                       color: colors.border,
                     }}
                   >
@@ -204,16 +218,15 @@ const WalletScreen = ({ route }) => {
               >
                 <View
                   style={{
-                    flexDirection: "row",
-                    alignSelf: "center",
                     paddingHorizontal: 20,
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
                 >
-                  <AntDesign name="setting" size={24} color={colors.border} />
                   <Text
                     style={{
                       textAlign: "center",
-                      top: 3,
+
                       color: colors.border,
                     }}
                   >
@@ -249,7 +262,7 @@ const WalletScreen = ({ route }) => {
                       justifyContent: "space-between",
                       borderWidth: 1,
                       padding: 20,
-                      borderRadius: 20,
+                      borderRadius: 10,
                       borderColor: colors.border,
                       marginTop: 10,
                     }}
@@ -257,7 +270,7 @@ const WalletScreen = ({ route }) => {
                   >
                     <View style={{}}>
                       <Text style={{ color: colors.primaryText }}>
-                        Пойнт цэнэглэлт
+                        {item.explanation}
                       </Text>
                       <Text style={{ color: colors.primaryText }}>
                         {moment(item.createdAt).format(
@@ -268,12 +281,12 @@ const WalletScreen = ({ route }) => {
                     <View style={{ alignItems: "center" }}>
                       <Text
                         style={{
-                          color: "green",
+                          color: "red",
                           fontSize: 20,
-                          fontWeight: "bold",
+                          fontWeight: "400",
                         }}
                       >
-                        {item.point / 1000} P
+                        {item.point} ipoint
                       </Text>
                       <Text
                         style={{
@@ -282,7 +295,7 @@ const WalletScreen = ({ route }) => {
                           fontFamily: "Sf-thin",
                         }}
                       >
-                        {item.point} ₮
+                        {item.point * 1000} ₮
                       </Text>
                     </View>
                   </View>
@@ -301,18 +314,6 @@ const WalletScreen = ({ route }) => {
             >
               <View style={styles.centeredView}>
                 <View style={[styles.modalView]}>
-                  <MaterialCommunityIcons
-                    name="backspace-outline"
-                    size={30}
-                    color="black"
-                    style={{
-                      fontSize: 20,
-                      position: "absolute",
-                      right: 20,
-                      marginTop: 10,
-                    }}
-                    onPress={() => setModalVisible(!modalVisible)}
-                  />
                   <View style={{}}>
                     <TextInput
                       value={`${sendPoint}`}
@@ -341,27 +342,22 @@ const WalletScreen = ({ route }) => {
                       style={{
                         backgroundColor: "#FFB6C1",
                         borderRadius: 10,
+                        marginRight: 20,
                       }}
                       onPress={() => setModalVisible(!modalVisible)}
                     >
                       <View
                         style={{
-                          flexDirection: "row",
-                          alignSelf: "center",
                           padding: 10,
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        <AntDesign
-                          name="left"
-                          size={24}
-                          color={colors.border}
-                        />
                         <Text
                           style={{
                             textAlign: "center",
-                            top: 3,
+                            paddingHorizontal: 20,
                             color: colors.border,
-                            marginRight: 10,
                           }}
                         >
                           Буцах
@@ -378,23 +374,16 @@ const WalletScreen = ({ route }) => {
                     >
                       <View
                         style={{
-                          flexDirection: "row",
-                          alignSelf: "center",
                           padding: 10,
+                          alignItems: "center",
+                          justifyContent: "center",
                         }}
                       >
-                        <MaterialIcons
-                          name="attach-money"
-                          size={24}
-                          color={colors.border}
-                        />
                         <Text
                           style={{
                             textAlign: "center",
-                            top: 3,
                             color: colors.border,
-                            paddingHorizontal: 3,
-                            marginRight: 10,
+                            paddingHorizontal: 22,
                           }}
                         >
                           Авах
@@ -408,7 +397,7 @@ const WalletScreen = ({ route }) => {
           </View>
         </>
       )}
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -434,7 +423,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     width: "70%",
-    height: "20%",
+    height: "50%",
     padding: 35,
   },
 });

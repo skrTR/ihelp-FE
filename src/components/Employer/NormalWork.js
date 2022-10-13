@@ -34,6 +34,7 @@ const NormalWork = (props) => {
   const { colors } = useTheme();
   const [checkLikeId, setCheckLikeId] = useState([]);
   const [isLike, setIsLike] = useState(false);
+
   const getCheckLike = () => {
     {
       !state.isCompany &&
@@ -198,14 +199,14 @@ const NormalWork = (props) => {
             style={{
               backgroundColor: "#FFB6C1",
               padding: 10,
-              borderRadius: 20,
+              borderRadius: 10,
               marginRight: 20,
               alignItems: "center",
             }}
             onPress={() =>
               navigation.navigate("BoostEmployerWork", {
                 id: id,
-                type: "Normal",
+                type: "1",
               })
             }
           >

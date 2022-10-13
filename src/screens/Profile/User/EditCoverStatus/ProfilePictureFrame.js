@@ -191,16 +191,16 @@ const ProfilePictureFrame = ({ route }) => {
           style={{
             backgroundColor: statusText !== "null" ? "#FFB6C1" : colors.border,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             alignSelf: "center",
-            marginTop: 20,
+            marginVertical: 20,
           }}
           disabled={statusText !== "null" ? false : true}
           onPress={postStatus}
         >
           <Text
             style={{
-              fontSize: 20,
+              fontSize: 18,
               color: statusText !== "null" ? "black" : colors.secondaryText,
               paddingHorizontal: 10,
             }}

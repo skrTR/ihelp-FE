@@ -6,20 +6,24 @@ import {
   ScrollView,
   Alert,
   View,
+  ImageBackground,
 } from "react-native";
 import React, { useContext, useState, useEffect } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../../Constants";
 import UserContext from "../../../context/UserContext";
-import MyButton from "../../../components/MyButton";
-
+import { LinearGradient } from "expo-linear-gradient";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 const BoostPost = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
   const [boostDay, setBoostDay] = useState(1);
   const [userPoint, setUserPoint] = useState([]);
   const state = useContext(UserContext);
+  const [isType, setIsType] = useState(1);
+
   const navigation = useNavigation();
   let isMounted = true;
   const UserProfileData = () => {
@@ -40,6 +44,15 @@ const BoostPost = (props) => {
         }
       });
   };
+  function numFormatter(num) {
+    if (num > 999 && num < 1000000) {
+      return (num / 1000).toFixed(0) + " мянга"; // convert to K for number from > 1000 < 1 million
+    } else if (num > 1000000) {
+      return (num / 1000000).toFixed(0) + " cая"; // convert to M for number from > 1 million
+    } else if (num < 900) {
+      return num; // if value < 1000, nothing to do
+    }
+  }
   useEffect(() => {
     UserProfileData();
     return () => {
@@ -73,13 +86,135 @@ const BoostPost = (props) => {
       <ScrollView>
         <TouchableOpacity
           style={{
-            marginHorizontal: 20,
+            marginHorizontal: 10,
             borderWidth: 1,
             marginTop: 20,
-            borderColor: boostDay === 1 ? "green" : colors.border,
+            borderColor: "#FFB6C1",
+            borderRadius: 10,
           }}
-          onPress={() => setBoostDay(1)}
         >
+          <TouchableOpacity
+            style={{
+              width: "30%",
+              position: "absolute",
+              right: 10,
+              top: 10,
+            }}
+            onPress={() =>
+              navigation.navigate("WalletScreen", {
+                point: userPoint.point,
+              })
+            }
+          >
+            <LinearGradient
+              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
+              style={{
+                padding: 4,
+                paddingHorizontal: 20,
+                borderRadius: 10,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              start={[0.0, 0.5]}
+              end={[1.0, 0.5]}
+            >
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Ionicons
+                  name="wallet-outline"
+                  size={24}
+                  color={colors.primaryText}
+                />
+
+                <Text style={{ color: "white" }}>
+                  {numFormatter(userPoint.point)}
+                </Text>
+              </View>
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  fontFamily: "Sf-thin",
+                  fontSize: 12,
+                }}
+              >
+                Хэтэвч
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: "row",
+              alignItems: "center",
+              padding: 10,
+            }}
+          >
+            <ImageBackground
+              source={{
+                uri: `${api}/upload/${data.profile}`,
+              }}
+              style={{ width: 50, height: 50 }}
+              imageStyle={{ borderRadius: 50 }}
+            >
+              <Image
+                style={{ width: 54, height: 54, bottom: 2, right: 2 }}
+                source={
+                  data.status === "lookingForJob"
+                    ? require("../../../../assets/looking.png")
+                    : data.status === "opentowork"
+                    ? require("../../../../assets/open.png")
+                    : data.status === "getEmployee"
+                    ? require("../../../../assets/hiring.png")
+                    : null
+                }
+              />
+            </ImageBackground>
+            <View style={{ marginLeft: 10 }}>
+              <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
+                {data.lastName} {data.firstName}
+                {data.isApproved && (
+                  <View
+                    style={{
+                      backgroundColor: colors.primary,
+                      borderRadius: 50,
+                      alignItems: "center",
+                      alignContent: "center",
+                    }}
+                  >
+                    <AntDesign
+                      name="check"
+                      size={13}
+                      color={colors.primaryText}
+                    />
+                  </View>
+                )}
+              </Text>
+
+              <Text
+                style={{
+                  color: colors.secondaryText,
+                }}
+              >
+                {data.profession}{" "}
+                {data.workingCompany && `@${data.workingCompany}`}
+              </Text>
+              <Text
+                style={{
+                  color: colors.secondaryText,
+                }}
+              >
+                Идэвхжүүлсэн
+              </Text>
+            </View>
+          </View>
+          <Text
+            style={{
+              marginTop: 10,
+              marginHorizontal: 20,
+              color: colors.primaryText,
+            }}
+          >
+            {data.body}
+          </Text>
           <Image
             source={
               data.photo
@@ -90,175 +225,121 @@ const BoostPost = (props) => {
               width: "90%",
               height: 200,
               alignSelf: "center",
-              marginTop: 20,
+              marginVertical: 20,
             }}
           />
-          <Text
-            style={{
-              marginTop: 10,
-              marginHorizontal: 20,
-              color: colors.primaryText,
-            }}
-          >
-            {data.body}
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              margin: 10,
-              color: colors.primaryText,
-            }}
-          >
-            Таны данснаас хасагдах пойнт:{" "}
-            <Text style={{ fontFamily: "Sf-bold" }}>1</Text>
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              marginHorizontal: 10,
-              marginBottom: 10,
-              color: colors.primaryText,
-            }}
-          >
-            {userPoint.point > 1 && "Таны дансанд үлдэх пойнт:"}{" "}
-            <Text
-              style={{
-                fontFamily: "Sf-bold",
-                color: userPoint.point < 1 ? "red" : colors.primaryText,
-              }}
-            >
-              {userPoint.point > 1
-                ? userPoint.point - 1
-                : "Үлдэгдэл хүрэлцэхгүй байна"}
-            </Text>
-          </Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 20,
-            borderWidth: 1,
-            marginTop: 20,
-            borderColor: boostDay === 3 ? "green" : colors.border,
-          }}
-          onPress={() => setBoostDay(3)}
-        >
-          <Image
-            source={
-              data.photo
-                ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../assets/header.png")
-            }
+        <View>
+          <TouchableOpacity
             style={{
-              width: "90%",
-              height: 200,
-              alignSelf: "center",
+              flexDirection: "row",
+              alignItems: "center",
+              marginHorizontal: 20,
               marginTop: 20,
             }}
-          />
-          <Text
-            style={{
-              marginTop: 10,
-              marginHorizontal: 20,
-              color: colors.primaryText,
-            }}
+            onPress={() => setIsType(1)}
           >
-            {data.body}
-          </Text>
-          <Text
+            <MaterialCommunityIcons
+              name={
+                isType === 1
+                  ? "checkbox-intermediate"
+                  : "checkbox-blank-outline"
+              }
+              size={25}
+              color={isType === 1 ? "#FFB6C1" : colors.primaryText}
+            />
+            <Text style={{ color: colors.primaryText }}>1 хоног - 5 пойнт</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
             style={{
-              textAlign: "right",
-              margin: 10,
-              color: colors.primaryText,
+              margin: 20,
+              flexDirection: "row",
+              alignItems: "center",
             }}
+            onPress={() => setIsType(2)}
           >
-            Таны данснаас хасагдах пойнт:{" "}
-            <Text style={{ fontFamily: "Sf-bold" }}>3</Text>
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              marginHorizontal: 10,
-              marginBottom: 10,
-              color: colors.primaryText,
-            }}
-          >
-            {userPoint.point > 3 && "Таны дансанд үлдэх пойнт:"}{" "}
-            <Text
-              style={{
-                fontFamily: "Sf-bold",
-                color: userPoint.point < 3 ? "red" : colors.primaryText,
-              }}
-            >
-              {userPoint.point > 3
-                ? userPoint.point - 3
-                : "Үлдэгдэл хүрэлцэхгүй байна"}
+            <MaterialCommunityIcons
+              name={
+                isType === 2
+                  ? "checkbox-intermediate"
+                  : "checkbox-blank-outline"
+              }
+              size={25}
+              color={isType === 2 ? "#FFB6C1" : colors.primaryText}
+            />
+            <Text style={{ color: colors.primaryText }}>
+              3 хоног - 10 пойнт
             </Text>
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            marginHorizontal: 20,
-            borderWidth: 1,
-            marginTop: 20,
-            borderColor: boostDay === 7 ? "green" : colors.border,
-          }}
-          onPress={() => setBoostDay(7)}
-        >
-          <Image
-            source={
-              data.photo
-                ? { uri: `${api}/upload/${data.photo}` }
-                : require("../../../../assets/header.png")
-            }
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setIsType(3)}
             style={{
-              width: "90%",
-              height: 200,
-              alignSelf: "center",
-              marginTop: 20,
-            }}
-          />
-          <Text
-            style={{
-              marginTop: 10,
               marginHorizontal: 20,
-              color: colors.primaryText,
+              flexDirection: "row",
+              alignItems: "center",
             }}
           >
-            {data.body}
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              margin: 10,
-              color: colors.primaryText,
-            }}
-          >
-            Таны данснаас хасагдах пойнт:{" "}
-            <Text style={{ fontFamily: "Sf-bold" }}>7</Text>
-          </Text>
-          <Text
-            style={{
-              textAlign: "right",
-              marginHorizontal: 10,
-              marginBottom: 10,
-              color: colors.primaryText,
-            }}
-          >
-            {userPoint.point > 7 && "Таны дансанд үлдэх пойнт:"}{" "}
-            <Text
-              style={{
-                fontFamily: "Sf-bold",
-                color: userPoint.point < 7 ? "red" : colors.primaryText,
-              }}
-            >
-              {userPoint.point > 7
-                ? userPoint.point - 7
-                : "Үлдэгдэл хүрэлцэхгүй байна"}
+            <MaterialCommunityIcons
+              name={
+                isType === 3
+                  ? "checkbox-intermediate"
+                  : "checkbox-blank-outline"
+              }
+              size={25}
+              color={isType === 3 ? "#FFB6C1" : colors.primaryText}
+            />
+            <Text style={{ color: colors.primaryText }}>
+              7 хоног - 15 пойнт
             </Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text
+            style={{
+              color: colors.secondaryText,
+              fontWeight: "100",
+              marginHorizontal: 20,
+              marginVertical: 20,
+            }}
+          >
+            Энэхүү идэвхжүүлэлт нь таныг нийтлэлээ идэвхжүүлэх товч дарснаар
+            хугацаа нь эхлэх бөгөөд нетворк хэсэгт хэрэглэгчдийн оруулсан 5
+            нийтлэл тутамд санамсаргүй горимоор бусад бүх хэрэглэгчдэд үзэгдэх
+            болно.
           </Text>
-        </TouchableOpacity>
+          <Text
+            style={{
+              color: "#FFB6C1",
+              fontWeight: "100",
+              marginHorizontal: 20,
+            }}
+          >
+            Жич: Хууль бус, бусдын нэр хүндэд халдсан, садар самуун сурталчилсан
+            гэх мэт зохимжгүй нийтлэл оруулсан хэрэглэгчийн хаягийг хааж
+            холбогдох хэрэг хянан шийдвэрлэх газарт илгээх болно
+          </Text>
+        </View>
         <View style={{ marginVertical: 10 }} />
-        <MyButton text={"Бүүстлэх"} onPress={boostPost} />
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.border,
+            marginHorizontal: 10,
+            backgroundColor: "#FFB6C1",
+          }}
+          onPress={boostPost}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              color: "black",
+            }}
+          >
+            Идэвхжүүлэх
+          </Text>
+        </TouchableOpacity>
         <View style={{ marginBottom: 10 }} />
       </ScrollView>
     </>

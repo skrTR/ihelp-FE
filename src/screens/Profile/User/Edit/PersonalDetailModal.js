@@ -15,9 +15,11 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import { api } from "../../../../../Constants";
 import moment from "moment";
-import { LinearGradient } from "expo-linear-gradient";
 import SalaryModal from "../../../Employer/AddWorkModals/SalaryModal";
 import ExperienceModal from "../../../Employer/AddWorkModals/ExperienceModal";
+import EducationModal from "../../../Employer/AddWorkModals/EducationModal";
+import GenderModal from "../../../Employer/AddWorkModals/GenderModal";
+import OccupationModal from "../../../Employer/AddWorkModals/OccupationModal";
 const PersonalDetailModal = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
@@ -27,6 +29,11 @@ const PersonalDetailModal = (props) => {
   const [date, setDate] = useState(new Date(Date.now()));
   const [modalVisible, setModalVisible] = useState(false);
   const [experienceModal, setExperienceModal] = useState(false);
+  const [educationModal, setEducationModal] = useState(false);
+  const [genderModal, setGenderModal] = useState(false);
+  const [occupationModal, setOccupationModal] = useState(false);
+  const [occupationName, setOccupationName] = useState("");
+  const [education, setEducation] = useState("");
   console.log(data);
   const showPicker = () => {
     setIsPickerShow(true);
@@ -52,6 +59,9 @@ const PersonalDetailModal = (props) => {
       ? data.salaryExpectation
       : "Сонгох",
     experienceYear: data.experienceYear ? data.experienceYear : "Сонгох",
+    education: data.education ? data.education : "Сонгох",
+    gender: data.gender ? data.gender : "Сонгох",
+    occupation: data.occupation ? data.occupation : "Сонгох",
     driverLicense: data.driverLicense,
     working: data.working,
   });
@@ -127,7 +137,6 @@ const PersonalDetailModal = (props) => {
       location: text,
     });
   };
-
   const checkBirth = (event, value) => {
     setDate(value);
     setPersonalCv({
@@ -138,7 +147,6 @@ const PersonalDetailModal = (props) => {
       setIsPickerShow(false);
     }
   };
-
   const checkDriveLicense = (text) => {
     setPersonalCv({
       ...personalCv,
@@ -156,6 +164,27 @@ const PersonalDetailModal = (props) => {
     setPersonalCv({
       ...personalCv,
       salaryExpectation: text,
+    });
+  };
+  const checkEducation = (text) => {
+    setEducationModal(!educationModal);
+    setPersonalCv({
+      ...personalCv,
+      education: text,
+    });
+  };
+  const checkGender = (text) => {
+    setGenderModal(!genderModal);
+    setPersonalCv({
+      ...personalCv,
+      gender: text,
+    });
+  };
+  const checkOccupation = (text) => {
+    setOccupationModal(!occupationModal);
+    setPersonalCv({
+      ...personalCv,
+      occupation: text,
     });
   };
   const checkExperience = (text) => {
@@ -234,7 +263,7 @@ const PersonalDetailModal = (props) => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               backgroundColor: "#C0C0C0",
             }}
           >
@@ -249,7 +278,7 @@ const PersonalDetailModal = (props) => {
               padding: 10,
               backgroundColor: "#FFB6C1",
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ textAlign: "center" }}>Болсон</Text>
@@ -269,7 +298,7 @@ const PersonalDetailModal = (props) => {
           style={{ fontSize: 16 }}
         />
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Одоо амьдарж байгаа
+          Одоо амьдарч байгаа хаяг
         </Text>
 
         <FormText
@@ -299,7 +328,7 @@ const PersonalDetailModal = (props) => {
             style={{
               backgroundColor: colors.secondaryText,
               padding: 12,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ fontSize: 16 }}>
@@ -317,10 +346,57 @@ const PersonalDetailModal = (props) => {
             style={{
               backgroundColor: colors.secondaryText,
               padding: 12,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ fontSize: 16 }}>{personalCv.salaryExpectation}</Text>
+          </View>
+        </TouchableOpacity>
+        {/* Боловсрол */}
+        <TouchableOpacity onPress={() => setEducationModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Боловсрол
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>{personalCv.education}</Text>
+          </View>
+        </TouchableOpacity>
+        {/* Хүйс */}
+        <TouchableOpacity onPress={() => setGenderModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Хүйс
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>{personalCv.gender}</Text>
+          </View>
+        </TouchableOpacity>
+        {/* Мэргэжил */}
+        <TouchableOpacity onPress={() => setOccupationModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Мэргэжил
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {occupationName ? occupationName : "Сонгох"}
+            </Text>
           </View>
         </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -333,7 +409,7 @@ const PersonalDetailModal = (props) => {
           }}
         >
           <Switch
-            trackColor={{ false: "#FFB6C1", true: "#FFB6C1" }}
+            trackColor={{ false: "#f4f3f4", true: "#FFB6C1" }}
             thumbColor={personalCv.driverLicense ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={checkDriveLicense}
@@ -363,7 +439,7 @@ const PersonalDetailModal = (props) => {
           }}
         >
           <Switch
-            trackColor={{ false: "#FFB6C1", true: "#FFB6C1" }}
+            trackColor={{ false: "#f4f3f4", true: "#FFB6C1" }}
             thumbColor={personalCv.driverLicense ? "#f4f3f4" : "#f4f3f4"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={checkWorking}
@@ -382,22 +458,21 @@ const PersonalDetailModal = (props) => {
           )}
         </View>
 
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{ paddingHorizontal: 20, borderRadius: 20, marginTop: 20 }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
+        <TouchableOpacity
+          onPress={sendPersonalDetail}
+          style={{
+            alignSelf: "center",
+            backgroundColor: "#FFB6C1",
+            borderRadius: 10,
+            marginTop: 20,
+            padding: 10,
+            width: "100%",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-          <TouchableOpacity
-            onPress={sendPersonalDetail}
-            style={{
-              alignSelf: "center",
-              padding: 10,
-            }}
-          >
-            <Text style={{ color: "white" }}> Хадгалах </Text>
-          </TouchableOpacity>
-        </LinearGradient>
+          <Text style={{ color: "black" }}> Хадгалах </Text>
+        </TouchableOpacity>
         <View style={{ marginBottom: 100 }} />
       </ScrollView>
       {/* Цалин  */}
@@ -410,6 +485,23 @@ const PersonalDetailModal = (props) => {
         experienceModal={experienceModal}
         setExperienceModal={setExperienceModal}
         checkExperience={checkExperience}
+      />
+      <EducationModal
+        educationModal={educationModal}
+        setEducationModal={setEducationModal}
+        checkEducation={checkEducation}
+        setEducation={setEducation}
+      />
+      <GenderModal
+        genderModal={genderModal}
+        setGenderModal={setGenderModal}
+        checkGender={checkGender}
+      />
+      <OccupationModal
+        occupationModal={occupationModal}
+        setOccupationModal={setOccupationModal}
+        checkOccupation={checkOccupation}
+        setOccupationName={setOccupationName}
       />
     </KeyboardAvoidingView>
   );

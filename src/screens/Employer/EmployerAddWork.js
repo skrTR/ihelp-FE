@@ -9,21 +9,18 @@ import FormText from "../../components/FormText";
 import SalaryModal from "./AddWorkModals/SalaryModal";
 import MyButton from "../../components/MyButton";
 import GenderModal from "./AddWorkModals/GenderModal";
-import AgeModal from "./AddWorkModals/AgeModal";
 import ExperienceModal from "./AddWorkModals/ExperienceModal";
 import EducationModal from "./AddWorkModals/EducationModal";
 import OccupationModal from "./AddWorkModals/OccupationModal";
-import LevelModal from "./AddWorkModals/LevelModal";
 import TypeModal from "./AddWorkModals/TypeModal";
 import UserContext from "../../context/UserContext";
-import SpecialModal from "./AddWorkModals/SpecialModal";
 import CompanyHeader from "../../components/Header/CompanyHeader";
+import SpecialModal from "./AddWorkModals/SpecialModal";
 
 const EmployerAddWork = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [normalDay, setNormalDay] = useState(7);
-  const [isType, setIsType] = useState(1);
+  const [specialModal, setSpecialModal] = useState(false);
   const navigation = useNavigation();
   // Цалин Modal
   const [modalVisible, setModalVisible] = useState(false);
@@ -31,9 +28,7 @@ const EmployerAddWork = () => {
   // Хүйс modal
   const [genderModal, setGenderModal] = useState(false);
   const [gender, setGender] = useState("");
-  // нас сонгох модал
-  const [ageModal, setAgeModal] = useState(false);
-  const [age, setAge] = useState("");
+
   // Туршлага сонгох
   const [experienceModal, setExperienceModal] = useState(false);
   const [experience, setExperience] = useState("");
@@ -43,67 +38,30 @@ const EmployerAddWork = () => {
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
-  // Level сонгох
-  const [level, setLevel] = useState("");
-  const [levelModal, setLevelModal] = useState(false);
   // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
-  // Ontsloh yaaraltai bolgoh eseh
-  const [specialModal, setSpecialModal] = useState(false);
-  const sendWork = () => {
-    axios
-      .post(`${api}/api/v1/jobs/${state.companyId}`, addWork)
-      .then((res) => {
-        navigation.goBack();
-      })
-      .catch((err) => {
-        alert(err.message);
-        console.log(err);
-      });
-  };
+
   const [addWork, setAddWork] = useState({
-    title: "",
-    description: "",
-    do: "",
-    do1: "",
-    do2: "",
-    do3: "",
-    schedule: "",
-    language: "",
-    skill: "",
-    skill1: "",
-    skill2: "",
-    skill3: "",
-    contact: "",
-    location: "",
-    benefit: "",
-    salary: "Сонгох",
-    gender: "Сонгох",
-    age: "Сонгох",
+    occupation: "",
     education: "Сонгох",
     experience: "Сонгох",
-    occupation: "",
-    level: "Мэргэжил хамаарахгүй",
     type: "Сонгох",
+    salary: "Сонгох",
+    location: "",
+    gender: "Сонгох",
+    do: "",
+    skill: "",
+    language: "",
+    schedule: "",
     order: 0,
     special: 0,
     urgent: 0,
   });
   const [error, setError] = useState({
-    title: false,
-    description: false,
     do: false,
-    do1: false,
-    do2: false,
-    do3: false,
     skill: false,
-    skill1: false,
-    skill2: false,
-    skill3: false,
-    contact: false,
     location: false,
-    benefit: false,
     occupation: false,
     order: false,
     schedule: false,
@@ -120,147 +78,34 @@ const EmployerAddWork = () => {
         console.log(err);
       });
   }, []);
-  const checkTitle = (text) => {
-    setError({
-      ...error,
-      title: text.length < 5,
-    });
 
+  const checkOccupation = (id) => {
+    setOccupationModal(!occupationModal);
     setAddWork({
       ...addWork,
-      title: text,
+      occupation: id,
     });
   };
-  const checkDescription = (text) => {
-    setError({
-      ...error,
-      description: text.length < 5,
-    });
-
+  const checkEducation = (text) => {
+    setEducationModal(!educationModal);
     setAddWork({
       ...addWork,
-      description: text,
+      education: text,
     });
   };
-  const checkDo = (text) => {
-    setError({
-      ...error,
-      do: text.length < 5,
-    });
-
+  const checkExperience = (text) => {
+    setExperienceModal(!experienceModal);
     setAddWork({
       ...addWork,
-      do: text,
+      experience: text,
     });
   };
-  const checkDo1 = (text) => {
-    setError({
-      ...error,
-      do1: text.length < 5,
-    });
 
+  const checkType = (text) => {
+    setTypeModal(!typeModal);
     setAddWork({
       ...addWork,
-      do1: text,
-    });
-  };
-  const checkDo2 = (text) => {
-    setError({
-      ...error,
-      do2: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      do2: text,
-    });
-  };
-  const checkDo3 = (text) => {
-    setError({
-      ...error,
-      do3: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      do3: text,
-    });
-  };
-  const checkSchedule = (text) => {
-    setError({
-      ...error,
-      schedule: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      schedule: text,
-    });
-  };
-  const checkLanguage = (text) => {
-    setError({
-      ...error,
-      language: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      language: text,
-    });
-  };
-  const checkSkill = (text) => {
-    setError({
-      ...error,
-      skill: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill: text,
-    });
-  };
-  const checkSkill1 = (text) => {
-    setError({
-      ...error,
-      skill1: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill1: text,
-    });
-  };
-  const checkSkill2 = (text) => {
-    setError({
-      ...error,
-      skill2: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill2: text,
-    });
-  };
-  const checkSkill3 = (text) => {
-    setError({
-      ...error,
-      skill3: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill3: text,
-    });
-  };
-  const checkContact = (text) => {
-    setError({
-      ...error,
-      contact: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      contact: text,
+      type: text,
     });
   };
   const checkLocation = (text) => {
@@ -274,24 +119,6 @@ const EmployerAddWork = () => {
       location: text,
     });
   };
-  const checkBenefit = (text) => {
-    setError({
-      ...error,
-      benefit: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      benefit: text,
-    });
-  };
-  const checkSalary = (text) => {
-    setModalVisible(!modalVisible);
-    setAddWork({
-      ...addWork,
-      salary: text,
-    });
-  };
   const checkGender = (text) => {
     setGenderModal(!genderModal);
     setAddWork({
@@ -299,67 +126,60 @@ const EmployerAddWork = () => {
       gender: text,
     });
   };
-  const checkAge = (text) => {
-    setAgeModal(!ageModal);
+  const checkSkill = (text) => {
+    setError({
+      ...error,
+      skill: text.length < 5,
+    });
+
     setAddWork({
       ...addWork,
-      age: text,
+      skill: text,
     });
   };
-  const checkExperience = (text) => {
-    setExperienceModal(!experienceModal);
+  const checkLanguage = (text) => {
+    setError({
+      ...error,
+      language: text.length < 5,
+    });
+
     setAddWork({
       ...addWork,
-      experience: text,
+      language: text,
     });
   };
-  const checkEducation = (text) => {
-    setEducationModal(!educationModal);
+  const checkDo = (text) => {
+    setError({
+      ...error,
+      do: text.length < 5,
+    });
+
     setAddWork({
       ...addWork,
-      education: text,
+      do: text,
     });
   };
-  const checkOccupation = (id) => {
-    setOccupationModal(!occupationModal);
+
+  const checkSchedule = (text) => {
+    setError({
+      ...error,
+      schedule: text.length < 5,
+    });
+
     setAddWork({
       ...addWork,
-      occupation: id,
+      schedule: text,
     });
   };
-  const checkLevel = (text) => {
-    setLevelModal(!levelModal);
+
+  const checkSalary = (text) => {
+    setModalVisible(!modalVisible);
     setAddWork({
       ...addWork,
-      level: text,
+      salary: text,
     });
   };
-  const checkType = (text) => {
-    setTypeModal(!typeModal);
-    setAddWork({
-      ...addWork,
-      type: text,
-    });
-  };
-  const checkOrders = (text, type) => {
-    setSpecialModal(!specialModal);
-    if (type === "normal") {
-      setAddWork({
-        ...addWork,
-        order: text,
-      });
-    } else if (type === "special") {
-      setAddWork({
-        ...addWork,
-        special: text,
-      });
-    } else if (type === "urgent") {
-      setAddWork({
-        ...addWork,
-        urgent: text,
-      });
-    }
-  };
+
   if (!notification) {
     return null;
   }
@@ -372,24 +192,61 @@ const EmployerAddWork = () => {
           showsVerticalScrollIndicator={false}
         >
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Гарчиг
+            Мэргэжил сонгох
           </Text>
-          <FormText
-            placeholder="Гарчиг"
-            value={addWork.title}
-            onChangeText={checkTitle}
-            errorText="Гарчиг урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.title}
+          <MyButton
+            text={
+              occupationName === "" ? "Мэргэжил сонгох" : `${occupationName}`
+            }
+            onPress={checkOccupation}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Тайлбар
+            Боловсрол сонгох
           </Text>
+          <MyButton
+            text={education === "" ? "Боловсрол сонгох" : `${education}`}
+            onPress={checkEducation}
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Ажлын туршлага сонгох
+          </Text>
+          <MyButton
+            text={
+              experience === "" ? "Ажлын туршлага сонгох" : `${experience} жил`
+            }
+            onPress={checkExperience}
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Цагийн төрөл сонгох
+          </Text>
+          <MyButton
+            text={type === "" ? "Цагийн төрөл сонгох" : `${type}`}
+            onPress={checkType}
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Цалин сонгох
+          </Text>
+          <MyButton
+            text={salary === "" ? "Цалин сонгох" : `${salary}₮`}
+            onPress={checkSalary}
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Хаяг байршил
+          </Text>
+
           <FormText
-            placeholder="Тайлбар"
-            value={addWork.description}
-            onChangeText={checkDescription}
-            errorText="Тайлбар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.description}
+            placeholder="Хаяг байршил"
+            value={addWork.location}
+            onChangeText={checkLocation}
+            errorText="Хаяг байршил урт 4-20 тэмдэгтээс тогтоно."
+            errorShow={error.location}
+          />
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Хүйс сонгох
+          </Text>
+          <MyButton
+            text={gender === "" ? "Хүйс сонгох" : gender}
+            onPress={checkGender}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Хийгдэх ажил
@@ -401,44 +258,26 @@ const EmployerAddWork = () => {
             errorText="Хийгдэх ажил  урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.do}
           />
+
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хийгдэх ажил 2
+            Шаардагдах чадвар
           </Text>
           <FormText
-            placeholder="Хийгдэх ажил 2"
-            value={addWork.do1}
-            onChangeText={checkDo1}
-            errorText="Хийгдэх ажил 2 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.do1}
+            placeholder="Чадвар"
+            value={addWork.skill}
+            onChangeText={checkSkill}
+            errorText="Чадвар урт 4-20 тэмдэгтээс тогтоно."
+            errorShow={error.skill}
           />
+
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хийгдэх ажил 3
+            Гадаад хэл
           </Text>
           <FormText
-            placeholder="Хийгдэх ажил 3"
-            value={addWork.do2}
-            onChangeText={checkDo2}
-            errorText="Хийгдэх ажил 3 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.do2}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хийгдэх ажил 4
-          </Text>
-          <FormText
-            placeholder="Хийгдэх ажил 4"
-            value={addWork.do3}
-            onChangeText={checkDo3}
-            errorText="Хийгдэх ажил 4 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.do3}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хэлний шаардлага
-          </Text>
-          <FormText
-            placeholder="Хэлний шаардлага"
+            placeholder="Гадаад хэл"
             value={addWork.language}
             onChangeText={checkLanguage}
-            errorText="Хэлний шаардлага урт 4-20 тэмдэгтээс тогтоно."
+            errorText="Гадаад хэл урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.language}
           />
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -451,160 +290,18 @@ const EmployerAddWork = () => {
             errorText="Ажиллах цагийн хуваарь урт 4-20 тэмдэгтээс тогтоно."
             errorShow={error.schedule}
           />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Чадвар
-          </Text>
-          <FormText
-            placeholder="Чадвар"
-            value={addWork.skill}
-            onChangeText={checkSkill}
-            errorText="Чадвар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Чадвар 2
-          </Text>
-          <FormText
-            placeholder="Чадвар 2"
-            value={addWork.skill1}
-            onChangeText={checkSkill1}
-            errorText="Чадвар 2 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill1}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Чадвар 3
-          </Text>
-          <FormText
-            placeholder="Чадвар 3"
-            value={addWork.skill2}
-            onChangeText={checkSkill2}
-            errorText="Чадвар 3 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill2}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Чадвар 4
-          </Text>
-          <FormText
-            placeholder="Чадвар 4 "
-            value={addWork.skill3}
-            onChangeText={checkSkill3}
-            errorText="Чадвар 4 урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill3}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Холбоо барих
-          </Text>
-          <FormText
-            placeholder="Холбоо барих"
-            value={addWork.contact}
-            onChangeText={checkContact}
-            errorText="Холбоо барих урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.contact}
-            keyboardType="numeric"
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хаяг байршил
-          </Text>
-          <FormText
-            placeholder="Хаяг байршил"
-            value={addWork.location}
-            onChangeText={checkLocation}
-            errorText="Хаяг байршил урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.location}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Урамшуулал
-          </Text>
-          <FormText
-            placeholder="Урамшуулал"
-            value={addWork.benefit}
-            onChangeText={checkBenefit}
-            errorText="Урамшуулал урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.benefit}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Цалин сонгох
-          </Text>
-          <MyButton
-            text={salary === "" ? "Цалин сонгох" : `${salary}₮`}
-            onPress={checkSalary}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хүйс сонгох
-          </Text>
-          <MyButton
-            text={gender === "" ? "Хүйс сонгох" : gender}
-            onPress={checkGender}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Нас сонгох
-          </Text>
-          <MyButton text={age === "" ? "Нас сонгох" : age} onPress={checkAge} />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ажлын туршлага сонгох
-          </Text>
-          <MyButton
-            text={
-              experience === "" ? "Ажлын туршлага сонгох" : `${experience} жил`
-            }
-            onPress={checkExperience}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Боловсрол сонгох
-          </Text>
-          <MyButton
-            text={education === "" ? "Боловсрол сонгох" : `${education}`}
-            onPress={checkEducation}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Мэргэжил сонгох
-          </Text>
-          <MyButton
-            text={
-              occupationName === "" ? "Мэргэжил сонгох" : `${occupationName}`
-            }
-            onPress={checkOccupation}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Албан тушаал сонгох
-          </Text>
-          <MyButton
-            text={level === "" ? "Албан тушаал" : `${level}`}
-            onPress={checkLevel}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Цагийн төрөл сонгох
-          </Text>
-          <MyButton
-            text={type === "" ? "Цагийн төрөл сонгох" : `${type}`}
-            onPress={checkType}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Зарын төрөл
-          </Text>
-          <MyButton
-            text={
-              isType === 1
-                ? `Энгийн ${normalDay} хоног`
-                : isType === 2
-                ? `Онцгой ${normalDay} хоног`
-                : isType === 3
-                ? `Яаралтай ${normalDay} хоног`
-                : "Зарын төрөл сонгох"
-            }
-            onPress={checkOrders}
-          />
+
           <View style={{ marginVertical: 5 }} />
           <TouchableOpacity
             style={{
               backgroundColor: "#FFB6C1",
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               borderColor: colors.border,
               marginTop: 10,
             }}
-            onPress={sendWork}
+            onPress={() => setSpecialModal(true)}
           >
             <Text style={{ textAlign: "center", color: "black" }}>Нийтлэх</Text>
           </TouchableOpacity>
@@ -613,6 +310,34 @@ const EmployerAddWork = () => {
       </View>
       {/* Modals */}
       <View style={{ backgroundColor: colors.background }}>
+        {/* Мэргэжил сонгох */}
+        <OccupationModal
+          setOccupationModal={setOccupationModal}
+          occupationModal={occupationModal}
+          setOccupationName={setOccupationName}
+          checkOccupation={checkOccupation}
+        />
+        {/* Боловсрол сонгох */}
+        <EducationModal
+          setEducation={setEducation}
+          setEducationModal={setEducationModal}
+          educationModal={educationModal}
+          checkEducation={checkEducation}
+        />
+        {/* Туршлага  сонгох */}
+        <ExperienceModal
+          setExperience={setExperience}
+          experienceModal={experienceModal}
+          setExperienceModal={setExperienceModal}
+          checkExperience={checkExperience}
+        />
+        {/* type сонгох */}
+        <TypeModal
+          setTypeModal={setTypeModal}
+          typeModal={typeModal}
+          setType={setType}
+          checkType={checkType}
+        />
         {/* Цалин  */}
         <SalaryModal
           setModalVisible={setModalVisible}
@@ -627,59 +352,11 @@ const EmployerAddWork = () => {
           genderModal={genderModal}
           checkGender={checkGender}
         />
-        {/* Нас сонгох */}
-        <AgeModal
-          setAge={setAge}
-          ageModal={ageModal}
-          setAgeModal={setAgeModal}
-          checkAge={checkAge}
-        />
-        {/* Туршлага  сонгох */}
-        <ExperienceModal
-          setExperience={setExperience}
-          experienceModal={experienceModal}
-          setExperienceModal={setExperienceModal}
-          checkExperience={checkExperience}
-        />
-        {/* Боловсрол сонгох */}
-        <EducationModal
-          setEducation={setEducation}
-          setEducationModal={setEducationModal}
-          educationModal={educationModal}
-          checkEducation={checkEducation}
-        />
-        {/* Мэргэжил сонгох */}
-        <OccupationModal
-          setOccupationModal={setOccupationModal}
-          occupationModal={occupationModal}
-          setOccupationName={setOccupationName}
-          checkOccupation={checkOccupation}
-        />
-        {/* Level songoh */}
-        <LevelModal
-          setLevelModal={setLevelModal}
-          levelModal={levelModal}
-          setLevel={setLevel}
-          checkLevel={checkLevel}
-        />
-        {/* type сонгох */}
-        <TypeModal
-          setTypeModal={setTypeModal}
-          typeModal={typeModal}
-          setType={setType}
-          checkType={checkType}
-        />
         <SpecialModal
-          setSpecialModal={setSpecialModal}
           specialModal={specialModal}
+          setSpecialModal={setSpecialModal}
+          data={addWork}
           occupationName={occupationName}
-          type={type}
-          salary={addWork.salary ? addWork.salary : ""}
-          normalDay={normalDay}
-          setNormalDay={setNormalDay}
-          checkOrders={checkOrders}
-          isType={isType}
-          setIsType={setIsType}
         />
       </View>
     </SafeAreaView>

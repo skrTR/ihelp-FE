@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -12,6 +13,8 @@ import UserContext from "../../context/UserContext";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import axios from "axios";
 import { api } from "../../../Constants";
+import Toast from "react-native-root-toast";
+const { height } = Dimensions.get("window");
 const SharePostModal = (props) => {
   const { id } = props.route.params;
   const state = useContext(UserContext);
@@ -24,6 +27,17 @@ const SharePostModal = (props) => {
       .post(`${api}/api/v1/shares/${id}`, { body: shareText })
       .then((res) => {
         navigation.goBack();
+        Toast.show("Амжилтай хуваалцлаа", {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "#FFB6C1",
+        });
       })
       .catch((err) => {
         console.log(err);

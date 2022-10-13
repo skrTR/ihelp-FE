@@ -10,31 +10,50 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import Header from "../../components/Header/Header";
+import UrgentWork from "../../components/Employer/UrgentWork";
+import SpecialWork from "../../components/Employer/SpecialWork";
 const WorkSearch = () => {
   const { colors } = useTheme();
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [choosedId, setChoosedId] = useState("62905a514be9675d77e52356");
+  const [choosedId, setChoosedId] = useState("");
   const [choosedName, setChoosedName] = useState("Мэргэжил сонгох");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   const getWorkSearch = () => {
-    axios
-      .get(
-        `${api}/api/v1/jobs/${choosedId}/occupation?limit=1000&select=firstName type profile occupationName isEmployer isEmployee salary`
-      )
-      .then((res) => {
-        setWorks(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (choosedId === "") {
+      axios
+        .get(
+          `${api}/api/v1/jobs?limit=1000&select=firstName type profile occupationName isEmployer isEmployee salary isUrgent isSpecial createdAt`
+        )
+        .then((res) => {
+          setWorks(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      axios
+        .get(
+          `${api}/api/v1/jobs/${choosedId}/occupation?limit=1000&select=firstName type profile occupationName isEmployer isEmployee salary`
+        )
+        .then((res) => {
+          setWorks(res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   useEffect(() => {
     setRefresh(false);
     getWorkSearch();
   }, [refresh]);
+
+  const sorted2 = works.sort((a, b) => b.isSpecial - a.isSpecial);
+  const sortedData = sorted2.sort((a, b) => b.isUrgent - a.isUrgent);
   return (
     <>
       <View
@@ -46,9 +65,9 @@ const WorkSearch = () => {
       >
         {/* Header */}
         {state.isCompany ? (
-          <CompanyHeader isBack={true} />
+          <CompanyHeader isBack={true} workSort={true} />
         ) : (
-          <Header isBack={true} />
+          <Header isBack={true} workSort={true} />
         )}
         <View style={{ height: "100%", backgroundColor: colors.background }}>
           <TouchableOpacity
@@ -57,7 +76,7 @@ const WorkSearch = () => {
               borderColor: colors.border,
               borderWidth: 1,
               borderRadius: 10,
-              marginTop: 10,
+              marginVertical: 10,
               marginHorizontal: 10,
               backgroundColor:
                 choosedName === "Мэргэжил сонгох"
@@ -74,21 +93,46 @@ const WorkSearch = () => {
           {works.length > 0 ? (
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={works}
+              data={sortedData}
               keyExtractor={(item, index) => index}
+              ListFooterComponent={<View style={{ marginVertical: 200 }} />}
               renderItem={({ item }) => {
                 return (
                   <View style={{ marginTop: 5 }}>
-                    <NormalWork
-                      id={item._id}
-                      createUserProfile={item.profile}
-                      createUserName={item.firstName}
-                      occupation={item.occupationName}
-                      type={item.type}
-                      salary={item.salary}
-                      isEmployer={item.isEmployer}
-                      isEmployee={item.isEmployee}
-                    />
+                    {item.isUrgent ? (
+                      <UrgentWork
+                        id={item._id}
+                        createUserProfile={item.profile}
+                        createUserName={item.firstName}
+                        occupation={item.occupationName}
+                        type={item.type}
+                        salary={item.salary}
+                        isEmployer={item.isEmployer}
+                        isEmployee={item.isEmployee}
+                      />
+                    ) : item.isSpecial ? (
+                      <SpecialWork
+                        id={item._id}
+                        createUserProfile={item.profile}
+                        createUserName={item.firstName}
+                        occupation={item.occupationName}
+                        type={item.type}
+                        salary={item.salary}
+                        isEmployer={item.isEmployer}
+                        isEmployee={item.isEmployee}
+                      />
+                    ) : (
+                      <NormalWork
+                        id={item._id}
+                        createUserProfile={item.profile}
+                        createUserName={item.firstName}
+                        occupation={item.occupationName}
+                        type={item.type}
+                        salary={item.salary}
+                        isEmployer={item.isEmployer}
+                        isEmployee={item.isEmployee}
+                      />
+                    )}
                   </View>
                 );
               }}

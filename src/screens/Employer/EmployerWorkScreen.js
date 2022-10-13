@@ -8,9 +8,12 @@ import SpecialWork from "../../components/Employer/SpecialWork";
 import NormalWork from "../../components/Employer/NormalWork";
 
 const EmployerWorkScreen = () => {
-  const [urgentWork, urgentError] = useUrgentWork();
+  const [urgentWork, refreshing, setRefreshing] = useUrgentWork();
   const [specialWork] = useSpecialWork();
-  const [normalWork, normalError] = useNormalWork();
+  const [normalWork] = useNormalWork();
+  const handleRefresh = () => {
+    setRefreshing(true);
+  };
   return (
     <FlatList
       showsVerticalScrollIndicator={false}
@@ -76,6 +79,9 @@ const EmployerWorkScreen = () => {
           </>
         );
       }}
+      refreshing={refreshing}
+      onRefresh={handleRefresh}
+      onEndReachedThreshold={0}
     />
   );
 };

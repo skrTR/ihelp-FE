@@ -11,6 +11,9 @@ import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
+import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
+import UserSortModal from "../screens/Cv/UserSortModal";
+import SortResultModal from "../screens/Cv/SortResultModal";
 const CvGroup = () => {
   const CvStack = createNativeStackNavigator();
   return (
@@ -19,6 +22,11 @@ const CvGroup = () => {
         name="CvScreen"
         component={CvScreen}
         options={{ headerShown: false }}
+      />
+      <CvStack.Screen
+        name="EmployeeWorkDetail"
+        component={EmployeeWorkDetail}
+        options={{ headerShown: false, fullScreenGestureEnabled: true }}
       />
       <CvStack.Screen
         name="CvDetailScreen"
@@ -65,6 +73,24 @@ const CvGroup = () => {
           component={CompanySendWorkRequest}
           options={{
             title: "Ажлын санал илгээх",
+            headerLeft: () => <MyBackButton />,
+            presentation: "formSheet",
+          }}
+        />
+        <CvStack.Screen
+          name="UserSortModal"
+          component={UserSortModal}
+          options={{
+            title: "Хэрэглэгч шүүх",
+            headerLeft: () => <MyBackButton />,
+            presentation: "formSheet",
+          }}
+        />
+        <CvStack.Screen
+          name="SortResultModal"
+          component={SortResultModal}
+          options={{
+            title: "Илэрц",
             headerLeft: () => <MyBackButton />,
             presentation: "formSheet",
           }}

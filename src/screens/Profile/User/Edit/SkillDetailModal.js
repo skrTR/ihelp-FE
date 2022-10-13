@@ -138,7 +138,7 @@ const SkillDetailModal = ({ route }) => {
       <FormText
         value={skills.advantage1}
         onChangeText={checkAdvantage1}
-        errorText="Чадвар 1 2-20 тэмдэгтээс тогтоно."
+        errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
         errorShow={error.advantage1}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -147,7 +147,7 @@ const SkillDetailModal = ({ route }) => {
       <FormText
         value={skills.advantage2}
         onChangeText={checkAdvantage2}
-        errorText="Чадвар 2 2-20 тэмдэгтээс тогтоно."
+        errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
         errorShow={error.advantage2}
       />
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>

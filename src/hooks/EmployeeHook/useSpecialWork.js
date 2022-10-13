@@ -3,21 +3,18 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
 
-export default (refresh) => {
+export default () => {
   const [specialWork, setSpecialWork] = useState([]);
-
-  const [specialError, setSpecialError] = useState(null);
-  const [specialLoading, setSpecialLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
   let isMoutned = true;
   const getData = () => {
     axios
-      .get(`${api}/api/v1/announcements/specials`)
+      .get(`${api}/api/v1/announcements/specials?limit=1000`)
       .then((result) => {
         if (isMoutned) {
           setSpecialWork(result.data.data);
-          setSpecialError(null);
-          setSpecialLoading(false);
+          setRefreshing(false);
         }
       })
       .catch((err) => {
@@ -27,17 +24,14 @@ export default (refresh) => {
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
-        setSpecialError(message);
-        setSpecialLoading(false);
       });
   };
   useEffect(() => {
-    setSpecialLoading(true);
     getData();
     () => {
       isMoutned = false;
     };
-  }, [refresh, isFocused]);
+  }, [refreshing, isFocused]);
 
-  return [specialWork, specialError, specialLoading];
+  return [specialWork, refreshing, setRefreshing];
 };

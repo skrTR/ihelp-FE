@@ -48,10 +48,15 @@ const CustomSearchedModal = (props) => {
                   <View style={{ marginTop: 5 }}>
                     <NormalWork
                       id={item._id}
-                      createUser={item.createUser}
-                      occupation={item.occupation}
+                      createUserName={item.firstName}
+                      createUserProfile={item.profile}
+                      occupation={item.occupationName}
                       type={item.type}
                       salary={item.salary}
+                      isEmployee={item.isEmployee}
+                      isEmployer={item.isEmployer}
+                      createUserId={item.createUser}
+                      order={item.order}
                     />
                   </View>
                 );

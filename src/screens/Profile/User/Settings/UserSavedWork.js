@@ -28,14 +28,14 @@ const UserSavedWork = () => {
         savedWork.map((item) => {
           return (
             <View key={item._id}>
-              {item.jobInfo && (
+              {item.job && (
                 <UserWorks
                   id={item.job}
-                  firstName={item.jobInfo.firstName}
-                  profile={item.jobInfo.profile}
-                  occupation={item.jobInfo.occupationName}
-                  type={item.jobInfo.type}
-                  salary={item.jobInfo.salary}
+                  firstName={item.job.firstName}
+                  profile={item.job.profile}
+                  occupation={item.job.occupationName}
+                  type={item.job.type}
+                  salary={item.job.salary}
                   isEmployer={item.isEmployer}
                   isEmployee={item.isEmployee}
                 />

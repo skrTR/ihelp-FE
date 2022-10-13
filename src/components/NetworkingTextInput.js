@@ -1,8 +1,7 @@
-import { StyleSheet, View, TextInput } from "react-native";
+import { StyleSheet, View, TextInput, TouchableOpacity } from "react-native";
 import React from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 const NetworkingTextInput = (props) => {
   const { colors } = useTheme();
   return (
@@ -27,11 +26,14 @@ const NetworkingTextInput = (props) => {
         placeholder="Та сэтгэгдлээ үлдээнэ үү"
         placeholderTextColor={"#cccccc"}
       />
-      <TouchableOpacity onPress={props.onPress}>
+      <TouchableOpacity
+        onPress={props.onPress}
+        disabled={props.commentLength > 0 ? false : true}
+      >
         <MaterialCommunityIcons
           name="send-circle"
           size={40}
-          color={"#FFB6C1"}
+          color={props.commentLength > 0 ? "#FFB6C1" : colors.border}
         />
       </TouchableOpacity>
     </View>

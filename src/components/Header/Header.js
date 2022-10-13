@@ -13,6 +13,7 @@ const Header = (props) => {
     userSearch,
     isFollowedCompany,
     companyFilter,
+    workSort,
   } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -110,6 +111,13 @@ const Header = (props) => {
               name="equalizer"
               size={25}
               color={colors.primaryText}
+            />
+          ) : workSort ? (
+            <SimpleLineIcons
+              name="equalizer"
+              size={25}
+              color={colors.primaryText}
+              onPress={() => navigation.navigate("CustomSearchModal")}
             />
           ) : (
             <TouchableOpacity

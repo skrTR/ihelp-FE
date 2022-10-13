@@ -5,18 +5,19 @@ import {
   Image,
   TextInput,
   ScrollView,
-  SafeAreaView,
+  ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 import axios from "axios";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { AntDesign, Entypo } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import UserContext from "../../context/UserContext";
 import { api } from "../../../Constants";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 const AddPostScreen = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -24,6 +25,7 @@ const AddPostScreen = () => {
   const [userProfile] = useUserProfile(state.userId);
   const [postText, setPostText] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const insents = useSafeAreaInsets();
   const openImageProfileLibrary = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
@@ -115,7 +117,7 @@ const AddPostScreen = () => {
     );
   }
   return (
-    <SafeAreaView style={{ backgroundColor: "#141414" }}>
+    <View style={{ backgroundColor: "#141414", paddingTop: insents.top }}>
       {/* header */}
 
       <View
@@ -144,11 +146,33 @@ const AddPostScreen = () => {
             fontWeight: "bold",
             marginTop: 20,
             right: 3,
+            fontSize: 18,
           }}
         >
           Нийтлэл оруулах
         </Text>
         {postText.length > 0 ? (
+          <TouchableOpacity onPress={sendNetworkingPost}>
+            <LinearGradient
+              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
+              start={[0.0, 0.5]}
+              end={[1.0, 0.5]}
+              style={{
+                borderRadius: 18,
+                top: 10,
+                right: 14,
+                opacity: 1,
+                padding: 5,
+              }}
+            >
+              <AntDesign
+                name="rightcircleo"
+                size={28}
+                color={colors.primaryText}
+              />
+            </LinearGradient>
+          </TouchableOpacity>
+        ) : profileImage ? (
           <TouchableOpacity onPress={sendNetworkingPost}>
             <LinearGradient
               colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
@@ -198,10 +222,27 @@ const AddPostScreen = () => {
                 margin: 20,
               }}
             >
-              <Image
-                source={{ uri: `${api}/upload/${userProfile.profile}` }}
-                style={{ width: 50, height: 50, borderRadius: 50 }}
-              />
+              <ImageBackground
+                source={{
+                  uri: `${api}/upload/${userProfile.profile}`,
+                }}
+                style={{ width: 50, height: 50 }}
+                imageStyle={{ borderRadius: 50 }}
+              >
+                <Image
+                  style={{ width: 54, height: 54, bottom: 2, right: 2 }}
+                  source={
+                    userProfile.status === "lookingForJob"
+                      ? require("../../../assets/looking.png")
+                      : userProfile.status === "opentowork"
+                      ? require("../../../assets/open.png")
+                      : userProfile.status === "getEmployee"
+                      ? require("../../../assets/hiring.png")
+                      : null
+                  }
+                />
+              </ImageBackground>
+
               <View style={{ marginLeft: 10 }}>
                 <Text style={{ fontWeight: "bold", color: colors.primaryText }}>
                   {userProfile.lastName} {userProfile.firstName}
@@ -223,15 +264,14 @@ const AddPostScreen = () => {
               }}
             >
               <TextInput
-                placeholder="Та хэлэх зүйлээ бичнэ үү?"
+                placeholder="Та энд бичнэ үү"
                 multiline={true}
-                numberOfLines={10}
                 onChangeText={setPostText}
                 value={postText}
                 placeholderTextColor={colors.secondaryText}
                 style={{
                   color: colors.primaryText,
-                  paddingVertical: 200,
+                  paddingBottom: 200,
                 }}
               />
             </View>
@@ -289,7 +329,7 @@ const AddPostScreen = () => {
           )}
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 

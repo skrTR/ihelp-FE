@@ -49,7 +49,6 @@ const Cvs = ({ item }) => {
                 marginHorizontal: 5,
               }}
             />
-            {console.log(item)}
             <View>
               <Text
                 style={{
@@ -65,20 +64,26 @@ const Cvs = ({ item }) => {
                   color: colors.primaryText,
                 }}
               >
-                {item.profession} @{item.workingCompany}
+                {console.log(item.workingCompany)}
+                {item.profession && item.profession}
+                {item.workingCompany !== null ? `@${item.workingCompany}` : ""}
               </Text>
-              <Text
-                style={{
-                  paddingVertical: 5,
-                  color: colors.primaryText,
-                  fontFamily: "Sf-thin",
-                  fontSize: 14,
-                  marginTop: 5,
-                }}
-              >
-                Боловсрол:{" "}
-                <Text style={{ fontFamily: "Sf-regular" }}>Доктор</Text>
-              </Text>
+              {item.education && (
+                <Text
+                  style={{
+                    paddingVertical: 5,
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
+                    fontSize: 14,
+                    marginTop: 5,
+                  }}
+                >
+                  Боловсрол:{" "}
+                  <Text style={{ fontFamily: "Sf-regular" }}>
+                    {item.education}
+                  </Text>
+                </Text>
+              )}
               {!item.experiences === 0 && (
                 <Text
                   style={{
@@ -93,21 +98,23 @@ const Cvs = ({ item }) => {
                   </Text>
                 </Text>
               )}
-              {item.salaryExpectation && (
-                <Text
-                  style={{
-                    paddingVertical: 5,
-                    color: colors.primaryText,
-                    fontFamily: "Sf-thin",
-                    fontSize: 14,
-                  }}
-                >
-                  Цалингийн хүлээлт:{" "}
-                  <Text style={{ fontFamily: "Sf-regular" }}>
-                    {item.salaryExpectation}
+              {item.salaryExpectation !== null &&
+                item.salaryExpectation !== "Сонгох" && (
+                  <Text
+                    style={{
+                      paddingVertical: 5,
+                      color: colors.primaryText,
+                      fontFamily: "Sf-thin",
+                      fontSize: 14,
+                    }}
+                  >
+                    Цалингийн хүлээлт:{" "}
+                    <Text style={{ fontFamily: "Sf-regular" }}>
+                      {item.salaryExpectation}
+                    </Text>
                   </Text>
-                </Text>
-              )}
+                )}
+              {console.log(item.salaryExpectation)}
             </View>
           </TouchableOpacity>
         </View>

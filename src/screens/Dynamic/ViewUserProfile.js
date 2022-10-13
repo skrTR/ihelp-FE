@@ -31,7 +31,7 @@ const ViewUserProfile = (props) => {
         setActivityData(res.data.data);
       })
       .catch((err) => {
-        console.log(err.response, "aaa1");
+        console.log(err.message, "aaa12");
       });
   };
 

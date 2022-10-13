@@ -48,17 +48,18 @@ const UserProfileAbout = ({ about }) => {
       >
         <Text
           style={{
-            borderWidth: about ? 0 : 1,
+            borderWidth: about === "me" ? 1 : 0,
             borderColor: colors.border,
-            color: about ? colors.primaryText : colors.secondaryText,
+            color: about === "me" ? colors.secondaryText : colors.primaryText,
             fontSize: 14,
             padding: 10,
             paddingBottom: 40,
-            marginHorizontal: 10,
+            marginHorizontal: 20,
             borderRadius: 10,
+            marginBottom: about === "me" ? 20 : 0,
           }}
         >
-          {about ? about : `Та өөрийгөө таниулцана уу...`}
+          {about === "me" ? `Та өөрийгөө таниулцана уу` : about}
         </Text>
       </TouchableOpacity>
     </>

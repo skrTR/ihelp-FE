@@ -81,7 +81,7 @@ const SpecialWork = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#454545",
+        backgroundColor: "#2c3539",
         marginHorizontal: 10,
         paddingVertical: 15,
         marginVertical: 4,
@@ -209,8 +209,8 @@ const SpecialWork = (props) => {
             </Text>
           </TouchableOpacity>
         )}
-        {!state.isCompany && (
-          <View style={{}}>
+        <View style={{}}>
+          {!state.isCompany && (
             <Entypo
               name={isLike ? "heart" : "heart-outlined"}
               size={30}
@@ -218,17 +218,17 @@ const SpecialWork = (props) => {
               onPress={isLike ? unLiked : liked}
               style={{ textAlign: "right", marginRight: 20 }}
             />
-            <MaterialCommunityIcons
-              name="offer"
-              size={30}
-              color="white"
-              style={{ marginRight: 10, marginTop: 10 }}
-              onPress={() =>
-                navigation.navigate("CompanySendWorkRequest", { id: id })
-              }
-            />
-          </View>
-        )}
+          )}
+          <MaterialCommunityIcons
+            name="offer"
+            size={30}
+            color="white"
+            style={{ marginRight: 10, marginTop: 10 }}
+            onPress={() =>
+              navigation.navigate("CompanySendWorkRequest", { id: id })
+            }
+          />
+        </View>
       </View>
       {createUserId === state.companyId && special && (
         <DataCountDown

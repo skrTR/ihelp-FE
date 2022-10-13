@@ -30,7 +30,7 @@ const CvScreen = () => {
   const getCvs = () => {
     axios
       .get(
-        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences&limit=1000`
+        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences education gender occupation&limit=1000`
       )
       .then((res) => {
         if (isMounted) {
@@ -60,7 +60,7 @@ const CvScreen = () => {
         paddingTop: insents.top,
       }}
     >
-      <CompanyHeader isSearch={true} isNotification={true} />
+      <CompanyHeader userSort={true} isNotification={true} />
       {point.point > 1000 ? (
         <View style={{ backgroundColor: colors.background }}>
           <FlatList

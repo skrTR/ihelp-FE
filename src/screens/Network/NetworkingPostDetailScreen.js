@@ -7,14 +7,20 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Keyboard,
+  ScrollView,
+  TouchableHighlight,
+  Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
 import moment from "moment";
 import "moment/locale/mn";
 import AntDesign from "@expo/vector-icons/AntDesign";
-import { ScrollView } from "react-native-gesture-handler";
 const fullWidth = Dimensions.get("screen").width;
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { api } from "../../../Constants";
@@ -24,6 +30,7 @@ const NetworkingPostDetailScreen = (props) => {
   const navigation = useNavigation();
   const [postDetail, setPostDetail] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const isFocused = useIsFocused();
   useEffect(() => {
     const loadData = () => {
       axios
@@ -60,7 +67,7 @@ const NetworkingPostDetailScreen = (props) => {
     return () => {
       source.cancel();
     };
-  }, [refresh]);
+  }, [refresh, isFocused]);
   const [commentText, setCommentText] = useState("");
   const postComment = () => {
     setRefresh(false);
@@ -105,7 +112,7 @@ const NetworkingPostDetailScreen = (props) => {
       }}
     >
       <View style={{ height: 113 }}>
-        {!postDetail.isShare ? (
+        {postDetail.isShare === false ? (
           <View
             style={{
               flexDirection: "row",
@@ -177,7 +184,7 @@ const NetworkingPostDetailScreen = (props) => {
                 >
                   <Image
                     source={{
-                      uri: `${api}/upload/${postDetail.shareInfo.profile}`,
+                      uri: `${api}/upload/${postDetail.profile}`,
                     }}
                     style={{
                       width: 50,
@@ -191,12 +198,10 @@ const NetworkingPostDetailScreen = (props) => {
                     <Text
                       style={{ color: colors.primaryText, fontWeight: "bold" }}
                     >
-                      {postDetail.shareInfo.lastName}{" "}
-                      {postDetail.shareInfo.firstName}
+                      {postDetail.lastName} {postDetail.firstName}
                     </Text>
                     <Text style={{ color: colors.secondaryText }}>
-                      {postDetail.shareInfo.profession}{" "}
-                      {`@${postDetail.shareInfo.workingCompany}`}
+                      {postDetail.profession} {`@${postDetail.workingCompany}`}
                     </Text>
                     <Text
                       style={{
@@ -204,7 +209,7 @@ const NetworkingPostDetailScreen = (props) => {
                         fontFamily: "Sf-thin",
                       }}
                     >
-                      {moment(postDetail.shareInfo.createdAt).fromNow()}
+                      {moment(postDetail.createdAt).fromNow()}
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -213,7 +218,11 @@ const NetworkingPostDetailScreen = (props) => {
           </View>
         )}
       </View>
-      <ScrollView>
+      <ScrollView
+        keyboardShouldPersistTaps={"handled"}
+        keyboardDismissMode={"on-drag"}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Middle content */}
         <View style={{ marginTop: postDetail.isShare ? 10 : 0 }}>
           {/* User detail and body and photos */}
@@ -226,7 +235,7 @@ const NetworkingPostDetailScreen = (props) => {
           >
             {/* postDetail.isShare true false aaraa sharelesen zar uguin ylgaa garna */}
             {/* End hereglegchiin medeelel */}
-            {postDetail.shareInfo && (
+            {postDetail.isShare && (
               <View
                 style={{
                   flexDirection: "row",
@@ -238,7 +247,7 @@ const NetworkingPostDetailScreen = (props) => {
                 <Image
                   source={{
                     uri: `${api}/upload/${
-                      postDetail.isShare
+                      postDetail.isShare === true
                         ? postDetail.shareInfo.profile
                         : postDetail.profile
                     }`,
@@ -462,16 +471,26 @@ const NetworkingPostDetailScreen = (props) => {
                   source={{ uri: `${api}/upload/${e.profile}` }}
                   style={{ width: 50, height: 50, borderRadius: 50 }}
                 />
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
-                    width: fullWidth / 1.26,
-                    backgroundColor: colors.border,
-                    borderRadius: 10,
-                    marginLeft: 10,
-                    padding: 10,
+                <Pressable
+                  style={({ pressed }) => [
+                    {
+                      backgroundColor: pressed ? "#cccccccc" : colors.border,
+                    },
+                    {
+                      flexDirection: "row",
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      width: fullWidth / 1.26,
+                      borderRadius: 10,
+                      marginLeft: 10,
+                      padding: 10,
+                    },
+                  ]}
+                  onLongPress={() => {
+                    navigation.navigate("CommentDetailModal", {
+                      text: e.description,
+                      id: e._id,
+                    });
                   }}
                 >
                   <View>
@@ -493,7 +512,7 @@ const NetworkingPostDetailScreen = (props) => {
                   >
                     {moment(e.createdAt).fromNow()}
                   </Text>
-                </View>
+                </Pressable>
               </View>
             </View>
           );
@@ -503,6 +522,7 @@ const NetworkingPostDetailScreen = (props) => {
         value={commentText}
         onChangeText={setCommentText}
         onPress={postComment}
+        commentLength={commentText.length}
       />
     </KeyboardAvoidingView>
   );

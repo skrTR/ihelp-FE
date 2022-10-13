@@ -21,7 +21,7 @@ import Loading from "../../components/Loading";
 const CompanyResetPassword = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
-  const [email, setEmail] = useState("scarynomi@gmail.com");
+  const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
   const signUpHandler = () => {
     setLoading(true);

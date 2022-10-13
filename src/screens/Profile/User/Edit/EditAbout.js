@@ -1,8 +1,14 @@
-import { StyleSheet, Text, View, TextInput, Alert } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Alert,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import { api } from "../../../../../Constants";
 import UserContext from "../../../../context/UserContext";
@@ -22,7 +28,10 @@ const EditAbout = ({ route }) => {
       .catch((err) => alert(err));
   };
   return (
-    <View>
+    <ScrollView
+      keyboardShouldPersistTaps={"handled"}
+      keyboardDismissMode={"on-drag"}
+    >
       <Text
         style={{
           color: colors.primaryText,
@@ -43,15 +52,14 @@ const EditAbout = ({ route }) => {
         }}
       >
         <TextInput
-          placeholder="Та өөрийгөө танилцуулна уу?"
+          placeholder="Та өөрийгөө танилцуулна уу"
           multiline={true}
-          numberOfLines={10}
           onChangeText={setPostText}
           value={postText}
           placeholderTextColor={colors.secondaryText}
           style={{
             color: colors.primaryText,
-            paddingVertical: 200,
+            paddingBottom: 100,
           }}
         />
       </View>
@@ -61,21 +69,18 @@ const EditAbout = ({ route }) => {
         {postText.length}/255
       </Text>
       <TouchableOpacity
-        style={{ alignSelf: "center" }}
+        style={{
+          alignSelf: "center",
+          backgroundColor: "#FFB6C1",
+          padding: 10,
+          paddingHorizontal: 20,
+          borderRadius: 10,
+        }}
         onPress={sendPersonalDetail}
       >
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{ padding: 10, paddingHorizontal: 20, borderRadius: 10 }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
-        >
-          <Text style={{ color: colors.primaryText, fontFamily: "Sf-bold" }}>
-            Хадгалах
-          </Text>
-        </LinearGradient>
+        <Text style={{ color: "black" }}>Хадгалах</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

@@ -16,7 +16,10 @@ const TimeModal = (props) => {
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader text="Нас сонгох" clicked={() => setTimeModal(false)} />
+        <ModalHeader
+          text="Зарцуулах хугацаа"
+          clicked={() => setTimeModal(false)}
+        />
         <View style={{ marginHorizontal: 10 }}>
           {[
             "1 - 7 хоног",
