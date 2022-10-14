@@ -17,7 +17,7 @@
     ],
     "name": "ihelp",
     "slug": "ihelphr",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
@@ -35,12 +35,13 @@
       "supportsTablet": true,
       "bundleIdentifier": "mn.ihelphrnovelist",
       "infoPlist": {
-        "NSPhotoLibraryUsageDescription": "Access to your photo library is required to attach photos to networking post or change profile images or portfolio images."
+        "NSPhotoLibraryUsageDescription": "Access to your photo library is required to attach photos to networking post or change profile images or portfolio images.",
+        "NSCameraUsageDescription": "Access to your camera to networking post or change profile images or portfolio images."
       }
     },
 
     "android": {
-      "versionCode": 10,
+      "versionCode": 11,
       "package": "mn.ihelphrnovelist",
       "permissions": ["CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL"],
       "adaptiveIcon": {
