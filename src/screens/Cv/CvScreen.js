@@ -30,7 +30,7 @@ const CvScreen = () => {
   const getCvs = () => {
     axios
       .get(
-        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences education gender occupation&limit=1000`
+        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences education gender occupation experienceYear occupationName&limit=1000`
       )
       .then((res) => {
         if (isMounted) {

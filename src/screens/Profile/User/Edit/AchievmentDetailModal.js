@@ -104,7 +104,7 @@ const AchievmentDetailModal = ({ route }) => {
 
       <LinearGradient
         colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-        style={{ paddingHorizontal: 20, borderRadius: 20, marginTop: 20 }}
+        style={{ paddingHorizontal: 20, borderRadius: 10, marginTop: 20 }}
         start={[0.0, 0.5]}
         end={[1.0, 0.5]}
       >
@@ -121,10 +121,9 @@ const AchievmentDetailModal = ({ route }) => {
       <TouchableOpacity
         onPress={deleteAchievement}
         style={{
-          marginTop: 20,
-          borderRadius: 20,
+          marginTop: 10,
+          borderRadius: 10,
           paddingVertical: 10,
-          borderRadius: 20,
           borderWidth: 1,
           borderColor: colors.border,
         }}
@@ -138,11 +137,11 @@ const AchievmentDetailModal = ({ route }) => {
         onPress={() => navigation.navigate("AchievmentAddModal")}
         text="Гавьяа шагнал нэмэх"
         style={{
-          marginTop: 20,
+          marginTop: 10,
           borderWidth: 1,
           borderColor: colors.border,
           padding: 12,
-          borderRadius: 20,
+          borderRadius: 10,
         }}
       />
     </ScrollView>

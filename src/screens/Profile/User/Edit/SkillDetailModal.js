@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   ScrollView,
   View,
+  KeyboardAvoidingView,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import FormText from "../../../../components/FormText";
@@ -130,104 +131,117 @@ const SkillDetailModal = ({ route }) => {
   };
 
   return (
-    <ScrollView style={{ marginHorizontal: 20 }}>
-      <View style={{ marginBottom: 10 }} />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Чадвар 1
-      </Text>
-      <FormText
-        value={skills.advantage1}
-        onChangeText={checkAdvantage1}
-        errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.advantage1}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Чадвар 2
-      </Text>
-      <FormText
-        value={skills.advantage2}
-        onChangeText={checkAdvantage2}
-        errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.advantage2}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Чадвар 3
-      </Text>
-      <FormText
-        value={skills.advantage3}
-        onChangeText={checkAdvantage3}
-        errorText="Чадвар 3 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.advantage3}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Чадвар 4
-      </Text>
-      <FormText
-        value={skills.advantage4}
-        onChangeText={checkAdvantage4}
-        errorText="Чадвар 4 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.advantage4}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Сул тал 1
-      </Text>
-      <FormText
-        value={skills.disAdvantage1}
-        onChangeText={checkDisAdvantage1}
-        errorText="Сул тал 1 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.disAdvantage1}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Сул тал 2
-      </Text>
-      <FormText
-        value={skills.disAdvantage2}
-        onChangeText={checkDisAdvantage2}
-        errorText="Сул тал 2 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.disAdvantage2}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Сул тал 3
-      </Text>
-      <FormText
-        value={skills.disAdvantage3}
-        onChangeText={checkDisAdvantage3}
-        errorText="Сул тал 3 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.disAdvantage3}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Сул тал 4
-      </Text>
-      <FormText
-        value={skills.disAdvantage4}
-        onChangeText={checkDisAdvantage4}
-        errorText="Сул тал 4 2-20 тэмдэгтээс тогтоно."
-        errorShow={error.disAdvantage4}
-      />
-
-      <TouchableOpacity
-        onPress={sendPersonalDetail}
-        style={{
-          marginTop: 20,
-          borderRadius: 20,
-        }}
+    <KeyboardAvoidingView
+      style={{
+        flex: 1,
+        backgroundColor: colors.header,
+      }}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={100}
+    >
+      <ScrollView
+        style={{ marginHorizontal: 20 }}
+        showsVerticalScrollIndicator={false}
       >
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
+        <View style={{ marginBottom: 10 }} />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Чадвар 1
+        </Text>
+        <FormText
+          value={skills.advantage1}
+          onChangeText={checkAdvantage1}
+          errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.advantage1}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Чадвар 2
+        </Text>
+        <FormText
+          value={skills.advantage2}
+          onChangeText={checkAdvantage2}
+          errorText="Чадвар 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.advantage2}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Чадвар 3
+        </Text>
+        <FormText
+          value={skills.advantage3}
+          onChangeText={checkAdvantage3}
+          errorText="Чадвар 3 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.advantage3}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Чадвар 4
+        </Text>
+        <FormText
+          value={skills.advantage4}
+          onChangeText={checkAdvantage4}
+          errorText="Чадвар 4 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.advantage4}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Сул тал 1
+        </Text>
+        <FormText
+          value={skills.disAdvantage1}
+          onChangeText={checkDisAdvantage1}
+          errorText="Сул тал 1 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.disAdvantage1}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Сул тал 2
+        </Text>
+        <FormText
+          value={skills.disAdvantage2}
+          onChangeText={checkDisAdvantage2}
+          errorText="Сул тал 2 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.disAdvantage2}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Сул тал 3
+        </Text>
+        <FormText
+          value={skills.disAdvantage3}
+          onChangeText={checkDisAdvantage3}
+          errorText="Сул тал 3 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.disAdvantage3}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Сул тал 4
+        </Text>
+        <FormText
+          value={skills.disAdvantage4}
+          onChangeText={checkDisAdvantage4}
+          errorText="Сул тал 4 2-20 тэмдэгтээс тогтоно."
+          errorShow={error.disAdvantage4}
+        />
+
+        <TouchableOpacity
+          onPress={sendPersonalDetail}
           style={{
-            paddingVertical: 10,
-            borderRadius: 20,
+            marginTop: 20,
           }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
         >
-          <Text style={{ color: colors.primaryText, textAlign: "center" }}>
-            {" "}
-            Хадгалах{" "}
-          </Text>
-        </LinearGradient>
-      </TouchableOpacity>
-    </ScrollView>
+          <LinearGradient
+            colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
+            style={{
+              paddingVertical: 10,
+              borderRadius: 10,
+            }}
+            start={[0.0, 0.5]}
+            end={[1.0, 0.5]}
+          >
+            <Text style={{ color: colors.primaryText, textAlign: "center" }}>
+              {" "}
+              Хадгалах{" "}
+            </Text>
+          </LinearGradient>
+        </TouchableOpacity>
+        <View style={{ marginBottom: 20 }} />
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 

@@ -11,13 +11,13 @@ import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { api } from "../../../../Constants";
-const SearchByCategory = (props) => {
+const SearchWorkByCateogry = (props) => {
   const {
-    modalVisible,
-    setModalVisible,
-    setChoosedId,
+    categoryModal,
+    setCategoryModal,
     setRefresh,
-    setChoosedName,
+    setCategoryId,
+    setModalVisible,
   } = props;
   const { colors } = useTheme();
   const [filterData, setFilterData] = useState([]);
@@ -65,9 +65,9 @@ const SearchByCategory = (props) => {
         }}
         onPress={() => {
           setRefresh(true);
-          setChoosedId(item._id);
-          setModalVisible(false);
-          setChoosedName(item.name);
+          setCategoryModal(false);
+          setCategoryId(item._id);
+          setModalVisible(true);
         }}
       >
         <View style={{ marginLeft: 10 }}>
@@ -93,9 +93,9 @@ const SearchByCategory = (props) => {
     <View style={{ backgroundColor: colors.background, flex: 1 }}>
       <Modal
         animationType="slide"
-        visible={modalVisible}
+        visible={categoryModal}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setCategoryModal(!categoryModal);
         }}
         presentationStyle="formSheet"
       >
@@ -113,7 +113,7 @@ const SearchByCategory = (props) => {
               name="left"
               size={24}
               color={colors.primaryText}
-              onPress={() => setModalVisible(false)}
+              onPress={() => setCategoryModal(false)}
             />
             <TextInput
               placeholder="Хайх утга"
@@ -147,6 +147,6 @@ const SearchByCategory = (props) => {
   );
 };
 
-export default SearchByCategory;
+export default SearchWorkByCateogry;
 
 const styles = StyleSheet.create({});

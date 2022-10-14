@@ -5,31 +5,44 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import Empty from "../../components/Empty";
 import NormalWork from "../../components/Employer/NormalWork";
-import SearchByCategory from "./Work/SearchByCategory";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import Header from "../../components/Header/Header";
+import SearchByCategory from "../../components/Modals/SearchByCategory";
 const CategorySearch = () => {
   const { colors } = useTheme();
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  const [choosedId, setChoosedId] = useState("629051d64be9675d77e5230f");
+  const [choosedId, setChoosedId] = useState("");
   const [choosedName, setChoosedName] = useState("Салбар сонгох");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   const getWorkSearch = () => {
-    axios
-      .get(
-        `${api}/api/v1/jobs/${choosedId}/category?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee`
-      )
-      .then((res) => {
-        setWorks(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (choosedId === "") {
+      axios
+        .get(
+          `${api}/api/v1/jobs?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee`
+        )
+        .then((res) => {
+          setWorks(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else if (choosedId.length > 0) {
+      axios
+        .get(
+          `${api}/api/v1/jobs/${choosedId}/category?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee`
+        )
+        .then((res) => {
+          setWorks(res.data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   };
   useEffect(() => {
     setRefresh(false);

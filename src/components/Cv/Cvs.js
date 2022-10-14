@@ -58,20 +58,34 @@ const Cvs = ({ item }) => {
               >
                 {item.lastName} {item.firstName}
               </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: colors.primaryText,
-                }}
-              >
-                {console.log(item.workingCompany)}
-                {item.profession && item.profession}
-                {item.workingCompany !== null ? `@${item.workingCompany}` : ""}
-              </Text>
+              <>
+                {item.profession !== "" && (
+                  <View style={{ flexDirection: "row" }}>
+                    <Text
+                      style={{
+                        fontSize: 15,
+                        color: colors.primaryText,
+                      }}
+                    >
+                      {" "}
+                      {item.profession}
+                    </Text>
+                    {item.workingCompany !== null && (
+                      <Text
+                        style={{
+                          fontSize: 15,
+                          color: colors.primaryText,
+                        }}
+                      >
+                        @{item.workingCompany}
+                      </Text>
+                    )}
+                  </View>
+                )}
+              </>
               {item.education && (
                 <Text
                   style={{
-                    paddingVertical: 5,
                     color: colors.primaryText,
                     fontFamily: "Sf-thin",
                     fontSize: 14,
@@ -84,7 +98,7 @@ const Cvs = ({ item }) => {
                   </Text>
                 </Text>
               )}
-              {!item.experiences === 0 && (
+              {item.experienceYear && (
                 <Text
                   style={{
                     color: colors.primaryText,
@@ -94,7 +108,36 @@ const Cvs = ({ item }) => {
                 >
                   Ажлын туршлага:{" "}
                   <Text style={{ fontFamily: "Sf-regular" }}>
-                    {item.experiences}
+                    {item.experienceYear} жил
+                  </Text>
+                </Text>
+              )}
+              {item.occupationName !== "Сонгох" && (
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
+                    fontSize: 14,
+                    width: "80%",
+                  }}
+                >
+                  Мэргэжил:{" "}
+                  <Text style={{ fontFamily: "Sf-regular" }}>
+                    {item.occupationName}
+                  </Text>
+                </Text>
+              )}
+              {item.gender && (
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-thin",
+                    fontSize: 14,
+                  }}
+                >
+                  хүйс:{" "}
+                  <Text style={{ fontFamily: "Sf-regular" }}>
+                    {item.gender}
                   </Text>
                 </Text>
               )}
@@ -102,7 +145,6 @@ const Cvs = ({ item }) => {
                 item.salaryExpectation !== "Сонгох" && (
                   <Text
                     style={{
-                      paddingVertical: 5,
                       color: colors.primaryText,
                       fontFamily: "Sf-thin",
                       fontSize: 14,
@@ -114,7 +156,6 @@ const Cvs = ({ item }) => {
                     </Text>
                   </Text>
                 )}
-              {console.log(item.salaryExpectation)}
             </View>
           </TouchableOpacity>
         </View>

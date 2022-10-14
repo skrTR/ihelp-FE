@@ -230,6 +230,7 @@ const SpecialWork = (props) => {
         <DataCountDown
           createdAt={special}
           text={"Онцгой зарын дуусах хугацаа"}
+          owner={true}
         />
       )}
     </View>

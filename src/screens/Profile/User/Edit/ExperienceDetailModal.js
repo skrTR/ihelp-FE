@@ -179,8 +179,13 @@ const ExperienceDetailModal = ({ route }) => {
   return (
     <>
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+        style={{
+          flex: 1,
+          backgroundColor: colors.header,
+        }}
+        behavior="padding"
+        enabled
+        keyboardVerticalOffset={100}
       >
         <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
           <TouchableOpacity
@@ -429,7 +434,7 @@ const ExperienceDetailModal = ({ route }) => {
             setType={setType}
             checkType={checkType}
           />
-          <View style={{ marginBottom: 500 }} />
+          <View style={{ marginBottom: 50 }} />
         </ScrollView>
       </KeyboardAvoidingView>
     </>

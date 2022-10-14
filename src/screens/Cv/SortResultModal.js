@@ -6,24 +6,36 @@ import Cvs from "../../components/Cv/Cvs";
 import { api } from "../../../Constants";
 import Empty from "../../components/Empty";
 const SortResultModal = (props) => {
-  const { salary, education, experience, gender } = props.route.params;
+  const { salary, education, experience, gender, occupationId } =
+    props.route.params;
   const { colors } = useTheme();
   const [cvs, setCvs] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const getWorkSearch = () => {
+    const apis = `${api}/api/v1/questionnaires?limit=1000${
+      salary ? `&salary=${salary}` : ""
+    }${education ? `&education=${education}` : ""}${
+      experience ? `&experience=${experience}` : ""
+    }${gender ? `&gender=${gender}` : ""}${
+      occupationId ? `&occupations=${occupationId}` : ""
+    }`;
+    console.log(apis);
     axios
       .get(
         `${api}/api/v1/questionnaires?limit=1000${
-          salary ? `&salary=${salary}` : ""
+          salary ? `&salaryExpectation=${salary}` : ""
         }${education ? `&education=${education}` : ""}${
-          experience ? `&experience=${experience}` : ""
-        }${gender ? `&gender=${gender}` : ""}`
+          experience ? `&experienceYear=${experience}` : ""
+        }${gender ? `&gender=${gender}` : ""}${
+          occupationId ? `&occupations=${occupationId}` : ""
+        }`
       )
       .then((res) => {
         setCvs(res.data.data);
+        // console.log(res.data.data, "data");
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
   useEffect(() => {

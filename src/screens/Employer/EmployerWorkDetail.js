@@ -182,30 +182,36 @@ const EmployerWorkDetail = (props) => {
               marginTop: 20,
             }}
           >
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <Text
+            {/* Үндсэн мэдээлэл */}
+            {workDetail.salary === "Сонгох" ? null : (
+              <View
                 style={{
-                  fontSize: 20,
-                  fontWeight: "bold",
-                  marginVertical: 10,
-                  color: "white",
-                  bottom: 8,
+                  flexDirection: "row",
+                  justifyContent: "space-between",
                 }}
               >
-                Үндсэн мэдээлэл
-              </Text>
-              {!state.isCompany && (
-                <Icon
-                  name={isLike ? "heart" : "heart-outlined"}
-                  size={30}
-                  color={"white"}
-                  onPress={isLike ? unLiked : liked}
-                  style={{ textAlign: "right" }}
-                />
-              )}
-            </View>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginVertical: 10,
+                    color: "white",
+                    bottom: 8,
+                  }}
+                >
+                  Үндсэн мэдээлэл
+                </Text>
+                {!state.isCompany && (
+                  <Icon
+                    name={isLike ? "heart" : "heart-outlined"}
+                    size={30}
+                    color={"white"}
+                    onPress={isLike ? unLiked : liked}
+                    style={{ textAlign: "right" }}
+                  />
+                )}
+              </View>
+            )}
             {workDetail.type === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
@@ -222,7 +228,7 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-            {workDetail.salary === "" ? null : (
+            {workDetail.salary === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
                   Цалин
@@ -237,7 +243,7 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-            {workDetail.location === "" ? null : (
+            {!workDetail.location ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
                   Байршил
@@ -253,7 +259,7 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-            {workDetail.gender === "" ? null : (
+            {workDetail.gender === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
                   Хүйс
@@ -268,7 +274,7 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-            {workDetail.schedule === "" ? null : (
+            {!workDetail.schedule ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
                   Цагийн хуваарь
@@ -283,181 +289,135 @@ const EmployerWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginVertical: 10,
-                color: "white",
-              }}
-            >
-              Гүйцэтгэх үндсэн үүрэг
-            </Text>
-            {console.log(workDetail)}
-            <View style={{ marginLeft: 10 }}>
-              {workDetail.do === "" ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <AntDesign name="checkcircleo" size={18} color={"#FFB6C1"} />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.do}
-                  </Text>
+            {workDetail.do === "" ? null : (
+              <>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginVertical: 10,
+                    color: "white",
+                  }}
+                >
+                  Гүйцэтгэх үндсэн үүрэг
+                </Text>
+                <View style={{ marginLeft: 10 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <AntDesign
+                      name="checkcircleo"
+                      size={18}
+                      color={"#FFB6C1"}
+                    />
+                    <Text
+                      style={{ color: "white", width: "90%", marginLeft: 10 }}
+                    >
+                      {workDetail.do}
+                    </Text>
+                  </View>
                 </View>
-              )}
-              {workDetail.do1 === null ? null : (
-                <View style={{ flexDirection: "row", marginTop: 10 }}>
-                  <AntDesign name="checkcircleo" size={18} color={"#FFB6C1"} />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.do1}
-                  </Text>
+              </>
+            )}
+            {workDetail.education === "Сонгох" ? null : (
+              <>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginVertical: 10,
+                    color: "white",
+                  }}
+                >
+                  Tавигдах шаардлага
+                </Text>
+                <View style={{ marginLeft: 10 }}>
+                  <View style={{ flexDirection: "row", width: "100%" }}>
+                    <Text
+                      style={{ marginBottom: 8, color: "white", width: "40%" }}
+                    >
+                      • Боловсрол:{" "}
+                    </Text>
+                    <Text
+                      style={{
+                        color: "white",
+                        marginBottom: 8,
+                      }}
+                    >
+                      {workDetail.education}
+                    </Text>
+                  </View>
+                  {workDetail.experience === "Сонгох" ? null : (
+                    <View style={{ flexDirection: "row", width: "100%" }}>
+                      <Text
+                        style={{
+                          marginBottom: 8,
+                          color: "white",
+                          width: "40%",
+                        }}
+                      >
+                        • Tуршлага (жил):{" "}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "white",
+                          marginBottom: 8,
+                        }}
+                      >
+                        {workDetail.experience}
+                      </Text>
+                    </View>
+                  )}
+                  {!workDetail.language ? null : (
+                    <View style={{ flexDirection: "row", width: "100%" }}>
+                      <Text
+                        style={{
+                          marginBottom: 8,
+                          color: "white",
+                          width: "40%",
+                        }}
+                      >
+                        • Гадаад хэл:{" "}
+                      </Text>
+                      <Text
+                        style={{
+                          color: "white",
+                          marginBottom: 8,
+                        }}
+                      >
+                        {workDetail.language}
+                      </Text>
+                    </View>
+                  )}
                 </View>
-              )}
-              {workDetail.do2 === null ? null : (
-                <View style={{ flexDirection: "row", marginTop: 10 }}>
-                  <AntDesign name="checkcircleo" size={18} color={"#FFB6C1"} />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.do2}
-                  </Text>
+              </>
+            )}
+            {workDetail.skill === "" ? null : (
+              <>
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: "bold",
+                    marginVertical: 10,
+                    color: "white",
+                  }}
+                >
+                  Шаардагдах чадвар
+                </Text>
+                <View style={{ marginLeft: 10 }}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Ionicons
+                      name="checkmark-done-circle-outline"
+                      size={24}
+                      color={"#FFB6C1"}
+                    />
+                    <Text
+                      style={{ color: "white", width: "90%", marginLeft: 10 }}
+                    >
+                      {workDetail.skill}
+                    </Text>
+                  </View>
                 </View>
-              )}
-            </View>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginVertical: 10,
-                color: "white",
-              }}
-            >
-              Tавигдах шаардлага
-            </Text>
-            <View style={{ marginLeft: 10 }}>
-              {workDetail.education === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row", width: "100%" }}>
-                  <Text
-                    style={{ marginBottom: 8, color: "white", width: "40%" }}
-                  >
-                    • Боловсрол:{" "}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {workDetail.education}
-                  </Text>
-                </View>
-              )}
-              {workDetail.experience === "Сонгох" ? null : (
-                <View style={{ flexDirection: "row", width: "100%" }}>
-                  <Text
-                    style={{ marginBottom: 8, color: "white", width: "40%" }}
-                  >
-                    • Tуршлага (жил):{" "}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {workDetail.experience}
-                  </Text>
-                </View>
-              )}
-              {workDetail.language === "" ? null : (
-                <View style={{ flexDirection: "row", width: "100%" }}>
-                  <Text
-                    style={{ marginBottom: 8, color: "white", width: "40%" }}
-                  >
-                    • Гадаад хэл:{" "}
-                  </Text>
-                  <Text
-                    style={{
-                      color: "white",
-                      marginBottom: 8,
-                    }}
-                  >
-                    {workDetail.language}
-                  </Text>
-                </View>
-              )}
-            </View>
-            <Text
-              style={{
-                fontSize: 20,
-                fontWeight: "bold",
-                marginVertical: 10,
-                color: "white",
-              }}
-            >
-              Шаардагдах чадвар
-            </Text>
-            <View style={{ marginLeft: 10 }}>
-              {workDetail.skill === null ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <Ionicons
-                    name="checkmark-done-circle-outline"
-                    size={24}
-                    color={"#FFB6C1"}
-                  />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.skill}
-                  </Text>
-                </View>
-              )}
-              {workDetail.skill1 === null ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <Ionicons
-                    name="checkmark-done-circle-outline"
-                    size={24}
-                    color={"#FFB6C1"}
-                  />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.skill1}
-                  </Text>
-                </View>
-              )}
-              {workDetail.skill2 === null ? null : (
-                <View style={{ flexDirection: "row", marginVertical: 10 }}>
-                  <Ionicons
-                    name="checkmark-done-circle-outline"
-                    size={24}
-                    color={"#FFB6C1"}
-                  />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.skill2}
-                  </Text>
-                </View>
-              )}
-              {workDetail.skill3 === null ? null : (
-                <View style={{ flexDirection: "row" }}>
-                  <Ionicons
-                    name="checkmark-done-circle-outline"
-                    size={24}
-                    color={"#FFB6C1"}
-                  />
-                  <Text
-                    style={{ color: "white", width: "90%", marginLeft: 10 }}
-                  >
-                    {workDetail.skill3}
-                  </Text>
-                </View>
-              )}
-            </View>
+              </>
+            )}
           </View>
         </View>
         <View style={{ paddingBottom: 100 }}>
@@ -522,8 +482,10 @@ const EmployerWorkDetail = (props) => {
               style={{
                 backgroundColor: "#2c3539",
                 alignItems: "center",
-                borderRadius: 20,
+                borderRadius: 10,
                 marginBottom: 200,
+                margin: 10,
+                justifyContent: "center",
               }}
               onPress={() =>
                 navigation.navigate("EmployerEditWork", { data: workDetail })
@@ -534,6 +496,7 @@ const EmployerWorkDetail = (props) => {
                   backgroundColor: "#2c3539",
                   width: "90%",
                   padding: 20,
+                  alignItems: "center",
                 }}
               >
                 <Text
@@ -541,7 +504,6 @@ const EmployerWorkDetail = (props) => {
                     textAlign: "center",
                     fontSize: 20,
                     color: "white",
-                    bottom: 5,
                   }}
                 >
                   Зарыг янзлах

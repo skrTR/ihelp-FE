@@ -93,7 +93,7 @@ const CreateCvScreen = (props) => {
           <Text
             style={{
               color: colors.primaryText,
-              marginVertical: 5,
+              marginTop: 5,
               fontWeight: "200",
             }}
           >
@@ -123,7 +123,7 @@ const CreateCvScreen = (props) => {
             {cv.location}
           </Text>
         )}
-        {cv.salaryExpectation && (
+        {cv.salaryExpectation === "Сонгох" ? null : (
           <Text
             style={{
               color: colors.primaryText,
@@ -142,11 +142,11 @@ const CreateCvScreen = (props) => {
             {cv.salaryExpectation} ₮
           </Text>
         )}
-        {cv.profession && (
+        {cv.occupationName === "Сонгох" ? null : (
           <Text
             style={{
               color: colors.primaryText,
-              marginVertical: 5,
+              marginTop: 5,
               fontWeight: "200",
             }}
           >
@@ -158,13 +158,33 @@ const CreateCvScreen = (props) => {
               />{" "}
               Мэргэжил:{" "}
             </Text>
-            {cv.profession}
+            {cv.occupationName}
+          </Text>
+        )}
+        {cv.education && (
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "200",
+              marginTop: 5,
+            }}
+          >
+            <Text style={{ fontFamily: "Sf-bold" }}>
+              <MaterialIcons
+                name="self-improvement"
+                size={16}
+                color={colors.primary}
+              />{" "}
+              Боловсрол:{" "}
+            </Text>
+            {cv.education}
           </Text>
         )}
         <Text
           style={{
             color: colors.primaryText,
             fontWeight: "200",
+            marginTop: 5,
           }}
         >
           <Text style={{ fontFamily: "Sf-bold" }}>

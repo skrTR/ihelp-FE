@@ -82,7 +82,7 @@ const LanguageDetailModal = (props) => {
           style={{
             backgroundColor: colors.secondaryText,
             padding: 12,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
         >
           <Text style={{ fontSize: 16 }}>
@@ -94,14 +94,14 @@ const LanguageDetailModal = (props) => {
         onPress={sendPersonalDetail}
         style={{
           marginTop: 20,
-          borderRadius: 20,
+          borderRadius: 10,
         }}
       >
         <LinearGradient
           colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
           style={{
             paddingVertical: 10,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           start={[0.0, 0.5]}
           end={[1.0, 0.5]}
@@ -116,9 +116,9 @@ const LanguageDetailModal = (props) => {
         onPress={deleteExperience}
         style={{
           marginTop: 20,
-          borderRadius: 20,
+          borderRadius: 10,
           paddingVertical: 10,
-          borderRadius: 20,
+          borderRadius: 10,
           borderWidth: 1,
           borderColor: colors.border,
         }}
@@ -128,11 +128,7 @@ const LanguageDetailModal = (props) => {
           Устгах{" "}
         </Text>
       </TouchableOpacity>
-      <MyButton
-        onPress={() => navigation.navigate("ExperienceAddModal")}
-        text="Хэлний чадвар нэмэх"
-        style={{ marginTop: 20 }}
-      />
+
       <LanguageModal
         setLangText={setLangText}
         languageModal={languageModal}

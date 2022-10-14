@@ -228,7 +228,11 @@ const NormalWork = (props) => {
         )}
       </View>
       {createUserId === state.companyId && order && (
-        <DataCountDown createdAt={order} text={"Энгийн зарын дуусах хугацаа"} />
+        <DataCountDown
+          createdAt={order}
+          text={"Энгийн зарын дуусах хугацаа"}
+          owner={true}
+        />
       )}
     </View>
   );

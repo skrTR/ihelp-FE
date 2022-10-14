@@ -167,10 +167,18 @@ const ExperienceAddModal = (props) => {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={{
+        flex: 1,
+        backgroundColor: colors.header,
+      }}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={100}
     >
-      <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
+      <ScrollView
+        style={{ flex: 1, marginHorizontal: 20 }}
+        showsVerticalScrollIndicator={false}
+      >
         <TouchableOpacity
           onPress={() => setCompanyModal(true)}
           style={{ marginTop: 10 }}
@@ -182,7 +190,7 @@ const ExperienceAddModal = (props) => {
             style={{
               backgroundColor: colors.secondaryText,
               padding: 2,
-              borderRadius: 20,
+              borderRadius: 10,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
@@ -254,7 +262,7 @@ const ExperienceAddModal = (props) => {
             style={{
               backgroundColor: colors.secondaryText,
               padding: 12,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
           >
             <Text style={{ fontSize: 16 }}>{type && type}</Text>
@@ -352,14 +360,13 @@ const ExperienceAddModal = (props) => {
           onPress={sendPersonalDetail}
           style={{
             marginTop: 20,
-            borderRadius: 20,
           }}
         >
           <LinearGradient
             colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
             style={{
               paddingVertical: 10,
-              borderRadius: 20,
+              borderRadius: 10,
             }}
             start={[0.0, 0.5]}
             end={[1.0, 0.5]}
@@ -370,7 +377,7 @@ const ExperienceAddModal = (props) => {
             </Text>
           </LinearGradient>
         </TouchableOpacity>
-
+        <View style={{ marginBottom: 100 }} />
         {/* Modal */}
         <ExperienceCompanyModal
           companyModal={companyModal}
@@ -384,7 +391,6 @@ const ExperienceAddModal = (props) => {
           setType={setType}
           checkType={checkType}
         />
-        <View style={{ marginBottom: 500 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

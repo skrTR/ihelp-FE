@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CountDown from "react-native-countdown-component";
 import moment from "moment";
 import { useTheme } from "@react-navigation/native";
-const DataCountDown = ({ createdAt, text }) => {
+const DataCountDown = ({ createdAt, text, owner }) => {
   const [totalDuration, setTotalDuration] = useState(0);
   const { colors } = useTheme();
   useEffect(() => {
@@ -39,7 +39,11 @@ const DataCountDown = ({ createdAt, text }) => {
             until={totalDuration}
             // timetoShow={("H", "M", "S")}
             size={12}
-            // digitStyle={{ backgroundColor: "#2c3539" }}
+            digitStyle={{
+              backgroundColor: owner ? "#2c3539" : "#FAB913",
+              borderWidth: owner ? 1 : 0,
+              borderColor: colors.border,
+            }}
             digitTxtStyle={{ color: "#FFF" }}
             timeLabels={{ d: "Өдөр", h: "Цаг", m: "Минут", s: "Секунд" }}
             timeLabelStyle={{ color: "#FFF" }}

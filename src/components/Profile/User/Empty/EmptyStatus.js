@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import Border from "../../../Border";
 import { AntDesign } from "@expo/vector-icons";
-const EmptyStatus = () => {
+const EmptyStatus = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (
@@ -54,6 +54,7 @@ const EmptyStatus = () => {
             marginVertical: 10,
             padding: 10,
           }}
+          onPress={props.onPress}
         >
           <Text style={{ color: colors.border }}>Статус сонгох</Text>
         </TouchableOpacity>

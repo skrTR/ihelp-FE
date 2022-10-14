@@ -18,7 +18,7 @@ import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
-import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 import AddWorkTypeModal from "../screens/Employer/AddWorkTypeModal";
 const EmployerGroup = () => {
@@ -88,7 +88,6 @@ const EmployerGroup = () => {
           component={AddWorkTypeModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
             title: "Ажлын зар оруулах",
             headerLeft: () => <MyBackButton />,
           }}

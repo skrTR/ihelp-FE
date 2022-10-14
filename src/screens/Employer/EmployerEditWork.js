@@ -4,18 +4,18 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { ScrollView } from "react-native-gesture-handler";
-import { useTheme } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../Constants";
 import FormText from "../../components/FormText";
 import MyButton from "../../components/MyButton";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
-import SpecialModal from "./AddWorkModals/SpecialModal";
 // Modals
 import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
@@ -25,10 +25,11 @@ import TypeModal from "../../components/Modals/TypeModal";
 import SalaryModal from "../../components/Modals/SalaryModal";
 import GenderModal from "../../components/Modals/GenderModal";
 
-const EmployerAddWork = () => {
+const EmployerEditWork = (props) => {
+  const { data } = props.route.params;
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [specialModal, setSpecialModal] = useState(false);
+  const navigation = useNavigation();
   // Цалин Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [salary, setSalary] = useState("");
@@ -53,21 +54,29 @@ const EmployerAddWork = () => {
   const [typeModal, setTypeModal] = useState(false);
   const insents = useSafeAreaInsets();
   const [addWork, setAddWork] = useState({
-    occupation: "",
-    education: "Сонгох",
-    experience: "Сонгох",
-    type: "Сонгох",
-    salary: "Сонгох",
-    location: "",
-    gender: "Сонгох",
-    do: "",
-    skill: "",
-    language: "",
-    schedule: "",
-    order: 0,
-    special: 0,
-    urgent: 0,
+    occupation: data.occupation,
+    occupationName: data.occupationName,
+    education: data.education,
+    experience: data.experience,
+    type: data.type,
+    salary: data.salary,
+    location: data.location,
+    gender: data.gender,
+    do: data.do,
+    skill: data.skill,
+    language: data.language,
+    schedule: data.schedule,
   });
+  const editWork = () => {
+    axios
+      .put(`${api}/api/v1/jobs/${data._id}`, addWork)
+      .then((res) => {
+        navigation.goBack();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const [error, setError] = useState({
     do: false,
     skill: false,
@@ -108,12 +117,45 @@ const EmployerAddWork = () => {
     if (addWork.gender === "Сонгох") {
       return alert("Та хүйс заавал сонгоно уу");
     }
-    setSpecialModal(true);
+    editWork();
   };
-  const checkOccupation = (id) => {
+  const deleteWork = () => {
+    Alert.alert(
+      "Анхаар",
+      "Та тийм гэж дарснаар таны зар бүүр устахыг анхаарна уу",
+      [
+        {
+          text: "Үгүй",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Тийм",
+          onPress: () => {
+            axios
+              .delete(`${api}/api/v1/jobs/${data._id}`)
+              .then((res) => {
+                navigation.navigate("Ажилтан авна", {
+                  screen: "EmployerScreen",
+                });
+                alert("Амжилтай устлаа");
+              })
+              .catch((err) => {
+                console.log(err.message);
+              });
+          },
+        },
+      ]
+    );
+  };
+  const checkOccupation = (id, name) => {
     setAddWork({
       ...addWork,
       occupation: id,
+    });
+    setAddWork({
+      ...addWork,
+      occupationName: name,
     });
   };
   const checkEducation = (text) => {
@@ -213,7 +255,7 @@ const EmployerAddWork = () => {
     <KeyboardAvoidingView
       style={{
         flex: 1,
-        backgroundColor: colors.header,
+        backgroundColor: "#141414",
         paddingTop: insents.top,
       }}
       behavior="padding"
@@ -236,7 +278,7 @@ const EmployerAddWork = () => {
               <MyButton
                 text={
                   occupationName === ""
-                    ? "Мэргэжил сонгох"
+                    ? data.occupationName
                     : `${occupationName}`
                 }
                 onPress={() => setCategoryModal(true)}
@@ -248,7 +290,7 @@ const EmployerAddWork = () => {
                 Боловсрол сонгох
               </Text>
               <MyButton
-                text={education === "" ? "Боловсрол сонгох" : `${education}`}
+                text={education === "" ? data.education : `${education}`}
                 onPress={checkEducation}
               />
             </>
@@ -258,9 +300,7 @@ const EmployerAddWork = () => {
                 Ажлын туршлага сонгох
               </Text>
               <MyButton
-                text={
-                  !experience ? "Ажлын туршлага сонгох" : `${experience} жил`
-                }
+                text={!experience ? data.experience : `${experience} жил`}
                 onPress={checkExperience}
               />
             </>
@@ -270,7 +310,7 @@ const EmployerAddWork = () => {
                 Цагийн төрөл сонгох
               </Text>
               <MyButton
-                text={type === "" ? "Цагийн төрөл сонгох" : `${type}`}
+                text={type === "" ? data.type : `${type}`}
                 onPress={checkType}
               />
             </>
@@ -280,7 +320,7 @@ const EmployerAddWork = () => {
                 Цалин сонгох
               </Text>
               <MyButton
-                text={salary === "" ? "Цалин сонгох" : `${salary}₮`}
+                text={salary === "" ? data.salary : `${salary}₮`}
                 onPress={checkSalary}
               />
             </>
@@ -304,7 +344,7 @@ const EmployerAddWork = () => {
                 Хүйс сонгох
               </Text>
               <MyButton
-                text={gender === "" ? "Хүйс сонгох" : gender}
+                text={gender === "" ? data.gender : gender}
                 onPress={checkGender}
               />
             </>
@@ -363,7 +403,6 @@ const EmployerAddWork = () => {
             {/* Үргэлжлүүлэх товч*/}
             <>
               <View style={{ marginVertical: 5 }} />
-
               <TouchableOpacity
                 style={{
                   backgroundColor: "#FFB6C1",
@@ -377,6 +416,23 @@ const EmployerAddWork = () => {
               >
                 <Text style={{ textAlign: "center", color: "black" }}>
                   Үргэлжлүүлэх
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: colors.background,
+                  padding: 10,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: colors.border,
+                  marginTop: 10,
+                }}
+                onPress={deleteWork}
+              >
+                <Text
+                  style={{ textAlign: "center", color: colors.primaryText }}
+                >
+                  Устгах
                 </Text>
               </TouchableOpacity>
               <View style={{ marginBottom: 120 }} />
@@ -437,19 +493,13 @@ const EmployerAddWork = () => {
             genderModal={genderModal}
             checkGender={checkGender}
           />
-          <SpecialModal
-            specialModal={specialModal}
-            setSpecialModal={setSpecialModal}
-            data={addWork}
-            occupationName={occupationName}
-          />
         </View>
       </View>
     </KeyboardAvoidingView>
   );
 };
 
-export default EmployerAddWork;
+export default EmployerEditWork;
 
 const styles = StyleSheet.create({
   button: {

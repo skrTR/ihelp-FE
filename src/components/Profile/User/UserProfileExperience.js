@@ -76,7 +76,7 @@ const UserProfileExperience = ({ data }) => {
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.companyPhoto}` }}
-                    style={{ width: 50, height: 50 }}
+                    style={{ width: 50, height: 50, borderRadius: 10 }}
                   />
                 </TouchableOpacity>
                 <View style={{ marginHorizontal: 10, flex: 1, bottom: 3 }}>

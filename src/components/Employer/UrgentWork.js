@@ -281,6 +281,7 @@ const UrgentWork = (props) => {
         >
           <DataCountDown
             createdAt={urgent}
+            owner={createUserId === state.companyId ? true : false}
             text={
               createUserId === state.companyId
                 ? "Яааралтай зарын дуусах хугацаа"

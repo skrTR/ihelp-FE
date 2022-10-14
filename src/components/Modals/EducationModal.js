@@ -1,37 +1,34 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import ModalHeader from "../../../components/ModalHeader";
+import ModalHeader from "../ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
-const ExperienceModal = (props) => {
-  const {
-    experienceModal,
-    setExperienceModal,
-    checkExperience,
-    setExperience,
-  } = props;
+const EducationModal = (props) => {
+  const { educationModal, setEducationModal, checkEducation, setEducation } =
+    props;
   const { colors } = useTheme();
+
   return (
     <Modal
       animationType="slide"
-      visible={experienceModal}
+      visible={educationModal}
       presentationStyle="formSheet"
       onRequestClose={() => {
-        setExperienceModal(!experienceModal);
+        setEducationModal(!educationModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader
-          text="Ажлын туршлага"
-          clicked={() => setExperienceModal(false)}
+          text="Боловсрол"
+          clicked={() => setEducationModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
-          {["0-1", "1-3", "3-5", "5-10", "10-аас дээш", "Хамаагүй"].map(
+          {["Хамаагүй", "Бүрэн дунд", "Бакалавр", "Магистр", "Доктор"].map(
             (l, i) => (
               <TouchableOpacity
                 onPress={() => {
-                  checkExperience(l);
-                  setExperience(l);
+                  checkEducation(l);
+                  setEducation(l);
                 }}
                 key={i}
               >
@@ -48,7 +45,7 @@ const ExperienceModal = (props) => {
   );
 };
 
-export default ExperienceModal;
+export default EducationModal;
 
 const styles = StyleSheet.create({
   text: {

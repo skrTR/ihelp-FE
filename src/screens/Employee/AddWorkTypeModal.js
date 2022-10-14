@@ -23,8 +23,13 @@ const AddWorkTypeModal = (props) => {
   const [companyProfile] = useCompanyProfile(state.companyId);
   const [addWork, setAddWork] = useState({
     occupation: data.occupation,
+    do: data.do,
     type: data.type,
-    salary: data.salary,
+    price: data.price,
+    specialPermission: data.specialPermission,
+    time: data.time,
+    experience: data.experience,
+    description: data.description,
     order: 0,
     special: 0,
     urgent: 0,
@@ -68,7 +73,9 @@ const AddWorkTypeModal = (props) => {
             axios
               .post(`${api}/api/v1/announcements`, addWork)
               .then((res) => {
-                navigation.goBack();
+                navigation.navigate("EmployeeWorkDetail", {
+                  id: res.data.data._id,
+                });
               })
               .catch((err) => {
                 alert(err.message);

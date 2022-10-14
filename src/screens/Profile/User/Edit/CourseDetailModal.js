@@ -114,8 +114,13 @@ const CourseDetailModal = ({ route }) => {
   };
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
+      style={{
+        flex: 1,
+        backgroundColor: colors.header,
+      }}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={100}
     >
       <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
         {/* Surguuli */}
@@ -130,7 +135,7 @@ const CourseDetailModal = ({ route }) => {
             style={{
               padding: 2,
               marginVertical: 5,
-              borderRadius: 20,
+              borderRadius: 10,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
@@ -271,7 +276,7 @@ const CourseDetailModal = ({ route }) => {
         {/* Илгээх товч */}
         <LinearGradient
           colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{ paddingHorizontal: 20, borderRadius: 20, marginTop: 20 }}
+          style={{ paddingHorizontal: 20, borderRadius: 10, marginTop: 10 }}
           start={[0.0, 0.5]}
           end={[1.0, 0.5]}
         >
@@ -289,10 +294,9 @@ const CourseDetailModal = ({ route }) => {
         <TouchableOpacity
           onPress={deleteCourse}
           style={{
-            marginTop: 20,
-            borderRadius: 20,
+            marginTop: 10,
             paddingVertical: 10,
-            borderRadius: 20,
+            borderRadius: 10,
             borderWidth: 1,
             borderColor: colors.border,
           }}
@@ -307,10 +311,10 @@ const CourseDetailModal = ({ route }) => {
           onPress={() => navigation.navigate("CourseAddModal")}
           text="Боловсрол нэмэх"
           style={{
-            marginTop: 20,
+            marginTop: 10,
             borderWidth: 1,
             borderColor: colors.border,
-            borderRadius: 20,
+            borderRadius: 10,
             padding: 10,
           }}
         />

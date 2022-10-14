@@ -184,7 +184,8 @@ const SpecialWork = (props) => {
                 fontWeight: "200",
               }}
             >
-              {job} - {createUserName}
+              {job && `${job}  - `}
+              {createUserName}
             </Text>
           </View>
         </TouchableOpacity>
@@ -193,7 +194,7 @@ const SpecialWork = (props) => {
             style={{
               backgroundColor: "#FFB6C1",
               padding: 10,
-              borderRadius: 20,
+              borderRadius: 10,
               marginRight: 20,
               alignItems: "center",
             }}
@@ -219,21 +220,24 @@ const SpecialWork = (props) => {
               style={{ textAlign: "right", marginRight: 20 }}
             />
           )}
-          <MaterialCommunityIcons
-            name="offer"
-            size={30}
-            color="white"
-            style={{ marginRight: 10, marginTop: 10 }}
-            onPress={() =>
-              navigation.navigate("CompanySendWorkRequest", { id: id })
-            }
-          />
+          {createUserId === state.companyId ? null : (
+            <MaterialCommunityIcons
+              name="offer"
+              size={30}
+              color="white"
+              style={{ marginRight: 10, marginTop: 10 }}
+              onPress={() =>
+                navigation.navigate("CompanySendWorkRequest", { id: id })
+              }
+            />
+          )}
         </View>
       </View>
       {createUserId === state.companyId && special && (
         <DataCountDown
           createdAt={special}
           text={"Онцгой зарын дуусах хугацаа"}
+          owner={true}
         />
       )}
     </View>

@@ -191,7 +191,8 @@ const NormalWork = (props) => {
                 fontWeight: "200",
               }}
             >
-              {job} - {createUserName}
+              {job && `${job}  - `}
+              {createUserName}
             </Text>
           </View>
         </TouchableOpacity>
@@ -229,7 +230,11 @@ const NormalWork = (props) => {
         )}
       </View>
       {createUserId === state.companyId && order && (
-        <DataCountDown createdAt={order} text={"Энгийн зарын дуусах хугацаа"} />
+        <DataCountDown
+          createdAt={order}
+          text={"Энгийн зарын дуусах хугацаа"}
+          owner={true}
+        />
       )}
     </View>
   );

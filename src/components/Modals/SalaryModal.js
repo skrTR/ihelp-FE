@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import ModalHeader from "../../../components/ModalHeader";
+import ModalHeader from "../ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
 const SalaryModal = (props) => {

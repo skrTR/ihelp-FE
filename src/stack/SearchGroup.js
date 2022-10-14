@@ -28,7 +28,7 @@ import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
-import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import NetworkingPostDetailScreen from "../screens/Network/NetworkingPostDetailScreen";
 import SharePostModal from "../screens/Network/SharePostModal";
 import UserProfileScreen from "../screens/Profile/User/UserProfileScreen";

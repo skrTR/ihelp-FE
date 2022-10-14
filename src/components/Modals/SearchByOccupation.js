@@ -10,25 +10,30 @@ import {
 import React, { useState, useEffect } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import { api } from "../../../../Constants";
-const SearchByCategory = (props) => {
+import { api } from "../../../Constants";
+import axios from "axios";
+const SearchByOccupation = (props) => {
   const {
-    modalVisible,
-    setModalVisible,
+    occupationModal,
+    setOccupationModal,
     setChoosedId,
     setRefresh,
     setChoosedName,
+    categoryId,
+    refresh,
   } = props;
   const { colors } = useTheme();
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [search, setSearch] = useState("");
+  const [categoryName, setCategoryName] = useState("");
   useEffect(() => {
+    setRefresh(false);
     fetchUser();
     return () => {};
-  }, []);
+  }, [refresh]);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/categories?select=id name`;
+    const apiURL = `${api}/api/v1/occupations?select=id name&category=${categoryId}`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -38,7 +43,11 @@ const SearchByCategory = (props) => {
       .catch((error) => {
         alert(error);
       });
+    axios.get(`${api}/api/v1/categories/${categoryId}`).then((res) => {
+      setCategoryName(res.data.data.name);
+    });
   };
+
   const searchFilter = (text) => {
     if (text) {
       const newData = masterData.filter((item) => {
@@ -60,13 +69,13 @@ const SearchByCategory = (props) => {
           flexDirection: "row",
           marginHorizontal: 10,
           alignItems: "center",
-          width: "100%",
           backgroundColor: colors.background,
+          width: "100%",
         }}
         onPress={() => {
           setRefresh(true);
-          setChoosedId(item._id);
-          setModalVisible(false);
+          setChoosedId(item._id, item.name);
+          setOccupationModal(false);
           setChoosedName(item.name);
         }}
       >
@@ -93,9 +102,9 @@ const SearchByCategory = (props) => {
     <View style={{ backgroundColor: colors.background, flex: 1 }}>
       <Modal
         animationType="slide"
-        visible={modalVisible}
+        visible={occupationModal}
         onRequestClose={() => {
-          setModalVisible(!modalVisible);
+          setOccupationModal(!occupationModal);
         }}
         presentationStyle="formSheet"
       >
@@ -113,12 +122,11 @@ const SearchByCategory = (props) => {
               name="left"
               size={24}
               color={colors.primaryText}
-              onPress={() => setModalVisible(false)}
+              onPress={() => setOccupationModal(false)}
             />
             <TextInput
               placeholder="Хайх утга"
               value={search}
-              placeholderTextColor={"#cccccccc"}
               onChangeText={(text) => searchFilter(text)}
               style={{
                 backgroundColor: colors.border,
@@ -127,8 +135,20 @@ const SearchByCategory = (props) => {
                 marginLeft: 10,
                 borderRadius: 20,
               }}
+              placeholderTextColor={"#cccccccc"}
             />
           </View>
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "bold",
+              margin: 10,
+              fontSize: 16,
+              marginBottom: 20,
+            }}
+          >
+            {categoryName}
+          </Text>
           <FlatList
             data={
               filterData &&
@@ -147,6 +167,6 @@ const SearchByCategory = (props) => {
   );
 };
 
-export default SearchByCategory;
+export default SearchByOccupation;
 
 const styles = StyleSheet.create({});

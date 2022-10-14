@@ -147,7 +147,6 @@ const EmployeeGroup = () => {
           component={AddWorkTypeModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
             title: "Ажлын зар оруулах",
             headerLeft: () => <MyBackButton />,
           }}

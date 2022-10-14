@@ -4,7 +4,6 @@ import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../Constants";
 import Empty from "../../components/Empty";
-import SearchByOccupation from "./Work/SearchByOccupation";
 import NormalWork from "../../components/Employer/NormalWork";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserContext from "../../context/UserContext";
@@ -12,12 +11,17 @@ import CompanyHeader from "../../components/Header/CompanyHeader";
 import Header from "../../components/Header/Header";
 import UrgentWork from "../../components/Employer/UrgentWork";
 import SpecialWork from "../../components/Employer/SpecialWork";
+// Modals
+import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
+import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 const WorkSearch = () => {
   const { colors } = useTheme();
   const [works, setWorks] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [categoryModal, setCategoryModal] = useState(false);
   const [choosedId, setChoosedId] = useState("");
   const [choosedName, setChoosedName] = useState("Мэргэжил сонгох");
+  const [categoryId, setCategoryId] = useState("");
   const [refresh, setRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
@@ -48,10 +52,8 @@ const WorkSearch = () => {
     }
   };
   useEffect(() => {
-    setRefresh(false);
     getWorkSearch();
   }, [refresh]);
-
   const sorted2 = works.sort((a, b) => b.isSpecial - a.isSpecial);
   const sortedData = sorted2.sort((a, b) => b.isUrgent - a.isUrgent);
   return (
@@ -83,7 +85,7 @@ const WorkSearch = () => {
                   ? colors.background
                   : colors.border,
             }}
-            onPress={() => setModalVisible(true)}
+            onPress={() => setCategoryModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
               {choosedName}
@@ -145,11 +147,20 @@ const WorkSearch = () => {
         </View>
       </View>
       <SearchByOccupation
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
+        setOccupationModal={setModalVisible}
+        occupationModal={modalVisible}
         setChoosedId={setChoosedId}
         setRefresh={setRefresh}
         setChoosedName={setChoosedName}
+        categoryId={categoryId}
+        refresh={refresh}
+      />
+      <SearchWorkByCateogry
+        setCategoryModal={setCategoryModal}
+        categoryModal={categoryModal}
+        setRefresh={setRefresh}
+        setCategoryId={setCategoryId}
+        setOccupationModal={setModalVisible}
       />
     </>
   );

@@ -57,7 +57,16 @@ const UserProfileScreen = () => {
         {/* {profileLoading && <Spinner />} */}
         <UserProfileTop userProfile={userProfile} cv={cv} />
         <View style={{ bottom: 10 }}>
-          {userProfile.profession === "" && <EmptyStatus />}
+          {userProfile.profession === "" && (
+            <EmptyStatus
+              onPress={() =>
+                navigation.navigate("EditStatusModal", {
+                  data: userProfile,
+                  cvData: cv,
+                })
+              }
+            />
+          )}
           <UserProfileAbout about={userProfile.about} />
           <Border />
           {cv.experience.length === 0 ? (
@@ -95,7 +104,7 @@ const UserProfileScreen = () => {
             style={{
               borderWidth: 1,
               borderColor: colors.border,
-              marginBottom: 10,
+              marginVertical: 10,
             }}
           />
           {userProfile.portfolio ? (

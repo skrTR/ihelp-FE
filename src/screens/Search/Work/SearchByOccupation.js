@@ -18,6 +18,8 @@ const SearchByOccupation = (props) => {
     setChoosedId,
     setRefresh,
     setChoosedName,
+    categoryId,
+    refresh,
   } = props;
   const { colors } = useTheme();
   const [filterData, setFilterData] = useState([]);
@@ -26,9 +28,9 @@ const SearchByOccupation = (props) => {
   useEffect(() => {
     fetchUser();
     return () => {};
-  }, []);
+  }, [refresh]);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/occupations?select=id name`;
+    const apiURL = `${api}/api/v1/occupations?select=id name&category=${categoryId}`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -39,6 +41,7 @@ const SearchByOccupation = (props) => {
         alert(error);
       });
   };
+
   const searchFilter = (text) => {
     if (text) {
       const newData = masterData.filter((item) => {
@@ -130,7 +133,10 @@ const SearchByOccupation = (props) => {
             />
           </View>
           <FlatList
-            data={filterData}
+            data={
+              filterData &&
+              filterData.sort((a, b) => a.name.localeCompare(b.name))
+            }
             keyExtractor={(item, index) => index}
             ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}

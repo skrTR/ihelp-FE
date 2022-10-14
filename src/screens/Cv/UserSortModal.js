@@ -8,6 +8,8 @@ import ExperienceModal from "../Employer/AddWorkModals/ExperienceModal";
 import GenderModal from "../Employer/AddWorkModals/GenderModal";
 import OccupationModal from "../Employer/AddWorkModals/OccupationModal";
 import SalaryModal from "../Employer/AddWorkModals/SalaryModal";
+import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
+import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 const UserSortModal = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -25,6 +27,10 @@ const UserSortModal = () => {
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categoryModal, setCategoryModal] = useState(false);
+  const [occupationId, setOccupationId] = useState("");
+  const [refresh, setRefresh] = useState(false);
   // Цалин Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [salary, setSalary] = useState("");
@@ -40,7 +46,7 @@ const UserSortModal = () => {
   };
 
   const checkOccupation = (id) => {
-    setOccupationModal(!occupationModal);
+    setOccupationId(id);
   };
   const checkSalary = (text) => {
     setModalVisible(!modalVisible);
@@ -48,7 +54,7 @@ const UserSortModal = () => {
 
   return (
     <>
-      <View style={{ backgroundColor: colors.background, flex: 1 }}>
+      <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <View
           style={{
             backgroundColor: colors.background,
@@ -65,7 +71,7 @@ const UserSortModal = () => {
               marginTop: 10,
               borderColor: colors.border,
             }}
-            onPress={() => setOccupationModal(true)}
+            onPress={() => setCategoryModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
               {occupationName ? `${occupationName}` : "Мэргэжил сонгох"}
@@ -142,6 +148,7 @@ const UserSortModal = () => {
           <TouchableOpacity
             onPress={() =>
               navigation.navigate("SortResultModal", {
+                occupationId: occupationId,
                 salary: salary,
                 education: education,
                 experience: experience,
@@ -156,7 +163,7 @@ const UserSortModal = () => {
               style={{
                 borderRadius: 10,
                 padding: 10,
-                marginTop: 10,
+                marginVertical: 10,
               }}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
@@ -165,6 +172,7 @@ const UserSortModal = () => {
             </LinearGradient>
           </TouchableOpacity>
         </View>
+        <View style={{ marginBottom: 100 }} />
       </View>
 
       {/* Боловсрол сонгох */}
@@ -189,12 +197,22 @@ const UserSortModal = () => {
         checkGender={checkGender}
       />
 
-      {/* Mergejil */}
-      <OccupationModal
+      {/* Мэргэжил сонгох */}
+      <SearchWorkByCateogry
+        setCategoryModal={setCategoryModal}
+        categoryModal={categoryModal}
+        setRefresh={setRefresh}
+        setCategoryId={setCategoryId}
+        setOccupationModal={setOccupationModal}
+      />
+      <SearchByOccupation
         setOccupationModal={setOccupationModal}
         occupationModal={occupationModal}
-        setOccupationName={setOccupationName}
-        checkOccupation={checkOccupation}
+        setChoosedName={setOccupationName}
+        refresh={refresh}
+        setRefresh={setRefresh}
+        setChoosedId={checkOccupation}
+        categoryId={categoryId}
       />
       {/* Цалин  */}
       <SalaryModal

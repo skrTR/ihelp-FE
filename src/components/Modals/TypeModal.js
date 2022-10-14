@@ -1,49 +1,37 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import ModalHeader from "../../../components/ModalHeader";
+import ModalHeader from "../ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
-const WorketNumberModal = (props) => {
-  const {
-    workerNumberModal,
-    setWorkerNumberModal,
-    setWorkerNumber,
-    checkWorkerNumber,
-  } = props;
+const TypeModal = (props) => {
+  const { typeModal, setTypeModal, setType, checkType } = props;
   const { colors } = useTheme();
   return (
     <Modal
       animationType="slide"
-      visible={workerNumberModal}
+      visible={typeModal}
       presentationStyle="formSheet"
       onRequestClose={() => {
-        setWorkerNumberModal(!workerNumberModal);
+        setTypeModal(!typeModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader
-          text="Нас сонгох"
-          clicked={() => setWorkerNumberModal(false)}
-        />
+        <ModalHeader text="Цагийн төрөл" clicked={() => setTypeModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
           {[
-            "1 - 5",
-            "5 - 10",
-            "10 - 15",
-            "15 - 20",
-            "20 - 30",
-            "30 - 40",
-            "40 - 50",
-            "50 - 100",
-            "100 - 200",
-            "200 - 500",
-            "500 - 1000",
-            "1000 - 10000",
+            "Сонгох",
+            "Үндсэн ажил",
+            "Цагийн ажил",
+            "Чөлөөт ажилтан",
+            "Гэрээгээр",
+            "Дадлага",
+            "Аппрентис",
+            "Улирлын чанартай",
           ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setWorkerNumber(l);
-                checkWorkerNumber(l);
+                setType(l);
+                checkType(l);
               }}
               key={i}
             >
@@ -59,7 +47,7 @@ const WorketNumberModal = (props) => {
   );
 };
 
-export default WorketNumberModal;
+export default TypeModal;
 
 const styles = StyleSheet.create({
   text: {

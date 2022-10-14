@@ -72,7 +72,12 @@ const UserProfileCourse = ({ data }) => {
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.schoolPhoto}` }}
-                    style={{ width: 50, height: 50, resizeMode: "cover" }}
+                    style={{
+                      width: 50,
+                      height: 50,
+                      resizeMode: "cover",
+                      borderRadius: 10,
+                    }}
                   />
                 </TouchableOpacity>
                 <View style={{ marginHorizontal: 10, bottom: 3 }}>
@@ -96,14 +101,6 @@ const UserProfileCourse = ({ data }) => {
                 </View>
               </View>
             </View>
-
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: colors.border,
-                marginVertical: 10,
-              }}
-            />
           </View>
         );
       })}

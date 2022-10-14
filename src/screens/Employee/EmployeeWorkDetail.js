@@ -36,6 +36,7 @@ const EmployeeWorkDetail = (props) => {
       .get(`${api}/api/v1/announcements/${id}`)
       .then((res) => {
         setWorkDetail(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         alert(err);
@@ -301,7 +302,7 @@ const EmployeeWorkDetail = (props) => {
               </View>
             )}
 
-            {workDetail.certificate === "" ? null : (
+            {workDetail.specialPermission === "" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
                   3өвшөөрөл
@@ -312,7 +313,7 @@ const EmployeeWorkDetail = (props) => {
                     marginBottom: 8,
                   }}
                 >
-                  {workDetail.certificate}
+                  {workDetail.specialPermission}
                 </Text>
               </View>
             )}
@@ -345,48 +346,7 @@ const EmployeeWorkDetail = (props) => {
             )}
           </View>
         </View>
-        <TouchableOpacity
-          style={{
-            backgroundColor: "#2c3539",
-            alignItems: "center",
-            borderRadius: 10,
-            marginHorizontal: 10,
-          }}
-          onPress={() =>
-            navigation.navigate("CompanySendWorkRequest", { id: id })
-          }
-        >
-          <View
-            style={{
-              backgroundColor: "#2c3539",
-              width: "90%",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "row",
-              padding: 15,
-              marginHorizontal: 10,
-            }}
-          >
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 20,
-                color: "white",
-              }}
-            >
-              Ажлын санал тавих{"  "}
-            </Text>
-            <MaterialCommunityIcons
-              name="offer"
-              size={26}
-              color={colors.primaryText}
-              style={{ marginRight: 10 }}
-              onPress={() =>
-                navigation.navigate("CompanySendWorkRequest", { id: id })
-              }
-            />
-          </View>
-        </TouchableOpacity>
+
         {state.companyId === workDetail.createUser ? (
           <TouchableOpacity
             style={{
@@ -394,6 +354,7 @@ const EmployeeWorkDetail = (props) => {
               borderRadius: 10,
               alignItems: "center",
               justifyContent: "center",
+              margin: 10,
             }}
             onPress={() =>
               navigation.navigate("EmployeeEditWork", { data: workDetail })
@@ -423,7 +384,50 @@ const EmployeeWorkDetail = (props) => {
               </Text>
             </View>
           </TouchableOpacity>
-        ) : null}
+        ) : (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#2c3539",
+              alignItems: "center",
+              borderRadius: 10,
+              marginHorizontal: 10,
+            }}
+            onPress={() =>
+              navigation.navigate("CompanySendWorkRequest", { id: id })
+            }
+          >
+            <View
+              style={{
+                backgroundColor: "#2c3539",
+                width: "90%",
+                alignItems: "center",
+                justifyContent: "center",
+                flexDirection: "row",
+                padding: 15,
+                marginHorizontal: 10,
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "white",
+                }}
+              >
+                Ажлын санал тавих{"  "}
+              </Text>
+              <MaterialCommunityIcons
+                name="offer"
+                size={26}
+                color={colors.primaryText}
+                style={{ marginRight: 10 }}
+                onPress={() =>
+                  navigation.navigate("CompanySendWorkRequest", { id: id })
+                }
+              />
+            </View>
+          </TouchableOpacity>
+        )}
       </ScrollView>
     </View>
   );

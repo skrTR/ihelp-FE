@@ -23,8 +23,17 @@ const AddWorkTypeModal = (props) => {
   const [companyProfile] = useCompanyProfile(state.companyId);
   const [addWork, setAddWork] = useState({
     occupation: data.occupation,
+    education: data.education,
+    experience: data.experience,
+    location: data.location,
     type: data.type,
     salary: data.salary,
+    type: data.type,
+    gender: data.gender,
+    do: data.do,
+    skill: data.skill,
+    language: data.language,
+    schedule: data.schedule,
     order: 0,
     special: 0,
     urgent: 0,
@@ -68,7 +77,9 @@ const AddWorkTypeModal = (props) => {
             axios
               .post(`${api}/api/v1/jobs/${state.companyId}`, addWork)
               .then((res) => {
-                navigation.goBack();
+                navigation.navigate("Ажилтан авна", {
+                  screen: "EmployerWorkDetail",
+                });
               })
               .catch((err) => {
                 alert(err.message);

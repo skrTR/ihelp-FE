@@ -1,11 +1,10 @@
 import {
-  StyleSheet,
+  KeyboardAvoidingView,
   Text,
   View,
   ScrollView,
-  SafeAreaView,
   TouchableOpacity,
-  Alert,
+  StyleSheet,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -13,63 +12,75 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import FormText from "../../components/FormText";
 import MyButton from "../../components/MyButton";
-
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
-import OccupationModal from "../Employer/AddWorkModals/OccupationModal";
 import PriceModal from "./AddWorkModals/PriceModal";
 import TimeModal from "./AddWorkModals/TimeModal";
-import WorketNumberModal from "./AddWorkModals/WorkerNumberModal";
-import SpecialModal from "../Employee/AddWorkModals/SpecialModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import SpecialPermissionModal from "./AddWorkModals/SpecialPermissionModal";
+import SpecialModal from "./AddWorkModals/SpecialModal";
+// Modals
+import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
+import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 
-const EmployeeEditWork = (props) => {
+const EmployeeAddWork = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
   const state = useContext(UserContext);
-
+  const [specialModal, setSpecialModal] = useState(false);
   const navigation = useNavigation();
+  const insents = useSafeAreaInsets();
+  // Тусгай зөвшөөрөл сонгох модал
+  const [specialPermission, setSpecialPermission] = useState(false);
+  const [permission, setPermission] = useState("");
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
-  const [occupationName, setOccupationName] = useState(
-    data.occupationName ? data.occupationName : ""
-  );
+  const [occupationName, setOccupationName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categoryModal, setCategoryModal] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   // нас сонгох модал
   const [priceModal, setPriceModal] = useState(false);
-  const [price, setPrice] = useState(data.price ? data.price : "");
+  const [price, setPrice] = useState("");
   // time modal
   const [timeModal, setTimeModal] = useState(false);
-  const [time, setTime] = useState(data.time ? data.time : "");
-  // ажилчдийн тоо
-  const [workerNumberModal, setWorkerNumberModal] = useState(false);
-  const [workerNumber, setWorkerNumber] = useState(
-    data.workerNumber ? data.workerNumber : ""
-  );
-  const insents = useSafeAreaInsets();
+  const [time, setTime] = useState("");
+
   const sendWork = () => {
+    if (addWork.occupation === "") {
+      return alert("Чиглэлээ сонгоно уу");
+    }
+    if (addWork.price === "Сонгох") {
+      return alert("Үнийн санал сонгоно уу");
+    }
+    if (addWork.time === "Сонгох") {
+      return alert("Зарцуулах цаг хугацаа сонгоно уу");
+    }
+    if (addWork.specialPermission === "Сонгох") {
+      return alert("Тусгай зөвшөөрөл сонгоно уу");
+    }
     axios
       .put(`${api}/api/v1/announcements/${data._id}`, addWork)
       .then((res) => {
-        navigation.goBack();
+        navigation.navigate("Ажил авна", { screen: "EmployeeScreen" });
+        alert("Амжилтай");
       })
-      .catch((err) => alert(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
   const [addWork, setAddWork] = useState({
-    description: data.description ? data.description : "",
-    do: data.do ? data.do : "",
-    skill: data.skill ? data.skill : "",
-    location: data.location ? data.location : "",
-    experience: data.experience ? data.experience : "",
-    specialPermission: data.specialPermission ? data.specialPermission : "",
-    certificate: data.certificate ? data.certificate : "",
-    price: data.price ? data.price : "Сонгох",
-    time: data.time ? data.time : "Сонгох",
-    workerNumber: data.workerNumber ? data.workerNumber : "Сонгох",
-    occupation: data.occupation ? data.occupation : "",
-    isCompany: true,
-    startDate: "",
+    occupation: data.occupation,
+    occupationName: data.occupationName,
+    do: data.do,
+    experience: data.experience,
+    price: data.price,
+    time: data.time,
+    specialPermission: data.specialPermission,
+    description: data.description,
   });
-
+  // 629093164be9675d77e523bd
+  console.log(addWork);
   const [error, setError] = useState({
     description: false,
     do: false,
@@ -113,28 +124,6 @@ const EmployeeEditWork = (props) => {
       do: text,
     });
   };
-  const checkSkill = (text) => {
-    setError({
-      ...error,
-      skill: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      skill: text,
-    });
-  };
-  const checkLocation = (text) => {
-    setError({
-      ...error,
-      location: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      location: text,
-    });
-  };
   const checkExperience = (text) => {
     setError({
       ...error,
@@ -146,44 +135,14 @@ const EmployeeEditWork = (props) => {
       experience: text,
     });
   };
-  const checkSpecialPermission = (text) => {
-    setError({
-      ...error,
-      specialPermission: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      specialPermission: text,
-    });
-  };
-  const checkCertificate = (text) => {
-    setError({
-      ...error,
-      certificate: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      certificate: text,
-    });
-  };
-  const checkStartDate = (text) => {
-    setError({
-      ...error,
-      startDate: text.length < 5,
-    });
-
-    setAddWork({
-      ...addWork,
-      startDate: text,
-    });
-  };
-  const checkOccupation = (id) => {
-    setOccupationModal(!occupationModal);
+  const checkOccupation = (id, name) => {
     setAddWork({
       ...addWork,
       occupation: id,
+    });
+    setAddWork({
+      ...addWork,
+      occupationName: name,
     });
   };
   const checkPrice = (text) => {
@@ -200,226 +159,168 @@ const EmployeeEditWork = (props) => {
       time: text,
     });
   };
-  const checkWorkerNumber = (text) => {
-    setWorkerNumberModal(!workerNumberModal);
+  const checkSpecialPermission = (text) => {
+    setSpecialPermission(!specialPermission);
     setAddWork({
       ...addWork,
-      workerNumber: text,
+      specialPermission: text,
     });
   };
-  const deleteJob = () => {
-    Alert.alert(
-      "Анхаар",
-      "Та өөрийн оруулсан ажлын зарыг устгахдаа итгэлтэй байна уу",
-      [
-        {
-          text: "Үгүй",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        {
-          text: "Тийм",
-          onPress: () => {
-            axios
-              .delete(`${api}/api/v1/announcements/${data._id}`)
-              .then((res) => {
-                navigation.navigate("Ажил авна", { screen: "EmployeeScreen" });
-                alert("Зар амжилтай устлаа");
-              })
-              .catch((err) => {
-                let message = err.response.data.error.message;
-                alert(message);
-              });
-          },
-        },
-      ]
-    );
-  };
+
   if (!notification) {
     return null;
   }
   return (
-    <View style={{ backgroundColor: "#141414", paddingTop: insents.top }}>
-      <CompanyHeader isBack={true} notification={notification.notification} />
-      <View style={{ backgroundColor: colors.background }}>
-        <ScrollView
-          style={{ marginHorizontal: 20 }}
-          showsVerticalScrollIndicator={false}
-        >
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Тайлбар
-          </Text>
-          <FormText
-            placeholder="Тайлбар"
-            value={addWork.description}
-            onChangeText={checkDescription}
-            errorText="Тайлбар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.description}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хийх ажил
-          </Text>
-          <FormText
-            placeholder="Хийх ажил"
-            value={addWork.do}
-            onChangeText={checkDo}
-            errorText="Хийх ажил урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.do}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ур чадвар
-          </Text>
-          <FormText
-            placeholder=" Ур чадвар"
-            value={addWork.skill}
-            onChangeText={checkSkill}
-            errorText=" Ур чадвар урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.skill}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хаяг
-          </Text>
-          <FormText
-            placeholder="Хаяг"
-            value={addWork.location}
-            onChangeText={checkLocation}
-            errorText="Хаяг урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.location}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Туршлага
-          </Text>
-          <FormText
-            placeholder="Туршлага"
-            value={addWork.experience}
-            onChangeText={checkExperience}
-            errorText="Туршлага урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.experience}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Тусгай зөвшөөрөл
-          </Text>
-          <FormText
-            placeholder="Тусгай зөвшөөрөл"
-            value={addWork.specialPermission}
-            onChangeText={checkSpecialPermission}
-            errorText="Тусгай зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.specialPermission}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Батламж
-          </Text>
-          <FormText
-            placeholder=" Батламж"
-            value={addWork.certificate}
-            onChangeText={checkCertificate}
-            errorText="Батламж урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.certificate}
-          />
-
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Эхлэх хугацаа
-          </Text>
-          <FormText
-            placeholder="Эхлэх хугацаа"
-            value={addWork.startDate}
-            onChangeText={checkStartDate}
-            errorText="Эхлэх хугацаа зөвшөөрөл урт 4-20 тэмдэгтээс тогтоно."
-            errorShow={error.startDate}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Мэргэжил сонгох
-          </Text>
-          <MyButton
-            text={
-              occupationName === "" ? "Мэргэжил сонгох" : `${occupationName}`
-            }
-            onPress={checkOccupation}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Үнийн санал
-          </Text>
-          <MyButton
-            text={price === "" ? "Үнийн санал" : price}
-            onPress={checkPrice}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Зарцуулах цаг хугацаа
-          </Text>
-          <MyButton
-            text={time === "" ? "Зарцуулах цаг хугацаа" : time}
-            onPress={checkTime}
-          />
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Ажилчдын тоо
-          </Text>
-          <MyButton
-            text={workerNumber === "" ? "Ажилчдын тоо" : workerNumber}
-            onPress={checkWorkerNumber}
-          />
-
-          <TouchableOpacity
-            style={{
-              backgroundColor: "#FFB6C1",
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 20,
-              borderColor: colors.border,
-              marginTop: 10,
-            }}
-            onPress={sendWork}
+    <KeyboardAvoidingView
+      style={{
+        flex: 1,
+        backgroundColor: colors.header,
+        paddingTop: insents.top,
+      }}
+      behavior="padding"
+      enabled
+      keyboardVerticalOffset={100}
+    >
+      <View style={{}}>
+        <CompanyHeader isBack={true} notification={notification.notification} />
+        <View style={{ backgroundColor: colors.background }}>
+          <ScrollView
+            style={{ marginHorizontal: 20 }}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={{ textAlign: "center", color: "black" }}>Өөрчлөх</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              backgroundColor: "red",
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 20,
-              borderColor: colors.border,
-              marginTop: 10,
-            }}
-            onPress={deleteJob}
-          >
-            <Text style={{ textAlign: "center", color: "black" }}>Устгах</Text>
-          </TouchableOpacity>
-          <View style={{ marginBottom: 200 }} />
-        </ScrollView>
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Чиглэл сонгох
+            </Text>
+            <MyButton
+              text={
+                occupationName === ""
+                  ? data.occupationName
+                  : `${occupationName}`
+              }
+              onPress={() => setCategoryModal(true)}
+            />
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Үндсэн үйлчилгээ
+            </Text>
+            <FormText
+              placeholder="Үндсэн үйлчилгээ"
+              value={addWork.do}
+              onChangeText={checkDo}
+              errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
+              errorShow={error.do}
+            />
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Туршлага
+            </Text>
+            <FormText
+              placeholder="Туршлага"
+              value={addWork.experience}
+              onChangeText={checkExperience}
+              errorText="Туршлага урт 4-20 тэмдэгтээс тогтоно."
+              errorShow={error.experience}
+            />
+
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Үнийн санал
+            </Text>
+            <MyButton
+              text={price === "" ? data.price : price}
+              onPress={checkPrice}
+            />
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Зарцуулах цаг хугацаа
+            </Text>
+            <MyButton
+              text={time === "" ? data.time : time}
+              onPress={checkTime}
+            />
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Тусгай зөвшөөрөл
+            </Text>
+            <MyButton
+              text={permission === "" ? data.specialPermission : permission}
+              onPress={checkSpecialPermission}
+            />
+
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Нэмэлт тайлбар
+            </Text>
+            <FormText
+              placeholder="Нэмэлт тайлбар"
+              value={addWork.description}
+              onChangeText={checkDescription}
+              errorText="Нэмэлт тайлбар урт 4-20 тэмдэгтээс тогтоно."
+              errorShow={error.description}
+            />
+
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#FFB6C1",
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
+                marginTop: 10,
+              }}
+              onPress={sendWork}
+            >
+              <Text style={{ textAlign: "center", color: "black" }}>
+                Нийтлэх
+              </Text>
+            </TouchableOpacity>
+            <View style={{ marginBottom: 200 }} />
+          </ScrollView>
+        </View>
+        {/* Мэргэжил сонгох */}
+        <SearchWorkByCateogry
+          setCategoryModal={setCategoryModal}
+          categoryModal={categoryModal}
+          setRefresh={setRefresh}
+          setCategoryId={setCategoryId}
+          setOccupationModal={setOccupationModal}
+        />
+        <SearchByOccupation
+          setOccupationModal={setOccupationModal}
+          occupationModal={occupationModal}
+          setChoosedName={setOccupationName}
+          refresh={refresh}
+          setRefresh={setRefresh}
+          setChoosedId={checkOccupation}
+          categoryId={categoryId}
+        />
+        {/* Price сонгох */}
+        <PriceModal
+          setPrice={setPrice}
+          priceModal={priceModal}
+          setPriceModal={setPriceModal}
+          checkPrice={checkPrice}
+        />
+        {/* Time сонгох */}
+        <TimeModal
+          setTime={setTime}
+          timeModal={timeModal}
+          setTimeModal={setTimeModal}
+          checkTime={checkTime}
+        />
+        {/* Тусгай зөвшөөрөл сонгох */}
+        <SpecialPermissionModal
+          setSpecialPermission={setSpecialPermission}
+          specialPermission={specialPermission}
+          setPermission={setPermission}
+          checkSpecialPermission={checkSpecialPermission}
+        />
+        <SpecialModal
+          specialModal={specialModal}
+          setSpecialModal={setSpecialModal}
+          data={addWork}
+          occupationName={occupationName}
+        />
       </View>
-      {/* Мэргэжил сонгох */}
-      <OccupationModal
-        setOccupationModal={setOccupationModal}
-        occupationModal={occupationModal}
-        setOccupationName={setOccupationName}
-        checkOccupation={checkOccupation}
-      />
-      {/* Price сонгох */}
-      <PriceModal
-        setPrice={setPrice}
-        priceModal={priceModal}
-        setPriceModal={setPriceModal}
-        checkPrice={checkPrice}
-      />
-      {/* Time сонгох */}
-      <TimeModal
-        setTime={setTime}
-        timeModal={timeModal}
-        setTimeModal={setTimeModal}
-        checkTime={checkTime}
-      />
-      {/* WorkerNumber сонгох */}
-      <WorketNumberModal
-        setWorkerNumber={setWorkerNumber}
-        workerNumberModal={workerNumberModal}
-        setWorkerNumberModal={setWorkerNumberModal}
-        checkWorkerNumber={checkWorkerNumber}
-      />
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
-export default EmployeeEditWork;
+export default EmployeeAddWork;
 
 const styles = StyleSheet.create({
   button: {

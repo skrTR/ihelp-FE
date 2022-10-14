@@ -75,7 +75,7 @@ import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
 import PointTypeScreen from "../screens/Profile/Wallet/PointTypeScreen";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
-import EmployerEditWork from "../screens/Employer/EmployeeEditWork";
+import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 const ProfileGroup = () => {

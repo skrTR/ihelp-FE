@@ -1,50 +1,32 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TouchableOpacity,
-  Alert,
-  TextInput,
-} from "react-native";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { SimpleLineIcons } from "@expo/vector-icons";
 import axios from "axios";
 import { api } from "../../../../../Constants";
-import CategoryModal from "../../../../components/Profile/Company/CategoryModal";
 import UserContext from "../../../../context/UserContext";
+import SearchByCategory from "../../../../components/Modals/SearchByCategory";
 const EditCompanyStatus = (props) => {
   const { profile, name, category } = props.route.params;
 
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [categoryModal, setCategoryModal] = useState(false);
-  const [categoryId, setCategoryId] = useState("");
-  const [categoryName, setCategoryName] = useState(category);
-  const [categories, setCategories] = useState([]);
-  const getCategories = () => {
-    axios
-      .get(`${api}/api/v1/categories?limit=1000`)
-      .then((res) => {
-        setCategories(res.data.data);
-      })
-      .catch((err) => console.log(err));
-  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const [choosedId, setChoosedId] = useState("");
+  const [choosedName, setChoosedName] = useState("Салбар сонгох");
+  const [refresh, setRefresh] = useState(false);
   const sendCategory = () => {
     axios
       .put(`${api}/api/v1/profiles/${state.companyId}`, {
-        category: categoryId,
+        category: choosedId,
       })
       .then((res) => {
         navigation.goBack();
+        alert("Статус амжилтай солигдлоо");
       })
       .catch((err) => console.log(err));
   };
-  useEffect(() => {
-    getCategories();
-  }, []);
 
   return (
     <>
@@ -83,10 +65,10 @@ const EditCompanyStatus = (props) => {
             borderRadius: 20,
             borderColor: colors.border,
           }}
-          onPress={() => setCategoryModal(true)}
+          onPress={() => setModalVisible(true)}
         >
           <Text style={{ color: colors.primaryText }}>
-            {categoryName ? categoryName : "Сонгох"}
+            {category ? category : choosedName}
           </Text>
         </TouchableOpacity>
         <Text
@@ -104,7 +86,7 @@ const EditCompanyStatus = (props) => {
 
         <TouchableOpacity
           style={{
-            backgroundColor: categoryName ? "#FFB6C1" : colors.border,
+            backgroundColor: choosedName ? "#FFB6C1" : colors.border,
             padding: 6,
             borderRadius: 20,
             alignSelf: "center",
@@ -160,12 +142,12 @@ const EditCompanyStatus = (props) => {
           />
         </View>
       </View>
-      <CategoryModal
-        category={categories}
-        categoryModal={categoryModal}
-        setCategoryModal={setCategoryModal}
-        setCategoryId={setCategoryId}
-        setCategoryName={setCategoryName}
+      <SearchByCategory
+        setModalVisible={setModalVisible}
+        modalVisible={modalVisible}
+        setChoosedId={setChoosedId}
+        setRefresh={setRefresh}
+        setChoosedName={setChoosedName}
       />
     </>
   );
