@@ -40,7 +40,7 @@ const WorkSearch = () => {
     } else {
       axios
         .get(
-          `${api}/api/v1/jobs/${choosedId}/occupation?limit=1000&select=firstName type profile occupationName isEmployer isEmployee salary`
+          `${api}/api/v1/jobs/${choosedId}/occupation?limit=1000&select=firstName type profile occupationName isEmployer isEmployee salary isUrgent isSpecial`
         )
         .then((res) => {
           setWorks(res.data.data);
@@ -100,7 +100,7 @@ const WorkSearch = () => {
               ListFooterComponent={<View style={{ marginVertical: 200 }} />}
               renderItem={({ item }) => {
                 return (
-                  <View style={{ marginTop: 5 }}>
+                  <View style={{}}>
                     {item.isUrgent ? (
                       <UrgentWork
                         id={item._id}

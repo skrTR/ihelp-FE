@@ -77,7 +77,7 @@ const AddWorkTypeModal = (props) => {
             axios
               .post(`${api}/api/v1/jobs/${state.companyId}`, addWork)
               .then((res) => {
-                navigation.navigate("Ажилтан авна", {
+                navigation.navigate("EmployerStack", {
                   screen: "EmployerWorkDetail",
                 });
               })

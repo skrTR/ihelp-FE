@@ -8,7 +8,6 @@ import UserContext from "../../../../context/UserContext";
 import SearchByCategory from "../../../../components/Modals/SearchByCategory";
 const EditCompanyStatus = (props) => {
   const { profile, name, category } = props.route.params;
-
   const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -20,6 +19,7 @@ const EditCompanyStatus = (props) => {
     axios
       .put(`${api}/api/v1/profiles/${state.companyId}`, {
         category: choosedId,
+        categoryName: choosedName,
       })
       .then((res) => {
         navigation.goBack();
@@ -67,6 +67,7 @@ const EditCompanyStatus = (props) => {
           }}
           onPress={() => setModalVisible(true)}
         >
+          {console.log(choosedName, category)}
           <Text style={{ color: colors.primaryText }}>
             {category ? category : choosedName}
           </Text>

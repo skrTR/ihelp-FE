@@ -570,7 +570,7 @@ const Portfolio = (props) => {
       </>
       <MyButton text={"Оруулах"} onPress={sendNetworkingPost} />
       <MyButton
-        text={"Портфолио устгах"}
+        text={"Зурагт танилцуулга устгах"}
         onPress={() => navigation.navigate("DeletePortfolio")}
         style={{
           marginTop: 10,

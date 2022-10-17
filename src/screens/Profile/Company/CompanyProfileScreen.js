@@ -68,8 +68,8 @@ const CompanyProfileScreen = () => {
             />
           ) : (
             <EmptyData
-              title={"Портфолио"}
-              inTitle={"Портфолио?"}
+              title={"Зураг"}
+              inTitle={"Зурагт танилцуулга?"}
               description={"Та өөрийн хийсэн ажлын зургийг оруулах боломжтой"}
               icon={"school-outline"}
               id={companyProfile._id}

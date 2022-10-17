@@ -128,16 +128,16 @@ const NormalCompany = (props) => {
           <Text style={{ color: "white", fontWeight: "bold" }}>
             {data.firstName}
           </Text>
-          <Text
-            style={{
-              color: "white",
-              fontFamily: "Sf-thin",
-              marginVertical: 5,
-              width: "85%",
-            }}
-          >
-            {data.categoryName}
-          </Text>
+          {data.categoryName && (
+            <Text
+              style={{
+                color: colors.secondaryText,
+                width: data.categoryName.length > 12 ? "70%" : "100%",
+              }}
+            >
+              {data.categoryName}
+            </Text>
+          )}
           <Text style={{ color: "white" }}>
             Нийт ажлын байр: {data.jobNumber}
           </Text>
@@ -148,9 +148,10 @@ const NormalCompany = (props) => {
           style={{
             backgroundColor: "#FFB6C1",
             padding: 10,
-            borderRadius: 20,
-            marginRight: 20,
+            borderRadius: 10,
             alignItems: "center",
+            position: "absolute",
+            right: 10,
           }}
           onPress={() => {
             navigation.navigate("ProductUsePoint", {
@@ -176,6 +177,8 @@ const NormalCompany = (props) => {
             padding: 10,
             alignItems: "center",
             justifyContent: "center",
+            position: "absolute",
+            right: 10,
           }}
         />
       )}

@@ -14,6 +14,7 @@ const Header = (props) => {
     isFollowedCompany,
     companyFilter,
     workSort,
+    sortWork,
   } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -72,7 +73,7 @@ const Header = (props) => {
               size={25}
               color={colors.primaryText}
               onPress={() =>
-                navigation.navigate("Хайх", {
+                navigation.navigate("SearchStack", {
                   screen: "SearchScreen",
                   initial: false,
                 })
@@ -112,12 +113,12 @@ const Header = (props) => {
               size={25}
               color={colors.primaryText}
             />
-          ) : workSort ? (
+          ) : sortWork ? (
             <SimpleLineIcons
               name="equalizer"
               size={25}
               color={colors.primaryText}
-              onPress={() => navigation.navigate("CustomSearchModal")}
+              onPress={() => navigation.navigate("SortWorkModal")}
             />
           ) : (
             <TouchableOpacity

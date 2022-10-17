@@ -34,6 +34,8 @@ import SharePostModal from "../screens/Network/SharePostModal";
 import UserProfileScreen from "../screens/Profile/User/UserProfileScreen";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
+import UserInfluncerSearch from "../screens/Search/UserInfluncerSearch";
+import UserFreelancerSearch from "../screens/Search/UserFreelancerSearch";
 const SearchGroup = () => {
   const SearchStack = createNativeStackNavigator();
   return (
@@ -73,6 +75,16 @@ const SearchGroup = () => {
         <SearchStack.Screen
           name="UserSearch"
           component={UserSearch}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <SearchStack.Screen
+          name="UserInfluncerSearch"
+          component={UserInfluncerSearch}
+          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <SearchStack.Screen
+          name="UserFreelancerSearch"
+          component={UserFreelancerSearch}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
         />
         <SearchStack.Screen

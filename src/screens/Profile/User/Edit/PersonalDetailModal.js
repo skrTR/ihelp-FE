@@ -22,6 +22,7 @@ import SearchWorkByCateogry from "../../../../components/Modals/SearchWorkByCate
 import SearchByOccupation from "../../../../components/Modals/SearchByOccupation";
 import GenderModal from "../../../../components/Modals/GenderModal";
 import Loading from "../../../../components/Loading";
+import TypeModal from "../../../../components/Modals/TypeModal";
 const PersonalDetailModal = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
@@ -48,6 +49,9 @@ const PersonalDetailModal = (props) => {
   // Боловсрол сонгох
   const [educationModal, setEducationModal] = useState(false);
   const [education, setEducation] = useState("");
+  // Цагийн төрөл сонгох
+  const [type, setType] = useState("");
+  const [typeModal, setTypeModal] = useState(false);
   const showPicker = () => {
     setIsPickerShow(true);
   };
@@ -81,6 +85,7 @@ const PersonalDetailModal = (props) => {
     gender: data.gender ? data.gender : "Сонгох",
     occupation: null,
     occupationName: data.occupationName ? data.occupationName : "Сонгох",
+    type: data.type ? data.type : "Сонгох",
     driverLicense: data.driverLicense,
     working: data.working,
   });
@@ -201,6 +206,13 @@ const PersonalDetailModal = (props) => {
     setPersonalCv({
       ...personalCv,
       experienceYear: text,
+    });
+  };
+  const checkType = (text) => {
+    setTypeModal(!typeModal);
+    setPersonalCv({
+      ...personalCv,
+      type: text,
     });
   };
   return (
@@ -409,7 +421,23 @@ const PersonalDetailModal = (props) => {
                 </Text>
               </View>
             </TouchableOpacity>
-
+            {/* Цагийн төрөл */}
+            <TouchableOpacity onPress={() => setTypeModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Цагийн төрөл
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {type ? type : personalCv.type}
+                </Text>
+              </View>
+            </TouchableOpacity>
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Жолооны үнэмлэх байгаа эсэх?
             </Text>
@@ -530,6 +558,13 @@ const PersonalDetailModal = (props) => {
             setRefresh={setRefresh}
             setChoosedId={checkOccupation}
             categoryId={categoryId}
+          />
+          {/* Хүйс */}
+          <TypeModal
+            setTypeModal={setTypeModal}
+            typeModal={typeModal}
+            setType={setType}
+            checkType={checkType}
           />
         </KeyboardAvoidingView>
       )}

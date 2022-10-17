@@ -10,7 +10,6 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import UserContext from "../../context/UserContext";
-import { AntDesign } from "@expo/vector-icons";
 import axios from "axios";
 import FollowButton from "../FollowButton";
 const NormalCompany = (props) => {
@@ -19,6 +18,7 @@ const NormalCompany = (props) => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [follow, setFollow] = useState(isFollowing);
+  console.log(data);
   const onFollow = () => {
     if (follow) {
       setFollow(false);
@@ -128,16 +128,17 @@ const NormalCompany = (props) => {
           <Text style={{ color: "white", fontWeight: "bold" }}>
             {data.firstName}
           </Text>
-          <Text
-            style={{
-              color: "white",
-              fontFamily: "Sf-thin",
-              marginVertical: 5,
-              width: "85%",
-            }}
-          >
-            {data.categoryName}
-          </Text>
+          {data.categoryName && (
+            <Text
+              style={{
+                color: colors.secondaryText,
+                width: data.categoryName.length > 12 ? "70%" : "100%",
+              }}
+            >
+              {data.categoryName}
+            </Text>
+          )}
+
           <Text style={{ color: "white" }}>
             Нийт ажлын байр: {data.jobNumber}
           </Text>
@@ -149,8 +150,9 @@ const NormalCompany = (props) => {
             backgroundColor: "#FFB6C1",
             padding: 10,
             borderRadius: 10,
-            marginRight: 20,
             alignItems: "center",
+            position: "absolute",
+            right: 10,
           }}
           onPress={() => {
             navigation.navigate("ProductUsePoint", {
@@ -159,7 +161,8 @@ const NormalCompany = (props) => {
           }}
         >
           <Text style={{ color: "black" }}>
-            {data.employerSpecial ? "Cунгах" : "Онцлох болох"}
+            {/* {data.employerSpecial ? "Cунгах" : "Онцлох болох"} */}
+            Тохиргоо
           </Text>
         </TouchableOpacity>
       ) : (
@@ -176,6 +179,8 @@ const NormalCompany = (props) => {
             padding: 10,
             alignItems: "center",
             justifyContent: "center",
+            position: "absolute",
+            right: 10,
           }}
         />
       )}

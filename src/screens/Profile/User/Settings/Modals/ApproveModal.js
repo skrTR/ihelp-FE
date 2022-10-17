@@ -2,30 +2,26 @@ import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
 import { useTheme } from "@react-navigation/native";
 import ModalHeader from "../../../../../components/ModalHeader";
-
-const LanguageModal = (props) => {
-  const { languageModal, setLanguageModal, setLangText, checkLangauge } = props;
+const ApproveModal = (props) => {
+  const { approveModal, setApproveModal, setApprove } = props;
   const { colors } = useTheme();
   return (
     <Modal
       animationType="slide"
+      visible={approveModal}
       presentationStyle="formSheet"
-      visible={languageModal}
       onRequestClose={() => {
-        setLanguageModal(!languageModal);
+        setApproveModal(!approveModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader
-          text="Хэлний мэдлэг сонгох"
-          clicked={() => setLanguageModal(false)}
-        />
+        <ModalHeader text="Статус" clicked={() => setApproveModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
-          {["Анхан түвшин", "Дунд түвшин", "Ахисан түвшин"].map((l, i) => (
+          {["Зөвшөөрсөн", "Зөвшөөрөөгүй"].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setLangText(l);
-                checkLangauge(l);
+                setApprove(l);
+                setApproveModal(!approveModal);
               }}
               key={i}
             >
@@ -41,14 +37,13 @@ const LanguageModal = (props) => {
   );
 };
 
-export default LanguageModal;
+export default ApproveModal;
 
 const styles = StyleSheet.create({
   text: {
     margin: 5,
     fontSize: 15,
     padding: 10,
-    fontFamily: "Sf-regular",
   },
   border: {
     borderWidth: 1,

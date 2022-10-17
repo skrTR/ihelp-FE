@@ -91,7 +91,7 @@ const CompanyHeader = (props) => {
               size={25}
               color={colors.primaryText}
               onPress={() =>
-                navigation.navigate("Хайх", {
+                navigation.navigate("SearchStack", {
                   screen: "SearchScreen",
                   initial: false,
                 })

@@ -62,7 +62,7 @@ const EmployeeAddWork = (props) => {
     axios
       .put(`${api}/api/v1/announcements/${data._id}`, addWork)
       .then((res) => {
-        navigation.navigate("Ажил авна", { screen: "EmployeeScreen" });
+        navigation.navigate("EmployeeStack", { screen: "EmployeeScreen" });
         alert("Амжилтай");
       })
       .catch((err) => {

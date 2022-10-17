@@ -136,19 +136,19 @@ const CompanyProfileEdit = ({ route }) => {
         style={{
           padding: 10,
           borderWidth: 1,
-          borderRadius: 20,
+          borderRadius: 10,
           borderColor: colors.border,
           backgroundColor: colors.secondaryText,
         }}
         onPress={() => setMembersModal(true)}
       >
+        {console.log(companyProfile)}
         <Text
           style={{
             textAlign: "center",
-            color: colors.primaryText,
           }}
         >
-          {companyProfile.employerNumber === ""
+          {companyProfile.employerNumber === "null"
             ? "Ажилтаны тоо"
             : `${companyProfile.employerNumber} Ажилтантай`}
         </Text>
@@ -176,21 +176,14 @@ const CompanyProfileEdit = ({ route }) => {
         onPress={sendCompanyProfile}
         style={{
           alignSelf: "center",
+          backgroundColor: "#FFB6C1",
+          borderRadius: 10,
+          paddingHorizontal: 40,
+          marginTop: 20,
+          padding: 10,
         }}
       >
-        <LinearGradient
-          colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-          style={{
-            borderRadius: 20,
-            paddingHorizontal: 40,
-            marginTop: 20,
-            padding: 10,
-          }}
-          start={[0.0, 0.5]}
-          end={[1.0, 0.5]}
-        >
-          <Text style={{ color: "white" }}> Хадгалах </Text>
-        </LinearGradient>
+        <Text style={{ color: "black" }}> Хадгалах </Text>
       </TouchableOpacity>
       <CompanyWorkerModal
         setMembersText={setMembersText}

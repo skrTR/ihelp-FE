@@ -238,7 +238,35 @@ const CompanySettingModal = () => {
         </>
       )}
 
-      {/* Line */}
+      {/* <TouchableOpacity
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          marginTop: 20,
+        }}
+        onPress={() => {
+          navigation.navigate("CompanySendWork");
+        }}
+      >
+        <MaterialIcons name="archive" size={28} color={colors.primaryText} />
+
+        <Text
+          style={{
+            color: colors.primaryText,
+            marginLeft: 20,
+            fontSize: 18,
+          }}
+        >
+          Илгээсэн ажлын санал
+        </Text>
+      </TouchableOpacity> */}
+      {/* <View
+        style={{
+          borderWidth: 0.5,
+          borderColor: colors.border,
+          marginVertical: 10,
+        }}
+      /> */}
 
       {/* Change password */}
       <TouchableOpacity

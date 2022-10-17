@@ -155,21 +155,16 @@ const UserSortModal = () => {
                 gender: gender,
               })
             }
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 10,
+              marginTop: 10,
+              borderColor: colors.border,
+            }}
           >
-            <LinearGradient
-              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-              start={[0.0, 0.5]}
-              end={[1.0, 0.5]}
-              style={{
-                borderRadius: 10,
-                padding: 10,
-                marginVertical: 10,
-              }}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                Хайх
-              </Text>
-            </LinearGradient>
+            <Text style={{ textAlign: "center", color: "black" }}>Хайх</Text>
           </TouchableOpacity>
         </View>
         <View style={{ marginBottom: 100 }} />

@@ -13,7 +13,7 @@ import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
-const UserSearch = () => {
+const UserFreelancerSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
@@ -27,7 +27,7 @@ const UserSearch = () => {
   }, []);
   const fetchUser = () => {
     // const apiURL = `${api}/api/v1/cvs`;
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&limit=1000`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Чөлөөт ажилтан&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -55,9 +55,11 @@ const UserSearch = () => {
       setSearch(text);
     }
   };
-  const filtered = filterData.filter((obj) => {
-    return obj.id !== state.userId;
-  });
+  const filtered =
+    filterData &&
+    filterData.filter((obj) => {
+      return obj.id !== state.userId;
+    });
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
       <View
@@ -96,7 +98,7 @@ const UserSearch = () => {
           marginVertical: 10,
         }}
       />
-      {filterData.length > 0 && (
+      {filterData && (
         <FlatList
           data={filtered.sort((a, b) => b.score - a.score)}
           keyExtractor={(item, index) => index}
@@ -114,7 +116,7 @@ const UserSearch = () => {
                   marginHorizontal: 10,
                 }}
               >
-                Хэрэглэгч хайх
+                Чөлөөт ажилтан хайх
               </Text>
             </>
           }
@@ -124,4 +126,4 @@ const UserSearch = () => {
   );
 };
 
-export default UserSearch;
+export default UserFreelancerSearch;

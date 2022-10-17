@@ -108,10 +108,7 @@ const CourseSchoolModal = (props) => {
         <View
           style={[styles.modalView, { backgroundColor: colors.background }]}
         >
-          <ModalHeader
-            text="Ажлын туршлага"
-            clicked={() => setSchoolModal(false)}
-          />
+          <ModalHeader text="Сургууль" clicked={() => setSchoolModal(false)} />
 
           <TextInput
             placeholder="Жишээ нь: ihelp"

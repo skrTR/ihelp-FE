@@ -4,11 +4,10 @@ import axios from "axios";
 import { api } from "../../../../Constants";
 import UserContext from "../../../context/UserContext";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import AntDesign from "@expo/vector-icons/AntDesign";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Verify from "../../Verify";
 import FollowButton from "../../FollowButton";
-import SearchByCategory from "../../../screens/Search/Work/SearchByCategory";
+import SearchByCategory from "../../../components/Modals/SearchByCategory";
 const EmployeeData = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -123,9 +122,16 @@ const EmployeeData = (props) => {
             <Text style={{ color: colors.primaryText }}>
               {item.firstName} {item.isApproved && <Verify size={10} />}
             </Text>
-            <Text style={{ color: colors.secondaryText }}>
-              {item.categoryName}
-            </Text>
+            {item.categoryName && (
+              <Text
+                style={{
+                  color: colors.secondaryText,
+                  width: item.categoryName.length > 12 ? "70%" : "100%",
+                }}
+              >
+                {item.categoryName}
+              </Text>
+            )}
           </View>
         </View>
         <FollowButton
@@ -142,6 +148,8 @@ const EmployeeData = (props) => {
             padding: 10,
             alignItems: "center",
             justifyContent: "center",
+            position: "absolute",
+            right: 0,
           }}
         />
       </TouchableOpacity>

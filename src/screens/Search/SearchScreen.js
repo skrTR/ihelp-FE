@@ -41,42 +41,94 @@ const SearchScreen = () => {
         ) : (
           <Header isFollowedCompany={true} />
         )}
-        <ScrollView
-          style={{ backgroundColor: colors.background, marginHorizontal: 10 }}
-        >
-          <TouchableOpacity
-            style={{
-              padding: 10,
-
-              borderWidth: 1,
-              borderRadius: 10,
-              marginTop: 10,
-              borderColor: colors.border,
-            }}
-            onPress={() => navigation.navigate("UserSearch")}
+        <ScrollView style={{ backgroundColor: colors.background }}>
+          <View
+            style={{ backgroundColor: colors.background, marginHorizontal: 10 }}
           >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {" "}
-              Хэрэглэгч хайх
+            <Text
+              style={{
+                color: colors.primaryText,
+                fontFamily: "Sf-bold",
+                fontSize: 20,
+                marginTop: 5,
+              }}
+            >
+              Хэрэглэгч
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              padding: 10,
+            <TouchableOpacity
+              style={{
+                padding: 10,
 
-              borderWidth: 1,
-              borderRadius: 10,
-              marginTop: 10,
-              borderColor: colors.border,
-            }}
-            onPress={() => navigation.navigate("CompanySearch")}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {" "}
-              Байгууллага хайх
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 10,
+                borderColor: colors.border,
+              }}
+              onPress={() => navigation.navigate("UserSearch")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                {" "}
+                Хэрэглэгч хайх
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 10,
+
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 10,
+                borderColor: colors.border,
+              }}
+              // onPress={() => navigation.navigate("UserInfluncerSearch")}
+              onPress={() => alert("Тун удахгүй")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                {" "}
+                Инфлюэнсер
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 10,
+
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 10,
+                borderColor: colors.border,
+              }}
+              // onPress={() => navigation.navigate("UserFreelancerSearch")}
+              onPress={() => alert("Тун удахгүй")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                {" "}
+                Чөлөөт ажилтан
+              </Text>
+            </TouchableOpacity>
+            <Text
+              style={{
+                color: colors.primaryText,
+                fontFamily: "Sf-bold",
+                fontSize: 20,
+                marginTop: 5,
+              }}
+            >
+              Байгууллага
             </Text>
-          </TouchableOpacity>
-          {!state.isCompany && (
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
+                marginTop: 10,
+              }}
+              onPress={() => navigation.navigate("EmployerSearch")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                Ажил олгогч байгууллага
+              </Text>
+            </TouchableOpacity>
             <TouchableOpacity
               style={{
                 padding: 10,
@@ -84,70 +136,128 @@ const SearchScreen = () => {
                 borderWidth: 1,
                 borderRadius: 10,
                 borderColor: colors.border,
+                marginVertical: 10,
+              }}
+              onPress={() => navigation.navigate("EmployeeSearch")}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: colors.primaryText,
+                }}
+              >
+                Ажил хайгч байгууллага
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                padding: 10,
+
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
+              }}
+              onPress={() => navigation.navigate("AllCompanySearch")}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  color: colors.primaryText,
+                }}
+              >
+                Бүгд
+              </Text>
+            </TouchableOpacity>
+            {/* <TouchableOpacity
+              style={{
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
                 marginTop: 10,
+                borderColor: colors.border,
               }}
-              onPress={() => {
-                if (score > 79) {
-                  navigation.navigate("MyJobs");
-                } else {
-                  Alert.alert(
-                    "Анхаар",
-                    "Та өөрийн анкетыг 80%-с дээш бөглөснөөр өөрт тохирох зарыг үзэх боломжтой",
-                    [
-                      {
-                        text: "Үгүй",
-                        style: "cancel",
-                      },
-                      {
-                        text: "Анкет янзлах",
-                        onPress: () =>
-                          navigation.navigate("Профайл", {
-                            screen: "CreateCvScreen",
-                            params: { id: state.userId },
-                          }),
-                      },
-                    ]
-                  );
-                }
-              }}
+              onPress={() => navigation.navigate("CompanySearch")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
-                Өөрт тохирох{" "}
+                Байгууллага хайх
+              </Text>
+            </TouchableOpacity> */}
+            {/* {!state.isCompany && (
+              <TouchableOpacity
+                style={{
+                  padding: 10,
+
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: colors.border,
+                  marginTop: 10,
+                }}
+                onPress={() => {
+                  if (score > 79) {
+                    navigation.navigate("MyJobs");
+                  } else {
+                    Alert.alert(
+                      "Анхаар",
+                      "Та өөрийн анкетыг 80%-с дээш бөглөснөөр өөрт тохирох зарыг үзэх боломжтой",
+                      [
+                        {
+                          text: "Үгүй",
+                          style: "cancel",
+                        },
+                        {
+                          text: "Анкет янзлах",
+                          onPress: () =>
+                            navigation.navigate("ProfileStack", {
+                              screen: "CreateCvScreen",
+                              params: { id: state.userId },
+                            }),
+                        },
+                      ]
+                    );
+                  }
+                }}
+              >
+                <Text
+                  style={{ textAlign: "center", color: colors.primaryText }}
+                >
+                  {" "}
+                  Өөрт тохирох{" "}
+                </Text>
+              </TouchableOpacity>
+            )} */}
+            {/* <TouchableOpacity
+              style={{
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 10,
+                borderColor: colors.border,
+              }}
+              onPress={() => navigation.navigate("WorkSearch")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                {" "}
+                Мэргэжлээр зар хайх{" "}
               </Text>
             </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              marginTop: 10,
-              borderColor: colors.border,
-            }}
-            onPress={() => navigation.navigate("WorkSearch")}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {" "}
-              Мэргэжлээр зар хайх{" "}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{
-              padding: 10,
-              borderWidth: 1,
-              borderRadius: 10,
-              borderColor: colors.border,
+            <TouchableOpacity
+              style={{
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
 
-              marginTop: 10,
-            }}
-            onPress={() => navigation.navigate("CategorySearch")}
-          >
-            <Text style={{ textAlign: "center", color: colors.primaryText }}>
-              {" "}
-              Салбараар зар хайх{" "}
-            </Text>
-          </TouchableOpacity>
+                marginTop: 10,
+              }}
+              onPress={() => navigation.navigate("CategorySearch")}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                {" "}
+                Салбараар зар хайх{" "}
+              </Text>
+            </TouchableOpacity> */}
+          </View>
         </ScrollView>
       </View>
     </>

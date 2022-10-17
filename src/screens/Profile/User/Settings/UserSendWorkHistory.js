@@ -16,6 +16,7 @@ const UserSendWorkHistory = () => {
       .get(`${api}/api/v1/applies/${state.userId}/apply`)
       .then((res) => {
         setWorkRequest(res.data.data);
+        console.log(res.data.data);
       })
       .catch((err) => {
         console.log(err);

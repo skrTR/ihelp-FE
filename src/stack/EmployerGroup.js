@@ -21,6 +21,8 @@ import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
 import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 import AddWorkTypeModal from "../screens/Employer/AddWorkTypeModal";
+import SortWorkModal from "../screens/Employer/SortWorkModal";
+import ResultWorkModal from "../screens/Employer/ResultWorkModal";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -179,6 +181,24 @@ const EmployerGroup = () => {
           name="EmployeeWorkDetail"
           component={EmployeeWorkDetail}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployerStack.Screen
+          name="SortWorkModal"
+          component={SortWorkModal}
+          options={{
+            title: "Ажлын зар шүүх",
+            headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
+          }}
+        />
+        <EmployerStack.Screen
+          name="ResultWorkModal"
+          component={ResultWorkModal}
+          options={{
+            title: "Илэрц",
+            headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
+          }}
         />
       </EmployerStack.Group>
     </EmployerStack.Navigator>

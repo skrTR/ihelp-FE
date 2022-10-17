@@ -15,7 +15,9 @@ import UserContext from "../../../../context/UserContext";
 const EditAbout = ({ route }) => {
   const { about } = route.params;
   const { colors } = useTheme();
-  const [postText, setPostText] = useState(about);
+  const [postText, setPostText] = useState(
+    about === "me" ? "Tа өөрийгөө танилцуулна уу" : about
+  );
   const state = useContext(UserContext);
   const navigation = useNavigation();
   const sendPersonalDetail = () => {

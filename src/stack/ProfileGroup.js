@@ -78,6 +78,9 @@ import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWo
 import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
+import UserRecievedJobDetail from "../screens/Profile/User/Settings/UserRecievedJobDetail";
+import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
+import CompanySendWork from "../screens/Profile/Company/CompanySetting/CompanySendWork";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -206,6 +209,16 @@ const ProfileGroup = () => {
                 headerShown: true,
                 presentation: "formSheet",
                 title: "Ирсэн ажлын санал",
+                headerLeft: () => <MyBackButton />,
+              }}
+            />
+            <ProfileStack.Screen
+              name="CompanySendWork"
+              component={CompanySendWork}
+              options={{
+                headerShown: true,
+                presentation: "formSheet",
+                title: "Илгээсэн ажлын санал",
                 headerLeft: () => <MyBackButton />,
               }}
             />
@@ -708,7 +721,7 @@ const ProfileGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Портфолиа",
+            title: "Зурагт танилцуулга",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -718,7 +731,7 @@ const ProfileGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Портфолиа",
+            title: "Зурагт танилцуулга",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -728,7 +741,7 @@ const ProfileGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Портфолиа",
+            title: "Зурагт танилцуулга",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -738,7 +751,7 @@ const ProfileGroup = () => {
           options={{
             headerShown: true,
             presentation: "formSheet",
-            title: "Портфолиа устгах",
+            title: "Зурагт танилцуулга устгах",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -841,6 +854,26 @@ const ProfileGroup = () => {
           name="EmployeeWorkDetail"
           component={EmployeeWorkDetail}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <ProfileStack.Screen
+          name="UserRecievedJobDetail"
+          component={UserRecievedJobDetail}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Ирсэн ажлын санал",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="EmployerSendWorkModal"
+          component={EmployerSendWorkModal}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет илгээх",
+            headerLeft: () => <MyBackButton />,
+          }}
         />
       </ProfileStack.Group>
     </ProfileStack.Navigator>

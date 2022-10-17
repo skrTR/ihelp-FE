@@ -374,24 +374,18 @@ const ExperienceDetailModal = ({ route }) => {
           <TouchableOpacity
             onPress={sendPersonalDetail}
             style={{
-              marginTop: 20,
+              marginTop: 10,
               borderRadius: 10,
+              paddingVertical: 10,
+              borderWidth: 1,
+              borderColor: colors.border,
+              backgroundColor: "#FFB6C1",
             }}
           >
-            <LinearGradient
-              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-              style={{
-                paddingVertical: 10,
-                borderRadius: 10,
-              }}
-              start={[0.0, 0.5]}
-              end={[1.0, 0.5]}
-            >
-              <Text style={{ color: colors.primaryText, textAlign: "center" }}>
-                {" "}
-                Хадгалах{" "}
-              </Text>
-            </LinearGradient>
+            <Text style={{ color: "black", textAlign: "center" }}>
+              {" "}
+              Хадгалах{" "}
+            </Text>
           </TouchableOpacity>
           <TouchableOpacity
             onPress={deleteExperience}

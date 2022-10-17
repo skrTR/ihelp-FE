@@ -95,7 +95,19 @@ const AchievmentAddModal = () => {
         errorText="Шагнал гардуулсан байгууллага урт 2-20 тэмдэгтээс тогтоно."
         errorShow={error.company}
       />
-      <LinearGradientButton onClick={sendPersonalDetail} />
+      <TouchableOpacity
+        onPress={sendPersonalDetail}
+        style={{
+          marginTop: 10,
+          borderRadius: 10,
+          paddingVertical: 10,
+          borderWidth: 1,
+          borderColor: colors.border,
+          backgroundColor: "#FFB6C1",
+        }}
+      >
+        <Text style={{ color: "black", textAlign: "center" }}> Хадгалах </Text>
+      </TouchableOpacity>
     </ScrollView>
   );
 };

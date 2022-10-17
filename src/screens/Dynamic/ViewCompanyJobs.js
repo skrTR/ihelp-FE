@@ -98,7 +98,7 @@ const ViewCompanyJobs = (props) => {
               textAlign: "center",
             }}
           >
-            Ажил авна
+            Ажил хийлгэнэ
           </Text>
         </TouchableOpacity>
       </View>

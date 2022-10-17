@@ -13,7 +13,7 @@ export default (refresh) => {
   const getData = () => {
     axios
       .get(
-        `${api}/api/v1/profiles/unspecials/employee?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing&isApproved=true`
+        `${api}/api/v1/profiles/unspecials/employee?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing categoryName&isApproved=true`
       )
       .then((result) => {
         if (isMounted) {

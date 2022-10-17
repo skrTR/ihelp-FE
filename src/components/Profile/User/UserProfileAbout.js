@@ -59,7 +59,7 @@ const UserProfileAbout = ({ about }) => {
             marginBottom: about === "me" ? 20 : 0,
           }}
         >
-          {about === "me" ? `Та өөрийгөө таниулцана уу` : about}
+          {about === "me" ? `Та өөрийгөө танилцуулна уу` : about}
         </Text>
       </TouchableOpacity>
     </>

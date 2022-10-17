@@ -13,14 +13,14 @@ import { api } from "../../../../../Constants";
 import UserContext from "../../../../context/UserContext";
 import Empty from "../../../../components/Empty";
 
-const CompanyWorkRequest = () => {
+const CompanySendWork = () => {
   const state = useContext(UserContext);
   const [cvData, setCvData] = useState([]);
   const navigation = useNavigation();
   const { colors } = useTheme();
   const getCvData = () => {
     axios
-      .get(`${api}/api/v1/invitations/${state.companyId}/cv`)
+      .get(`${api}/api/v1/invitations/${state.companyId}/sent`)
       .then((res) => {
         setCvData(res.data.data);
         console.log(res.data.data);
@@ -81,7 +81,7 @@ const CompanyWorkRequest = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      {e.name}
+                      {e.occupation}
                     </Text>
                     <Text
                       style={{
@@ -125,12 +125,12 @@ const CompanyWorkRequest = () => {
           );
         })
       ) : (
-        <Empty text="Таныг хүн дагаагүй байна" />
+        <Empty text="Та ажлын санал илгээгүй байна" />
       )}
     </ScrollView>
   );
 };
 
-export default CompanyWorkRequest;
+export default CompanySendWork;
 
 const styles = StyleSheet.create({});

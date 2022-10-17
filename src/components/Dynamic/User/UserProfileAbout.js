@@ -41,7 +41,7 @@ const UserProfileAbout = ({ about }) => {
             borderRadius: 10,
           }}
         >
-          {about ? about : `Та өөрийгөө таниулцана уу...`}
+          {about ? about : `та өөрийгөө танилцуулна уу`}
         </Text>
       </TouchableOpacity>
     </>

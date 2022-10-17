@@ -56,8 +56,7 @@ export const UserStore = (props) => {
   const logout = async () => {
     await AsyncStorage.removeItem("user");
     await AsyncStorage.removeItem("company");
-    await axios.get(`${api}/api/v1/cvs/logout`);
-    await axios.get(`${api}/api/v1/profiles/logout`);
+    await axios.get(`${api}/api/v1/cvs/logout/${userId ? userId : companyId}`);
     setIsLoggedIn(false);
     setIsCompany(false);
     setToken(null);

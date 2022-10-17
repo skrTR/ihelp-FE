@@ -416,7 +416,7 @@ const EmployerAddWork = () => {
             setExperienceModal={setExperienceModal}
             checkExperience={checkExperience}
           />
-          {/* Цагын төрөл сонгох */}
+          {/* Цагийн төрөл сонгох */}
           <TypeModal
             setTypeModal={setTypeModal}
             typeModal={typeModal}

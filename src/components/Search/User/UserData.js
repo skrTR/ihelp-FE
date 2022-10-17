@@ -113,6 +113,8 @@ const UserData = (props) => {
             padding: 10,
             alignItems: "center",
             justifyContent: "center",
+            position: "absolute",
+            right: 0,
           }}
         />
       </View>

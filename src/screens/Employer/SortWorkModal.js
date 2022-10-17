@@ -1,21 +1,19 @@
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import AgeModal from "../../Employer/AddWorkModals/AgeModal";
-import EducationModal from "../../Employer/AddWorkModals/EducationModal";
-import ExperienceModal from "../../Employer/AddWorkModals/ExperienceModal";
-import GenderModal from "../../Employer/AddWorkModals/GenderModal";
-import LevelModal from "../../Employer/AddWorkModals/LevelModal";
-import OccupationModal from "../../Employer/AddWorkModals/OccupationModal";
-import SalaryModal from "../../Employer/AddWorkModals/SalaryModal";
-import TypeModal from "../../Employer/AddWorkModals/TypeModal";
-import { LinearGradient } from "expo-linear-gradient";
-const CustomSearchModal = () => {
+
+import EducationModal from "../../components/Modals/EducationModal";
+import ExperienceModal from "../../components/Modals/ExperienceModal";
+import GenderModal from "../../components/Modals/GenderModal";
+
+import SalaryModal from "../../components/Modals/SalaryModal";
+import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
+import SearchByOccupation from "../../components/Modals/SearchByOccupation";
+import TypeModal from "../../components/Modals/TypeModal";
+const SortWorkModal = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
-  // нас сонгох модал
-  const [ageModal, setAgeModal] = useState(false);
-  const [age, setAge] = useState("");
+
   // Боловсрол сонгох
   const [educationModal, setEducationModal] = useState(false);
   const [education, setEducation] = useState("");
@@ -25,121 +23,90 @@ const CustomSearchModal = () => {
   // Хүйс modal
   const [genderModal, setGenderModal] = useState(false);
   const [gender, setGender] = useState("");
-  // Level сонгох
-  const [level, setLevel] = useState("");
-  const [levelModal, setLevelModal] = useState(false);
+
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categoryModal, setCategoryModal] = useState(false);
+  const [occupationId, setOccupationId] = useState("");
+  const [refresh, setRefresh] = useState(false);
   // Цалин Modal
   const [modalVisible, setModalVisible] = useState(false);
   const [salary, setSalary] = useState("");
   // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
-  const checkAge = (text) => {
-    setAgeModal(!ageModal);
-    // setAddWork({
-    //   ...addWork,
-    //   age: text,
-    // });
-  };
   const checkEducation = (text) => {
     setEducationModal(!educationModal);
-    // setAddWork({
-    //   ...addWork,
-    //   education: text,
-    // });
   };
   const checkExperience = (text) => {
     setExperienceModal(!experienceModal);
-    // setAddWork({
-    //   ...addWork,
-    //   experience: text,
-    // });
   };
   const checkGender = (text) => {
     setGenderModal(!genderModal);
-    // setAddWork({
-    //   ...addWork,
-    //   gender: text,
-    // });
   };
-  const checkLevel = (text) => {
-    setLevelModal(!levelModal);
-    // setAddWork({
-    //   ...addWork,
-    //   level: text,
-    // });
-  };
+
   const checkOccupation = (id) => {
-    setOccupationModal(!occupationModal);
-    // setAddWork({
-    //   ...addWork,
-    //   occupation: id,
-    // });
+    setOccupationId(id);
   };
   const checkSalary = (text) => {
     setModalVisible(!modalVisible);
-    // setAddWork({
-    //   ...addWork,
-    //   salary: text,
-    // });
   };
   const checkType = (text) => {
     setTypeModal(!typeModal);
-    // setAddWork({
-    //   ...addWork,
-    //   type: text,
-    // });
   };
   return (
     <>
-      <View style={{ backgroundColor: colors.background, flex: 1 }}>
-        <View style={{ backgroundColor: colors.background, height: "100%" }}>
-          {/* Мэргэжил */}
+      <View style={{ backgroundColor: colors.background, height: "100%" }}>
+        <View
+          style={{
+            backgroundColor: colors.background,
+            height: "100%",
+            marginHorizontal: 10,
+          }}
+        >
+          {/* 1.Мэргэжил */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
-            onPress={() => setOccupationModal(true)}
+            onPress={() => setCategoryModal(true)}
           >
             <Text style={{ textAlign: "center", color: colors.primaryText }}>
               {occupationName ? `${occupationName}` : "Мэргэжил сонгох"}
             </Text>
           </TouchableOpacity>
-          {/*  , , Цалин сонгох, Хүйс сонгох,  */}
-          {/* Боловсрол */}
+          {/* 2.Боловсрол */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
-              backgroundColor: education && "#FFB6C1",
             }}
             onPress={() => setEducationModal(true)}
           >
             <Text
               style={{
                 textAlign: "center",
-                color: !education ? colors.primaryText : "black",
+                color: colors.primaryText,
               }}
             >
               {education ? `${education}` : "Боловсрол сонгох"}
             </Text>
           </TouchableOpacity>
-          {/* Ажлын туршлага */}
+          {/* 3.Ажлын туршлага */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -149,12 +116,12 @@ const CustomSearchModal = () => {
               {experience ? `${experience} жил` : "Ажлын туршлага"}
             </Text>
           </TouchableOpacity>
-          {/* Цагийн төрөл */}
+          {/* 4.Цагийн төрөл */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -164,12 +131,12 @@ const CustomSearchModal = () => {
               {type ? `${type}` : "Цагийн төрөл"}
             </Text>
           </TouchableOpacity>
-          {/* Цалин */}
+          {/* 5.Цалин */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -179,12 +146,12 @@ const CustomSearchModal = () => {
               {salary ? `${salary}` : "Цалин"}
             </Text>
           </TouchableOpacity>
-          {/* Хүйс */}
+          {/* 6.Хүйс */}
           <TouchableOpacity
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -197,41 +164,30 @@ const CustomSearchModal = () => {
           {/* Хайх */}
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate("CustomSearchedModal", {
+              navigation.navigate("ResultWorkModal", {
+                occupationId: occupationId,
                 salary: salary,
-                age: age,
-                level: level,
                 education: education,
                 experience: experience,
                 gender: gender,
                 type: type,
               })
             }
+            style={{
+              backgroundColor: "#FFB6C1",
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 10,
+              marginTop: 10,
+              borderColor: colors.border,
+            }}
           >
-            <LinearGradient
-              colors={["#3A1C71", "#D76D77", "#FFAF7B"]}
-              start={[0.0, 0.5]}
-              end={[1.0, 0.5]}
-              style={{
-                borderRadius: 18,
-                padding: 10,
-                marginTop: 10,
-              }}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                Хайх
-              </Text>
-            </LinearGradient>
+            <Text style={{ textAlign: "center", color: "black" }}>Хайх</Text>
           </TouchableOpacity>
         </View>
+        <View style={{ marginBottom: 100 }} />
       </View>
-      {/* Nas songoh */}
-      <AgeModal
-        setAge={setAge}
-        ageModal={ageModal}
-        setAgeModal={setAgeModal}
-        checkAge={checkAge}
-      />
+
       {/* Боловсрол сонгох */}
       <EducationModal
         setEducation={setEducation}
@@ -253,19 +209,23 @@ const CustomSearchModal = () => {
         genderModal={genderModal}
         checkGender={checkGender}
       />
-      {/* Level сонгох */}
-      <LevelModal
-        setLevelModal={setLevelModal}
-        levelModal={levelModal}
-        setLevel={setLevel}
-        checkLevel={checkLevel}
+
+      {/* Мэргэжил сонгох */}
+      <SearchWorkByCateogry
+        setCategoryModal={setCategoryModal}
+        categoryModal={categoryModal}
+        setRefresh={setRefresh}
+        setCategoryId={setCategoryId}
+        setOccupationModal={setOccupationModal}
       />
-      {/* Mergejil */}
-      <OccupationModal
+      <SearchByOccupation
         setOccupationModal={setOccupationModal}
         occupationModal={occupationModal}
-        setOccupationName={setOccupationName}
-        checkOccupation={checkOccupation}
+        setChoosedName={setOccupationName}
+        refresh={refresh}
+        setRefresh={setRefresh}
+        setChoosedId={checkOccupation}
+        categoryId={categoryId}
       />
       {/* Цалин  */}
       <SalaryModal
@@ -274,7 +234,7 @@ const CustomSearchModal = () => {
         setSalary={setSalary}
         checkSalary={checkSalary}
       />
-      {/* type сонгох */}
+      {/* Цагийн төрөл */}
       <TypeModal
         setTypeModal={setTypeModal}
         typeModal={typeModal}
@@ -285,6 +245,6 @@ const CustomSearchModal = () => {
   );
 };
 
-export default CustomSearchModal;
+export default SortWorkModal;
 
 const styles = StyleSheet.create({});

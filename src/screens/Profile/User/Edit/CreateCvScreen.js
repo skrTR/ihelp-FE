@@ -152,7 +152,7 @@ const CreateCvScreen = (props) => {
           >
             <Text style={{ fontFamily: "Sf-bold" }}>
               <MaterialIcons
-                name="self-improvement"
+                name="business-center"
                 size={16}
                 color={colors.primary}
               />{" "}
@@ -193,6 +193,25 @@ const CreateCvScreen = (props) => {
           </Text>{" "}
           {cv.driverLicense ? "Байгаа" : "Байхгүй"}
         </Text>
+        {cv.type && (
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "200",
+              marginTop: 5,
+            }}
+          >
+            <Text style={{ fontFamily: "Sf-bold", alignItems: "center" }}>
+              <MaterialIcons
+                name="access-time"
+                size={16}
+                color={colors.primary}
+              />{" "}
+              Цагийн төрөл:{" "}
+            </Text>
+            {cv.type}
+          </Text>
+        )}
       </TouchableOpacity>
       {/* Achievment */}
       <>
@@ -470,6 +489,7 @@ const CreateCvScreen = (props) => {
                     name="pencil"
                     size={24}
                     color={colors.primaryText}
+                    style={{ position: "absolute", right: 10 }}
                   />
                 </TouchableOpacity>
               );
@@ -726,6 +746,7 @@ const CreateCvScreen = (props) => {
                         data: item,
                       })
                     }
+                    style={{ position: "absolute", right: 10 }}
                   />
                 </TouchableOpacity>
               );
@@ -933,6 +954,7 @@ const CreateCvScreen = (props) => {
                         data: item,
                       })
                     }
+                    style={{ position: "absolute", right: 10 }}
                   />
                 </TouchableOpacity>
               );
@@ -1051,14 +1073,14 @@ const CreateCvScreen = (props) => {
                     </View>
                     <SimpleLineIcons
                       name="pencil"
-                      size={24}
+                      size={20}
                       color={colors.primaryText}
                       onPress={() =>
                         navigation.navigate("LanguagePackageModal", {
                           data: cv.language,
                         })
                       }
-                      style={{ marginRight: 5 }}
+                      style={{ position: "absolute", right: 10 }}
                     />
                   </View>
                 );
@@ -1300,6 +1322,7 @@ const CreateCvScreen = (props) => {
                       data: cv.skill,
                     })
                   }
+                  style={{ position: "absolute", right: 10 }}
                 />
               </TouchableOpacity>
             )}
@@ -1330,7 +1353,7 @@ const CreateCvScreen = (props) => {
               name="pencil"
               size={24}
               color={colors.primaryText}
-              style={{ marginRight: 10 }}
+              style={{ position: "absolute", right: 10 }}
               onPress={() => {
                 navigation.navigate("EditAbout", {
                   about: userProfile.about,
@@ -1353,7 +1376,8 @@ const CreateCvScreen = (props) => {
           >
             <Text
               style={{
-                borderWidth: userProfile.about ? 0 : 1,
+                borderWidth:
+                  userProfile.about === "Та өөрийгөө танилцуулна уу" ? 0 : 1,
                 borderColor: colors.border,
                 color: userProfile.about
                   ? colors.primaryText
@@ -1364,9 +1388,7 @@ const CreateCvScreen = (props) => {
                 borderRadius: 10,
               }}
             >
-              {userProfile.about
-                ? userProfile.about
-                : "Та өөрийгөө таниулцана уу..."}
+              {userProfile.about && userProfile.about}
             </Text>
           </TouchableOpacity>
         </View>

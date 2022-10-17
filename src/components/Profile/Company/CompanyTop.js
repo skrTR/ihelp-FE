@@ -130,7 +130,7 @@ const CompanyTop = (props) => {
             <Text
               style={{
                 color: colors.secondaryText,
-                textAlign: "justify",
+                width: category && category.length > 12 ? "70%" : "100%",
               }}
             >
               {category}

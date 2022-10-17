@@ -12,7 +12,6 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import Empty from "../../../../components/Empty";
 import { api } from "../../../../../Constants";
 import UserContext from "../../../../context/UserContext";
-import Icon from "@expo/vector-icons/Entypo";
 const UserRecievedJob = () => {
   const state = useContext(UserContext);
   const navigation = useNavigation();
@@ -44,106 +43,80 @@ const UserRecievedJob = () => {
           renderItem={({ item }) => {
             return (
               <>
-                {item.createUser && (
+                <View
+                  style={{
+                    backgroundColor: colors.background,
+                    marginHorizontal: 10,
+                    paddingVertical: 5,
+                    marginVertical: 4,
+                    borderRadius: 10,
+                    borderWidth: 1,
+                    borderColor: colors.border,
+                  }}
+                >
                   <View
                     style={{
-                      backgroundColor: colors.background,
-                      marginHorizontal: 10,
-                      paddingVertical: 5,
-                      marginVertical: 4,
-                      borderRadius: 10,
-                      borderWidth: 1,
-                      borderColor: colors.border,
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
                     }}
                   >
-                    <View
-                      style={{
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                      }}
+                    <TouchableOpacity
+                      style={{ flexDirection: "row", alignItems: "center" }}
+                      onPress={() =>
+                        navigation.navigate("UserRecievedJobDetail", {
+                          id: item._id,
+                        })
+                      }
                     >
-                      <TouchableOpacity
-                        style={{ flexDirection: "row", alignItems: "center" }}
-                        onPress={() =>
-                          item.createUser.organization
-                            ? navigation.navigate("ViewCompanyProfile", {
-                                id: item.createUser._id,
-                              })
-                            : navigation.navigate("ViewUserProfile", {
-                                id: item.createUser._id,
-                              })
-                        }
-                      >
-                        <Image
-                          source={{
-                            uri: `${api}/upload/${item.createUser.profile}`,
-                          }}
-                          style={{
-                            width: 75,
-                            height: 75,
-                            borderRadius: 30,
-                            marginHorizontal: 5,
-                          }}
-                        />
+                      <Image
+                        source={{
+                          uri: `${api}/upload/${item.profile}`,
+                        }}
+                        style={{
+                          width: 75,
+                          height: 75,
+                          borderRadius: 30,
+                          marginHorizontal: 5,
+                        }}
+                      />
 
-                        <View>
-                          {item.createUser.organization ? (
-                            <Text
-                              style={{
-                                fontSize: 15,
-                                color: colors.primaryText,
-                                fontFamily: "Sf-bold",
-                                fontWeight: "bold",
-                                width: "95%",
-                              }}
-                            >
-                              {item.createUser.firstName}
-                            </Text>
-                          ) : (
-                            <Text
-                              style={{
-                                fontSize: 15,
-                                color: colors.primaryText,
-                                fontFamily: "Sf-bold",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              {`${item.createUser.firstName} ${item.createUser.lastName}`}
-                            </Text>
-                          )}
-                          <Text
-                            style={{
-                              paddingVertical: 5,
-                              color: colors.primaryText,
-                              fontFamily: "Sf-thin",
-                              fontSize: 14,
-                            }}
-                          >
-                            Цалин: {item.salary}₮
-                          </Text>
-                          <Text
-                            style={{
-                              color: colors.primaryText,
-                              fontFamily: "Sf-regular",
-                              fontWeight: "200",
-                            }}
-                          >
-                            Мэргэжил: {item.occupation}
-                          </Text>
-                          {/* <Text
-                            style={{
-                              color: colors.primaryText,
-                              fontFamily: "Sf-regular",
-                            }}
-                          >
-                            Дэлгэрэнгүй: {item.description}
-                          </Text> */}
-                        </View>
-                      </TouchableOpacity>
-                    </View>
+                      <View>
+                        <Text
+                          style={{
+                            fontSize: 15,
+                            color: colors.primaryText,
+                            fontFamily: "Sf-bold",
+                            fontWeight: "bold",
+                            width: "95%",
+                          }}
+                        >
+                          {item.firstName}
+                        </Text>
+
+                        <Text
+                          style={{
+                            paddingVertical: 5,
+                            color: colors.primaryText,
+                            fontFamily: "Sf-thin",
+                            fontSize: 14,
+                          }}
+                        >
+                          Цалин: {item.salary}₮
+                        </Text>
+                        <Text
+                          style={{
+                            color: colors.primaryText,
+                            fontFamily: "Sf-regular",
+                            fontWeight: "200",
+                          }}
+                        >
+                          Мэргэжил: {item.occupation}
+                        </Text>
+                      </View>
+                    </TouchableOpacity>
                   </View>
-                )}
+                </View>
               </>
             );
           }}

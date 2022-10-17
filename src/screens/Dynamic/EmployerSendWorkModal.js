@@ -50,10 +50,12 @@ const EmployerSendWorkModal = (props) => {
     axios
       .post(`${api}/api/v1/applies/${id}/profile`)
       .then((res) => {
-        console.log(res.data.data);
+        alert("Таны анкет амжилтай илгээгдлээ");
+        navigation.goBack();
       })
       .catch((err) => {
-        console.log(err);
+        let message = err.response.data.error.message;
+        alert(message);
       });
   };
   useEffect(() => {
@@ -1183,7 +1185,7 @@ const EmployerSendWorkModal = (props) => {
             marginTop: 10,
           }}
           onPress={() => {
-            navigation.navigate("Профайл", {
+            navigation.navigate("ProfileStack", {
               screen: "UserProfileScreen",
             });
           }}
@@ -1236,7 +1238,7 @@ const EmployerSendWorkModal = (props) => {
                   {
                     text: "Анкет янзлах",
                     onPress: () =>
-                      navigation.navigate("Профайл", {
+                      navigation.navigate("ProfileStack", {
                         screen: "CreateCvScreen",
                         params: { id: state.userId },
                       }),

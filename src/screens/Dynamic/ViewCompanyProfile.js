@@ -189,7 +189,7 @@ const ViewCompanyProfile = (props) => {
                   textAlign: "center",
                 }}
               >
-                Ажил авна
+                Ажил хийлгэнэ
               </Text>
             </TouchableOpacity>
           </View>

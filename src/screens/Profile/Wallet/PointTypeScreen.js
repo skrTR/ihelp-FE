@@ -51,7 +51,7 @@ const PointTypeScreen = () => {
           />
           <View style={{ marginTop: 10 }} />
           <MyButton
-            text="Ажил авна дээр зар идэвхжүүлэх"
+            text="Ажил хийлгэнэ дээр зар идэвхжүүлэх"
             onPress={() => {
               navigation.navigate("ProductUsePoint", { type: "EmployerBoost" });
             }}
@@ -60,7 +60,7 @@ const PointTypeScreen = () => {
             <>
               <View style={{ marginTop: 10 }} />
               <MyButton
-                text="Ажил авна дээр онцгой байгууллага"
+                text="Ажил хийлгэнэ дээр онцгой байгууллага"
                 onPress={() => {
                   navigation.navigate("ProductUsePoint", {
                     type: "SpecialCompanyEmployer",

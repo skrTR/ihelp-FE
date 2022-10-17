@@ -125,15 +125,16 @@ const SpecialCompany = (props) => {
           <Text style={{ color: "white", fontWeight: "bold" }}>
             {data.firstName}
           </Text>
-          <Text
-            style={{
-              color: "white",
-              fontFamily: "Sf-thin",
-              marginVertical: 5,
-            }}
-          >
-            {data.categoryName}
-          </Text>
+          {data.categoryName && (
+            <Text
+              style={{
+                color: colors.secondaryText,
+                width: data.categoryName.length > 12 ? "70%" : "100%",
+              }}
+            >
+              {data.categoryName}
+            </Text>
+          )}
           <Text style={{ color: "white" }}>
             Нийт ажлын байр: {data.jobNumber}
           </Text>
@@ -145,7 +146,6 @@ const SpecialCompany = (props) => {
             backgroundColor: "#FFB6C1",
             padding: 10,
             borderRadius: 10,
-            marginRight: 20,
             alignItems: "center",
           }}
           onPress={() => {
@@ -172,6 +172,8 @@ const SpecialCompany = (props) => {
             padding: 10,
             alignItems: "center",
             justifyContent: "center",
+            position: "absolute",
+            right: 10,
           }}
         />
       )}

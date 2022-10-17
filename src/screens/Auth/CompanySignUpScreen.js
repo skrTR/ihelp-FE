@@ -17,6 +17,7 @@ import * as Animatable from "react-native-animatable";
 import UserContext from "../../context/UserContext";
 import axios from "axios";
 import { api } from "../../../Constants";
+import MyPasswordInput from "../../components/MyPasswordInput";
 const CompanySignUpScreen = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -125,11 +126,19 @@ const CompanySignUpScreen = () => {
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>
             Нууц үг:
           </Text>
-          <MyTextInput value={password1} onChangeText={setPassword1} />
+          <MyPasswordInput
+            value={password1}
+            onChangeText={setPassword1}
+            iconStyle={colors.primary}
+          />
           <Text style={[styles.inputHeadText, { color: colors.primary }]}>
             Нууц үг давтах:
           </Text>
-          <MyTextInput value={password} onChangeText={setPassword} />
+          <MyPasswordInput
+            value={password}
+            onChangeText={setPassword}
+            iconStyle={colors.primary}
+          />
         </View>
         <View
           style={{

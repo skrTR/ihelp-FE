@@ -39,24 +39,24 @@ const StackNavigator = () => {
     <>
       {state.isLoggedIn ? (
         <Tab.Navigator
-          initialRouteName="Ажилтан авна"
+          initialRouteName="EmployerStack"
           sceneContainerStyle={{ backgroundColor: colors.background }}
           screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
               let iconName;
-              if (route.name === "Ажил авна") {
+              if (route.name === "EmployeeStack") {
                 iconName = focused ? "briefcase" : "briefcase-outline";
-              } else if (route.name === "Ажилтан авна") {
+              } else if (route.name === "EmployerStack") {
                 iconName = focused ? "business" : "business-outline";
-              } else if (route.name === "Нетворк") {
+              } else if (route.name === "NetworkingStack") {
                 iconName = focused ? "people-sharp" : "people-outline";
-              } else if (route.name === "Профайл") {
+              } else if (route.name === "ProfileStack") {
                 iconName = focused ? "person-circle" : "person-circle-outline";
               } else if (route.name === "AnketStack") {
                 iconName = focused ? "logo-ionic" : "md-logo-ionic";
-              } else if (route.name === "Хайх") {
+              } else if (route.name === "SearchStack") {
                 iconName = focused ? "md-search-sharp" : "md-search-outline";
-              } else if (route.name === "Анкет сан") {
+              } else if (route.name === "CvStack") {
                 iconName = focused ? "logo-ionic" : "md-logo-ionic";
               }
 
@@ -68,38 +68,38 @@ const StackNavigator = () => {
           })}
         >
           <Tab.Screen
-            name="Хайх"
+            name="SearchStack"
             component={SearchGroup}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, title: "Хайх" }}
           />
 
           <Tab.Screen
-            name="Ажил авна"
+            name="EmployeeStack"
             component={EmployeeGroup}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, title: "Ажил захиалга" }}
           />
           <Tab.Screen
-            name="Ажилтан авна"
+            name="EmployerStack"
             component={EmployerGroup}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, title: "Ажлын байр" }}
           />
           {state.isCompany ? (
             <Tab.Screen
-              name="Анкет сан"
+              name="CvStack"
               component={CvGroup}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Анкет сан" }}
             />
           ) : (
             <Tab.Screen
-              name="Нетворк"
+              name="NetworkingStack"
               component={NetworkingGroup}
-              options={{ headerShown: false }}
+              options={{ headerShown: false, title: "Нетворк" }}
             />
           )}
           <Tab.Screen
-            name="Профайл"
+            name="ProfileStack"
             component={ProfileGroup}
-            options={{ headerShown: false }}
+            options={{ headerShown: false, title: "Профайл" }}
           />
         </Tab.Navigator>
       ) : (

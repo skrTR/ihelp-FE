@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import EmployeeData from "../../components/Search/Company/EmployeeData";
@@ -20,7 +20,7 @@ const AllCompanySearch = () => {
   const [masterData, setMasterData] = useState([]);
   const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [choosedId, setChoosedId] = useState("undefined");
+  const [choosedId, setChoosedId] = useState("");
   const [choosedName, setChoosedName] = useState("Салбар сонгох");
   const [refresh, setRefresh] = useState(false);
   const { colors } = useTheme();
@@ -28,19 +28,21 @@ const AllCompanySearch = () => {
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   useEffect(() => {
+    setRefresh(false);
     fetchCompany();
     return () => {};
   }, [refresh]);
   const fetchCompany = () => {
     // const apiURL = `${api}/api/v1/profiles`;
     const apiURL = `${api}/api/v1/profiles?select=firstName profile categoryName organization isEmployer isEmployee isApproved employerSpecial employeeSpecial&limit=1000&organization=true${
-      choosedId === "undefined" ? "" : `&category=${choosedId}`
+      choosedId === "" ? "" : `&category=${choosedId}`
     }`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
+        console.log(responseJson);
       })
       .catch((error) => {
         alert(error);
@@ -66,7 +68,7 @@ const AllCompanySearch = () => {
     return obj.id !== state.companyId;
   });
   // employerSpecial employeeSpecial
-  const sorted2 = filterData.sort(
+  const sorted2 = filtered.sort(
     (a, b) => b.employerSpecial - a.employerSpecial
   );
   const sortedData = sorted2.sort(

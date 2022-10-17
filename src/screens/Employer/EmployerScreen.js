@@ -91,9 +91,13 @@ const EmployerScreen = () => {
         }}
       />
       {state.isCompany ? (
-        <CompanyHeader isEmployerAddWork={true} isSearch={true} />
+        <CompanyHeader
+          isEmployerAddWork={true}
+          isSearch={true}
+          sortWork={true}
+        />
       ) : (
-        <Header isEmployerSaved={true} />
+        <Header isEmployerSaved={true} sortWork={true} />
       )}
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Screen name="Ажлын зар" component={EmployerWorkScreen} />

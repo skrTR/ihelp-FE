@@ -27,7 +27,7 @@ const CompanyPortf = (props) => {
             fontSize: 20,
           }}
         >
-          Байгууллагын портфолиа
+          Зурагт танилцуулга
         </Text>
         <SimpleLineIcons
           name="pencil"

@@ -9,6 +9,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmployeeWorkScreen from "./EmployeeWorkScreen";
 import EmployeeCompanyScreen from "./EmployeeCompanyScreen";
+import Empty from "../../components/Empty";
 const EmployeeScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
@@ -103,14 +104,16 @@ const EmployeeScreen = () => {
         style={{ paddingTop: insents.top, backgroundColor: colors.header }}
       />
       {state.isCompany ? (
-        <CompanyHeader isEmployeeAddWork={true} isSearch={true} />
+        <CompanyHeader isSearch={true} />
       ) : (
+        // <CompanyHeader isEmployeeAddWork={true} isSearch={true} />
         <Header isEmployeeSaved={true} />
       )}
-      <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
+      {/* <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Screen name="Ажлын зар" component={EmployeeWorkScreen} />
         <Tab.Screen name="Байгууллага" component={EmployeeCompanyScreen} />
-      </Tab.Navigator>
+      </Tab.Navigator> */}
+      <Empty text={"Тун удахгүй"} />
     </>
   );
 };

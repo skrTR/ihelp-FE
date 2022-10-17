@@ -23,7 +23,7 @@ const CategorySearch = () => {
     if (choosedId === "") {
       axios
         .get(
-          `${api}/api/v1/jobs?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee`
+          `${api}/api/v1/jobs?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee isUrgent isSpecial`
         )
         .then((res) => {
           setWorks(res.data.data);
@@ -34,7 +34,7 @@ const CategorySearch = () => {
     } else if (choosedId.length > 0) {
       axios
         .get(
-          `${api}/api/v1/jobs/${choosedId}/category?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee`
+          `${api}/api/v1/jobs/${choosedId}/category?limit=1000&select=occupationName salary firstName profile type isEmployer isEmployee isUrgent isSpecial`
         )
         .then((res) => {
           setWorks(res.data.data);
@@ -48,6 +48,8 @@ const CategorySearch = () => {
     setRefresh(false);
     getWorkSearch();
   }, [refresh]);
+  const sorted2 = works.sort((a, b) => b.isSpecial - a.isSpecial);
+  const sortedData = sorted2.sort((a, b) => b.isUrgent - a.isUrgent);
   return (
     <>
       <View
@@ -86,7 +88,7 @@ const CategorySearch = () => {
           {works.length > 0 ? (
             <FlatList
               showsVerticalScrollIndicator={false}
-              data={works}
+              data={sortedData}
               keyExtractor={(item, index) => index}
               renderItem={({ item }) => {
                 return (

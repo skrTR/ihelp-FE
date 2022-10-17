@@ -4,11 +4,10 @@ import {
   View,
   TextInput,
   FlatList,
-  SafeAreaView,
   TouchableOpacity,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { AntDesign, SimpleLineIcons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import EmployeeData from "../../components/Search/Company/EmployeeData";
@@ -29,6 +28,7 @@ const EmployerSearch = () => {
   const navigation = useNavigation();
   const insents = useSafeAreaInsets();
   useEffect(() => {
+    setRefresh(false);
     fetchCompany();
     return () => {};
   }, [refresh]);

@@ -135,7 +135,7 @@ const EmployerEditWork = (props) => {
             axios
               .delete(`${api}/api/v1/jobs/${data._id}`)
               .then((res) => {
-                navigation.navigate("Ажилтан авна", {
+                navigation.navigate("EmployerStack", {
                   screen: "EmployerScreen",
                 });
                 alert("Амжилтай устлаа");
@@ -472,7 +472,7 @@ const EmployerEditWork = (props) => {
             setExperienceModal={setExperienceModal}
             checkExperience={checkExperience}
           />
-          {/* Цагын төрөл сонгох */}
+          {/* Цагийн төрөл сонгох */}
           <TypeModal
             setTypeModal={setTypeModal}
             typeModal={typeModal}

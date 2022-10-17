@@ -13,7 +13,7 @@ export default () => {
     setNormalCompanyLoading(true);
     axios
       .get(
-        `${api}/api/v1/profiles/unspecials/employer?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing&isApproved=true`
+        `${api}/api/v1/profiles/unspecials/employer?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing categoryName&isApproved=true`
       )
       .then((result) => {
         if (isMounted) {
