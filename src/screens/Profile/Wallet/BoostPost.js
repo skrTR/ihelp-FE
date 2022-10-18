@@ -75,7 +75,19 @@ const BoostPost = (props) => {
         ]);
       })
       .catch((err) => {
-        console.log(err);
+        const message = err.response.data.error.message;
+        Alert.alert("Анхаар", message, [
+          {
+            text: "Болих",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel",
+          },
+          {
+            text: "Хэтэвч цэнэглэх",
+            onPress: () =>
+              navigation.navigate("ProfileStack", { screen: "WalletScreen" }),
+          },
+        ]);
       });
   };
   if (!userPoint) {

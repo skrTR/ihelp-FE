@@ -4,6 +4,7 @@ import {
   View,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -211,14 +212,9 @@ const EmployerAddWork = () => {
   }
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-        paddingTop: insents.top,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      style={{ flex: 1, paddingTop: insents.top }}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      behavior={"padding"}
     >
       <View style={{}}>
         <CompanyHeader isBack={true} notification={notification.notification} />

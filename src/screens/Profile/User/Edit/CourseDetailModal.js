@@ -19,11 +19,15 @@ import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
 import CourseSchoolModal from "./EditModal/CourseSchoolModal";
 import moment from "moment";
+import EducationModal from "../../../../components/Modals/EducationModal";
 const CourseDetailModal = ({ route }) => {
   const { data } = route.params;
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [schoolModal, setSchoolModal] = useState(false);
+  // Боловсрол сонгох
+  const [educationModal, setEducationModal] = useState(false);
+  const [education, setEducation] = useState("");
   console.log(data);
   const [course, setCourse] = useState({
     description: data.description,
@@ -112,15 +116,17 @@ const CourseDetailModal = ({ route }) => {
       isStudying: !course.isStudying,
     });
   };
+  const checkEducation = (text) => {
+    setEducationModal(!educationModal);
+    setCourse({
+      ...course,
+      education: text,
+    });
+  };
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
       <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
         {/* Surguuli */}
@@ -189,6 +195,22 @@ const CourseDetailModal = ({ route }) => {
                 <Ionicons name="backspace-outline" size={20} color="black" />
               )}
             </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setEducationModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Боловсролын зэрэг
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {education ? education : course.education}
+            </Text>
           </View>
         </TouchableOpacity>
         {/* Mergejil */}
@@ -325,6 +347,14 @@ const CourseDetailModal = ({ route }) => {
           schoolModal={schoolModal}
           setSchoolModal={setSchoolModal}
         />
+        {/* Боловсрол сонгох */}
+        <EducationModal
+          setEducation={setEducation}
+          setEducationModal={setEducationModal}
+          educationModal={educationModal}
+          checkEducation={checkEducation}
+        />
+        <View style={{ marginBottom: 250 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

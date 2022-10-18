@@ -26,7 +26,7 @@ const SpecialPermissionModal = (props) => {
           clicked={() => setSpecialPermission(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
-          {["Сонгох", "Байгаа", "Байхгүй", "Шаардлагагүй"].map((l, i) => (
+          {["Байгаа", "Байхгүй", "Шаардлагагүй"].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
                 setPermission(l);

@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Animated, useColorScheme } from "react-native";
 import React, { useContext } from "react";
 import { useTheme } from "@react-navigation/native";
 
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
@@ -64,29 +64,15 @@ const EmployeeScreen = () => {
                 borderRadius: 10,
                 borderWidth: 1,
                 borderColor: "white",
-                backgroundColor:
-                  colorScheme === "dark"
-                    ? !isFocused
-                      ? colors.background
-                      : "white"
-                    : colorScheme === "light" && !isFocused
-                    ? colors.background
-                    : "#FFB6C1",
+                backgroundColor: !isFocused ? colors.background : "white",
+                justifyContent: "center",
               }}
             >
               <Animated.Text
                 style={{
                   fontWeight: "bold",
                   paddingHorizontal: 30,
-                  color:
-                    colorScheme === "dark"
-                      ? isFocused
-                        ? colors.background
-                        : colors.primaryText
-                      : colorScheme === "light" && isFocused
-                      ? "black"
-                      : colors.primaryText,
-
+                  color: isFocused ? colors.background : colors.primaryText,
                   textAlign: "center",
                 }}
               >
@@ -103,15 +89,16 @@ const EmployeeScreen = () => {
       <View
         style={{ paddingTop: insents.top, backgroundColor: colors.header }}
       />
-      {state.isCompany ? (
-        <CompanyHeader isSearch={true} />
+      {/* {state.isCompany ? (
+        <CompanyHeader isSearch={true} isEmployeeAddWork={true} />
       ) : (
         // <CompanyHeader isEmployeeAddWork={true} isSearch={true} />
-        <Header isEmployeeSaved={true} />
-      )}
+      <Header isEmployeeSaved={true} isEmployeeAddWork={true} />
+      )} */}
+      <Header isEmployeeSort={true} isEmployeeAddWork={true} />
       {/* <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-        <Tab.Screen name="Ажлын зар" component={EmployeeWorkScreen} />
-        <Tab.Screen name="Байгууллага" component={EmployeeCompanyScreen} />
+        <Tab.Screen name="Ажил гүйцэтгэгч" component={EmployeeWorkScreen} />
+        <Tab.Screen name="Ажил захиалагч" component={EmployeeCompanyScreen} />
       </Tab.Navigator> */}
       <Empty text={"Тун удахгүй"} />
     </>

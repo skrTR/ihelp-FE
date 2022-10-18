@@ -147,11 +147,11 @@ const SpecialCompany = (props) => {
             padding: 10,
             borderRadius: 10,
             alignItems: "center",
+            position: "absolute",
+            right: 10,
           }}
           onPress={() => {
-            navigation.navigate("ProductUsePoint", {
-              type: "SpecialCompanyEmployer",
-            });
+            navigation.navigate("BoostSpecialCompany");
           }}
         >
           <Text style={{ color: "black" }}>

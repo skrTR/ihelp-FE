@@ -171,16 +171,7 @@ const EmployeeAddWork = (props) => {
     return null;
   }
   return (
-    <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-        paddingTop: insents.top,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
-    >
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <View style={{}}>
         <CompanyHeader isBack={true} notification={notification.notification} />
         <View style={{ backgroundColor: colors.background }}>

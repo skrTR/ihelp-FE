@@ -81,6 +81,8 @@ import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 import UserRecievedJobDetail from "../screens/Profile/User/Settings/UserRecievedJobDetail";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 import CompanySendWork from "../screens/Profile/Company/CompanySetting/CompanySendWork";
+import NetworkingBoost from "../screens/Profile/Wallet/User/NetworkingBoost";
+import BoostSpecialCompany from "../screens/Profile/Wallet/Company/BoostSpecialCompany";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -698,7 +700,7 @@ const ProfileGroup = () => {
             component={BoostPost}
             options={{
               headerShown: true,
-              // presentation: "formSheet",
+              presentation: "formSheet",
               title: "Нийтлэл идэвхжүүлэх",
               headerLeft: () => <MyBackButton />,
               fullScreenGestureEnabled: true,
@@ -781,6 +783,16 @@ const ProfileGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Ажлын зар",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="BoostSpecialCompany"
+          component={BoostSpecialCompany}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
         />
@@ -872,6 +884,16 @@ const ProfileGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Анкет илгээх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="NetworkingBoost"
+          component={NetworkingBoost}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Нийтлэл идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
         />

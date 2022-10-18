@@ -93,7 +93,7 @@ const UserProfileCourse = ({ data }) => {
                       fontFamily: "Sf-thin",
                     }}
                   >
-                    {moment(e.start).format("YYYY")}{" "}
+                    {moment(e.start).format("YYYY")} -{" "}
                     {e.isStudying
                       ? `сурч байгаа`
                       : moment(e.end).format("YYYY")}

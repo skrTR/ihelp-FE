@@ -12,6 +12,7 @@ import CompanyJobs from "../../components/Profile/Company/CompanyJobs";
 import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
 import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
 import { useTheme } from "@react-navigation/native";
+import Empty from "../../components/Empty";
 
 const ViewCompanyJobs = (props) => {
   const { id } = props.route.params;
@@ -20,6 +21,11 @@ const ViewCompanyJobs = (props) => {
   const [companyAnnoucement] = useCompanyAnnoucement(id);
   const colorScheme = useColorScheme();
   const [isType, setIsType] = useState(true);
+  const sorted2 =
+    companyJobs && companyJobs.sort((a, b) => b.isSpecial - a.isSpecial);
+  const sortedData = sorted2
+    ? sorted2.sort((a, b) => b.isUrgent - a.isUrgent)
+    : [];
   return (
     <ScrollView>
       <View style={{ flexDirection: "row" }}>
@@ -40,6 +46,7 @@ const ViewCompanyJobs = (props) => {
                 : colorScheme === "light" && isType
                 ? colors.background
                 : "#FFB6C1",
+            justifyContent: "center",
           }}
           onPress={() => setIsType(true)}
         >
@@ -57,6 +64,7 @@ const ViewCompanyJobs = (props) => {
                   : colors.primaryText,
 
               textAlign: "center",
+              justifyContent: "center",
             }}
           >
             Ажилтан авна
@@ -104,27 +112,17 @@ const ViewCompanyJobs = (props) => {
       </View>
       {isType ? (
         <>
-          {companyJobs.map((data) => {
+          {sortedData.map((data) => {
             return (
               <View key={data._id}>
-                <CompanyJobs
-                  id={data._id}
-                  createUserName={data.firstName}
-                  createUserProfile={data.profile}
-                  isEmployer={data.isEmployer}
-                  isEmployee={data.isEmployee}
-                  occupation={data.occupationName}
-                  type={data.type}
-                  salary={data.salary}
-                  order={data.order}
-                />
+                <CompanyJobs data={data} />
               </View>
             );
           })}
         </>
       ) : (
         <>
-          {companyAnnoucement.map((data) => {
+          {/* {companyAnnoucement.map((data) => {
             return (
               <View key={data._id}>
                 <CompanyAnnoucements
@@ -140,7 +138,8 @@ const ViewCompanyJobs = (props) => {
                 />
               </View>
             );
-          })}
+          })} */}
+          <Empty text={"Тун удахгүй"} />
         </>
       )}
     </ScrollView>

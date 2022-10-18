@@ -1,35 +1,38 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import ModalHeader from "../../../components/ModalHeader";
+import ModalHeader from "../ModalHeader";
 import { useTheme } from "@react-navigation/native";
 
-const TypeModal = (props) => {
-  const { typeModal, setTypeModal, setType, checkType } = props;
+const PriceModal = (props) => {
+  const { priceModal, setPriceModal, setPrice, checkPrice } = props;
   const { colors } = useTheme();
   return (
     <Modal
       animationType="slide"
-      visible={typeModal}
+      visible={priceModal}
       presentationStyle="formSheet"
       onRequestClose={() => {
-        setTypeModal(!typeModal);
+        setPriceModal(!priceModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader text="Цагийн төрөл" clicked={() => setTypeModal(false)} />
+        <ModalHeader text="Үнийн санал" clicked={() => setPriceModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
           {[
-            "Үндсэн ажил",
-            "Цагийн ажил",
-            "Чөлөөт ажилтан",
-            "Гэрээгээр",
-            "Дадлага",
-            "Улирлын чанартай",
+            "1,000,000 хүртэлх",
+            "1,000,000 - 2,000,000",
+            "3,000,000 - 5,000,000",
+            "5,000,000 - 10,000,000",
+            "10,000,000 - 20,000,000",
+            "20,000,000 - 40,000,000",
+            "40,000,000 - 65,000,000",
+            "65,000,000 - 100,000,000",
+            "100,000,000 -с дээш",
           ].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setType(l);
-                checkType(l);
+                setPrice(l);
+                checkPrice(l);
               }}
               key={i}
             >
@@ -45,7 +48,7 @@ const TypeModal = (props) => {
   );
 };
 
-export default TypeModal;
+export default PriceModal;
 
 const styles = StyleSheet.create({
   text: {

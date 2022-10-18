@@ -19,6 +19,11 @@ const CompanyProfileScreen = () => {
   const [companyProfile] = useCompanyProfile(state.companyId);
   const [companyJobs, loading] = useCompanyJobs(state.companyId);
   const insents = useSafeAreaInsets();
+  const sorted2 =
+    companyJobs && companyJobs.sort((a, b) => b.isSpecial - a.isSpecial);
+  const sortedData = sorted2
+    ? sorted2.sort((a, b) => b.isUrgent - a.isUrgent)
+    : [];
   if (!companyProfile) {
     return null;
   }
@@ -96,20 +101,10 @@ const CompanyProfileScreen = () => {
                 </Text>
               )}
 
-              {companyJobs.map((data) => {
+              {sortedData.map((data) => {
                 return (
                   <View key={data._id}>
-                    <CompanyJobs
-                      id={data._id}
-                      createUser={data.createUser}
-                      firstName={data.firstName}
-                      profile={data.profile}
-                      occupation={data.occupationName}
-                      type={data.type}
-                      salary={data.salary}
-                      count={data.count}
-                      categoryName={data.comCategoryName}
-                    />
+                    <CompanyJobs data={data} />
                   </View>
                 );
               })}

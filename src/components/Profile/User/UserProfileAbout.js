@@ -54,7 +54,7 @@ const UserProfileAbout = ({ about }) => {
             fontSize: 14,
             padding: 10,
             paddingBottom: 40,
-            marginHorizontal: 20,
+            marginHorizontal: 10,
             borderRadius: 10,
             marginBottom: about === "me" ? 20 : 0,
           }}

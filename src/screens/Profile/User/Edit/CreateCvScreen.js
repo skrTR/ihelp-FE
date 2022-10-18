@@ -213,166 +213,6 @@ const CreateCvScreen = (props) => {
           </Text>
         )}
       </TouchableOpacity>
-      {/* Achievment */}
-      <>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Text
-            style={{
-              color: colors.primaryText,
-              fontWeight: "bold",
-              fontSize: 20,
-              paddingVertical: 10,
-            }}
-          >
-            Гавьяа шагнал
-          </Text>
-          <AntDesign
-            name="pluscircleo"
-            size={24}
-            color={colors.primaryText}
-            style={{ marginRight: 10 }}
-            onPress={() => navigation.navigate("AchievmentAddModal")}
-          />
-        </View>
-        {cv.achievement.length > 0 ? (
-          <View>
-            {cv.achievement.map((item) => {
-              return (
-                <TouchableOpacity
-                  key={item._id}
-                  style={{
-                    backgroundColor: colors.border,
-                    padding: 10,
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    marginVertical: 2,
-                    borderRadius: 10,
-                  }}
-                  onPress={() =>
-                    navigation.navigate("AchievmentDetailModal", {
-                      data: item,
-                    })
-                  }
-                >
-                  <View>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        <MaterialCommunityIcons
-                          name="home-plus-outline"
-                          size={16}
-                          color={colors.primary}
-                        />{" "}
-                        Байгууллага:{" "}
-                      </Text>
-                      {item.company}
-                    </Text>
-                    <Text
-                      style={{
-                        color: colors.primaryText,
-                        marginVertical: 5,
-                        fontWeight: "200",
-                      }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        <AntDesign
-                          name="calendar"
-                          size={16}
-                          color={colors.primary}
-                        />{" "}
-                        Он:{" "}
-                      </Text>
-                      {item.achievementYear}
-                    </Text>
-                    <Text
-                      style={{ color: colors.primaryText, fontWeight: "200" }}
-                    >
-                      <Text style={{ fontFamily: "Sf-bold" }}>
-                        <Ionicons
-                          name="medal-outline"
-                          size={16}
-                          color={colors.primary}
-                        />{" "}
-                        Шагналын нэр:{" "}
-                      </Text>
-                      {item.name}
-                    </Text>
-                  </View>
-                  <SimpleLineIcons
-                    name="pencil"
-                    size={24}
-                    color={colors.primaryText}
-                    onPress={() =>
-                      navigation.navigate("AchievmentDetailModal", {
-                        data: item,
-                      })
-                    }
-                  />
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-        ) : (
-          <View
-            style={{
-              borderWidth: 1,
-              borderColor: colors.border,
-              width: "90%",
-              marginHorizontal: 20,
-              padding: 20,
-              borderRadius: 10,
-            }}
-          >
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <ImageBackground
-                source={require("../../../../../assets/ihelp/ggwp1.png")}
-                style={{
-                  width: 50,
-                  height: 50,
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                imageStyle={{ borderRadius: 10 }}
-              >
-                <Ionicons
-                  name={"medal-outline"}
-                  size={24}
-                  color={colors.primaryText}
-                />
-              </ImageBackground>
-              <Text style={{ fontSize: 30, color: colors.primaryText }}>
-                {" "}
-                Гавьяа шагнал
-              </Text>
-            </View>
-            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
-              Та өөрийн гавьяа шагналын талаар мэдээлэл оруулж анкетаа илүү
-              дэлгэрүүлнэ үү
-            </Text>
-            <TouchableOpacity
-              style={{
-                alignItems: "center",
-                padding: 10,
-                backgroundColor: "#FFB6C1",
-                borderWidth: 1,
-                borderRadius: 10,
-                marginTop: 15,
-              }}
-              onPress={() => navigation.navigate("AchievmentAddModal")}
-            >
-              <Text style={{ color: colors.border }}>Нэмэх</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      </>
       {/* Course */}
       <>
         <View
@@ -461,7 +301,7 @@ const CreateCvScreen = (props) => {
                       <Text style={{ fontFamily: "Sf-bold" }}>Элссэн: </Text>
                       {e.start.slice(0, 4)}
                     </Text>
-                    {!e.isStudying ? (
+                    {e.isStudying ? (
                       <Text
                         style={{
                           color: colors.primaryText,
@@ -470,7 +310,7 @@ const CreateCvScreen = (props) => {
                         }}
                       >
                         <Text style={{ fontFamily: "Sf-bold" }}>Статус: </Text>
-                        сурж бгаа
+                        Суралцаж байгаа
                       </Text>
                     ) : (
                       <Text
@@ -1139,6 +979,166 @@ const CreateCvScreen = (props) => {
             </View>
           )}
         </View>
+      </>
+      {/* Achievment */}
+      <>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "bold",
+              fontSize: 20,
+              paddingVertical: 10,
+            }}
+          >
+            Гавьяа шагнал
+          </Text>
+          <AntDesign
+            name="pluscircleo"
+            size={24}
+            color={colors.primaryText}
+            style={{ marginRight: 10 }}
+            onPress={() => navigation.navigate("AchievmentAddModal")}
+          />
+        </View>
+        {cv.achievement.length > 0 ? (
+          <View>
+            {cv.achievement.map((item) => {
+              return (
+                <TouchableOpacity
+                  key={item._id}
+                  style={{
+                    backgroundColor: colors.border,
+                    padding: 10,
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginVertical: 2,
+                    borderRadius: 10,
+                  }}
+                  onPress={() =>
+                    navigation.navigate("AchievmentDetailModal", {
+                      data: item,
+                    })
+                  }
+                >
+                  <View>
+                    <Text
+                      style={{ color: colors.primaryText, fontWeight: "200" }}
+                    >
+                      <Text style={{ fontFamily: "Sf-bold" }}>
+                        <MaterialCommunityIcons
+                          name="home-plus-outline"
+                          size={16}
+                          color={colors.primary}
+                        />{" "}
+                        Байгууллага:{" "}
+                      </Text>
+                      {item.company}
+                    </Text>
+                    <Text
+                      style={{
+                        color: colors.primaryText,
+                        marginVertical: 5,
+                        fontWeight: "200",
+                      }}
+                    >
+                      <Text style={{ fontFamily: "Sf-bold" }}>
+                        <AntDesign
+                          name="calendar"
+                          size={16}
+                          color={colors.primary}
+                        />{" "}
+                        Он:{" "}
+                      </Text>
+                      {item.achievementYear}
+                    </Text>
+                    <Text
+                      style={{ color: colors.primaryText, fontWeight: "200" }}
+                    >
+                      <Text style={{ fontFamily: "Sf-bold" }}>
+                        <Ionicons
+                          name="medal-outline"
+                          size={16}
+                          color={colors.primary}
+                        />{" "}
+                        Шагналын нэр:{" "}
+                      </Text>
+                      {item.name}
+                    </Text>
+                  </View>
+                  <SimpleLineIcons
+                    name="pencil"
+                    size={24}
+                    color={colors.primaryText}
+                    onPress={() =>
+                      navigation.navigate("AchievmentDetailModal", {
+                        data: item,
+                      })
+                    }
+                  />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
+        ) : (
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: colors.border,
+              width: "90%",
+              marginHorizontal: 20,
+              padding: 20,
+              borderRadius: 10,
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <ImageBackground
+                source={require("../../../../../assets/ihelp/ggwp1.png")}
+                style={{
+                  width: 50,
+                  height: 50,
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                imageStyle={{ borderRadius: 10 }}
+              >
+                <Ionicons
+                  name={"medal-outline"}
+                  size={24}
+                  color={colors.primaryText}
+                />
+              </ImageBackground>
+              <Text style={{ fontSize: 30, color: colors.primaryText }}>
+                {" "}
+                Гавьяа шагнал
+              </Text>
+            </View>
+            <Text style={{ color: colors.secondaryText, marginTop: 20 }}>
+              Та өөрийн гавьяа шагналын талаар мэдээлэл оруулж анкетаа илүү
+              дэлгэрүүлнэ үү
+            </Text>
+            <TouchableOpacity
+              style={{
+                alignItems: "center",
+                padding: 10,
+                backgroundColor: "#FFB6C1",
+                borderWidth: 1,
+                borderRadius: 10,
+                marginTop: 15,
+              }}
+              onPress={() => navigation.navigate("AchievmentAddModal")}
+            >
+              <Text style={{ color: colors.border }}>Нэмэх</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </>
       {/* skill */}
       <>

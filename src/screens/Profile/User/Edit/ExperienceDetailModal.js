@@ -20,6 +20,7 @@ import MyButton from "../../../../components/MyButton";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
 import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
 import moment from "moment";
+import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 const ExperienceDetailModal = ({ route }) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -30,6 +31,9 @@ const ExperienceDetailModal = ({ route }) => {
   // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
+  // Хаяг байршил сонгох
+  const [province, setProvince] = useState("");
+  const [provinceModal, setProvinceModal] = useState(false);
   const sendPersonalDetail = () => {
     axios
       .put(`${api}/api/v1/questionnaires/${data._id}/experience`, experience)
@@ -153,11 +157,7 @@ const ExperienceDetailModal = ({ route }) => {
     });
   };
   const checkLocation = (text) => {
-    setError({
-      ...error,
-      locaiton: text.length < 3,
-    });
-
+    setProvinceModal(!provinceModal);
     setExperience({
       ...experience,
       location: text,
@@ -178,16 +178,11 @@ const ExperienceDetailModal = ({ route }) => {
   };
   return (
     <>
-      <KeyboardAvoidingView
-        style={{
-          flex: 1,
-          backgroundColor: colors.header,
-        }}
-        behavior="padding"
-        enabled
-        keyboardVerticalOffset={100}
-      >
-        <ScrollView style={{ flex: 1, marginHorizontal: 20 }}>
+      <KeyboardAvoidingView style={{ flex: 1 }}>
+        <ScrollView
+          style={{ flex: 1, marginHorizontal: 20 }}
+          showsVerticalScrollIndicator={false}
+        >
           <TouchableOpacity
             onPress={() => setCompanyModal(true)}
             style={{ marginTop: 10 }}
@@ -274,18 +269,27 @@ const ExperienceDetailModal = ({ route }) => {
                 borderRadius: 10,
               }}
             >
-              <Text style={{ fontSize: 16 }}>{type}</Text>
+              <Text style={{ fontSize: 16 }}>
+                {type ? type : experience.type}
+              </Text>
             </View>
           </TouchableOpacity>
-          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-            Хаяг байршил
-          </Text>
-          <FormText
-            value={experience.location}
-            onChangeText={checkLocation}
-            errorText="Хаяг байршил 3-20 тэмдэгтээс тогтоно."
-            errorShow={error.location}
-          />
+          <TouchableOpacity onPress={() => setProvinceModal(true)}>
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Хаяг байршил
+            </Text>
+            <View
+              style={{
+                backgroundColor: colors.secondaryText,
+                padding: 12,
+                borderRadius: 10,
+              }}
+            >
+              <Text style={{ fontSize: 16 }}>
+                {province ? province : experience.location}
+              </Text>
+            </View>
+          </TouchableOpacity>
 
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Хийсэн ажил
@@ -428,7 +432,13 @@ const ExperienceDetailModal = ({ route }) => {
             setType={setType}
             checkType={checkType}
           />
-          <View style={{ marginBottom: 50 }} />
+          <ProvinceModal
+            provinceModal={provinceModal}
+            setProvinceModal={setProvinceModal}
+            setProvince={setProvince}
+            checkProvince={checkLocation}
+          />
+          <View style={{ marginBottom: 250 }} />
         </ScrollView>
       </KeyboardAvoidingView>
     </>

@@ -20,9 +20,9 @@ import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWo
 import ProductUsePoint from "../screens/Profile/Wallet/ProductUsePoint";
 import EmployerEditWork from "../screens/Employer/EmployerEditWork";
 import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
-import AddWorkTypeModal from "../screens/Employer/AddWorkTypeModal";
 import SortWorkModal from "../screens/Employer/SortWorkModal";
 import ResultWorkModal from "../screens/Employer/ResultWorkModal";
+import BoostSpecialCompany from "../screens/Profile/Wallet/Company/BoostSpecialCompany";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -59,6 +59,16 @@ const EmployerGroup = () => {
           }}
         />
         <EmployerStack.Screen
+          name="BoostSpecialCompany"
+          component={BoostSpecialCompany}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Идэвхжүүлэх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployerStack.Screen
           name="ProductUsePoint"
           component={ProductUsePoint}
           options={{
@@ -85,15 +95,7 @@ const EmployerGroup = () => {
             headerLeft: () => <MyBackButton />,
           }}
         />
-        <EmployerStack.Screen
-          name="AddWorkTypeModal"
-          component={AddWorkTypeModal}
-          options={{
-            headerShown: true,
-            title: "Ажлын зар оруулах",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <EmployerStack.Screen
           name="EmployerSendWorkModal"
           component={EmployerSendWorkModal}

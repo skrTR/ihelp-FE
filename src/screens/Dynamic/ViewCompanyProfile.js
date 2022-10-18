@@ -14,14 +14,15 @@ import CompanyTop from "../../components/Dynamic/Company/CompanyTop";
 import Border from "../../components/Border";
 import CompanyAbout from "../../components/Dynamic/Company/CompanyAbout";
 import CompanyPortf from "../../components/Dynamic/Company/CompanyPortf";
-import Spinner from "../../components/Spinner";
-import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
+import CompanyJobs from "../../components/Profile/Company/CompanyJobs";
+// import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
 import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
 import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
+import Empty from "../../components/Empty";
 const ViewCompanyProfile = (props) => {
   const { id } = props.route.params;
   const navigation = useNavigation();
@@ -33,6 +34,11 @@ const ViewCompanyProfile = (props) => {
   const colorScheme = useColorScheme();
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
+  const sorted2 =
+    companyJobs && companyJobs.sort((a, b) => b.isSpecial - a.isSpecial);
+  const sortedData = sorted2
+    ? sorted2.sort((a, b) => b.isUrgent - a.isUrgent)
+    : [];
   if (!companyProfile) {
     return null;
   }
@@ -131,6 +137,7 @@ const ViewCompanyProfile = (props) => {
                     : colorScheme === "light" && isType
                     ? colors.background
                     : "#FFB6C1",
+                justifyContent: "center",
               }}
               onPress={() => setIsType(true)}
             >
@@ -150,7 +157,7 @@ const ViewCompanyProfile = (props) => {
                   textAlign: "center",
                 }}
               >
-                Ажилтан авна
+                Ажлын байр
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -187,9 +194,10 @@ const ViewCompanyProfile = (props) => {
                       : colors.primaryText,
 
                   textAlign: "center",
+                  justifyContent: "center",
                 }}
               >
-                Ажил хийлгэнэ
+                Ажил захиалга
               </Text>
             </TouchableOpacity>
           </View>
@@ -197,20 +205,10 @@ const ViewCompanyProfile = (props) => {
             <>
               {companyJobs.length > 0 && (
                 <>
-                  {companyJobs.map((data) => {
+                  {sortedData.map((data) => {
                     return (
                       <View key={data._id}>
-                        <CompanyJobs
-                          id={data._id}
-                          createUserName={data.firstName}
-                          createUserProfile={data.profile}
-                          isEmployer={data.isEmployer}
-                          isEmployee={data.isEmployee}
-                          occupation={data.occupationName}
-                          type={data.type}
-                          salary={data.salary}
-                          order={data.order}
-                        />
+                        <CompanyJobs data={data} />
                       </View>
                     );
                   })}
@@ -218,25 +216,26 @@ const ViewCompanyProfile = (props) => {
               )}
             </>
           ) : (
-            <>
-              {companyAnnoucement.map((data) => {
-                return (
-                  <View key={data._id}>
-                    <CompanyAnnoucements
-                      id={data._id}
-                      createUserName={data.firstName}
-                      createUserProfile={data.profile}
-                      isEmployer={data.isEmployer}
-                      isEmployee={data.isEmployee}
-                      occupation={data.occupationName}
-                      type={data.do}
-                      salary={data.price}
-                      order={data.order}
-                    />
-                  </View>
-                );
-              })}
-            </>
+            // <>
+            //   {companyAnnoucement.map((data) => {
+            //     return (
+            //       <View key={data._id}>
+            //         <CompanyAnnoucements
+            //           id={data._id}
+            //           createUserName={data.firstName}
+            //           createUserProfile={data.profile}
+            //           isEmployer={data.isEmployer}
+            //           isEmployee={data.isEmployee}
+            //           occupation={data.occupationName}
+            //           type={data.do}
+            //           salary={data.price}
+            //           order={data.order}
+            //         />
+            //       </View>
+            //     );
+            //   })}
+            // </>
+            <Empty text={"Тун удахгүй"} />
           )}
         </View>
       </ScrollView>

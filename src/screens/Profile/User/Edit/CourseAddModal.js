@@ -17,13 +17,18 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import CourseSchoolModal from "./EditModal/CourseSchoolModal";
+import EducationModal from "../../../../components/Modals/EducationModal";
 const CourseAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   const [schoolModal, setSchoolModal] = useState(false);
+  // Боловсрол сонгох
+  const [educationModal, setEducationModal] = useState(false);
+  const [education, setEducation] = useState("");
   const [course, setCourse] = useState({
     field: "",
     school: null,
+    education: "",
     schoolId: null,
     schoolPhoto: null,
     grade: "",
@@ -47,7 +52,13 @@ const CourseAddModal = () => {
       })
       .catch((err) => alert(err));
   };
-
+  const checkEducation = (text) => {
+    setEducationModal(!educationModal);
+    setCourse({
+      ...course,
+      education: text,
+    });
+  };
   const checkField = (text) => {
     setError({
       ...error,
@@ -101,15 +112,10 @@ const CourseAddModal = () => {
   };
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
-      <ScrollView style={{ marginHorizontal: 20 }}>
+      <ScrollView style={{ marginHorizontal: 20, flex: 1 }}>
         {/* Surguuli */}
         <TouchableOpacity
           onPress={() => setSchoolModal(true)}
@@ -176,6 +182,22 @@ const CourseAddModal = () => {
                 <Ionicons name="backspace-outline" size={20} color="black" />
               )}
             </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => setEducationModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Боловсролын зэрэг
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {education ? education : course.education}
+            </Text>
           </View>
         </TouchableOpacity>
         {/* Mergejil */}
@@ -284,6 +306,14 @@ const CourseAddModal = () => {
           schoolModal={schoolModal}
           setSchoolModal={setSchoolModal}
         />
+        {/* Боловсрол сонгох */}
+        <EducationModal
+          setEducation={setEducation}
+          setEducationModal={setEducationModal}
+          educationModal={educationModal}
+          checkEducation={checkEducation}
+        />
+        <View style={{ marginBottom: 250 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

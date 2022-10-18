@@ -17,6 +17,8 @@ import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
 import AddWorkTypeModal from "../screens/Employee/AddWorkTypeModal";
+import EmployeeSort from "../screens/Employee/EmployeeSort";
+import EmployeeResultSort from "../screens/Employee/EmployeeResultSort";
 const EmployeeGroup = () => {
   const EmployeeStack = createNativeStackNavigator();
   return (
@@ -148,6 +150,24 @@ const EmployeeGroup = () => {
           options={{
             headerShown: true,
             title: "Ажлын зар оруулах",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployeeStack.Screen
+          name="EmployeeSort"
+          component={EmployeeSort}
+          options={{
+            headerShown: true,
+            title: "Ажлын захиалга шүүх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <EmployeeStack.Screen
+          name="EmployeeResultSort"
+          component={EmployeeResultSort}
+          options={{
+            headerShown: true,
+            title: "Ажлын захиалга шүүх",
             headerLeft: () => <MyBackButton />,
           }}
         />

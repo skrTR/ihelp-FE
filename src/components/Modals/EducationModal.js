@@ -23,22 +23,31 @@ const EducationModal = (props) => {
           clicked={() => setEducationModal(false)}
         />
         <View style={{ marginHorizontal: 10 }}>
-          {["Хамаагүй", "Бүрэн дунд", "Бакалавр", "Магистр", "Доктор"].map(
-            (l, i) => (
-              <TouchableOpacity
-                onPress={() => {
-                  checkEducation(l);
-                  setEducation(l);
-                }}
-                key={i}
-              >
-                <Text style={[styles.text, { color: colors.primaryText }]}>
-                  {l}
-                </Text>
-                <View style={[styles.border, { borderColor: colors.border }]} />
-              </TouchableOpacity>
-            )
-          )}
+          {[
+            "Байхгүй",
+            "Бүрэн дунд",
+            "Бакалавр",
+            "Магистрийн өмнөх",
+            "Хөтөлбөр",
+            "Сургалт",
+            "Магистр",
+            "Доктор",
+            "Профессор",
+            "Бусад",
+          ].map((l, i) => (
+            <TouchableOpacity
+              onPress={() => {
+                checkEducation(l);
+                setEducation(l);
+              }}
+              key={i}
+            >
+              <Text style={[styles.text, { color: colors.primaryText }]}>
+                {l}
+              </Text>
+              <View style={[styles.border, { borderColor: colors.border }]} />
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     </Modal>

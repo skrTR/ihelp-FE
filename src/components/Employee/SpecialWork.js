@@ -163,7 +163,7 @@ const SpecialWork = (props) => {
                 width: "95%",
               }}
             >
-              {occupation}
+              {job}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
@@ -184,7 +184,7 @@ const SpecialWork = (props) => {
                 fontWeight: "200",
               }}
             >
-              {job && `${job}  - `}
+              {`${occupation}  - `}
               {createUserName}
             </Text>
           </View>

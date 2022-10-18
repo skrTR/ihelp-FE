@@ -142,8 +142,7 @@ const UserProfileTop = ({ userProfile, cv }) => {
               }}
               numberOfLines={2}
             >
-              {cv.profession}
-              {cv.workingCompany && `@${cv.workingCompany}`}
+              {cv.profession} {cv.workingCompany && `@${cv.workingCompany}`}
             </Text>
           </View>
         </View>

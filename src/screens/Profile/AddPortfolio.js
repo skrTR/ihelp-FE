@@ -12,6 +12,7 @@ import { AntDesign, Entypo } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import MyButton from "../../components/MyButton";
+import Loading from "../../components/Loading";
 
 const fullWidth = Dimensions.get("screen").width;
 const AddPortfolio = (props) => {
@@ -219,34 +220,7 @@ const AddPortfolio = (props) => {
     });
   };
   if (uploadTotal > 0) {
-    return (
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <Text style={{ marginBottom: 20, fontWeight: "bold", fontSize: 16 }}>
-          Түр хүлээнэ үү. Зургийг илгээж байна...
-        </Text>
-
-        <View
-          style={{
-            height: 50,
-            backgroundColor: "red",
-            width: 200,
-          }}
-        >
-          <View
-            style={{
-              height: 50,
-              backgroundColor: "green",
-              width: uploadProgress * 2,
-              alignItems: "center",
-            }}
-          >
-            <Text style={{ color: "white", flex: 1, marginTop: 15 }}>
-              {uploadProgress}%
-            </Text>
-          </View>
-        </View>
-      </View>
-    );
+    return <Loading />;
   }
   return (
     <View>

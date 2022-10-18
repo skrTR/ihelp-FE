@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import CompanyHeader from "../../components/Header/CompanyHeader";
 import axios from "axios";
@@ -36,11 +36,12 @@ const SearchScreen = () => {
   return (
     <>
       <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
-        {state.isCompany ? (
+        {/* {state.isCompany ? (
           <CompanyHeader isNotification={true} isFollowedCompany={true} />
         ) : (
           <Header isFollowedCompany={true} />
-        )}
+        )} */}
+        <Header isFollowedCompany={true} isNotification={true} />
         <ScrollView style={{ backgroundColor: colors.background }}>
           <View
             style={{ backgroundColor: colors.background, marginHorizontal: 10 }}
@@ -81,7 +82,7 @@ const SearchScreen = () => {
                 borderColor: colors.border,
               }}
               // onPress={() => navigation.navigate("UserInfluncerSearch")}
-              onPress={() => alert("Тун удахгүй")}
+              onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
@@ -98,7 +99,7 @@ const SearchScreen = () => {
                 borderColor: colors.border,
               }}
               // onPress={() => navigation.navigate("UserFreelancerSearch")}
-              onPress={() => alert("Тун удахгүй")}
+              onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
@@ -146,7 +147,7 @@ const SearchScreen = () => {
                   color: colors.primaryText,
                 }}
               >
-                Ажил хайгч байгууллага
+                Ажил гүйцэтгэгч байгууллага
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

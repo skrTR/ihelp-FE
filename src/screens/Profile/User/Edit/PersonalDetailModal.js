@@ -6,6 +6,7 @@ import {
   Switch,
   KeyboardAvoidingView,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -15,14 +16,17 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import axios from "axios";
 import { api } from "../../../../../Constants";
 import moment from "moment";
-import SalaryModal from "../../../Employer/AddWorkModals/SalaryModal";
-import ExperienceModal from "../../../Employer/AddWorkModals/ExperienceModal";
-import EducationModal from "../../../Employer/AddWorkModals/EducationModal";
+import SalaryModal from "../../../../components/Modals/SalaryModal";
+import ExperienceModal from "../../../../components/Modals/ExperienceModal";
+import EducationModal from "../../../../components/Modals/EducationModal";
 import SearchWorkByCateogry from "../../../../components/Modals/SearchWorkByCateogry";
 import SearchByOccupation from "../../../../components/Modals/SearchByOccupation";
 import GenderModal from "../../../../components/Modals/GenderModal";
-import Loading from "../../../../components/Loading";
 import TypeModal from "../../../../components/Modals/TypeModal";
+import ProvinceModal from "../../../../components/Modals/ProvinceModal";
+import LetterModal from "../../../../components/Modals/LetterModal";
+import LetterModal1 from "../../../../components/Modals/LetterModal1";
+import Loading from "../../../../components/Loading";
 const PersonalDetailModal = (props) => {
   const { data } = props.route.params;
   const { colors } = useTheme();
@@ -52,6 +56,19 @@ const PersonalDetailModal = (props) => {
   // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
+  // Төрсөн газар сонгох
+  const [province, setProvince] = useState("");
+  const [provinceModal, setProvinceModal] = useState(false);
+  // Төрсөн газар сонгох
+  const [liveLocation, setLiveLocation] = useState("");
+  const [liveLocationModal, setLiveLocationModal] = useState(false);
+
+  // Үсэгийн дараалал регистер дээр
+  const [letterModal, setLetterModal] = useState(false);
+  const [letter, setLetter] = useState("");
+  const [letterModal1, setLetterModal1] = useState(false);
+  const [letter1, setLetter1] = useState("");
+
   const showPicker = () => {
     setIsPickerShow(true);
   };
@@ -121,30 +138,20 @@ const PersonalDetailModal = (props) => {
   };
 
   const checkHumanId = (text) => {
-    setError({
-      ...error,
-      humanId: text.length < 7,
-    });
     setPersonalCv({
       ...personalCv,
       humanId: text,
     });
   };
   const checkBirthPlace = (text) => {
-    setError({
-      ...error,
-      birthPlace: text.length < 5,
-    });
+    setProvinceModal(!provinceModal);
     setPersonalCv({
       ...personalCv,
       birthPlace: text,
     });
   };
   const checkLocation = (text) => {
-    setError({
-      ...error,
-      location: text.length < 5,
-    });
+    setLiveLocationModal(!liveLocationModal);
     setPersonalCv({
       ...personalCv,
       location: text,
@@ -194,7 +201,6 @@ const PersonalDetailModal = (props) => {
     });
   };
   const checkOccupation = (id, name) => {
-    console.log(id, name);
     setPersonalCv({
       ...personalCv,
       occupation: id,
@@ -215,6 +221,7 @@ const PersonalDetailModal = (props) => {
       type: text,
     });
   };
+
   return (
     <>
       {loading ? (
@@ -225,6 +232,7 @@ const PersonalDetailModal = (props) => {
             flex: 1,
             backgroundColor: colors.header,
           }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <ScrollView
             style={{ marginHorizontal: 20 }}
@@ -257,10 +265,28 @@ const PersonalDetailModal = (props) => {
               errorShow={error.firstName}
               style={{ fontSize: 16 }}
             />
+            {/* Хүйс */}
+            <TouchableOpacity onPress={() => setGenderModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Хүйс
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {gender ? gender : personalCv.gender}
+                </Text>
+              </View>
+            </TouchableOpacity>
             {/* Рэгистэр */}
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Регистерийн дугаар
             </Text>
+
             <FormText
               value={personalCv.humanId}
               onChangeText={checkHumanId}
@@ -313,33 +339,10 @@ const PersonalDetailModal = (props) => {
             )}
 
             {/*  birthPlace */}
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Төрсөн газар
-            </Text>
 
-            <FormText
-              value={personalCv.birthPlace}
-              onChangeText={checkBirthPlace}
-              errorText="Төрсөн газар 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.birthPlace}
-              style={{ fontSize: 16 }}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Одоо амьдарч байгаа хаяг
-            </Text>
-
-            <FormText
-              value={personalCv.location}
-              onChangeText={checkLocation}
-              errorText="Одоо амьдарч байгаа газар 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.location}
-              style={{ fontSize: 16 }}
-            />
-
-            {/* Ажлын туршлага */}
-            <TouchableOpacity onPress={() => setExperienceModal(true)}>
+            <TouchableOpacity onPress={() => setProvinceModal(true)}>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-                Ажлын туршлага
+                Төрсөн газар
               </Text>
               <View
                 style={{
@@ -349,14 +352,13 @@ const PersonalDetailModal = (props) => {
                 }}
               >
                 <Text style={{ fontSize: 16 }}>
-                  {experience ? experience : personalCv.experienceYear}
+                  {province ? province : personalCv.birthPlace}
                 </Text>
               </View>
             </TouchableOpacity>
-            {/* Цалингын хүлээлт */}
-            <TouchableOpacity onPress={() => setModalVisible(true)}>
+            <TouchableOpacity onPress={() => setLiveLocationModal(true)}>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-                Цалингийн хүлээлт
+                Одоо амьдарч байгаа хаяг
               </Text>
               <View
                 style={{
@@ -366,10 +368,11 @@ const PersonalDetailModal = (props) => {
                 }}
               >
                 <Text style={{ fontSize: 16 }}>
-                  {salary ? salary : personalCv.salaryExpectation}
+                  {liveLocation ? liveLocation : personalCv.location}
                 </Text>
               </View>
             </TouchableOpacity>
+
             {/* Боловсрол */}
             <TouchableOpacity onPress={() => setEducationModal(true)}>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -387,10 +390,10 @@ const PersonalDetailModal = (props) => {
                 </Text>
               </View>
             </TouchableOpacity>
-            {/* Хүйс */}
-            <TouchableOpacity onPress={() => setGenderModal(true)}>
+            {/* Ажлын туршлага */}
+            <TouchableOpacity onPress={() => setExperienceModal(true)}>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-                Хүйс
+                Ажлын туршлага
               </Text>
               <View
                 style={{
@@ -400,44 +403,11 @@ const PersonalDetailModal = (props) => {
                 }}
               >
                 <Text style={{ fontSize: 16 }}>
-                  {gender ? gender : personalCv.gender}
+                  {experience ? experience : personalCv.experienceYear}
                 </Text>
               </View>
             </TouchableOpacity>
-            {/* Мэргэжил */}
-            <TouchableOpacity onPress={() => setCategoryModal(true)}>
-              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-                Мэргэжил
-              </Text>
-              <View
-                style={{
-                  backgroundColor: colors.secondaryText,
-                  padding: 12,
-                  borderRadius: 10,
-                }}
-              >
-                <Text style={{ fontSize: 16 }}>
-                  {occupationName ? occupationName : data.occupationName}
-                </Text>
-              </View>
-            </TouchableOpacity>
-            {/* Цагийн төрөл */}
-            <TouchableOpacity onPress={() => setTypeModal(true)}>
-              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-                Цагийн төрөл
-              </Text>
-              <View
-                style={{
-                  backgroundColor: colors.secondaryText,
-                  padding: 12,
-                  borderRadius: 10,
-                }}
-              >
-                <Text style={{ fontSize: 16 }}>
-                  {type ? type : personalCv.type}
-                </Text>
-              </View>
-            </TouchableOpacity>
+
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Жолооны үнэмлэх байгаа эсэх?
             </Text>
@@ -496,7 +466,57 @@ const PersonalDetailModal = (props) => {
                 </Text>
               )}
             </View>
-
+            {/* Цалингын хүлээлт */}
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Цалингийн хүлээлт
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {salary ? salary : personalCv.salaryExpectation}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {/* Мэргэжил */}
+            <TouchableOpacity onPress={() => setCategoryModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Ажиллахаар төлөвлөж буй мэргэжил
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {occupationName ? occupationName : data.occupationName}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            {/* Цагийн төрөл */}
+            <TouchableOpacity onPress={() => setTypeModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Ажиллахаар төлөвлөж буй цагийн төрөл
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {type ? type : personalCv.type}
+                </Text>
+              </View>
+            </TouchableOpacity>
             <TouchableOpacity
               onPress={sendPersonalDetail}
               style={{
@@ -565,6 +585,29 @@ const PersonalDetailModal = (props) => {
             typeModal={typeModal}
             setType={setType}
             checkType={checkType}
+          />
+          {/* Төрсөн газар */}
+          <ProvinceModal
+            setProvinceModal={setProvinceModal}
+            provinceModal={provinceModal}
+            setProvince={setProvince}
+            checkProvince={checkBirthPlace}
+          />
+          <ProvinceModal
+            setProvinceModal={setLiveLocationModal}
+            provinceModal={liveLocationModal}
+            setProvince={setLiveLocation}
+            checkProvince={checkLocation}
+          />
+          <LetterModal
+            setLetterModal={setLetterModal}
+            letterModal={letterModal}
+            setLetter={setLetter}
+          />
+          <LetterModal
+            setLetterModal={setLetterModal1}
+            letterModal={letterModal1}
+            setLetter={setLetter1}
           />
         </KeyboardAvoidingView>
       )}

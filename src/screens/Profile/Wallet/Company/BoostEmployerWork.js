@@ -3,8 +3,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
-  ScrollView,
   Alert,
   ImageBackground,
 } from "react-native";
@@ -14,8 +12,8 @@ import axios from "axios";
 import { api } from "../../../../../Constants";
 import DataCountDown from "../../../../components/Employer/DataCountDown";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import CountDown from "react-native-countdown-component";
-import moment from "moment";
+import MyButton from "../../../../components/MyButton";
+import ChooseDateModal from "../../../Employer/AddWorkModals/ChooseDateModal";
 
 const BoostEmployerWork = (props) => {
   const { type, id } = props.route.params;
@@ -23,6 +21,8 @@ const BoostEmployerWork = (props) => {
   const [data, setData] = useState([]);
   const navigation = useNavigation();
   const [isType, setIsType] = useState(1);
+  const [chooseModal, setChooseModal] = useState(false);
+  const [choose, setChoose] = useState("");
   useEffect(() => {
     axios
       .get(`${api}/api/v1/jobs/${id}`)
@@ -142,6 +142,9 @@ const BoostEmployerWork = (props) => {
         },
       ]
     );
+  };
+  const checkChoose = () => {
+    setChooseModal(!chooseModal);
   };
   return (
     <>
@@ -277,94 +280,220 @@ const BoostEmployerWork = (props) => {
         )}
       </View>
       <View>
-        <TouchableOpacity
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            marginHorizontal: 20,
-            marginTop: 20,
-          }}
-          onPress={() => {
-            setIsType(1);
-          }}
-        >
-          <MaterialCommunityIcons
-            name={
-              isType === 1 ? "checkbox-intermediate" : "checkbox-blank-outline"
-            }
-            size={25}
-            color={isType === 1 ? "#FFB6C1" : colors.primaryText}
-          />
-          <Text style={{ color: colors.primaryText }}>
-            7 хоног -{" "}
-            {type === "1"
-              ? "7"
-              : type === "2"
-              ? "14"
-              : type === "3"
-              ? "30"
-              : null}{" "}
-            пойнт
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            margin: 20,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-          onPress={() => {
-            setIsType(2);
-          }}
-        >
-          <MaterialCommunityIcons
-            name={
-              isType === 2 ? "checkbox-intermediate" : "checkbox-blank-outline"
-            }
-            size={25}
-            color={isType === 2 ? "#FFB6C1" : colors.primaryText}
-          />
-          <Text style={{ color: colors.primaryText }}>
-            14 хоног -{" "}
-            {type === "1"
-              ? "14"
-              : type === "2"
-              ? "28"
-              : type === "3"
-              ? "42"
-              : null}{" "}
-            пойнт
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => {
-            setIsType(3);
-          }}
-          style={{
-            marginHorizontal: 20,
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <MaterialCommunityIcons
-            name={
-              isType === 3 ? "checkbox-intermediate" : "checkbox-blank-outline"
-            }
-            size={25}
-            color={isType === 3 ? "#FFB6C1" : colors.primaryText}
-          />
-          <Text style={{ color: colors.primaryText }}>
-            30 хоног -{" "}
-            {type === "1"
-              ? "30"
-              : type === "2"
-              ? "60"
-              : type === "3"
-              ? "90"
-              : null}{" "}
-            пойнт
-          </Text>
-        </TouchableOpacity>
+        {type === "1" && (
+          <>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginHorizontal: 20,
+                marginTop: 20,
+              }}
+              onPress={() => {
+                setIsType(1);
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 1
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 1 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                7 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "20"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 20,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setIsType(2);
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 2
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 2 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                14 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "30"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setIsType(3);
+              }}
+              style={{
+                marginHorizontal: 20,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 3
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 3 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                30 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "40"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {type === "2" && (
+          <>
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginHorizontal: 20,
+                marginTop: 20,
+              }}
+              onPress={() => {
+                setIsType(1);
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 1
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 1 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                7 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "20"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                margin: 20,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+              onPress={() => {
+                setIsType(2);
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 2
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 2 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                14 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "30"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setIsType(3);
+              }}
+              style={{
+                marginHorizontal: 20,
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <MaterialCommunityIcons
+                name={
+                  isType === 3
+                    ? "checkbox-intermediate"
+                    : "checkbox-blank-outline"
+                }
+                size={25}
+                color={isType === 3 ? "#FFB6C1" : colors.primaryText}
+              />
+              <Text style={{ color: colors.primaryText }}>
+                30 хоног -{" "}
+                {type === "1"
+                  ? "10"
+                  : type === "2"
+                  ? "40"
+                  : type === "3"
+                  ? "50"
+                  : null}{" "}
+                пойнт
+              </Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {type === "3" && (
+          <>
+            <Text
+              style={{
+                color: colors.primaryText,
+                fontFamily: "Sf-thin",
+                marginVertical: 5,
+                padding: 7,
+              }}
+            >
+              Өдөр сонгох
+            </Text>
+            <MyButton
+              text={choose === "" ? "Өдөр сонгох" : `${choose} хоног`}
+              onPress={checkChoose}
+            />
+          </>
+        )}
       </View>
       {/* Сануулах текст */}
       <View>
@@ -428,13 +557,7 @@ const BoostEmployerWork = (props) => {
           backgroundColor: "#FFB6C1",
         }}
         onPress={() => {
-          type === "3" && isType === 3
-            ? BoostUrgent(data._id, 30)
-            : type === "3" && isType === 2
-            ? BoostUrgent(data._id, 14)
-            : type === "3" && isType === 1
-            ? BoostUrgent(data._id, 7)
-            : type === "2" && isType === 3
+          type === "2" && isType === 3
             ? BoostSpecial(data._id, 30)
             : type === "2" && isType === 2
             ? BoostSpecial(data._id, 14)
@@ -446,6 +569,8 @@ const BoostEmployerWork = (props) => {
             ? BoostNormal(data._id, 14)
             : type === "1" && isType === 1
             ? BoostNormal(data._id, 7)
+            : type === "3"
+            ? BoostUrgent(data._id, choose)
             : null;
         }}
       >
@@ -459,6 +584,12 @@ const BoostEmployerWork = (props) => {
         </Text>
       </TouchableOpacity>
       <View style={{ marginBottom: 10 }} />
+      <ChooseDateModal
+        setChooseModal={setChooseModal}
+        chooseModal={chooseModal}
+        setChoose={setChoose}
+        checkChoose={checkChoose}
+      />
     </>
   );
 };

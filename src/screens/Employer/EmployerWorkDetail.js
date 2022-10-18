@@ -157,6 +157,11 @@ const EmployerWorkDetail = (props) => {
                     color: "white",
                     fontFamily: "Sf-thin",
                     marginVertical: 7,
+                    width:
+                      workDetail.comCategoryName &&
+                      workDetail.comCategoryName.length > 12
+                        ? "70%"
+                        : "100%",
                   }}
                 >
                   {workDetail.comCategoryName && workDetail.comCategoryName}
@@ -170,7 +175,7 @@ const EmployerWorkDetail = (props) => {
               name="right"
               size={30}
               color={colors.primaryText}
-              style={{ marginRight: 10 }}
+              style={{ marginRight: 10, position: "absolute", right: 0 }}
             />
           </TouchableOpacity>
           {/* aguulga */}

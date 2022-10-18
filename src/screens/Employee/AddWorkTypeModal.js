@@ -6,12 +6,11 @@ import {
   ImageBackground,
   Alert,
 } from "react-native";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import UserContext from "../../context/UserContext";
 import { api } from "../../../Constants";
 import axios from "axios";
-import useCompanyProfile from "../../hooks/ProfileDetail/Company/useCompanyProfile";
 import { Ionicons, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import CountDown from "react-native-countdown-component";
 const AddWorkTypeModal = (props) => {
@@ -20,7 +19,22 @@ const AddWorkTypeModal = (props) => {
   const [isType, setIsType] = useState(1);
   const state = useContext(UserContext);
   const navigation = useNavigation();
-  const [companyProfile] = useCompanyProfile(state.companyId);
+  const [users, setUsers] = useState([]);
+  const getUsers = () => {
+    axios
+      .get(
+        `${api}/api/v1/cvs/${
+          state.isCompany ? state.isCompanyId : state.userId
+        }`
+      )
+      .then((res) => {
+        console.log(res.data.data);
+        setUsers(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const [addWork, setAddWork] = useState({
     occupation: data.occupation,
     do: data.do,
@@ -32,7 +46,7 @@ const AddWorkTypeModal = (props) => {
     description: data.description,
     order: 0,
     special: 0,
-    urgent: 0,
+    organization: state.isCompany ? true : false,
   });
 
   const sendWork = () => {
@@ -78,7 +92,7 @@ const AddWorkTypeModal = (props) => {
                 });
               })
               .catch((err) => {
-                alert(err.message);
+                alert(err.response.data.error.message);
                 console.log(err);
               });
           },
@@ -104,8 +118,10 @@ const AddWorkTypeModal = (props) => {
       });
     }
   };
-
-  if (!companyProfile) {
+  useEffect(() => {
+    getUsers();
+  }, []);
+  if (!users) {
     return null;
   }
   return (
@@ -138,7 +154,7 @@ const AddWorkTypeModal = (props) => {
           >
             <ImageBackground
               source={{
-                uri: `${api}/upload/${companyProfile.profile}`,
+                uri: `${api}/upload/${users.profile}`,
               }}
               style={{
                 width: 75,
@@ -148,7 +164,7 @@ const AddWorkTypeModal = (props) => {
               }}
               imageStyle={{ borderRadius: 30 }}
             >
-              {companyProfile.isEmployer && (
+              {users.isEmployer && (
                 <View
                   style={{
                     backgroundColor: "#ff914d",
@@ -167,7 +183,7 @@ const AddWorkTypeModal = (props) => {
                   />
                 </View>
               )}
-              {companyProfile.isEmployee && (
+              {users.isEmployee && (
                 <View
                   style={{
                     backgroundColor: "#3da4e3",
@@ -177,7 +193,7 @@ const AddWorkTypeModal = (props) => {
                     alignSelf: "flex-end",
                     bottom: 0,
                     padding: 5,
-                    right: companyProfile.isEmployer ? 20 : 0,
+                    right: users.isEmployer ? 20 : 0,
                   }}
                 >
                   <Ionicons
@@ -220,7 +236,7 @@ const AddWorkTypeModal = (props) => {
                   fontWeight: "200",
                 }}
               >
-                {data.do} - {companyProfile.firstName}
+                {data.do} - {users.firstName}
               </Text>
             </View>
           </TouchableOpacity>

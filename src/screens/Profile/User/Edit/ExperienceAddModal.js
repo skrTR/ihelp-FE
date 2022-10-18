@@ -18,6 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
 import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
+import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 const ExperienceAddModal = (props) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -26,6 +27,9 @@ const ExperienceAddModal = (props) => {
   // Цагийн төрөл сонгох
   const [type, setType] = useState("");
   const [typeModal, setTypeModal] = useState(false);
+  // Хаяг байршил сонгох
+  const [province, setProvince] = useState("");
+  const [provinceModal, setProvinceModal] = useState(false);
   const [error, setError] = useState({
     description: false,
     do: false,
@@ -62,7 +66,13 @@ const ExperienceAddModal = (props) => {
       })
       .catch((err) => alert(err));
   };
-
+  const checkLocation = (text) => {
+    setProvinceModal(!provinceModal);
+    setExperience({
+      ...experience,
+      location: text,
+    });
+  };
   const checkDescription = (text) => {
     setError({
       ...error,
@@ -129,17 +139,7 @@ const ExperienceAddModal = (props) => {
       position: text,
     });
   };
-  const checkLocation = (text) => {
-    setError({
-      ...error,
-      locaiton: text.length < 3,
-    });
 
-    setExperience({
-      ...experience,
-      location: text,
-    });
-  };
   const checkType = (text) => {
     setTypeModal(!typeModal);
     setExperience({
@@ -167,13 +167,8 @@ const ExperienceAddModal = (props) => {
   };
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
       <ScrollView
         style={{ flex: 1, marginHorizontal: 20 }}
@@ -268,15 +263,20 @@ const ExperienceAddModal = (props) => {
             <Text style={{ fontSize: 16 }}>{type && type}</Text>
           </View>
         </TouchableOpacity>
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Хаяг байршил
-        </Text>
-        <FormText
-          value={experience.location}
-          onChangeText={checkLocation}
-          errorText="Хаяг байршил 3-20 тэмдэгтээс тогтоно."
-          errorShow={error.location}
-        />
+        <TouchableOpacity onPress={() => setProvinceModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Хаяг байршил
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>{province && province}</Text>
+          </View>
+        </TouchableOpacity>
 
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Хийсэн ажил
@@ -386,6 +386,13 @@ const ExperienceAddModal = (props) => {
           setType={setType}
           checkType={checkType}
         />
+        <ProvinceModal
+          provinceModal={provinceModal}
+          setProvinceModal={setProvinceModal}
+          setProvince={setProvince}
+          checkProvince={checkLocation}
+        />
+        <View style={{ marginBottom: 250 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

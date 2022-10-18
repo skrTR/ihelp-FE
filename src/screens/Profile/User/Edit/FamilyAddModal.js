@@ -11,10 +11,13 @@ import FormText from "../../../../components/FormText";
 import axios from "axios";
 import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
+import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 const FamilyAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  // Хаяг байршил сонгох
+  const [province, setProvince] = useState("");
+  const [provinceModal, setProvinceModal] = useState(false);
   const sendPersonalDetail = () => {
     axios
       .post(`${api}/api/v1/questionnaires/family`, family)
@@ -41,16 +44,13 @@ const FamilyAddModal = () => {
     who: false,
   });
   const checkBirthPlace = (text) => {
-    setError({
-      ...error,
-      birthPlace: text.length < 2,
-    });
-
+    setProvinceModal(!provinceModal);
     setFamily({
       ...family,
       birthPlace: text,
     });
   };
+
   const checkBirthYear = (text) => {
     setError({
       ...error,
@@ -119,13 +119,8 @@ const FamilyAddModal = () => {
   };
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
       <ScrollView
         style={{ marginHorizontal: 20 }}
@@ -160,15 +155,21 @@ const FamilyAddModal = () => {
           errorText="Нэр  3-20 тэмдэгтээс тогтоно."
           errorShow={error.firstName}
         />
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Оршин суудаг хаяг
-        </Text>
-        <FormText
-          value={family.birthPlace}
-          onChangeText={checkBirthPlace}
-          errorText="Оршин суудаг хаяг  4-20 тэмдэгтээс тогтоно."
-          errorShow={error.birthPlace}
-        />
+        <TouchableOpacity onPress={() => setProvinceModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Оршин суудаг хаяг
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>{province && province}</Text>
+          </View>
+        </TouchableOpacity>
+
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Төрсөн жил
         </Text>
@@ -216,7 +217,13 @@ const FamilyAddModal = () => {
             Хадгалах{" "}
           </Text>
         </TouchableOpacity>
-        <View style={{ marginBottom: 20 }} />
+        <View style={{ marginBottom: 250 }} />
+        <ProvinceModal
+          provinceModal={provinceModal}
+          setProvinceModal={setProvinceModal}
+          setProvince={setProvince}
+          checkProvince={checkBirthPlace}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );

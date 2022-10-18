@@ -1,4 +1,4 @@
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
@@ -11,14 +11,14 @@ const EmployeeSavedWork = () => {
   const getSavedWork = () => {
     axios
       .get(
-        `${api}/api/v1/likes/${state.userId}/announcements?limit=1000&select=announcement`
+        `${api}/api/v1/likes/${
+          state.isCompany ? state.companyId : state.userId
+        }/announcements?limit=1000&select=announcement`
       )
       .then((res) => {
         setSavedWork(res.data.data);
-        console.log(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
         alert(err);
       });
   };

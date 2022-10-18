@@ -255,12 +255,9 @@ const EmployerEditWork = (props) => {
     <KeyboardAvoidingView
       style={{
         flex: 1,
-        backgroundColor: "#141414",
         paddingTop: insents.top,
+        backgroundColor: colors.header,
       }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
     >
       <View style={{}}>
         <CompanyHeader isBack={true} notification={notification.notification} />

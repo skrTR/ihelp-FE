@@ -138,7 +138,7 @@ const EmployeeSearch = () => {
                   marginVertical: 20,
                 }}
               >
-                Ажил хайгч байгууллага
+                Ажил гүйцэтгэгч байгууллага
               </Text>
             </>
           }

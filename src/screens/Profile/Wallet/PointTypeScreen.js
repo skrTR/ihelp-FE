@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Alert, StyleSheet, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -43,44 +43,40 @@ const PointTypeScreen = () => {
             marginHorizontal: 10,
           }}
         >
-          <MyButton
-            text="Ажилтан авна дээр зар идэвхжүүлэх"
-            onPress={() => {
-              navigation.navigate("ProductUsePoint", { type: "EmployeeBoost" });
-            }}
-          />
-          <View style={{ marginTop: 10 }} />
-          <MyButton
-            text="Ажил хийлгэнэ дээр зар идэвхжүүлэх"
-            onPress={() => {
-              navigation.navigate("ProductUsePoint", { type: "EmployerBoost" });
-            }}
-          />
-          {data.isEmployer && (
+          {state.isCompany ? (
             <>
+              <MyButton
+                text="Ажил захиалга дээр зар идэвхжүүлэх"
+                onPress={() => {
+                  Alert.alert("Тун удахгүй");
+                }}
+              />
               <View style={{ marginTop: 10 }} />
               <MyButton
-                text="Ажил хийлгэнэ дээр онцгой байгууллага"
+                text="Ажлын байр дээр зар идэвхжүүлэх"
                 onPress={() => {
                   navigation.navigate("ProductUsePoint", {
-                    type: "SpecialCompanyEmployer",
+                    type: "EmployerBoost",
                   });
                 }}
               />
-            </>
-          )}
-          {data.isEmployee && (
-            <>
               <View style={{ marginTop: 10 }} />
               <MyButton
-                text="Ажилтан авна онцгой байгууллага"
+                text="Ажлын байр дээр онцлох байгууллага"
                 onPress={() => {
-                  navigation.navigate("ProductUsePoint", {
-                    type: "SpecialCompanyEmployee",
-                  });
+                  navigation.navigate("BoostSpecialCompany");
                 }}
               />
             </>
+          ) : (
+            <MyButton
+              text="Нийтлэл идэвхжүүлэх"
+              onPress={() => {
+                navigation.navigate("NetworkingBoost", {
+                  type: "SpecialCompanyEmployee",
+                });
+              }}
+            />
           )}
         </View>
       </View>

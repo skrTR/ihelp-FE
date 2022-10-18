@@ -95,10 +95,10 @@ const UserProfileExperience = ({ data }) => {
                       fontFamily: "Sf-thin",
                     }}
                   >
-                    {moment(e.start).format("MMM YYYY")}-
-                    {e.isWorking
+                    {moment(e.start).format("MMM YYYY")} -{" "}
+                    {!e.isWorking
                       ? moment(e.end).format("MMM YYYY")
-                      : moment().format("MMM YYYY")}
+                      : "Одоог хүртэл"}
                   </Text>
                   <Text
                     style={{

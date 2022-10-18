@@ -289,7 +289,7 @@ const CompanySettingModal = () => {
           marginVertical: 10,
         }}
       />
-      <TouchableOpacity
+      {/* <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
         onPress={companyDelete}
       >
@@ -304,15 +304,15 @@ const CompanySettingModal = () => {
         >
           Аккоунт устгах
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       {/* Line */}
-      <View
+      {/* <View
         style={{
           borderWidth: 0.5,
           borderColor: colors.border,
           marginVertical: 10,
         }}
-      />
+      /> */}
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
         onPress={companyExit}

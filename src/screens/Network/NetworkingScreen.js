@@ -5,10 +5,7 @@ import {
   Image,
   ImageBackground,
   TouchableOpacity,
-  SafeAreaView,
   ActivityIndicator,
-  RefreshControl,
-  ScrollView,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";

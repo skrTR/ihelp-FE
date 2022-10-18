@@ -11,13 +11,16 @@ import FormText from "../../../../components/FormText";
 import axios from "axios";
 import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
+import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 
 const FamilyDetailModal = ({ route }) => {
   const { data } = route.params;
   const { colors } = useTheme();
   const navigation = useNavigation();
+  // Хаяг байршил сонгох
+  const [province, setProvince] = useState("");
+  const [provinceModal, setProvinceModal] = useState(false);
   const sendPersonalDetail = () => {
     axios
       .put(`${api}/api/v1/questionnaires/${data._id}/family`, family)
@@ -53,11 +56,7 @@ const FamilyDetailModal = ({ route }) => {
     who: false,
   });
   const checkBirthPlace = (text) => {
-    setError({
-      ...error,
-      birthPlace: text.length < 2,
-    });
-
+    setProvinceModal(!provinceModal);
     setFamily({
       ...family,
       birthPlace: text,
@@ -131,13 +130,8 @@ const FamilyDetailModal = ({ route }) => {
   };
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
       <ScrollView
         style={{ marginHorizontal: 20 }}
@@ -172,15 +166,22 @@ const FamilyDetailModal = ({ route }) => {
           errorText="Нэр  3-20 тэмдэгтээс тогтоно."
           errorShow={error.firstName}
         />
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Оршин суудаг хаяг
-        </Text>
-        <FormText
-          value={family.birthPlace}
-          onChangeText={checkBirthPlace}
-          errorText="Оршин суудаг хаяг  4-20 тэмдэгтээс тогтоно."
-          errorShow={error.birthPlace}
-        />
+        <TouchableOpacity onPress={() => setProvinceModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Оршин суудаг хаяг
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {province ? province : family.birthPlace}
+            </Text>
+          </View>
+        </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Төрсөн жил
         </Text>
@@ -255,7 +256,13 @@ const FamilyDetailModal = ({ route }) => {
             padding: 10,
           }}
         />
-        <View style={{ marginBottom: 20 }} />
+        <View style={{ marginBottom: 350 }} />
+        <ProvinceModal
+          provinceModal={provinceModal}
+          setProvinceModal={setProvinceModal}
+          setProvince={setProvince}
+          checkProvince={checkBirthPlace}
+        />
       </ScrollView>
     </KeyboardAvoidingView>
   );

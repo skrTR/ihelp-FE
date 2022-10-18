@@ -5,7 +5,11 @@ import axios from "axios";
 import Feather from "@expo/vector-icons/Feather";
 import UserContext from "../../../context/UserContext";
 import useUserProfile from "../../../hooks/ProfileDetail/User/useUserProfile";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
 import useCv from "../../../hooks/ProfileDetail/User/useCv";
 import ProfileHeader from "../../../components/Header/ProfileHeader";
 import UserProfileTop from "../../../components/Profile/User/UserProfileTop";
@@ -25,11 +29,12 @@ const UserProfileScreen = () => {
   const [userProfile] = useUserProfile(state.userId);
   const [cv] = useCv(state.userId);
   const { colors } = useTheme();
-  const [activityData, setActivityData] = useState([]);
+  const isFocused = useIsFocused();
   const insents = useSafeAreaInsets();
+  const [activityData, setActivityData] = useState([]);
   useEffect(() => {
     getActivityData();
-  }, []);
+  }, [isFocused]);
   const getActivityData = () => {
     axios
       .get(`${api}/api/v1/posts/cv`)
@@ -57,7 +62,7 @@ const UserProfileScreen = () => {
         {/* {profileLoading && <Spinner />} */}
         <UserProfileTop userProfile={userProfile} cv={cv} />
         <View style={{ bottom: 10 }}>
-          {userProfile.profession === "" && (
+          {!userProfile.profession && (
             <EmptyStatus
               onPress={() =>
                 navigation.navigate("EditStatusModal", {
@@ -189,7 +194,7 @@ const UserProfileScreen = () => {
             );
           })}
         </View>
-        <View style={{ marginBottom: 100 }} />
+        <View style={{ marginBottom: 200 }} />
       </ScrollView>
       <LinearGradient
         colors={["#3A1C71", "#D76D77", "#FFAF7B"]}

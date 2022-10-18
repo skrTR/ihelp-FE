@@ -53,13 +53,6 @@ const Header = (props) => {
               onPress={() => navigation.goBack()}
               style={{ right: 5 }}
             />
-          ) : isEmployerSaved ? (
-            <SimpleLineIcons
-              name="handbag"
-              size={25}
-              color={colors.primaryText}
-              onPress={() => navigation.navigate("UserSavedWork")}
-            />
           ) : isEmployeeSaved ? (
             <SimpleLineIcons
               name="handbag"
@@ -93,6 +86,13 @@ const Header = (props) => {
               color={colors.primaryText}
               onPress={() => navigation.navigate("FollowedCompany")}
             />
+          ) : sortWork ? (
+            <SimpleLineIcons
+              name="equalizer"
+              size={25}
+              color={colors.primaryText}
+              onPress={() => navigation.navigate("SortWorkModal")}
+            />
           ) : null}
         </View>
         <View>
@@ -113,12 +113,12 @@ const Header = (props) => {
               size={25}
               color={colors.primaryText}
             />
-          ) : sortWork ? (
+          ) : isEmployerSaved ? (
             <SimpleLineIcons
-              name="equalizer"
+              name="handbag"
               size={25}
               color={colors.primaryText}
-              onPress={() => navigation.navigate("SortWorkModal")}
+              onPress={() => navigation.navigate("UserSavedWork")}
             />
           ) : (
             <TouchableOpacity

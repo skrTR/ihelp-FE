@@ -138,10 +138,10 @@ const DynamicFollowing = (props) => {
                 </Text>
                 <Text
                   style={{
-                    marginVertical: 5,
                     marginLeft: 10,
                     color: colors.primaryText,
                     fontFamily: "Sf-thin",
+                    width: "70%",
                   }}
                 >
                   {followUser.category}
@@ -209,6 +209,8 @@ const DynamicFollowing = (props) => {
             alignContent: "center",
             padding: 10,
             width: 100,
+            position: "absolute",
+            right: 0,
           }}
         />
       </View>

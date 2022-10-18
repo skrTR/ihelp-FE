@@ -148,7 +148,7 @@ const CompanyTop = (props) => {
           </View>
         </View>
         {/* Employer employee status */}
-        <View style={{ marginTop: 25 }}>
+        <View style={{ position: "absolute", right: 5 }}>
           {data.isEmployer && (
             <View
               style={{

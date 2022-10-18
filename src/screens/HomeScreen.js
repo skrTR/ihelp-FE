@@ -1,10 +1,11 @@
 import { ImageBackground, Pressable, Image, Text } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+  const { colors } = useTheme();
   return (
     <SafeAreaView
       style={{
@@ -37,9 +38,6 @@ const HomeScreen = () => {
               resizeMode: "contain",
             }}
           />
-          <Text style={{ fontFamily: "Sf-thin", color: "white", fontSize: 30 }}>
-            Байгууллага
-          </Text>
         </ImageBackground>
       </Pressable>
       <Pressable
@@ -60,15 +58,12 @@ const HomeScreen = () => {
           <Image
             source={require("../../assets/ihelp/logoperson.png")}
             style={{
-              width: "59%",
-              height: "28%",
+              width: "61%",
+              height: "31%",
               alignSelf: "center",
               resizeMode: "contain",
             }}
           />
-          <Text style={{ fontFamily: "Sf-thin", color: "white", fontSize: 30 }}>
-            Хувь хүн
-          </Text>
         </ImageBackground>
       </Pressable>
     </SafeAreaView>

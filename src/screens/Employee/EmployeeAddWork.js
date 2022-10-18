@@ -6,32 +6,26 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigation, useTheme } from "@react-navigation/native";
-import axios from "axios";
-import { api } from "../../../Constants";
+import React, { useContext, useState } from "react";
+import { useTheme } from "@react-navigation/native";
+
 import FormText from "../../components/FormText";
 import MyButton from "../../components/MyButton";
 import UserContext from "../../context/UserContext";
-import CompanyHeader from "../../components/Header/CompanyHeader";
-import PriceModal from "./AddWorkModals/PriceModal";
-import TimeModal from "./AddWorkModals/TimeModal";
+import Header from "../../components/Header";
+import PriceModal from "../../components/Modals/PriceModal";
+import TimeModal from "../../components/Modals/TimeModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import SpecialPermissionModal from "./AddWorkModals/SpecialPermissionModal";
-import SpecialModal from "./AddWorkModals/SpecialModal";
 // Modals
 import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
 import SearchByOccupation from "../../components/Modals/SearchByOccupation";
+import SpecialModal from "./AddWorkModals/SpecialModal";
 
 const EmployeeAddWork = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [specialModal, setSpecialModal] = useState(false);
-  const navigation = useNavigation();
   const insents = useSafeAreaInsets();
-  // Тусгай зөвшөөрөл сонгох модал
-  const [specialPermission, setSpecialPermission] = useState(false);
-  const [permission, setPermission] = useState("");
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
@@ -55,9 +49,6 @@ const EmployeeAddWork = () => {
     if (addWork.time === "Сонгох") {
       return alert("Зарцуулах цаг хугацаа сонгоно уу");
     }
-    if (addWork.specialPermission === "Сонгох") {
-      return alert("Тусгай зөвшөөрөл сонгоно уу");
-    }
 
     setSpecialModal(true);
   };
@@ -67,7 +58,6 @@ const EmployeeAddWork = () => {
     experience: "",
     price: "Сонгох",
     time: "Сонгох",
-    specialPermission: "Сонгох",
     description: "",
     isCompany: true,
     order: 0,
@@ -81,21 +71,10 @@ const EmployeeAddWork = () => {
     skill: false,
     location: false,
     experience: false,
-    specialPermission: false,
     certificate: false,
     startDate: false,
   });
-  const [notification, setNotification] = useState([]);
-  useEffect(() => {
-    axios
-      .get(`${api}/api/v1/profiles/${state.companyId}?select=notification`)
-      .then((res) => {
-        setNotification(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+
   const checkDescription = (text) => {
     setError({
       ...error,
@@ -149,30 +128,17 @@ const EmployeeAddWork = () => {
       time: text,
     });
   };
-  const checkSpecialPermission = (text) => {
-    setSpecialPermission(!specialPermission);
-    setAddWork({
-      ...addWork,
-      specialPermission: text,
-    });
-  };
 
-  if (!notification) {
-    return null;
-  }
   return (
     <KeyboardAvoidingView
       style={{
         flex: 1,
-        backgroundColor: colors.header,
         paddingTop: insents.top,
+        backgroundColor: colors.header,
       }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
     >
       <View style={{}}>
-        <CompanyHeader isBack={true} notification={notification.notification} />
+        <Header isBack={true} />
         <View style={{ backgroundColor: colors.background }}>
           <ScrollView
             style={{ marginHorizontal: 20 }}
@@ -221,13 +187,6 @@ const EmployeeAddWork = () => {
             <MyButton
               text={time === "" ? "Зарцуулах цаг хугацаа" : time}
               onPress={checkTime}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Тусгай зөвшөөрөл
-            </Text>
-            <MyButton
-              text={permission === "" ? "Тусгай зөвшөөрөл" : permission}
-              onPress={checkSpecialPermission}
             />
 
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
@@ -290,13 +249,7 @@ const EmployeeAddWork = () => {
           setTimeModal={setTimeModal}
           checkTime={checkTime}
         />
-        {/* Тусгай зөвшөөрөл сонгох */}
-        <SpecialPermissionModal
-          setSpecialPermission={setSpecialPermission}
-          specialPermission={specialPermission}
-          setPermission={setPermission}
-          checkSpecialPermission={checkSpecialPermission}
-        />
+
         <SpecialModal
           specialModal={specialModal}
           setSpecialModal={setSpecialModal}

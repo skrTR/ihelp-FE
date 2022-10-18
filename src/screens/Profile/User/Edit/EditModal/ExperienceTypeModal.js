@@ -28,7 +28,6 @@ const ExperienceTypeModal = (props) => {
             "Чөлөөт ажилтан",
             "Гэрээгээр",
             "Дадлага",
-            "Аппрентис",
             "Улирлын чанартай",
           ].map((l, i) => (
             <TouchableOpacity

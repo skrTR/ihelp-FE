@@ -1,10 +1,9 @@
-import { StyleSheet, Text, ScrollView } from "react-native";
+import { StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import FormText from "../../../../components/FormText";
 import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../../../Constants";
-import LinearGradientButton from "../../../../components/LinearGradientButton";
 const AchievmentAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();

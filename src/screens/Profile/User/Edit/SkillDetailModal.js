@@ -132,13 +132,8 @@ const SkillDetailModal = ({ route }) => {
 
   return (
     <KeyboardAvoidingView
-      style={{
-        flex: 1,
-        backgroundColor: colors.header,
-      }}
-      behavior="padding"
-      enabled
-      keyboardVerticalOffset={100}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
     >
       <ScrollView
         style={{ marginHorizontal: 20 }}
@@ -234,7 +229,7 @@ const SkillDetailModal = ({ route }) => {
             Хадгалах{" "}
           </Text>
         </TouchableOpacity>
-        <View style={{ marginBottom: 20 }} />
+        <View style={{ marginBottom: 250 }} />
       </ScrollView>
     </KeyboardAvoidingView>
   );

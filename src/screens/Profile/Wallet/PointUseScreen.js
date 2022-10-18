@@ -24,7 +24,7 @@ const PointUseScreen = () => {
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             {state.isCompany
               ? "Зар болон байгууллага идэвхжүүлэх"
-              : "Нетворкинг нийтлэл идэвхжүүлэх"}
+              : "Идэвхжүүлэлт хийх"}
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -36,7 +36,7 @@ const PointUseScreen = () => {
             paddingHorizontal: 20,
             marginTop: 10,
           }}
-          onPress={() => navigation.navigate("PointPriceDetail")}
+          onPress={() => Alert.alert("Тун удахгүй")}
         >
           <Text style={{ textAlign: "center", color: colors.primaryText }}>
             Үнийн санал

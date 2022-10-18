@@ -1,5 +1,4 @@
 import {
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,12 +11,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
-import {
-  Entypo,
-  AntDesign,
-  MaterialCommunityIcons,
-  MaterialIcons,
-} from "@expo/vector-icons";
+
 import moment from "moment";
 import UserContext from "../../../context/UserContext";
 import { api } from "../../../../Constants";
@@ -25,8 +19,7 @@ import Header from "../../../components/Header/Header";
 import CompanyHeader from "../../../components/Header/CompanyHeader";
 import Loading from "../../../components/Loading";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-const WalletScreen = ({ route }) => {
-  const { point, userName } = route.params;
+const WalletScreen = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const navigation = useNavigation();
@@ -35,7 +28,22 @@ const WalletScreen = ({ route }) => {
   const [sendPoint, setSendPoint] = useState(1000);
   const [loading, setLoading] = useState(false);
   const insents = useSafeAreaInsets();
+  const [data, setData] = useState([]);
   let isMounted = true;
+  const getUser = () => {
+    axios
+      .get(
+        `${api}/api/v1/cvs/${state.isCompany ? state.companyId : state.userId}`
+      )
+      .then((res) => {
+        if (isMounted) {
+          setData(res.data.data);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const postWallet = () => {
     setLoading(true);
     axios
@@ -77,11 +85,15 @@ const WalletScreen = ({ route }) => {
   };
   useEffect(() => {
     getTransactionHistory();
+    getUser();
     return () => {
       isMounted = false;
     };
   }, []);
-
+  if (!data) {
+    return null;
+  }
+  console.log(data);
   return (
     <View
       style={{
@@ -133,7 +145,7 @@ const WalletScreen = ({ route }) => {
                   left: 10,
                 }}
               >
-                {userName}
+                {data && data.firstName}
               </Text>
               <View>
                 <Text
@@ -145,7 +157,8 @@ const WalletScreen = ({ route }) => {
                     fontSize: 40,
                   }}
                 >
-                  {point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                  {data.point &&
+                    data.point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                 </Text>
                 <Text
                   style={{

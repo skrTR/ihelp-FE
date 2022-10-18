@@ -19,7 +19,7 @@ const GenderModal = (props) => {
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
         <ModalHeader text="Хүйс" clicked={() => setGenderModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
-          {["Эр", "Эм", "хоёул"].map((l, i) => (
+          {["Эр", "Эм", "Хамаагүй"].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
                 checkGender(l);

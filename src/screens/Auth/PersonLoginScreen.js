@@ -89,7 +89,11 @@ const PersonLoginScreen = () => {
         <View style={{ top: 10, flex: 1 }}>
           <View style={{ marginHorizontal: 20 }}>
             <Text style={styles.inputHeadText}>Утасны дугаар:</Text>
-            <MyTextInput value={phone} onChangeText={setPhone} />
+            <MyTextInput
+              value={phone}
+              onChangeText={setPhone}
+              keyboardType="number-pad"
+            />
 
             <Text style={styles.inputHeadText}>Нууц үг:</Text>
             <MyPasswordInput
