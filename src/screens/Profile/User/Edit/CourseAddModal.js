@@ -15,9 +15,9 @@ import axios from "axios";
 import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import CourseSchoolModal from "./EditModal/CourseSchoolModal";
 import EducationModal from "../../../../components/Modals/EducationModal";
+import YearModal from "../../../../components/Modals/YearModal";
 const CourseAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -25,6 +25,12 @@ const CourseAddModal = () => {
   // Боловсрол сонгох
   const [educationModal, setEducationModal] = useState(false);
   const [education, setEducation] = useState("");
+  // Элссэн огноо сонгох модал
+  const [chooseYearModal, setChooseYearModal] = useState(false);
+  const [chooseYear, setChooseYear] = useState("");
+  // Төгссөн огноо сонгох модал
+  const [chooseEndYearModal, setChooseEndYearModal] = useState(false);
+  const [chooseEndYear, setChooseEndYear] = useState("");
   const [course, setCourse] = useState({
     field: "",
     school: null,
@@ -32,6 +38,7 @@ const CourseAddModal = () => {
     schoolId: null,
     schoolPhoto: null,
     grade: "",
+    education: "",
     isStudying: false,
     start: "",
     end: "",
@@ -82,32 +89,24 @@ const CourseAddModal = () => {
     });
   };
 
-  const checkStart = (text) => {
-    setError({
-      ...error,
-      start: text.length < 4,
+  const checkStudy = () => {
+    setCourse({
+      ...course,
+      isStudying: !course.isStudying,
     });
-
+  };
+  const checkStart = (text) => {
+    setChooseYearModal(!chooseYearModal);
     setCourse({
       ...course,
       start: text,
     });
   };
   const checkEnd = (text) => {
-    setError({
-      ...error,
-      end: text.length < 3,
-    });
-
+    setChooseEndYearModal(!chooseEndYearModal);
     setCourse({
       ...course,
       end: text,
-    });
-  };
-  const checkStudy = () => {
-    setCourse({
-      ...course,
-      isStudying: !course.isStudying,
     });
   };
   return (
@@ -115,7 +114,10 @@ const CourseAddModal = () => {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <ScrollView style={{ marginHorizontal: 20, flex: 1 }}>
+      <ScrollView
+        style={{ marginHorizontal: 20, flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
         {/* Surguuli */}
         <TouchableOpacity
           onPress={() => setSchoolModal(true)}
@@ -184,6 +186,7 @@ const CourseAddModal = () => {
             </TouchableOpacity>
           </View>
         </TouchableOpacity>
+        {/* Боловсролын зэрэг */}
         <TouchableOpacity onPress={() => setEducationModal(true)}>
           <Text style={[styles.textTitle, { color: colors.primaryText }]}>
             Боловсролын зэрэг
@@ -196,7 +199,7 @@ const CourseAddModal = () => {
             }}
           >
             <Text style={{ fontSize: 16 }}>
-              {education ? education : course.education}
+              {education ? education : "Боловсролын зэрэг сонгох"}
             </Text>
           </View>
         </TouchableOpacity>
@@ -210,17 +213,25 @@ const CourseAddModal = () => {
           errorText="Мэргэжил 1-20 тэмдэгтээс тогтоно"
           errorShow={error.field}
         />
+
         {/* elssen ognoo */}
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Элссэн огноо
-        </Text>
-        <FormText
-          value={course.start}
-          onChangeText={checkStart}
-          errorText="Элссэн огноо 4-10 тэмдэгтээс тогтоно"
-          errorShow={error.start}
-          keyboardType="numeric"
-        />
+        <TouchableOpacity onPress={() => setChooseYearModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Элссэн огноо
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {chooseYear ? `${chooseYear} он` : "Элссэн огноо сонгох"}
+            </Text>
+          </View>
+        </TouchableOpacity>
+
         {/* surj bgaa eseh */}
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Суралцаж байгаа эсэх?
@@ -257,17 +268,28 @@ const CourseAddModal = () => {
         </View>
         {!course.isStudying && (
           <>
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            {/* 
               Төгссөн огноо
-            </Text>
-            <FormText
-              placeholder="Төгссөн огноо"
-              value={course.end && course.end.slice(0, 10)}
-              onChangeText={checkEnd}
-              errorText="Төгссөн огноо 4-10 тэмдэгтээс тогтоно"
-              errorShow={error.end}
-              keyboardType="numeric"
-            />
+          
+             */}
+            <TouchableOpacity onPress={() => setChooseEndYearModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Төгссөн огноо
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {chooseEndYear
+                    ? `${chooseEndYear} он`
+                    : "Төгссөн огноо сонгох"}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </>
         )}
         {/* голч дүн */}
@@ -312,6 +334,20 @@ const CourseAddModal = () => {
           setEducationModal={setEducationModal}
           educationModal={educationModal}
           checkEducation={checkEducation}
+        />
+        {/* Элссэн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseYear}
+          setChooseYearModal={setChooseYearModal}
+          chooseYearModal={chooseYearModal}
+          checkYear={checkStart}
+        />
+        {/* Төгссөн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseEndYear}
+          setChooseYearModal={setChooseEndYearModal}
+          chooseYearModal={chooseEndYearModal}
+          checkYear={checkEnd}
         />
         <View style={{ marginBottom: 250 }} />
       </ScrollView>

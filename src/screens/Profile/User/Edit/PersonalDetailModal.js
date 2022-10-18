@@ -6,7 +6,6 @@ import {
   Switch,
   KeyboardAvoidingView,
   TouchableOpacity,
-  TextInput,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -86,7 +85,6 @@ const PersonalDetailModal = (props) => {
         setLoading(false);
       });
   };
-  console.log(data);
   const [personalCv, setPersonalCv] = useState({
     lastName: data.lastName ? data.lastName : "",
     firstName: data.firstName ? data.firstName : "",

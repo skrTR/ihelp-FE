@@ -40,13 +40,12 @@ const UserDeleteModal = (props) => {
             .catch((err) => {
               let message = err.response.data.error.message;
               alert(message);
-              console.log(err.message);
+              console.log(err);
             });
         },
       },
     ]);
   };
-  console.log(password);
   return (
     <Modal
       animationType="slide"

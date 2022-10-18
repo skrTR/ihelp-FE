@@ -26,7 +26,8 @@ export default function useChecked() {
         if (message === `${state.userId} ID-тэй хэрэглэгч байхгүй!`) {
           state.logout();
         } else if (
-         1
+          message ===
+          "Энэ үйлдлийг хийхэд таны эрх хүрэхгүй байна. Та эхлээд логин хийнэ үү. Authorization header-ээр эсвэ Cookie ашиглан токеноо дамжуулна уу."
         ) {
           state.logout();
         }

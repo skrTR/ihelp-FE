@@ -1,12 +1,22 @@
-import { StyleSheet, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React, { useState } from "react";
 import FormText from "../../../../components/FormText";
 import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../../../Constants";
+import YearModal from "../../../../components/Modals/YearModal";
 const AchievmentAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
+  // Шагнал авсан огноо сонгох модал
+  const [chooseYearModal, setChooseYearModal] = useState(false);
+  const [chooseYear, setChooseYear] = useState("");
   const sendPersonalDetail = () => {
     axios
       .post(`${api}/api/v1/questionnaires/achievement`, achievement)
@@ -40,15 +50,13 @@ const AchievmentAddModal = () => {
     });
   };
   const checkYear = (text) => {
-    setError({
-      ...error,
-      achievementYear: text.length < 3,
-    });
+    setChooseYearModal(!chooseYearModal);
     setAchievement({
       ...achievement,
       achievementYear: text,
     });
   };
+
   const checkCompany = (text) => {
     setError({
       ...error,
@@ -73,17 +81,23 @@ const AchievmentAddModal = () => {
         errorText="Шагналын нэр 2-20 тэмдэгтээс тогтоно."
         errorShow={error.name}
       />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Шагнал авсан огноо
-      </Text>
-      <FormText
-        placeholder="Шагнал авсан он"
-        value={`${achievement.achievementYear}`}
-        onChangeText={checkYear}
-        errorText="Шагнал авсан он 4-10 тэмдэгтээс тогтоно."
-        errorShow={error.achievementYear}
-        keyboardType={"number-pad"}
-      />
+      <TouchableOpacity onPress={() => setChooseYearModal(true)}>
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Шагнал авсан огноо
+        </Text>
+        <View
+          style={{
+            backgroundColor: colors.secondaryText,
+            padding: 12,
+            borderRadius: 10,
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>
+            {chooseYear ? `${chooseYear} он` : "Шагнал авсан он сонгох"}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
       <Text style={[styles.textTitle, { color: colors.primaryText }]}>
         Шагнал гардуулсан газар
       </Text>
@@ -107,6 +121,13 @@ const AchievmentAddModal = () => {
       >
         <Text style={{ color: "black", textAlign: "center" }}> Хадгалах </Text>
       </TouchableOpacity>
+      {/* Төрсөн огноо сонгох */}
+      <YearModal
+        setChooseYear={setChooseYear}
+        setChooseYearModal={setChooseYearModal}
+        chooseYearModal={chooseYearModal}
+        checkYear={checkYear}
+      />
     </ScrollView>
   );
 };

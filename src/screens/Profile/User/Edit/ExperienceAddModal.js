@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import FormText from "../../../../components/FormText";
@@ -15,10 +16,11 @@ import axios from "axios";
 import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
 import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
 import ProvinceModal from "../../../../components/Modals/ProvinceModal";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import moment from "moment";
 const ExperienceAddModal = (props) => {
   const navigation = useNavigation();
   const { colors } = useTheme();
@@ -30,6 +32,18 @@ const ExperienceAddModal = (props) => {
   // Хаяг байршил сонгох
   const [province, setProvince] = useState("");
   const [provinceModal, setProvinceModal] = useState(false);
+  // Ажилд орсон
+  const [isPickerShow, setIsPickerShow] = useState(false);
+  const [date, setDate] = useState(new Date(Date.now()));
+  const showPicker = () => {
+    setIsPickerShow(true);
+  };
+  // Ажилаас гарсан
+  const [isPickerShow1, setIsPickerShow1] = useState(false);
+  const [date1, setDate1] = useState(new Date(Date.now()));
+  const showPicker1 = () => {
+    setIsPickerShow1(true);
+  };
   const [error, setError] = useState({
     description: false,
     do: false,
@@ -57,14 +71,22 @@ const ExperienceAddModal = (props) => {
     location: "",
     type: "",
   });
-
   const sendPersonalDetail = () => {
+    if (experience.type.length < 1) {
+      return Alert.alert("Ажилсан цагийн төрлөө оруулна уу");
+    }
+    if (!experience.company) {
+      return Alert.alert("Ажилсан байгууллага оруулна уу");
+    }
+    if (experience.start.length < 1) {
+      return Alert.alert("Ажилд орсон огноо оруулна уу");
+    }
     axios
       .post(`${api}/api/v1/questionnaires/experience`, experience)
       .then((res) => {
         navigation.goBack();
       })
-      .catch((err) => alert(err));
+      .catch((err) => console.log(err.message));
   };
   const checkLocation = (text) => {
     setProvinceModal(!provinceModal);
@@ -147,18 +169,28 @@ const ExperienceAddModal = (props) => {
       type: text,
     });
   };
-  const checkEnd = (type) => {
+
+  const checkEnd = (event, value) => {
+    setDate1(value);
     setExperience({
       ...experience,
-      end: type,
+      end: date,
     });
+    if (Platform.OS === "android") {
+      setIsPickerShow1(false);
+    }
   };
-  const checkStart = (type) => {
+  const checkStart = (event, value) => {
+    setDate(value);
     setExperience({
       ...experience,
-      start: type,
+      start: date,
     });
+    if (Platform.OS === "android") {
+      setIsPickerShow(false);
+    }
   };
+
   const checkWorking = () => {
     setExperience({
       ...experience,
@@ -231,15 +263,48 @@ const ExperienceAddModal = (props) => {
           </View>
         </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Ажилд орсон он
+          Ажилд орсон огноо
         </Text>
-        <FormText
-          value={experience.start}
-          onChangeText={checkStart}
-          errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
-          errorShow={error.start}
-          keyboardType="numeric"
-        />
+        {isPickerShow && (
+          <DateTimePicker
+            value={date}
+            mode={"date"}
+            display={Platform.OS === "ios" ? "spinner" : "default"}
+            is24Hour={true}
+            maximumDate={new Date(2023, 15, 20)}
+            onChange={checkStart}
+            style={styles.datePicker}
+            neutralButtonLabel="clear"
+          />
+        )}
+        {!isPickerShow ? (
+          <TouchableOpacity
+            onPress={showPicker}
+            style={{
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 10,
+              backgroundColor: "#C0C0C0",
+            }}
+          >
+            <Text style={[{ fontSize: 16 }]}>
+              {moment(date).format("YYYY-MM-DD")}
+            </Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            onPress={() => setIsPickerShow(false)}
+            style={{
+              padding: 10,
+              backgroundColor: "#FFB6C1",
+              borderWidth: 1,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ textAlign: "center" }}>Болсон</Text>
+          </TouchableOpacity>
+        )}
+
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Албан тушаал
         </Text>
@@ -334,16 +399,49 @@ const ExperienceAddModal = (props) => {
               errorText="Гарсан шалтгаан 3-20 тэмдэгтээс тогтоно."
               errorShow={error.exitCause}
             />
+
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Гарсан он
+              Ажилаас гарсан огноо
             </Text>
-            <FormText
-              value={experience.end}
-              onChangeText={checkEnd}
-              errorText="Гарсан он урт 3-20 тэмдэгтээс тогтоно."
-              errorShow={error.end}
-              keyboardType="numeric"
-            />
+            {isPickerShow1 && (
+              <DateTimePicker
+                value={date1}
+                mode={"date"}
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                is24Hour={true}
+                maximumDate={new Date(2023, 15, 20)}
+                onChange={checkEnd}
+                style={styles.datePicker}
+                neutralButtonLabel="clear"
+              />
+            )}
+            {!isPickerShow1 ? (
+              <TouchableOpacity
+                onPress={showPicker1}
+                style={{
+                  padding: 10,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  backgroundColor: "#C0C0C0",
+                }}
+              >
+                <Text style={[{ fontSize: 16 }]}>
+                  {moment(date1).format("YYYY-MM-DD")}
+                </Text>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => setIsPickerShow1(false)}
+                style={{
+                  padding: 10,
+                  backgroundColor: "#FFB6C1",
+                  borderWidth: 1,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ textAlign: "center" }}>Болсон</Text>
+              </TouchableOpacity>
+            )}
           </>
         )}
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>

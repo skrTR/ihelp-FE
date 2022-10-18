@@ -65,7 +65,7 @@ const Header = (props) => {
         style={{
           width: "30%",
           alignItems: "flex-start",
-          left: 10,
+          left: 20,
         }}
       >
         {isFollowedCompany ? (
@@ -88,7 +88,6 @@ const Header = (props) => {
             size={25}
             color={colors.primaryText}
             onPress={() => navigation.goBack()}
-            style={{ right: 5 }}
           />
         ) : null}
       </View>
@@ -107,7 +106,7 @@ const Header = (props) => {
         style={{
           width: "30%",
           alignItems: "flex-end",
-          right: 10,
+          right: 20,
         }}
       >
         {isEmployeeAddWork ? (
@@ -166,7 +165,6 @@ const Header = (props) => {
             name="md-notifications-outline"
             size={30}
             color={colors.primaryText}
-            style={{ right: 5 }}
             onPress={() => navigation.navigate("NotificationScreen")}
           />
         ) : null}

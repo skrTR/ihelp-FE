@@ -13,6 +13,7 @@ import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import MyButton from "../../../../components/MyButton";
 import ProvinceModal from "../../../../components/Modals/ProvinceModal";
+import YearModal from "../../../../components/Modals/YearModal";
 
 const FamilyDetailModal = ({ route }) => {
   const { data } = route.params;
@@ -21,6 +22,9 @@ const FamilyDetailModal = ({ route }) => {
   // Хаяг байршил сонгох
   const [province, setProvince] = useState("");
   const [provinceModal, setProvinceModal] = useState(false);
+  // Төрсөн огноо сонгох модал
+  const [chooseYearModal, setChooseYearModal] = useState(false);
+  const [chooseYear, setChooseYear] = useState("");
   const sendPersonalDetail = () => {
     axios
       .put(`${api}/api/v1/questionnaires/${data._id}/family`, family)
@@ -63,11 +67,7 @@ const FamilyDetailModal = ({ route }) => {
     });
   };
   const checkBirthYear = (text) => {
-    setError({
-      ...error,
-      birthYear: text.length < 2,
-    });
-
+    setChooseYearModal(!chooseYearModal);
     setFamily({
       ...family,
       birthYear: text,
@@ -182,16 +182,22 @@ const FamilyDetailModal = ({ route }) => {
             </Text>
           </View>
         </TouchableOpacity>
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Төрсөн жил
-        </Text>
-        <FormText
-          value={family.birthYear.toString()}
-          onChangeText={checkBirthYear}
-          errorText="Төрсөн жил 3-20 тэмдэгтээс тогтоно."
-          errorShow={error.birthYear}
-          keyboardType="numeric"
-        />
+        <TouchableOpacity onPress={() => setChooseYearModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Төрсөн жил
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {chooseYear ? `${chooseYear} он` : family.birthYear}
+            </Text>
+          </View>
+        </TouchableOpacity>
 
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Холбоо барих дугаар
@@ -262,6 +268,13 @@ const FamilyDetailModal = ({ route }) => {
           setProvinceModal={setProvinceModal}
           setProvince={setProvince}
           checkProvince={checkBirthPlace}
+        />
+        {/* Төрсөн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseYear}
+          setChooseYearModal={setChooseYearModal}
+          chooseYearModal={chooseYearModal}
+          checkYear={checkBirthYear}
         />
       </ScrollView>
     </KeyboardAvoidingView>

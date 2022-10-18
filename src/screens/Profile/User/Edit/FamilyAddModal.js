@@ -12,12 +12,20 @@ import axios from "axios";
 import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import ProvinceModal from "../../../../components/Modals/ProvinceModal";
+import YearModal from "../../../../components/Modals/YearModal";
+import FamilyModal from "../../../../components/Modals/FamilyModal";
 const FamilyAddModal = () => {
   const navigation = useNavigation();
   const { colors } = useTheme();
   // Хаяг байршил сонгох
   const [province, setProvince] = useState("");
   const [provinceModal, setProvinceModal] = useState(false);
+  // Төрсөн огноо сонгох модал
+  const [chooseYearModal, setChooseYearModal] = useState(false);
+  const [chooseYear, setChooseYear] = useState("");
+  // Hen boloh
+  const [familyModal, setFamilyModal] = useState(false);
+  const [familyName, setFamilyName] = useState("");
   const sendPersonalDetail = () => {
     axios
       .post(`${api}/api/v1/questionnaires/family`, family)
@@ -52,14 +60,17 @@ const FamilyAddModal = () => {
   };
 
   const checkBirthYear = (text) => {
-    setError({
-      ...error,
-      birthYear: text.length < 2,
-    });
-
+    setChooseYearModal(!chooseYearModal);
     setFamily({
       ...family,
       birthYear: text,
+    });
+  };
+  const checkWho = (text) => {
+    setFamilyModal(!familyModal);
+    setFamily({
+      ...family,
+      who: text,
     });
   };
   const checkFirstName = (text) => {
@@ -106,17 +117,7 @@ const FamilyAddModal = () => {
       profession: text,
     });
   };
-  const checkWho = (text) => {
-    setError({
-      ...error,
-      who: text.length < 2,
-    });
 
-    setFamily({
-      ...family,
-      who: text,
-    });
-  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -127,16 +128,22 @@ const FamilyAddModal = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={{ marginBottom: 10 }} />
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Таны хэн болох
-        </Text>
-        <FormText
-          value={family.who}
-          onChangeText={checkWho}
-          errorText="Таны хэн болох 2-20 тэмдэгтээс тогтоно."
-          errorShow={error.who}
-        />
-
+        <TouchableOpacity onPress={() => setFamilyModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Таны хэн болох
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {familyName ? familyName : "Таны хэн болох"}
+            </Text>
+          </View>
+        </TouchableOpacity>
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Овог
         </Text>
@@ -169,17 +176,22 @@ const FamilyAddModal = () => {
             <Text style={{ fontSize: 16 }}>{province && province}</Text>
           </View>
         </TouchableOpacity>
-
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Төрсөн жил
-        </Text>
-        <FormText
-          value={family.birthYear.toString()}
-          onChangeText={checkBirthYear}
-          errorText="Төрсөн жил 3-20 тэмдэгтээс тогтоно."
-          errorShow={error.birthYear}
-          keyboardType="numeric"
-        />
+        <TouchableOpacity onPress={() => setChooseYearModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Төрсөн жил
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {chooseYear ? `${chooseYear} он` : "Төрсөн огноо"}
+            </Text>
+          </View>
+        </TouchableOpacity>
 
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Холбоо барих дугаар
@@ -223,6 +235,20 @@ const FamilyAddModal = () => {
           setProvinceModal={setProvinceModal}
           setProvince={setProvince}
           checkProvince={checkBirthPlace}
+        />
+        {/* Төрсөн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseYear}
+          setChooseYearModal={setChooseYearModal}
+          chooseYearModal={chooseYearModal}
+          checkYear={checkBirthYear}
+        />
+        {/* Төрсөн огноо сонгох */}
+        <FamilyModal
+          setFamilyModal={setFamilyModal}
+          familyModal={familyModal}
+          setFamilyName={setFamilyName}
+          checkFamily={checkWho}
         />
       </ScrollView>
     </KeyboardAvoidingView>

@@ -158,7 +158,7 @@ const ExperienceCompanyModal = (props) => {
               }}
             >
               <Image
-                source={require("../../../../../../assets/logo.png")}
+                source={require("../../../../../../assets/emptycompany.png")}
                 style={{ width: 50, height: 50, borderRadius: 30 }}
               />
               <View style={{ marginLeft: 10 }}>

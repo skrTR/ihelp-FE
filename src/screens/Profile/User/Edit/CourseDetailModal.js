@@ -20,6 +20,7 @@ import MyButton from "../../../../components/MyButton";
 import CourseSchoolModal from "./EditModal/CourseSchoolModal";
 import moment from "moment";
 import EducationModal from "../../../../components/Modals/EducationModal";
+import YearModal from "../../../../components/Modals/YearModal";
 const CourseDetailModal = ({ route }) => {
   const { data } = route.params;
   const navigation = useNavigation();
@@ -28,7 +29,12 @@ const CourseDetailModal = ({ route }) => {
   // Боловсрол сонгох
   const [educationModal, setEducationModal] = useState(false);
   const [education, setEducation] = useState("");
-  console.log(data);
+  // Элссэн огноо сонгох модал
+  const [chooseYearModal, setChooseYearModal] = useState(false);
+  const [chooseYear, setChooseYear] = useState("");
+  // Төгссөн огноо сонгох модал
+  const [chooseEndYearModal, setChooseEndYearModal] = useState(false);
+  const [chooseEndYear, setChooseEndYear] = useState("");
   const [course, setCourse] = useState({
     description: data.description,
     field: data.field,
@@ -89,22 +95,14 @@ const CourseDetailModal = ({ route }) => {
     });
   };
   const checkStart = (text) => {
-    setError({
-      ...error,
-      start: text.length < 5,
-    });
-
+    setChooseYearModal(!chooseYearModal);
     setCourse({
       ...course,
       start: text,
     });
   };
   const checkEnd = (text) => {
-    setError({
-      ...error,
-      end: text.length < 5,
-    });
-
+    setChooseEndYearModal(!chooseEndYearModal);
     setCourse({
       ...course,
       end: text,
@@ -224,16 +222,24 @@ const CourseDetailModal = ({ route }) => {
           errorShow={error.field}
         />
         {/* elssen ognoo */}
-        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-          Элссэн огноо
-        </Text>
-        <FormText
-          value={moment(course.start).format("YYYY")}
-          onChangeText={checkStart}
-          errorText="Элссэн огноо 4-10 тэмдэгтээс тогтоно."
-          errorShow={error.start}
-          keyboardType="numeric"
-        />
+        <TouchableOpacity onPress={() => setChooseYearModal(true)}>
+          <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+            Элссэн огноо
+          </Text>
+          <View
+            style={{
+              backgroundColor: colors.secondaryText,
+              padding: 12,
+              borderRadius: 10,
+            }}
+          >
+            <Text style={{ fontSize: 16 }}>
+              {chooseYear
+                ? `${chooseYear} он`
+                : moment(course.start).format("YYYY")}
+            </Text>
+          </View>
+        </TouchableOpacity>
         {/* surj bgaa eseh */}
         <Text style={[styles.textTitle, { color: colors.primaryText }]}>
           Суралцаж байгаа эсэх?
@@ -270,17 +276,24 @@ const CourseDetailModal = ({ route }) => {
         </View>
         {!course.isStudying && (
           <>
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Төгссөн огноо
-            </Text>
-            <FormText
-              placeholder="Төгссөн огноо"
-              value={moment(course.end).format("YYYY")}
-              onChangeText={checkEnd}
-              errorText="Төгссөн огноо урт 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.end}
-              keyboardType="numeric"
-            />
+            <TouchableOpacity onPress={() => setChooseEndYearModal(true)}>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Төгссөн огноо
+              </Text>
+              <View
+                style={{
+                  backgroundColor: colors.secondaryText,
+                  padding: 12,
+                  borderRadius: 10,
+                }}
+              >
+                <Text style={{ fontSize: 16 }}>
+                  {chooseEndYear
+                    ? `${chooseEndYear} он`
+                    : moment(course.end).format("YYYY")}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </>
         )}
         {/* голч дүн */}
@@ -353,6 +366,20 @@ const CourseDetailModal = ({ route }) => {
           setEducationModal={setEducationModal}
           educationModal={educationModal}
           checkEducation={checkEducation}
+        />
+        {/* Элссэн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseYear}
+          setChooseYearModal={setChooseYearModal}
+          chooseYearModal={chooseYearModal}
+          checkYear={checkStart}
+        />
+        {/* Төгссөн огноо сонгох */}
+        <YearModal
+          setChooseYear={setChooseEndYear}
+          setChooseYearModal={setChooseEndYearModal}
+          chooseYearModal={chooseEndYearModal}
+          checkYear={checkEnd}
         />
         <View style={{ marginBottom: 250 }} />
       </ScrollView>

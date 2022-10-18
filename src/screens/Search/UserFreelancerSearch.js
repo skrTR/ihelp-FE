@@ -27,7 +27,8 @@ const UserFreelancerSearch = () => {
   }, []);
   const fetchUser = () => {
     // const apiURL = `${api}/api/v1/cvs`;
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Чөлөөт ажилтан&limit=1000`;
+    const apiURL = `${api}/api/v1/questionnaires`;
+    // const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Чөлөөт ажилтан&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -60,6 +61,7 @@ const UserFreelancerSearch = () => {
     filterData.filter((obj) => {
       return obj.id !== state.userId;
     });
+  console.log(filterData);
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
       <View

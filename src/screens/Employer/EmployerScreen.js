@@ -90,6 +90,7 @@ const EmployerScreen = () => {
       </View>
     );
   }
+
   return (
     <>
       <View

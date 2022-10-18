@@ -193,7 +193,7 @@ const CreateCvScreen = (props) => {
           </Text>{" "}
           {cv.driverLicense ? "Байгаа" : "Байхгүй"}
         </Text>
-        {cv.type && (
+        {cv.type !== "Сонгох" && (
           <Text
             style={{
               color: colors.primaryText,
@@ -299,7 +299,8 @@ const CreateCvScreen = (props) => {
                       }}
                     >
                       <Text style={{ fontFamily: "Sf-bold" }}>Элссэн: </Text>
-                      {e.start.slice(0, 4)}
+                      {/* {e.start.slice(0, 4)} */}
+                      {moment(e.start).format("YYYY")}
                     </Text>
                     {e.isStudying ? (
                       <Text
