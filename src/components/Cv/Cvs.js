@@ -4,7 +4,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
 import CircularProgress from "react-native-circular-progress-indicator";
 
-const Cvs = ({ item }) => {
+const Cvs = ({ item, needApply, applyId }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (
@@ -34,9 +34,16 @@ const Cvs = ({ item }) => {
         >
           <TouchableOpacity
             style={{ flexDirection: "row" }}
-            onPress={() =>
-              navigation.navigate("CvDetailScreen", { id: item.createUser })
-            }
+            onPress={() => {
+              needApply
+                ? navigation.navigate("ApplyCvDetailScreen", {
+                    id: item.createUser,
+                    applyId: applyId,
+                  })
+                : navigation.navigate("CvDetailScreen", {
+                    id: item.createUser,
+                  });
+            }}
           >
             <Image
               source={{

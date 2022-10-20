@@ -81,12 +81,12 @@ const SearchScreen = () => {
                 marginTop: 10,
                 borderColor: colors.border,
               }}
-              // onPress={() => navigation.navigate("UserInfluncerSearch")}
-              onPress={() => Alert.alert("Тун удахгүй")}
+              onPress={() => navigation.navigate("UserInfluncerSearch")}
+              // onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
-                Инфлюэнсер
+                Идэвхжүүлэгч
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -98,8 +98,8 @@ const SearchScreen = () => {
                 marginTop: 10,
                 borderColor: colors.border,
               }}
-              // onPress={() => navigation.navigate("UserFreelancerSearch")}
-              onPress={() => Alert.alert("Тун удахгүй")}
+              onPress={() => navigation.navigate("UserFreelancerSearch")}
+              // onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}

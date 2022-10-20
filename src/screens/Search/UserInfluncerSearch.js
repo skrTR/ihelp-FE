@@ -1,11 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, FlatList, TextInput } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -13,7 +6,7 @@ import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
-const UserInfluncerSearch = () => {
+const UserInfluencerSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
@@ -26,8 +19,7 @@ const UserInfluncerSearch = () => {
     return () => {};
   }, []);
   const fetchUser = () => {
-    // const apiURL = `${api}/api/v1/cvs`;
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Инфлюэнсер&limit=1000`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Идэвхжүүлэгч&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -100,7 +92,7 @@ const UserInfluncerSearch = () => {
       />
       {filterData && (
         <FlatList
-          data={filtered.sort((a, b) => b.score - a.score)}
+          data={filtered}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => {
             return <UserData item={item} isFollowing={item.isFollowing} />;
@@ -116,7 +108,7 @@ const UserInfluncerSearch = () => {
                   marginHorizontal: 10,
                 }}
               >
-                Инфлюэнсер хайх
+                Идэвхжүүлэгч хайх
               </Text>
             </>
           }
@@ -126,4 +118,4 @@ const UserInfluncerSearch = () => {
   );
 };
 
-export default UserInfluncerSearch;
+export default UserInfluencerSearch;

@@ -79,7 +79,9 @@ const SendWorkHistory = (props) => {
                 </Text>
               </View>
             </TouchableOpacity>
-            <View style={{ alignItems: "center" }}>
+            <View
+              style={{ alignItems: "center", position: "absolute", right: 0 }}
+            >
               {success === true ? (
                 <Text style={{ color: colors.primaryText, marginRight: 10 }}>
                   Төлөв: <Text style={{ color: "green" }}>Зөвшөөрсөн</Text>

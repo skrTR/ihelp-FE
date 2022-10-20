@@ -63,6 +63,7 @@ const EditCompanyCover = ({ route }) => {
     });
     xhr.open("PUT", `${api}/api/v1/cvs/cover`);
     xhr.send(formData);
+    console.log(formData);
     Alert.alert("Амжиллтай хадгаллаа", "", [
       { text: "ОК", onPress: () => console.log("a") },
     ]);

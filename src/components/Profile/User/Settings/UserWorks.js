@@ -15,7 +15,7 @@ import UserContext from "../../../../context/UserContext";
 import { api } from "../../../../../Constants";
 const UserWorks = (props) => {
   const {
-    id,
+    jobId,
     profile,
     occupation,
     type,
@@ -23,6 +23,7 @@ const UserWorks = (props) => {
     isEmployee,
     isEmployer,
     firstName,
+    id,
   } = props;
   const navigation = useNavigation();
   const state = useContext(UserContext);
@@ -45,7 +46,6 @@ const UserWorks = (props) => {
   useEffect(() => {
     setIsLike(checkLikeId.includes(`${id}`));
   }, [checkLikeId]);
-
   const unLiked = () => {
     axios
       .delete(`${api}/api/v1/likes/${id}/job`)
@@ -57,6 +57,7 @@ const UserWorks = (props) => {
         alert(err);
       });
   };
+
   const liked = () => {
     axios
       .post(`${api}/api/v1/likes/${id}/job`)
@@ -91,7 +92,10 @@ const UserWorks = (props) => {
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center" }}
           onPress={() =>
-            navigation.navigate("UserWorkDetail", { id, isLiked: isLike })
+            navigation.navigate("UserWorkDetail", {
+              id: jobId,
+              isLiked: isLike,
+            })
           }
         >
           <ImageBackground

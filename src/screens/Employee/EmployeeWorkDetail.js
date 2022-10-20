@@ -374,13 +374,6 @@ const EmployeeWorkDetail = (props) => {
                 }}
               >
                 Зарыг янзлах{"  "}
-                <Ionicons
-                  // send
-                  name="settings-outline"
-                  size={20}
-                  color={colors.primaryText}
-                  style={{}}
-                />
               </Text>
             </View>
           </TouchableOpacity>

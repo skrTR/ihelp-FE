@@ -154,91 +154,120 @@ const CompanySettingModal = () => {
       </TouchableOpacity>
 
       {/* Irsen cv nuud */}
-      {companyProfile.isEmployer && (
-        <>
-          {/* Line */}
-          <View
+      <>
+        {/* Line */}
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 10,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 20,
+          }}
+          onPress={() => {
+            navigation.navigate("CompanyRecievedCv");
+          }}
+        >
+          <MaterialIcons name="archive" size={28} color={colors.primaryText} />
+
+          <Text
             style={{
-              borderWidth: 0.5,
-              borderColor: colors.border,
-              marginVertical: 10,
-            }}
-          />
-          <TouchableOpacity
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: 20,
-            }}
-            onPress={() => {
-              navigation.navigate("CompanyRecievedCv");
+              color: colors.primaryText,
+              marginLeft: 20,
+              fontSize: 18,
             }}
           >
-            <MaterialIcons
-              name="archive"
-              size={28}
-              color={colors.primaryText}
-            />
+            Ирсэн анкет
+          </Text>
+        </TouchableOpacity>
+      </>
+      {/* zar der Irsen cv nuud */}
+      <>
+        {/* Line */}
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 10,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 20,
+          }}
+          onPress={() => {
+            navigation.navigate("CompanyJobCv");
+          }}
+        >
+          <MaterialIcons
+            name="account-tree"
+            size={28}
+            color={colors.primaryText}
+          />
 
-            <Text
-              style={{
-                color: colors.primaryText,
-                marginLeft: 20,
-                fontSize: 18,
-              }}
-            >
-              Ирсэн анкет
-            </Text>
-          </TouchableOpacity>
-        </>
-      )}
+          <Text
+            style={{
+              color: colors.primaryText,
+              marginLeft: 20,
+              fontSize: 18,
+            }}
+          >
+            Ажлын зар дээр ирсэн анкет
+          </Text>
+        </TouchableOpacity>
+      </>
       {/* Irsen ajliin sanal */}
-      {companyProfile.isEmployee && (
-        <>
-          <View
-            style={{
-              borderWidth: 0.5,
-              borderColor: colors.border,
-              marginVertical: 10,
-            }}
+      <>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 10,
+          }}
+        />
+        <TouchableOpacity
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 20,
+          }}
+          onPress={() => {
+            navigation.navigate("CompanyWorkRequest");
+          }}
+        >
+          <MaterialIcons
+            name="add-to-home-screen"
+            size={28}
+            color={colors.primaryText}
           />
-          <TouchableOpacity
+
+          <Text
             style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginTop: 20,
-            }}
-            onPress={() => {
-              navigation.navigate("CompanyWorkRequest");
+              color: colors.primaryText,
+              marginLeft: 20,
+              fontSize: 18,
             }}
           >
-            <MaterialIcons
-              name="archive"
-              size={28}
-              color={colors.primaryText}
-            />
+            Ирсэн ажлын санал
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={{
+            borderWidth: 0.5,
+            borderColor: colors.border,
+            marginVertical: 10,
+          }}
+        />
+      </>
 
-            <Text
-              style={{
-                color: colors.primaryText,
-                marginLeft: 20,
-                fontSize: 18,
-              }}
-            >
-              Ирсэн ажлын санал
-            </Text>
-          </TouchableOpacity>
-          <View
-            style={{
-              borderWidth: 0.5,
-              borderColor: colors.border,
-              marginVertical: 10,
-            }}
-          />
-        </>
-      )}
-
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -248,7 +277,11 @@ const CompanySettingModal = () => {
           navigation.navigate("CompanySendWork");
         }}
       >
-        <MaterialIcons name="archive" size={28} color={colors.primaryText} />
+        <MaterialIcons
+          name="assistant-photo"
+          size={28}
+          color={colors.primaryText}
+        />
 
         <Text
           style={{
@@ -259,14 +292,14 @@ const CompanySettingModal = () => {
         >
           Илгээсэн ажлын санал
         </Text>
-      </TouchableOpacity> */}
-      {/* <View
+      </TouchableOpacity>
+      <View
         style={{
           borderWidth: 0.5,
           borderColor: colors.border,
           marginVertical: 10,
         }}
-      /> */}
+      />
 
       {/* Change password */}
       <TouchableOpacity

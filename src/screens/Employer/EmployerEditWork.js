@@ -258,6 +258,8 @@ const EmployerEditWork = (props) => {
         paddingTop: insents.top,
         backgroundColor: colors.header,
       }}
+      keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+      behavior={"padding"}
     >
       <View style={{}}>
         <CompanyHeader isBack={true} notification={notification.notification} />

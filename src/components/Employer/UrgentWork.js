@@ -84,7 +84,7 @@ const UrgentWork = (props) => {
       .post(`${api}/api/v1/applies/${id}`)
       .then((res) => {
         Alert.alert("Таны CV амжилттай илгээгдлээ.");
-        console.log(res.data.data);
+        setIsCvSent(true);
       })
       .catch((err) => {
         Alert.alert(err.response.data.error.message);

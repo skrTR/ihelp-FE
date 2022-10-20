@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import useCompanyJobs from "../../hooks/ProfileDetail/Company/useCompanyJobs";
-import CompanyJobs from "../../components/Profile/Company/CompanyJobs";
+import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
 import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
 import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
 import { useTheme } from "@react-navigation/native";
@@ -115,7 +115,7 @@ const ViewCompanyJobs = (props) => {
           {sortedData.map((data) => {
             return (
               <View key={data._id}>
-                <CompanyJobs data={data} />
+                <CompanyJobs data={data} id={data._id} />
               </View>
             );
           })}

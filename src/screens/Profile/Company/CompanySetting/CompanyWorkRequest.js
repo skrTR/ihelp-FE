@@ -57,7 +57,7 @@ const CompanyWorkRequest = () => {
                 <TouchableOpacity
                   style={{ flexDirection: "row", alignItems: "center" }}
                   onPress={() =>
-                    navigation.navigate("WorkDetailScreen", { id })
+                    navigation.navigate("RecievedJobDetail", { id: e._id })
                   }
                 >
                   <Image

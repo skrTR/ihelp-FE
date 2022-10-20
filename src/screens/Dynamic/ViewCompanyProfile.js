@@ -14,8 +14,7 @@ import CompanyTop from "../../components/Dynamic/Company/CompanyTop";
 import Border from "../../components/Border";
 import CompanyAbout from "../../components/Dynamic/Company/CompanyAbout";
 import CompanyPortf from "../../components/Dynamic/Company/CompanyPortf";
-import CompanyJobs from "../../components/Profile/Company/CompanyJobs";
-// import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
+import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
 import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
@@ -208,7 +207,7 @@ const ViewCompanyProfile = (props) => {
                   {sortedData.map((data) => {
                     return (
                       <View key={data._id}>
-                        <CompanyJobs data={data} />
+                        <CompanyJobs data={data} id={data._id} />
                       </View>
                     );
                   })}

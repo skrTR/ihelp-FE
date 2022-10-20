@@ -15,12 +15,7 @@ import UserContext from "../../context/UserContext";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Posts from "../../components/Network/Posts";
 import Header from "../../components/Header/Header";
-import useNetworkingPost from "../../hooks/NetworkingHook/useNetworkingPost";
-import useNetworkingBoost from "../../hooks/NetworkingHook/useNetworkingBoost";
-import BoostedPost from "../../components/Network/BoostedPost";
-import axios from "axios";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import Notfound from "../../components/notfound";
 const NetworkingScreen = ({ route }) => {
   const state = useContext(UserContext);
   const [userProfile] = useUserProfile(state.userId);
@@ -37,12 +32,13 @@ const NetworkingScreen = ({ route }) => {
     makeRequest();
   }, [page, refreshing]);
   const makeRequest = async () => {
-    const apiUrl = `${api}/api/v1/posts/${state.userId}/following?page=${page}&sort=-createdAt&limit=3`;
+    const apiUrl = `${api}/api/v1/posts/${state.userId}/following?page=${page}&sort=-createdAt&limit=5`;
     await fetch(apiUrl)
       .then((res) => res.json())
       .then((resJson) => {
         let datas = resJson.data;
-        setData(data.concat(datas));
+        console.log(datas);
+        setData(datas.concat(data));
         setLoading(false);
         setRefreshing(false);
         setError(null);
@@ -50,12 +46,11 @@ const NetworkingScreen = ({ route }) => {
       })
       .catch((err) => {
         setError(err);
-        console.log(err);
       });
   };
   const handleRefresh = () => {
-    setRefreshing(true);
     setData([]);
+    setRefreshing(true);
     setPage(1);
   };
   const listFooterRender = () => {

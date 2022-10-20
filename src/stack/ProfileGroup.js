@@ -83,6 +83,10 @@ import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
 import CompanySendWork from "../screens/Profile/Company/CompanySetting/CompanySendWork";
 import NetworkingBoost from "../screens/Profile/Wallet/User/NetworkingBoost";
 import BoostSpecialCompany from "../screens/Profile/Wallet/Company/BoostSpecialCompany";
+import CompanyJobCv from "../screens/Profile/Company/CompanySetting/CompanyJobCv";
+import CompanyJobCvDetail from "../screens/Profile/Company/CompanySetting/CompanyJobCvDetail";
+import ApplyCvDetailScreen from "../screens/Profile/Company/CompanySetting/ApplyCvDetailScreen";
+import RecievedJobDetail from "../screens/Profile/Company/CompanySetting/RecievedJobDetail";
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -149,9 +153,10 @@ const ProfileGroup = () => {
               component={CompanySettingModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
                 title: "Тохиргоо",
                 headerLeft: () => <MyBackButton />,
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -159,9 +164,10 @@ const ProfileGroup = () => {
               component={CvDetailScreen}
               options={{
                 headerShown: false,
-                presentation: "formSheet",
+                // presentation: "formSheet",
                 title: "Тохиргоо",
                 headerLeft: () => <MyBackButton />,
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -229,9 +235,10 @@ const ProfileGroup = () => {
               component={CompanyRecievedCv}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
                 title: "Ирсэн анкет",
                 headerLeft: () => <MyBackButton />,
+                fullScreenGestureEnabled: true,
               }}
             />
           </>
@@ -894,6 +901,46 @@ const ProfileGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Нийтлэл идэвхжүүлэх",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="CompanyJobCv"
+          component={CompanyJobCv}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="CompanyJobCvDetail"
+          component={CompanyJobCvDetail}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="ApplyCvDetailScreen"
+          component={ApplyCvDetailScreen}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="RecievedJobDetail"
+          component={RecievedJobDetail}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Санал",
             headerLeft: () => <MyBackButton />,
           }}
         />

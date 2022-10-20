@@ -3,37 +3,46 @@ import {
   Text,
   View,
   Image,
-  SafeAreaView,
   ScrollView,
   TouchableOpacity,
-  Alert,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import * as Print from "expo-print";
 import { shareAsync } from "expo-sharing";
-import { api } from "../../../Constants";
+import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
-import Border from "../../components/Border";
-import UserContext from "../../context/UserContext";
-import moment from "moment/moment";
+import useUserProfile from "../../../../hooks/ProfileDetail/User/useUserProfile";
+import Border from "../../../../components/Border.js";
 
-const EmployerSendWorkModal = (props) => {
-  const { id, isSentCv } = props.route.params;
-  const state = useContext(UserContext);
+import moment from "moment";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+const ApplyCvDetailScreen = (props) => {
+  const { id, applyId } = props.route.params;
   const [data, setData] = useState([]);
   const { colors } = useTheme();
-  const [userProfile] = useUserProfile(state.userId);
+  const [userProfile] = useUserProfile(id);
   const navigation = useNavigation();
   const [experience, setExperience] = useState([]);
   const [course, setCourse] = useState([]);
   const [achievement, setAchievment] = useState([]);
   const [language, setLanguage] = useState([]);
   const [skill, setSkill] = useState([]);
+  const [family, setFamily] = useState([]);
+  const insents = useSafeAreaInsets();
+  const getViewed = () => {
+    axios
+      .get(`${api}/api/v1/applies/${applyId}`)
+      .then((res) => {
+        console.log(res.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data.error.message);
+      });
+  };
   const getCvData = () => {
     axios
-      .get(`${api}/api/v1/questionnaires/${state.userId}`)
+      .get(`${api}/api/v1/questionnaires/${id}`)
       .then((res) => {
         setData(res.data.data);
         setSkill(res.data.data.skill);
@@ -41,30 +50,21 @@ const EmployerSendWorkModal = (props) => {
         setCourse(res.data.data.course);
         setAchievment(res.data.data.achievement);
         setLanguage(res.data.data.language);
+        setFamily(res.data.data.family);
       })
       .catch((err) => {
         console.log(err);
       });
   };
-  const sendCv = () => {
-    axios
-      .post(`${api}/api/v1/applies/${id}/profile`)
-      .then((res) => {
-        Alert.alert("Таны анкет амжилтай илгээгдлээ");
-        navigation.goBack();
-      })
-      .catch((err) => {
-        let message = err.response.data.error.message;
-        Alert.alert(message);
-      });
-  };
   useEffect(() => {
     getCvData();
+    if (applyId) {
+      getViewed();
+    }
   }, []);
   if (!userProfile) {
     return null;
   }
-
   const createDynamicData = () => {
     var experiences = "";
     for (let i in experience) {
@@ -226,9 +226,8 @@ const EmployerSendWorkModal = (props) => {
     });
     await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
   };
-
   return (
-    <SafeAreaView style={{ backgroundColor: colors.header }}>
+    <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       <ScrollView
         style={{ backgroundColor: colors.background }}
         showsVerticalScrollIndicator={false}
@@ -1174,6 +1173,7 @@ const EmployerSendWorkModal = (props) => {
           )}
         </View>
         {/* Profile ruu ochih */}
+        {/* Tatah */}
         <TouchableOpacity
           style={{
             padding: 10,
@@ -1183,27 +1183,6 @@ const EmployerSendWorkModal = (props) => {
             borderColor: colors.border,
             marginHorizontal: 10,
             marginTop: 10,
-          }}
-          onPress={() => {
-            navigation.navigate("ProfileStack", {
-              screen: "ProfileScreen",
-              // params: { id: state.userId },
-            });
-          }}
-        >
-          <Text style={{ textAlign: "center", color: colors.primaryText }}>
-            Анкет янзлах
-          </Text>
-        </TouchableOpacity>
-        {/* Tatah */}
-        <TouchableOpacity
-          style={{
-            padding: 10,
-            borderWidth: 1,
-            borderRadius: 10,
-            borderColor: colors.border,
-            marginTop: 10,
-            marginHorizontal: 10,
           }}
           onPress={printToFile}
         >
@@ -1211,7 +1190,6 @@ const EmployerSendWorkModal = (props) => {
             Татах
           </Text>
         </TouchableOpacity>
-
         {/* Ajliin sanal tavih */}
         <TouchableOpacity
           style={{
@@ -1219,47 +1197,38 @@ const EmployerSendWorkModal = (props) => {
 
             borderWidth: 1,
             borderRadius: 10,
+            marginVertical: 10,
+            marginHorizontal: 10,
             borderColor: colors.border,
-            margin: 10,
-            backgroundColor: "#FFB6C1",
-            opacity: data.score > 79 ? 1 : 0.3,
           }}
-          onPress={() => {
-            if (data.score > 79) {
-              sendCv();
-            } else {
-              Alert.alert(
-                "Анхаар",
-                "Та өөрийн анкетыг 80%-с дээш бөглөснөөр анкет илгээх боломжтой",
-                [
-                  {
-                    text: "Үгүй",
-                    style: "cancel",
-                  },
-                  {
-                    text: "Анкет янзлах",
-                    onPress: () =>
-                      navigation.navigate("ProfileStack", {
-                        screen: "CreateCvScreen",
-                        params: { id: state.userId },
-                      }),
-                  },
-                ]
-              );
-            }
-          }}
+          onPress={() => navigation.navigate("UserSendWorkRequest", { id: id })}
         >
-          <Text style={{ textAlign: "center", color: "black" }}>
-            {isSentCv ? "Анкет илгээгдсэн" : "Анкет илгээх"}
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            Ажлын санал тавих
+          </Text>
+        </TouchableOpacity>
+        {/* Profile ruu ochih */}
+        <TouchableOpacity
+          style={{
+            padding: 10,
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.border,
+            marginHorizontal: 10,
+          }}
+          onPress={() => navigation.navigate("ViewUserProfile", { id: id })}
+        >
+          <Text style={{ textAlign: "center", color: colors.primaryText }}>
+            Профайл руу очих
           </Text>
         </TouchableOpacity>
 
         <View style={{ marginVertical: 100 }} />
       </ScrollView>
-    </SafeAreaView>
+    </View>
   );
 };
 
-export default EmployerSendWorkModal;
+export default ApplyCvDetailScreen;
 
 const styles = StyleSheet.create({});

@@ -423,6 +423,63 @@ const EmployerWorkDetail = (props) => {
                 </View>
               </>
             )}
+            {state.companyId === workDetail.createUser ? (
+              <>
+                <View style={{ flexDirection: "row", width: "100%" }}>
+                  <Text
+                    style={{
+                      marginBottom: 8,
+                      color: "white",
+                    }}
+                  >
+                    ★ Ажлын зарын хандалт:{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginBottom: 8,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {workDetail.count}
+                  </Text>
+                </View>
+                <View style={{ flexDirection: "row", width: "100%" }}>
+                  <Text
+                    style={{
+                      marginBottom: 8,
+                      color: "white",
+                    }}
+                  >
+                    ★ Ажлын зар дээр ирсэн анкет:{" "}
+                  </Text>
+                  <Text
+                    style={{
+                      color: "white",
+                      marginBottom: 8,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    {workDetail.apply}
+                  </Text>
+                </View>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate("CompanyJobCvDetail", {
+                      id: workDetail._id,
+                    })
+                  }
+                  style={{
+                    alignSelf: "center",
+                    borderRadius: 10,
+                    padding: 10,
+                    backgroundColor: "#FFB6C1",
+                  }}
+                >
+                  <Text>Ирсэн анкет үзэх</Text>
+                </TouchableOpacity>
+              </>
+            ) : null}
           </View>
         </View>
         <View style={{ paddingBottom: 100 }}>
@@ -483,45 +540,39 @@ const EmployerWorkDetail = (props) => {
               </View>
             </TouchableOpacity>
           ) : state.companyId === workDetail.createUser ? (
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#2c3539",
-                alignItems: "center",
-                borderRadius: 10,
-                marginBottom: 200,
-                margin: 10,
-                justifyContent: "center",
-              }}
-              onPress={() =>
-                navigation.navigate("EmployerEditWork", { data: workDetail })
-              }
-            >
-              <View
+            <>
+              <TouchableOpacity
                 style={{
                   backgroundColor: "#2c3539",
-                  width: "90%",
-                  padding: 20,
                   alignItems: "center",
+                  borderRadius: 10,
+                  margin: 10,
+                  justifyContent: "center",
                 }}
+                onPress={() =>
+                  navigation.navigate("EmployerEditWork", { data: workDetail })
+                }
               >
-                <Text
+                <View
                   style={{
-                    textAlign: "center",
-                    fontSize: 20,
-                    color: "white",
+                    backgroundColor: "#2c3539",
+                    width: "90%",
+                    padding: 20,
+                    alignItems: "center",
                   }}
                 >
-                  Зарыг янзлах
-                  <Ionicons
-                    // send
-                    name="settings-outline"
-                    size={20}
-                    color={colors.primaryText}
-                    style={{}}
-                  />
-                </Text>
-              </View>
-            </TouchableOpacity>
+                  <Text
+                    style={{
+                      textAlign: "center",
+                      fontSize: 20,
+                      color: "white",
+                    }}
+                  >
+                    Зарыг янзлах
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            </>
           ) : null}
         </View>
       </ScrollView>

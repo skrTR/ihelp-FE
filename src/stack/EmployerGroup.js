@@ -10,7 +10,6 @@ import UserWorkDetail from "../screens/Profile/User/Settings/UserWorkDetail";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import EmployerSendWorkModal from "../screens/Dynamic/EmployerSendWorkModal";
-import CvDetailScreen from "../components/Cv/CvDetailScreen";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
@@ -23,6 +22,7 @@ import EmployeeWorkDetail from "../screens/Employee/EmployeeWorkDetail";
 import SortWorkModal from "../screens/Employer/SortWorkModal";
 import ResultWorkModal from "../screens/Employer/ResultWorkModal";
 import BoostSpecialCompany from "../screens/Profile/Wallet/Company/BoostSpecialCompany";
+import CompanyJobCvDetail from "../screens/Profile/Company/CompanySetting/CompanyJobCvDetail";
 const EmployerGroup = () => {
   const EmployerStack = createNativeStackNavigator();
   return (
@@ -101,9 +101,10 @@ const EmployerGroup = () => {
           component={EmployerSendWorkModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
             title: "Анкет илгээх",
             headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
           }}
         />
         <EmployerStack.Screen
@@ -200,6 +201,16 @@ const EmployerGroup = () => {
             title: "Илэрц",
             headerLeft: () => <MyBackButton />,
             fullScreenGestureEnabled: true,
+          }}
+        />
+        <EmployerStack.Screen
+          name="CompanyJobCvDetail"
+          component={CompanyJobCvDetail}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Анкет",
+            headerLeft: () => <MyBackButton />,
           }}
         />
       </EmployerStack.Group>

@@ -1,37 +1,27 @@
 import { StyleSheet, Text, View, Modal, TouchableOpacity } from "react-native";
 import React from "react";
-import ModalHeader from "../ModalHeader";
 import { useTheme } from "@react-navigation/native";
-
-const TypeModal = (props) => {
-  const { typeModal, setTypeModal, setType, checkType } = props;
+import ModalHeader from "../../../../../components/ModalHeader";
+const ApproveModal = (props) => {
+  const { approveModal, setApproveModal, setApprove } = props;
   const { colors } = useTheme();
   return (
     <Modal
       animationType="slide"
-      visible={typeModal}
+      visible={approveModal}
       presentationStyle="formSheet"
       onRequestClose={() => {
-        setTypeModal(!typeModal);
+        setApproveModal(!approveModal);
       }}
     >
       <View style={{ backgroundColor: colors.background, height: "100%" }}>
-        <ModalHeader text="Цагийн төрөл" clicked={() => setTypeModal(false)} />
+        <ModalHeader text="Статус" clicked={() => setApproveModal(false)} />
         <View style={{ marginHorizontal: 10 }}>
-          {[
-            "Үндсэн ажил",
-            "Цагийн ажил",
-            "Чөлөөт ажилтан",
-            "Гэрээгээр",
-            "Дадлага",
-            "Аппрентис",
-            "Улирлын чанартай",
-            "Идэвхжүүлэгч",
-          ].map((l, i) => (
+          {["Зөвшөөрсөн", "Зөвшөөрөөгүй"].map((l, i) => (
             <TouchableOpacity
               onPress={() => {
-                setType(l);
-                checkType(l);
+                setApprove(l);
+                setApproveModal(!approveModal);
               }}
               key={i}
             >
@@ -47,7 +37,7 @@ const TypeModal = (props) => {
   );
 };
 
-export default TypeModal;
+export default ApproveModal;
 
 const styles = StyleSheet.create({
   text: {

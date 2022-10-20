@@ -30,7 +30,7 @@ const UserSavedWork = () => {
             <View key={item._id}>
               {item.job && (
                 <UserWorks
-                  id={item.job}
+                  jobId={item.job._id}
                   firstName={item.job.firstName}
                   profile={item.job.profile}
                   occupation={item.job.occupationName}
@@ -38,6 +38,7 @@ const UserSavedWork = () => {
                   salary={item.job.salary}
                   isEmployer={item.isEmployer}
                   isEmployee={item.isEmployee}
+                  id={item.job._id}
                 />
               )}
             </View>

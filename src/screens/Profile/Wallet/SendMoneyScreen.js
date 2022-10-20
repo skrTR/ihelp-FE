@@ -74,7 +74,7 @@ const SendMoneyScreen = (props) => {
                 marginTop: 50,
               }}
             >
-              {money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ₮
+              {money}
             </Text>
           </View>
           <Text
@@ -258,7 +258,7 @@ const SendMoneyScreen = (props) => {
                     </Text>
                     <TouchableOpacity onPress={copyMoney}>
                       <Text style={{ color: colors.primary }}>
-                        {state.isCompany ? state.companyPhone : state.phone}
+                        {state.isCompany ? state.email : state.phone}
                       </Text>
                     </TouchableOpacity>
                   </View>
@@ -330,10 +330,7 @@ const SendMoneyScreen = (props) => {
                       Гүйлгээний дүн:
                     </Text>
                     <TouchableOpacity onPress={copyMoney}>
-                      <Text style={{ color: colors.primary }}>
-                        {money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-                        ₮
-                      </Text>
+                      <Text style={{ color: colors.primary }}>{money}</Text>
                     </TouchableOpacity>
                   </View>
                   <View
@@ -352,7 +349,7 @@ const SendMoneyScreen = (props) => {
                     </Text>
                     <TouchableOpacity onPress={copyMoney}>
                       <Text style={{ color: colors.primary }}>
-                        {state.isCompany ? state.companyPhone : state.phone}
+                        {state.isCompany ? state.email : state.phone}
                       </Text>
                     </TouchableOpacity>
                   </View>

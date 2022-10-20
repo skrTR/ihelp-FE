@@ -5,16 +5,18 @@ import { api } from "../../../../Constants";
 import DataCountDown from "../../Employer/DataCountDown";
 import { Ionicons } from "@expo/vector-icons";
 const CompanyJobs = (props) => {
-  const { data } = props;
+  const { data, needApply } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
-
   return (
     <>
       <TouchableOpacity
-        onPress={() =>
-          navigation.navigate("EmployerWorkDetail", { id: data._id })
-        }
+        onPress={() => {
+          navigation.navigate(
+            needApply ? "CompanyJobCvDetail" : "EmployerWorkDetail",
+            { id: data._id }
+          );
+        }}
       >
         <View
           style={{
@@ -134,18 +136,33 @@ const CompanyJobs = (props) => {
                 </Text>
               </View>
             </View>
-            <Text
-              style={{
-                color: colors.primaryText,
-                fontWeight: "200",
-                right: 10,
-              }}
-            >
-              Хандалт:{" "}
-              <Text style={{ color: colors.primaryText, fontWeight: "600" }}>
-                {data.count}
+            {needApply ? (
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  fontWeight: "200",
+                  right: 10,
+                }}
+              >
+                Ирсэн анкет:{" "}
+                <Text style={{ color: colors.primaryText, fontWeight: "600" }}>
+                  {data.apply}
+                </Text>
               </Text>
-            </Text>
+            ) : (
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  fontWeight: "200",
+                  right: 10,
+                }}
+              >
+                Хандалт:{" "}
+                <Text style={{ color: colors.primaryText, fontWeight: "600" }}>
+                  {data.count}
+                </Text>
+              </Text>
+            )}
           </View>
           <DataCountDown
             createdAt={

@@ -11,10 +11,15 @@ const DeletePortfolio = () => {
   let isMounted = true;
   const loadCompanyProfile = () => {
     axios
-      .get(`${api}/api/v1/cvs/${state.userId}?select=portfolio`)
+      .get(
+        `${api}/api/v1/cvs/${
+          state.isCompany ? state.companyId : state.userId
+        }?select=portfolio`
+      )
       .then((res) => {
         if (isMounted) {
           setPortfolio(res.data.data.portfolio);
+          console.log(res.data.data.portfolio);
         }
       })
       .catch((err) => {
@@ -22,28 +27,28 @@ const DeletePortfolio = () => {
       });
   };
   const deletePortfolio = (item) => {
-    console.log(item);
-    Alert.alert("Alert Title", "My Alert Msg", [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel",
-      },
-      {
-        text: "OK",
-        onPress: () => {
-          axios
-            .delete(`${api}/api/v1/cvs/portfolio`, { item: "1" })
-            .then((res) => {
-              alert("Амжиллтай устгаллаа");
-              console.log(res.data.data.portfolio);
-            })
-            .catch((err) => {
-              console.log(err.message);
-            });
+    Alert.alert(
+      ``,
+      `Зураг номер ${item.slice(4, 5)} устгахдаа итгэлтэй байна уу?`,
+      [
+        {
+          text: "Үгүй",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
         },
-      },
-    ]);
+        {
+          text: "Тийм",
+          onPress: () => {
+            var url = `${api}/api/v1/cvs/portfolio`;
+            var xhr = new XMLHttpRequest();
+            xhr.open("DELETE", url);
+            const formData = new FormData();
+            formData.append(`${item}`, "A");
+            xhr.send(formData);
+          },
+        },
+      ]
+    );
   };
   useEffect(() => {
     loadCompanyProfile();

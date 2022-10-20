@@ -86,7 +86,6 @@ const CompanySendWorkRequest = ({ route }) => {
           borderRadius: 10,
           opacity: name === "" ? 0.2 : 1,
         }}
-        disabled={salary ? true : false}
         onPress={SendRequestWork}
       >
         <Text style={{ textAlign: "center" }}>Илгээх</Text>
