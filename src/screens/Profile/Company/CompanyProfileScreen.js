@@ -8,11 +8,11 @@ import ProfileHeader from "../../../components/Header/ProfileHeader";
 import CompanyTop from "../../../components/Profile/Company/CompanyTop";
 import Border from "../../../components/Border";
 import CompanyAbout from "../../../components/Profile/Company/CompanyAbout";
-import CompanyPortf from "../../../components/Profile/Company/CompanyPortf";
 import Spinner from "../../../components/Spinner";
 import CompanyJobs from "../../../components/Profile/Company/CompanyJobs";
 import EmptyData from "../../../components/Profile/User/Empty/EmptyData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Portfolio from "../../../components/Profile/Portfolio";
 const CompanyProfileScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
@@ -62,14 +62,16 @@ const CompanyProfileScreen = () => {
             data={companyProfile}
           />
           <Border />
-          {companyProfile.portfolio ? (
-            <CompanyPortf
+          {companyProfile.portfolio &&
+          companyProfile.portfolio.image1 !== "1" ? (
+            <Portfolio
               image1={companyProfile.portfolio.image1}
               image2={companyProfile.portfolio.image2}
               image3={companyProfile.portfolio.image3}
               image4={companyProfile.portfolio.image4}
               image5={companyProfile.portfolio.image5}
               image6={companyProfile.portfolio.image6}
+              isCompany={true}
             />
           ) : (
             <EmptyData
@@ -78,7 +80,7 @@ const CompanyProfileScreen = () => {
               description={"Та өөрийн хийсэн ажлын зургийг оруулах боломжтой"}
               icon={"school-outline"}
               id={companyProfile._id}
-              screenDetail={"AddPortfolio"}
+              screenDetail={"PortfolioDetail"}
             />
           )}
 

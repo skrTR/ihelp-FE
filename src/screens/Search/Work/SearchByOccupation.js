@@ -127,7 +127,7 @@ const SearchByOccupation = (props) => {
                 padding: 10,
                 width: "90%",
                 marginLeft: 10,
-                borderRadius: 20,
+                borderRadius: 10,
               }}
               placeholderTextColor={"#cccccccc"}
             />

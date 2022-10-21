@@ -82,7 +82,7 @@ const UserWorkDetail = (props) => {
               backgroundColor: "#2c3539",
               paddingVertical: 10,
               justifyContent: "space-between",
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
             }}
             onPress={() =>

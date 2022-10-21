@@ -26,7 +26,6 @@ const SharePostModal = (props) => {
     axios
       .post(`${api}/api/v1/shares/${id}`, { body: shareText })
       .then((res) => {
-        navigation.goBack();
         Toast.show("Амжилтай хуваалцлаа", {
           duration: Toast.durations.SHORT,
           position: Toast.positions.BOTTOM,
@@ -37,6 +36,12 @@ const SharePostModal = (props) => {
           hideOnPress: true,
           delay: 0,
           backgroundColor: "#FFB6C1",
+        });
+
+        navigation.navigate({
+          name: "NetworkingScreen",
+          params: { indexId: id },
+          merge: true,
         });
       })
       .catch((err) => {

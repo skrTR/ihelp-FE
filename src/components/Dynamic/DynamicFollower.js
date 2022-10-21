@@ -90,7 +90,7 @@ const DynamicFollower = (props) => {
                 <View
                   style={{
                     backgroundColor: "#ff914d",
-                    borderRadius: 20,
+                    borderRadius: 10,
                     alignItems: "center",
                     position: "absolute",
                     alignSelf: "flex-end",
@@ -109,7 +109,7 @@ const DynamicFollower = (props) => {
                 <View
                   style={{
                     backgroundColor: "#3da4e3",
-                    borderRadius: 20,
+                    borderRadius: 10,
                     alignItems: "center",
                     position: "absolute",
                     alignSelf: "flex-end",

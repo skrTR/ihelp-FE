@@ -102,7 +102,7 @@ const AllCompanySearch = () => {
               padding: 10,
               width: "90%",
               marginHorizontal: 10,
-              borderRadius: 20,
+              borderRadius: 10,
               color: colors.primaryText,
             }}
           />

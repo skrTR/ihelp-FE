@@ -13,7 +13,6 @@ import useCompanyJobs from "../../hooks/ProfileDetail/Company/useCompanyJobs";
 import CompanyTop from "../../components/Dynamic/Company/CompanyTop";
 import Border from "../../components/Border";
 import CompanyAbout from "../../components/Dynamic/Company/CompanyAbout";
-import CompanyPortf from "../../components/Dynamic/Company/CompanyPortf";
 import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
 import Header from "../../components/Header/Header";
 import UserContext from "../../context/UserContext";
@@ -22,6 +21,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
 import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
 import Empty from "../../components/Empty";
+import Portfolio from "../../components/Profile/Portfolio";
 const ViewCompanyProfile = (props) => {
   const { id } = props.route.params;
   const navigation = useNavigation();
@@ -82,30 +82,18 @@ const ViewCompanyProfile = (props) => {
           />
           <Border />
           {companyProfile.portfolio && (
-            <TouchableOpacity
-              onPress={() =>
-                navigation.navigate("ViewPortfolio", {
-                  image1: companyProfile.portfolio.image1,
-                  image2: companyProfile.portfolio.image2,
-                  image3: companyProfile.portfolio.image3,
-                  image4: companyProfile.portfolio.image4,
-                  image5: companyProfile.portfolio.image5,
-                  image6: companyProfile.portfolio.image6,
-                })
-              }
-            >
-              <>
-                <CompanyPortf
-                  image1={companyProfile.portfolio.image1}
-                  image2={companyProfile.portfolio.image2}
-                  image3={companyProfile.portfolio.image3}
-                  image4={companyProfile.portfolio.image4}
-                  image5={companyProfile.portfolio.image5}
-                  image6={companyProfile.portfolio.image6}
-                />
-                <Border />
-              </>
-            </TouchableOpacity>
+            <>
+              <Portfolio
+                image1={companyProfile.portfolio.image1}
+                image2={companyProfile.portfolio.image2}
+                image3={companyProfile.portfolio.image3}
+                image4={companyProfile.portfolio.image4}
+                image5={companyProfile.portfolio.image5}
+                image6={companyProfile.portfolio.image6}
+              />
+              <Border />
+            </>
+            // </TouchableOpacity>
           )}
           <Text
             style={{

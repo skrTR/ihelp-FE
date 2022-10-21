@@ -58,20 +58,19 @@ import AddPostScreen from "../screens/Network/AddPostScreen";
 import ViewCompanyProfile from "../screens/Dynamic/ViewCompanyProfile";
 import ViewUserProfile from "../screens/Dynamic/ViewUserProfile";
 import NetworkingPostDetailScreen from "../screens/Network/NetworkingPostDetailScreen";
-import CompanyPortfolia from "../screens/Profile/Company/CompanyEditCoverProfile/CompanyPortfolia";
+
+//
+
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import ChangeCompanyPassword from "../screens/Profile/Company/CompanySetting/ChangeCompanyPassword";
 import WorkBoostModal from "../screens/Profile/Wallet/WorkBoostModal";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
-import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import PostSettings from "../screens/Network/PostSettings";
 import CompanyWorkRequest from "../screens/Profile/Company/CompanySetting/CompanyWorkRequest";
-import UserPortfolio from "../screens/Profile/User/EditCoverStatus/UserPortfolio";
-import AddPortfolio from "../screens/Profile/AddPortfolio";
+
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import CvDetailScreen from "../components/Cv/CvDetailScreen";
-import DeletePortfolio from "../screens/Dynamic/DeletePortfolio";
 import PointTypeScreen from "../screens/Profile/Wallet/PointTypeScreen";
 import BoostEmployerWork from "../screens/Profile/Wallet/Company/BoostEmployerWork";
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
@@ -87,6 +86,9 @@ import CompanyJobCv from "../screens/Profile/Company/CompanySetting/CompanyJobCv
 import CompanyJobCvDetail from "../screens/Profile/Company/CompanySetting/CompanyJobCvDetail";
 import ApplyCvDetailScreen from "../screens/Profile/Company/CompanySetting/ApplyCvDetailScreen";
 import RecievedJobDetail from "../screens/Profile/Company/CompanySetting/RecievedJobDetail";
+import PortfolioDetail from "../components/Profile/PortfolioDetail";
+import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
+
 const ProfileGroup = () => {
   const ProfileStack = createNativeStackNavigator();
   const state = useContext(UserContext);
@@ -723,47 +725,7 @@ const ProfileGroup = () => {
             options={{ headerShown: false, fullScreenGestureEnabled: true }}
           />
         </>
-        {/* Port */}
-        <ProfileStack.Screen
-          name="CompanyPortfolia"
-          component={CompanyPortfolia}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Зурагт танилцуулга",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
-        <ProfileStack.Screen
-          name="UserPortfolio"
-          component={UserPortfolio}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Зурагт танилцуулга",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
-        <ProfileStack.Screen
-          name="AddPortfolio"
-          component={AddPortfolio}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Зурагт танилцуулга",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
-        <ProfileStack.Screen
-          name="DeletePortfolio"
-          component={DeletePortfolio}
-          options={{
-            headerShown: true,
-            presentation: "formSheet",
-            title: "Зурагт танилцуулга устгах",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         {/* port end */}
       </ProfileStack.Group>
       <ProfileStack.Group>
@@ -941,6 +903,16 @@ const ProfileGroup = () => {
             headerShown: true,
             presentation: "formSheet",
             title: "Санал",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <ProfileStack.Screen
+          name="PortfolioDetail"
+          component={PortfolioDetail}
+          options={{
+            headerShown: true,
+            presentation: "formSheet",
+            title: "Зурагт танилцуулга",
             headerLeft: () => <MyBackButton />,
           }}
         />

@@ -889,7 +889,7 @@ const CreateCvScreen = (props) => {
                   data: cv.language,
                 })
               }
-              style={{ borderRadius: 20 }}
+              style={{ borderRadius: 10 }}
             >
               {cv.language.map((item) => {
                 return (

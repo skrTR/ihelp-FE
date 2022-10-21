@@ -14,8 +14,8 @@ import { api } from "../../../Constants";
 import Posts from "../../components/Network/Posts";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
-import UserPortf from "../../components/Profile/User/UserPortf";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Portfolio from "../../components/Profile/Portfolio";
 const ViewUserProfile = (props) => {
   const { id } = props.route.params;
   const [userProfile, profileLoading] = useUserProfile(id);
@@ -68,14 +68,13 @@ const ViewUserProfile = (props) => {
           {cv.course.length > 0 && <UserProfileCourse data={cv.course} />}
 
           {userProfile.portfolio && (
-            <UserPortf
+            <Portfolio
               image1={userProfile.portfolio.image1}
               image2={userProfile.portfolio.image2}
               image3={userProfile.portfolio.image3}
               image4={userProfile.portfolio.image4}
               image5={userProfile.portfolio.image5}
               image6={userProfile.portfolio.image6}
-              id={userProfile.id}
             />
           )}
 

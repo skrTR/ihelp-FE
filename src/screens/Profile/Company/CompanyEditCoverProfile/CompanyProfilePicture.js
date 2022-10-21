@@ -121,7 +121,7 @@ const CompanyProfilePicture = ({ route }) => {
           style={{
             backgroundColor: !profileImage ? "#FFB6C1" : colors.border,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           onPress={openImageProfileLibrary}
         >
@@ -138,7 +138,7 @@ const CompanyProfilePicture = ({ route }) => {
           style={{
             backgroundColor: profileImage ? "#FFB6C1" : colors.border,
             padding: 10,
-            borderRadius: 20,
+            borderRadius: 10,
           }}
           disabled={profileImage ? false : true}
           onPress={uploadProfileImage}

@@ -16,6 +16,7 @@ const ViewPortfolio = (props) => {
   const [pageIndex, setPageIndex] = useState(0);
   const { colors } = useTheme();
   const navigation = useNavigation();
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <AntDesign
@@ -25,6 +26,7 @@ const ViewPortfolio = (props) => {
         style={{ alignSelf: "flex-end", marginRight: 10 }}
         onPress={() => navigation.goBack()}
       />
+
       <PagerView
         initialPage={0}
         style={{ flex: 1 }}
@@ -32,37 +34,37 @@ const ViewPortfolio = (props) => {
           setPageIndex(e.nativeEvent.position);
         }}
       >
-        {/* Portfolia 1-3*/}
-
-        <View style={{}}>
+        <View key={"1"}>
           <Image
             source={{ uri: `${api}/upload/${image1}` }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
           />
         </View>
-        <View style={{}}>
+        <View key={"2"}>
           <Image
             source={{ uri: `${api}/upload/${image2}` }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
           />
         </View>
-        <View style={{}}>
+        <View key={"3"}>
           <Image
             source={{ uri: `${api}/upload/${image3}` }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
           />
         </View>
-        <Image
-          source={{ uri: `${api}/upload/${image4}` }}
-          style={{ width: "100%", height: "100%", resizeMode: "contain" }}
-        />
-        <View style={{}}>
+        <View key={"4"}>
+          <Image
+            source={{ uri: `${api}/upload/${image4}` }}
+            style={{ width: "100%", height: "100%", resizeMode: "contain" }}
+          />
+        </View>
+        <View key={"5"}>
           <Image
             source={{ uri: `${api}/upload/${image5}` }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
           />
         </View>
-        <View style={{}}>
+        <View key={"6"}>
           <Image
             source={{ uri: `${api}/upload/${image6}` }}
             style={{ width: "100%", height: "100%", resizeMode: "contain" }}
@@ -84,7 +86,7 @@ const ViewPortfolio = (props) => {
             fontSize: 20,
           }}
         >
-          {pageIndex + 1}/6
+          {pageIndex + 1}
         </Text>
       </View>
     </SafeAreaView>

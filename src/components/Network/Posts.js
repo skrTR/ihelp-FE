@@ -550,7 +550,12 @@ const Posts = (props) => {
       />
 
       {/* Zuraas  */}
-      <View style={{ backgroundColor: colors.border, paddingVertical: 2 }} />
+      <View
+        style={{
+          backgroundColor: colors.border,
+          paddingVertical: 2,
+        }}
+      />
     </>
   );
 };

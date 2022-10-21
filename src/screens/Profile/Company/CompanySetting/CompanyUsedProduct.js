@@ -35,7 +35,7 @@ const CompanyUsedProduct = () => {
               justifyContent: "space-between",
               borderWidth: 1,
               padding: 20,
-              borderRadius: 20,
+              borderRadius: 10,
               borderColor: colors.border,
               margin: 10,
             }}

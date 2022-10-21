@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   inputField: {
     backgroundColor: "white",
     padding: 15,
-    borderRadius: 20,
+    borderRadius: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,

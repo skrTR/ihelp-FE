@@ -102,7 +102,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -118,7 +118,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
               backgroundColor: education && "#FFB6C1",
@@ -139,7 +139,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -154,7 +154,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -169,7 +169,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}
@@ -184,7 +184,7 @@ const CustomSearchModal = () => {
             style={{
               padding: 10,
               borderWidth: 1,
-              borderRadius: 20,
+              borderRadius: 10,
               marginTop: 10,
               borderColor: colors.border,
             }}

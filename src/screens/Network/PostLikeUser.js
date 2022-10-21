@@ -27,7 +27,6 @@ const PostLikeUser = (props) => {
         data={likeUsers}
         keyExtractor={(item, index) => index}
         renderItem={({ item }) => {
-          console.log(item);
           return (
             <>
               {item.createUser && (
@@ -41,7 +40,7 @@ const PostLikeUser = (props) => {
                 >
                   <Image
                     source={{ uri: `${api}/upload/${item.createUser.profile}` }}
-                    style={{ width: 50, height: 50, borderRadius: 20 }}
+                    style={{ width: 50, height: 50, borderRadius: 10 }}
                   />
                   <Text style={{ color: colors.primaryText, marginLeft: 10 }}>
                     {item.createUser.lastName} {item.createUser.firstName}

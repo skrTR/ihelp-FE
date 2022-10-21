@@ -16,6 +16,7 @@ import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
 import Posts from "../../components/Network/Posts";
 import Header from "../../components/Header/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import axios from "axios";
 const NetworkingScreen = ({ route }) => {
   const state = useContext(UserContext);
   const [userProfile] = useUserProfile(state.userId);
@@ -26,49 +27,75 @@ const NetworkingScreen = ({ route }) => {
   const [page, setPage] = useState(1);
   const [error, setError] = useState(null);
   const [refreshing, setRefreshing] = useState(false);
+  const [justRefresh, setJustRefresh] = useState(false);
   const insents = useSafeAreaInsets();
   const [maxPage, setMaxPage] = useState();
+
+  let isMounted = true;
   useEffect(() => {
-    makeRequest();
-  }, [page, refreshing]);
-  const makeRequest = async () => {
-    const apiUrl = `${api}/api/v1/posts/${state.userId}/following?page=${page}&sort=-createdAt&limit=5`;
-    await fetch(apiUrl)
-      .then((res) => res.json())
-      .then((resJson) => {
-        let datas = resJson.data;
-        console.log(datas);
-        setData(datas.concat(data));
-        setLoading(false);
-        setRefreshing(false);
-        setError(null);
-        setMaxPage(resJson.pagination.pageCount);
-      })
-      .catch((err) => {
-        setError(err);
-      });
-  };
-  const handleRefresh = () => {
-    setData([]);
-    setRefreshing(true);
-    setPage(1);
-  };
-  const listFooterRender = () => {
-    loading ? (
-      <ActivityIndicator size={"large"} color={colors.primaryText} />
-    ) : null;
+    setLoading(true);
+    getData();
+    return () => {
+      isMounted = false;
+    };
+  }, [justRefresh, page]);
+
+  const getData = async () => {
+    if (isMounted) {
+      axios
+        .get(
+          `${api}/api/v1/posts/${state.userId}/following?page=${page}&sort=-createdAt&limit=4`
+        )
+        .then((res) => {
+          setData([...data, ...res.data.data]);
+          setMaxPage(res.data.pagination.pageCount);
+        })
+        .catch((err) => {
+          console.log(err.message);
+        })
+        .finally(() => {
+          setLoading(false);
+          setRefreshing(false);
+        });
+    }
   };
   const handleMore = () => {
     if (maxPage > page) {
       setPage(page + 1);
+      setLoading(true);
     }
-    setLoading(true);
+  };
+  const renderFooter = () => {
+    return loading ? (
+      <ActivityIndicator size="large" color="#FFB6C1" />
+    ) : (
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: 20,
+          marginBottom: 60,
+        }}
+      >
+        <Text style={{ color: "#FFB6C1", fontWeight: "700" }}>
+          Мэдээлэл байхгүй байна.
+        </Text>
+      </View>
+    );
+  };
+  const handleRefresh = () => {
+    setData([]);
+    setPage(1);
+
+    setRefreshing(true);
+    setJustRefresh(true);
   };
   useEffect(() => {
     if (route.params?.indexId) {
       handleRefresh();
     }
   }, [route.params?.indexId]);
+  const filteredData = data.sort((a, b) => b.isBoost - a.isBoost);
   if (!userProfile) {
     return null;
   }
@@ -76,7 +103,7 @@ const NetworkingScreen = ({ route }) => {
     <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
       <Header userSearch={true} />
       <FlatList
-        data={data}
+        data={filteredData}
         ListHeaderComponent={
           <>
             <TouchableOpacity
@@ -179,11 +206,11 @@ const NetworkingScreen = ({ route }) => {
           );
         }}
         keyExtractor={(item, index) => index}
-        ListFooterComponent={listFooterRender}
+        ListFooterComponent={renderFooter}
         refreshing={refreshing}
         onRefresh={handleRefresh}
         onEndReached={handleMore}
-        initialNumToRender={3}
+        initialNumToRender={5}
         onEndReachedThreshold={0}
       />
     </View>

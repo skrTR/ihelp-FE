@@ -49,7 +49,7 @@ const QpayModal = ({ route }) => {
                   borderWidth: 1,
                   borderColor: colors.border,
                   padding: 5,
-                  borderRadius: 20,
+                  borderRadius: 10,
                 }}
               >
                 <Image

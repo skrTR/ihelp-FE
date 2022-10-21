@@ -21,8 +21,8 @@ import EmptyStatus from "../../../components/Profile/User/Empty/EmptyStatus";
 import EmptyData from "../../../components/Profile/User/Empty/EmptyData";
 import { api } from "../../../../Constants";
 import Posts from "../../../components/Network/Posts";
-import UserPortf from "../../../components/Profile/User/UserPortf";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Portfolio from "../../../components/Profile/Portfolio";
 const UserProfileScreen = () => {
   const state = useContext(UserContext);
   const navigation = useNavigation();
@@ -113,13 +113,14 @@ const UserProfileScreen = () => {
             }}
           />
           {userProfile.portfolio ? (
-            <UserPortf
+            <Portfolio
               image1={userProfile.portfolio.image1}
               image2={userProfile.portfolio.image2}
               image3={userProfile.portfolio.image3}
               image4={userProfile.portfolio.image4}
               image5={userProfile.portfolio.image5}
               image6={userProfile.portfolio.image6}
+              isUser={true}
             />
           ) : (
             <EmptyData
@@ -128,7 +129,7 @@ const UserProfileScreen = () => {
               description={"Та өөрийн хийсэн ажлын зургийг оруулах боломжтой"}
               icon={"camera-reverse-outline"}
               id={userProfile._id}
-              screenDetail={"AddPortfolio"}
+              screenDetail={"PortfolioDetail"}
             />
           )}
           <View
