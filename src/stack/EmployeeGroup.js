@@ -16,7 +16,6 @@ import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
 import BoostEmployeeWork from "../screens/Profile/Wallet/Company/BoostEmployeeWork.js";
-import AddWorkTypeModal from "../screens/Employee/AddWorkTypeModal";
 import EmployeeSort from "../screens/Employee/EmployeeSort";
 import EmployeeResultSort from "../screens/Employee/EmployeeResultSort";
 const EmployeeGroup = () => {
@@ -144,15 +143,7 @@ const EmployeeGroup = () => {
             headerShown: false,
           }}
         />
-        <EmployeeStack.Screen
-          name="AddWorkTypeModal"
-          component={AddWorkTypeModal}
-          options={{
-            headerShown: true,
-            title: "Ажлын зар оруулах",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <EmployeeStack.Screen
           name="EmployeeSort"
           component={EmployeeSort}
@@ -160,6 +151,7 @@ const EmployeeGroup = () => {
             headerShown: true,
             title: "Ажлын захиалга шүүх",
             headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
           }}
         />
         <EmployeeStack.Screen

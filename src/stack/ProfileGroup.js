@@ -587,9 +587,10 @@ const ProfileGroup = () => {
             component={ViewUserFollowings}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
               title: "Дагaсан",
               headerLeft: () => <MyBackButton />,
+              fullScreenGestureEnabled: true,
             }}
           />
           <ProfileStack.Screen
@@ -617,9 +618,10 @@ const ProfileGroup = () => {
             component={ViewUserFollower}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
               title: "Дагадаг",
               headerLeft: () => <MyBackButton />,
+              fullScreenGestureEnabled: true,
             }}
           />
           <ProfileStack.Screen
@@ -798,7 +800,7 @@ const ProfileGroup = () => {
           component={ViewCompanyJobs}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}

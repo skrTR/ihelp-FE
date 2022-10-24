@@ -67,7 +67,7 @@ const ViewCompanyJobs = (props) => {
               justifyContent: "center",
             }}
           >
-            Ажилтан авна
+            Ажлын байр
           </Text>
         </TouchableOpacity>
         <TouchableOpacity
@@ -106,7 +106,7 @@ const ViewCompanyJobs = (props) => {
               textAlign: "center",
             }}
           >
-            Ажил хийлгэнэ
+            Ажил захиалга
           </Text>
         </TouchableOpacity>
       </View>
@@ -121,26 +121,26 @@ const ViewCompanyJobs = (props) => {
           })}
         </>
       ) : (
-        <>
-          {/* {companyAnnoucement.map((data) => {
-            return (
-              <View key={data._id}>
-                <CompanyAnnoucements
-                  id={data._id}
-                  createUserName={data.firstName}
-                  createUserProfile={data.profile}
-                  isEmployer={data.isEmployer}
-                  isEmployee={data.isEmployee}
-                  occupation={data.occupationName}
-                  type={data.do}
-                  salary={data.price}
-                  order={data.order}
-                />
-              </View>
-            );
-          })} */}
-          <Empty text={"Тун удахгүй"} />
-        </>
+        // <>
+        //   {companyAnnoucement.map((data) => {
+        //     return (
+        //       <View key={data._id}>
+        //         <CompanyAnnoucements
+        //           id={data._id}
+        //           createUserName={data.firstName}
+        //           createUserProfile={data.profile}
+        //           isEmployer={data.isEmployer}
+        //           isEmployee={data.isEmployee}
+        //           occupation={data.occupationName}
+        //           type={data.do}
+        //           salary={data.price}
+        //           order={data.order}
+        //         />
+        //       </View>
+        //     );
+        //   })}
+        // </>
+        <Empty text="Тун удахгүй" />
       )}
     </ScrollView>
   );

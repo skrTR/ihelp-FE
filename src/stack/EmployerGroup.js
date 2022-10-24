@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import EmployerScreen from "../screens/Employer/EmployerScreen";
 import EmployerWorkDetail from "../screens/Employer/EmployerWorkDetail";
 import ViewCompanyProfile from "../screens/Dynamic/ViewCompanyProfile";
+import ViewUserProfile from "../screens/Dynamic/ViewUserProfile";
 import EmployerAddWork from "../screens/Employer/EmployerAddWork";
 import MyBackButton from "../components/Header/MyBackButton";
 import UserSavedWork from "../screens/Profile/User/Settings/UserSavedWork";
@@ -84,6 +85,15 @@ const EmployerGroup = () => {
           name="ViewCompanyProfile"
           component={ViewCompanyProfile}
           options={{ headerShown: false, fullScreenGestureEnabled: true }}
+        />
+        <EmployerStack.Screen
+          name="ViewUserProfile"
+          component={ViewUserProfile}
+          options={{
+            headerShown: false,
+            fullScreenGestureEnabled: true,
+            presentation: "fullScreenModal",
+          }}
         />
         <EmployerStack.Screen
           name="UserSavedWork"

@@ -74,7 +74,10 @@ const SendMoneyScreen = (props) => {
                 marginTop: 50,
               }}
             >
-              {money}
+              {money
+                ? money.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                : "0"}
+              ₮
             </Text>
           </View>
           <Text

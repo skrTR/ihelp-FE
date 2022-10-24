@@ -95,7 +95,7 @@ const NetworkingScreen = ({ route }) => {
       handleRefresh();
     }
   }, [route.params?.indexId]);
-  const filteredData = data.sort((a, b) => b.isBoost - a.isBoost);
+  const filteredData = data.sort((a, b) => a.isBoost - b.isBoost);
   if (!userProfile) {
     return null;
   }

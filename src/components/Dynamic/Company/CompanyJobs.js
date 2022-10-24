@@ -192,18 +192,22 @@ const CompanyJobs = (props) => {
               style={{ textAlign: "right", marginRight: 10 }}
             />
           </View>
-          <DataCountDown
-            createdAt={
-              data.isUrgent
-                ? data.urgent
-                : data.isSpecial
-                ? data.special
-                : data.order
-                ? data.order
-                : null
-            }
-            text={"3арын дуусах хугацаа"}
-          />
+          {state.isCompany ? (
+            state.companyId
+          ) : state.userId === data.createUser ? (
+            <DataCountDown
+              createdAt={
+                data.isUrgent
+                  ? data.urgent
+                  : data.isSpecial
+                  ? data.special
+                  : data.order
+                  ? data.order
+                  : null
+              }
+              text={"3арын дуусах хугацаа"}
+            />
+          ) : null}
         </View>
       </TouchableOpacity>
     </>

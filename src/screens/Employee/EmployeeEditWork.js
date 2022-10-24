@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -17,7 +18,6 @@ import CompanyHeader from "../../components/Header/CompanyHeader";
 import PriceModal from "./AddWorkModals/PriceModal";
 import TimeModal from "./AddWorkModals/TimeModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import SpecialPermissionModal from "./AddWorkModals/SpecialPermissionModal";
 import SpecialModal from "./AddWorkModals/SpecialModal";
 // Modals
 import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
@@ -30,9 +30,6 @@ const EmployeeAddWork = (props) => {
   const [specialModal, setSpecialModal] = useState(false);
   const navigation = useNavigation();
   const insents = useSafeAreaInsets();
-  // Тусгай зөвшөөрөл сонгох модал
-  const [specialPermission, setSpecialPermission] = useState(false);
-  const [permission, setPermission] = useState("");
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
@@ -56,18 +53,45 @@ const EmployeeAddWork = (props) => {
     if (addWork.time === "Сонгох") {
       return alert("Зарцуулах цаг хугацаа сонгоно уу");
     }
-    if (addWork.specialPermission === "Сонгох") {
-      return alert("Тусгай зөвшөөрөл сонгоно уу");
-    }
+
     axios
       .put(`${api}/api/v1/announcements/${data._id}`, addWork)
       .then((res) => {
         navigation.navigate("EmployeeStack", { screen: "EmployeeScreen" });
-        alert("Амжилтай");
+        Alert.alert("Амжилтай");
       })
       .catch((err) => {
         console.log(err);
       });
+  };
+  const deleteWork = () => {
+    Alert.alert(
+      "Анхаар",
+      "Та тийм гэж дарснаар таны зар бүүр устахыг анхаарна уу",
+      [
+        {
+          text: "Үгүй",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        {
+          text: "Тийм",
+          onPress: () => {
+            axios
+              .delete(`${api}/api/v1/announcements/${data._id}`)
+              .then((res) => {
+                navigation.navigate("EmployeeStack", {
+                  screen: "EmployeeScreen",
+                });
+                Alert.alert("Амжилтай устлаа");
+              })
+              .catch((err) => {
+                console.log(err.message);
+              });
+          },
+        },
+      ]
+    );
   };
   const [addWork, setAddWork] = useState({
     occupation: data.occupation,
@@ -76,18 +100,15 @@ const EmployeeAddWork = (props) => {
     experience: data.experience,
     price: data.price,
     time: data.time,
-    specialPermission: data.specialPermission,
     description: data.description,
   });
   // 629093164be9675d77e523bd
-  console.log(addWork);
   const [error, setError] = useState({
     description: false,
     do: false,
     skill: false,
     location: false,
     experience: false,
-    specialPermission: false,
     certificate: false,
     startDate: false,
   });
@@ -159,20 +180,19 @@ const EmployeeAddWork = (props) => {
       time: text,
     });
   };
-  const checkSpecialPermission = (text) => {
-    setSpecialPermission(!specialPermission);
-    setAddWork({
-      ...addWork,
-      specialPermission: text,
-    });
-  };
 
   if (!notification) {
     return null;
   }
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
-      <View style={{}}>
+    <KeyboardAvoidingView
+      style={{
+        flex: 1,
+        paddingTop: insents.top,
+        backgroundColor: colors.header,
+      }}
+    >
+      <View style={{ backgroundColor: colors.background }}>
         <CompanyHeader isBack={true} notification={notification.notification} />
         <View style={{ backgroundColor: colors.background }}>
           <ScrollView
@@ -225,13 +245,6 @@ const EmployeeAddWork = (props) => {
               text={time === "" ? data.time : time}
               onPress={checkTime}
             />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Тусгай зөвшөөрөл
-            </Text>
-            <MyButton
-              text={permission === "" ? data.specialPermission : permission}
-              onPress={checkSpecialPermission}
-            />
 
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Нэмэлт тайлбар
@@ -257,6 +270,21 @@ const EmployeeAddWork = (props) => {
             >
               <Text style={{ textAlign: "center", color: "black" }}>
                 Нийтлэх
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                backgroundColor: colors.background,
+                padding: 10,
+                borderWidth: 1,
+                borderRadius: 10,
+                borderColor: colors.border,
+                marginTop: 10,
+              }}
+              onPress={deleteWork}
+            >
+              <Text style={{ textAlign: "center", color: colors.primaryText }}>
+                Устгах
               </Text>
             </TouchableOpacity>
             <View style={{ marginBottom: 200 }} />
@@ -293,13 +321,7 @@ const EmployeeAddWork = (props) => {
           setTimeModal={setTimeModal}
           checkTime={checkTime}
         />
-        {/* Тусгай зөвшөөрөл сонгох */}
-        <SpecialPermissionModal
-          setSpecialPermission={setSpecialPermission}
-          specialPermission={specialPermission}
-          setPermission={setPermission}
-          checkSpecialPermission={checkSpecialPermission}
-        />
+
         <SpecialModal
           specialModal={specialModal}
           setSpecialModal={setSpecialModal}

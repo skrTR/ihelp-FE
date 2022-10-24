@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import { api } from "../../../Constants";
 import { AntDesign } from "@expo/vector-icons";
 import {
   useIsFocused,
@@ -18,10 +17,11 @@ import {
 } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "@expo/vector-icons/Entypo";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
 import Header from "../../components/Header/Header";
 import CompanyHeader from "../../components/Header/CompanyHeader";
+import { api } from "../../../Constants";
 const EmployeeWorkDetail = (props) => {
   const state = useContext(UserContext);
   const { id, isLiked } = props.route.params;
@@ -88,7 +88,6 @@ const EmployeeWorkDetail = (props) => {
       <ScrollView style={{}} showsVerticalScrollIndicator={false}>
         <View style={{ margin: 10 }}>
           {/* Company */}
-
           <TouchableOpacity
             style={{
               flexDirection: "row",
@@ -173,17 +172,21 @@ const EmployeeWorkDetail = (props) => {
                 >
                   {workDetail.firstName}
                 </Text>
-                <Text
-                  style={{
-                    fontSize: 14,
-                    fontWeight: "bold",
-                    color: colors.primaryText,
-                    fontFamily: "Sf-thin",
-                    marginVertical: 7,
-                  }}
-                >
-                  {/* {workDetail.announcementNumber} */}
-                </Text>
+                {workDetail.comCategoryName && (
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: "bold",
+                      color: colors.primaryText,
+                      fontFamily: "Sf-thin",
+                      marginVertical: 7,
+                      width:
+                        workDetail.comCategoryName.length > 12 ? "70%" : "100%",
+                    }}
+                  >
+                    {workDetail.comCategoryName}
+                  </Text>
+                )}
                 <Text
                   style={{ color: colors.primaryText, fontFamily: "Sf-bold" }}
                 >
@@ -191,7 +194,12 @@ const EmployeeWorkDetail = (props) => {
                 </Text>
               </View>
             </View>
-            <AntDesign name="right" size={40} color={colors.primaryText} />
+            <AntDesign
+              name="right"
+              size={40}
+              color={colors.primaryText}
+              style={{ position: "absolute", right: 10 }}
+            />
           </TouchableOpacity>
           <View
             style={{
@@ -301,22 +309,6 @@ const EmployeeWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-
-            {workDetail.specialPermission === "" ? null : (
-              <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
-                  3өвшөөрөл
-                </Text>
-                <Text
-                  style={{
-                    color: "white",
-                    marginBottom: 8,
-                  }}
-                >
-                  {workDetail.specialPermission}
-                </Text>
-              </View>
-            )}
             {workDetail.description === "" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
                 <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
@@ -333,7 +325,6 @@ const EmployeeWorkDetail = (props) => {
                 </Text>
               </View>
             )}
-
             {workDetail.createUser === state.companyId && (
               <Text
                 style={{
@@ -346,7 +337,6 @@ const EmployeeWorkDetail = (props) => {
             )}
           </View>
         </View>
-
         {state.companyId === workDetail.createUser ? (
           <TouchableOpacity
             style={{
@@ -373,7 +363,37 @@ const EmployeeWorkDetail = (props) => {
                   padding: 15,
                 }}
               >
-                Зарыг янзлах{"  "}
+                Зарыг янзлах
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ) : state.userId === workDetail.createUser ? (
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#2c3539",
+              borderRadius: 10,
+              alignItems: "center",
+              justifyContent: "center",
+              margin: 10,
+            }}
+            onPress={() =>
+              navigation.navigate("EmployeeEditWork", { data: workDetail })
+            }
+          >
+            <View
+              style={{
+                backgroundColor: "#2c3539",
+              }}
+            >
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 20,
+                  color: "white",
+                  padding: 15,
+                }}
+              >
+                Зарыг янзлах
               </Text>
             </View>
           </TouchableOpacity>
@@ -407,17 +427,8 @@ const EmployeeWorkDetail = (props) => {
                   color: "white",
                 }}
               >
-                Ажлын санал тавих{"  "}
+                Ажлын санал тавих
               </Text>
-              <MaterialCommunityIcons
-                name="offer"
-                size={26}
-                color={colors.primaryText}
-                style={{ marginRight: 10 }}
-                onPress={() =>
-                  navigation.navigate("CompanySendWorkRequest", { id: id })
-                }
-              />
             </View>
           </TouchableOpacity>
         )}

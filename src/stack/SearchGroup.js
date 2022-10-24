@@ -192,7 +192,7 @@ const SearchGroup = () => {
           component={ViewCompanyJobs}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}

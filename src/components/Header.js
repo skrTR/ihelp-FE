@@ -135,7 +135,7 @@ const Header = (props) => {
                   );
                 }
               } else if (!state.isCompany) {
-                if (user && user.score > 80) {
+                if (user && user.score > 79) {
                   navigation.navigate("EmployeeAddWork");
                 } else {
                   Alert.alert(

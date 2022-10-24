@@ -61,7 +61,6 @@ const EmployeeAddWork = () => {
     description: "",
     isCompany: true,
     order: 0,
-    urgent: 0,
     special: 0,
   });
 

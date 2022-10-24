@@ -8,10 +8,13 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   ScrollView,
-  TouchableHighlight,
+  TextInput,
   Pressable,
+  Platform,
 } from "react-native";
 import React, { useEffect, useState } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+
 import axios from "axios";
 import {
   useIsFocused,
@@ -106,11 +109,11 @@ const NetworkingPostDetailScreen = (props) => {
   const { colors } = useTheme();
   return (
     <>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{
-          flex: 1,
-        }}
+      <KeyboardAwareScrollView
+      // behavior={Platform.OS === "ios" ? "padding" : "height"}
+      // style={{
+      //   flex: 1,
+      // }}
       >
         <View style={{ height: 110 }}>
           {postDetail.isShare === false ? (
@@ -228,8 +231,8 @@ const NetworkingPostDetailScreen = (props) => {
           )}
         </View>
         <ScrollView
-          keyboardShouldPersistTaps={"handled"}
-          keyboardDismissMode={"on-drag"}
+          // keyboardShouldPersistTaps={"handled"}
+          // keyboardDismissMode={"on-drag"}
           showsVerticalScrollIndicator={false}
         >
           {/* Middle content */}
@@ -536,17 +539,32 @@ const NetworkingPostDetailScreen = (props) => {
             );
           })}
         </ScrollView>
-      </KeyboardAvoidingView>
-      <NetworkingTextInput
-        value={commentText}
-        onChangeText={setCommentText}
-        onPress={postComment}
-        commentLength={commentText.length}
-      />
+        <NetworkingTextInput
+          value={commentText}
+          onChangeText={setCommentText}
+          onPress={postComment}
+          commentLength={commentText.length}
+        />
+      </KeyboardAwareScrollView>
     </>
   );
 };
 
 export default NetworkingPostDetailScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  inputField: {
+    backgroundColor: "white",
+    padding: 15,
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.34,
+    shadowRadius: 6.27,
+    elevation: 10,
+    width: "90%",
+  },
+});

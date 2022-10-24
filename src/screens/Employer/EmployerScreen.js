@@ -1,4 +1,10 @@
-import { StyleSheet, View, TouchableOpacity, Animated } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Animated,
+  Dimensions,
+} from "react-native";
 import React, { useContext } from "react";
 import { useTheme } from "@react-navigation/native";
 import Header from "../../components/Header/Header";
@@ -9,6 +15,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmployerWorkScreen from "./EmployerWorkScreen";
 import EmployerCompanyScreen from "./EmployerCompanyScreen";
+const height = Dimensions.get("screen").height;
 const EmployerScreen = () => {
   const { colors } = useTheme();
   const [error] = useChecked();
@@ -92,13 +99,15 @@ const EmployerScreen = () => {
   }
 
   return (
-    <>
-      <View
-        style={{
-          paddingTop: insents.top,
-          backgroundColor: colors.header,
-        }}
-      />
+    <View
+      style={{
+        backgroundColor: colors.header,
+        height: height,
+        paddingTop: insents.top,
+        position: "absolute",
+        width: "100%",
+      }}
+    >
       {state.isCompany ? (
         <CompanyHeader
           isEmployerAddWork={true}
@@ -112,7 +121,7 @@ const EmployerScreen = () => {
         <Tab.Screen name="Ажлын зар" component={EmployerWorkScreen} />
         <Tab.Screen name="Байгууллага" component={EmployerCompanyScreen} />
       </Tab.Navigator>
-    </>
+    </View>
   );
 };
 

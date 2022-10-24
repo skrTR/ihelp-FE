@@ -71,7 +71,7 @@ const DynamicFollower = (props) => {
             }}
             onPress={() =>
               navigation.navigate("ViewCompanyProfile", {
-                id: followUser._id,
+                id: id,
               })
             }
           >
@@ -157,7 +157,7 @@ const DynamicFollower = (props) => {
             }}
             onPress={() =>
               navigation.navigate("ViewUserProfile", {
-                id: followUser._id,
+                id: id,
               })
             }
           >

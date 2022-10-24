@@ -124,6 +124,8 @@ const EmployerSearch = () => {
         <FlatList
           data={sorted2}
           keyExtractor={(item, index) => index}
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={() => <View style={{ marginBottom: 200 }} />}
           renderItem={({ item }) => {
             return <EmployeeData item={item} isFollowing={item.isFollowing} />;
           }}

@@ -25,7 +25,7 @@ const WalletScreen = () => {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [transactions, setTransactions] = useState([]);
-  const [sendPoint, setSendPoint] = useState(1000);
+  const [sendPoint, setSendPoint] = useState(1);
   const [loading, setLoading] = useState(false);
   const insents = useSafeAreaInsets();
   const [data, setData] = useState([]);
@@ -44,6 +44,7 @@ const WalletScreen = () => {
         console.log(err);
       });
   };
+  let setMnt = sendPoint * 1000;
   const postWallet = () => {
     setLoading(true);
     axios
@@ -51,11 +52,11 @@ const WalletScreen = () => {
         `${api}/api/v1/cvs/invoice/${
           state.isCompany ? state.companyId : state.userId
         }`,
-        { amount: sendPoint }
+        { amount: setMnt }
       )
       .then((res) => {
         navigation.push("SendMoneyScreen", {
-          money: sendPoint,
+          money: setMnt,
           invoince: res.data.data,
         });
         setModalVisible(!modalVisible);
@@ -93,7 +94,7 @@ const WalletScreen = () => {
   if (!data) {
     return null;
   }
-  console.log(data);
+
   return (
     <View
       style={{
@@ -341,7 +342,11 @@ const WalletScreen = () => {
                     />
                   </View>
                   <Text style={{ textAlign: "right", top: 10 }}>
-                    {sendPoint ? `${sendPoint / 1000} ipoint` : "0 ipoint"}
+                    {sendPoint
+                      ? `${setMnt
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ",")} ₮`
+                      : "0 ₮"}
                   </Text>
                   <View
                     style={{

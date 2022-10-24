@@ -6,6 +6,7 @@ import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
+import Empty from "../../components/Empty";
 const UserInfluencerSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -90,7 +91,7 @@ const UserInfluencerSearch = () => {
           marginVertical: 10,
         }}
       />
-      {filterData && (
+      {filterData.length > 0 ? (
         <FlatList
           data={filtered}
           keyExtractor={(item, index) => index}
@@ -113,6 +114,8 @@ const UserInfluencerSearch = () => {
             </>
           }
         />
+      ) : (
+        <Empty text={"Илэрц олдсонгүй"} />
       )}
     </View>
   );

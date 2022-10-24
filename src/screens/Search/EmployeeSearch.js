@@ -142,6 +142,8 @@ const EmployeeSearch = () => {
               </Text>
             </>
           }
+          showsVerticalScrollIndicator={false}
+          ListFooterComponent={() => <View style={{ marginBottom: 200 }} />}
         />
       </View>
       <SearchByCategory

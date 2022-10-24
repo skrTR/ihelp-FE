@@ -82,6 +82,7 @@ const EmployerWorkScreen = () => {
       refreshing={refreshing}
       onRefresh={handleRefresh}
       onEndReachedThreshold={0}
+      ListFooterComponent={<View style={{ marginBottom: 200 }} />}
     />
   );
 };

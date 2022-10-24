@@ -6,6 +6,7 @@ import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 import TimeModal from "../../components/Modals/TimeModal";
 import PriceModal from "../../components/Modals/PriceModal";
 import OrganizationModal from "../../components/Modals/OrganizationModal";
+import WorkTypeModal from "../../components/Modals/WorkTypeModal";
 const EmployeeSort = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -17,12 +18,15 @@ const EmployeeSort = () => {
   const [categoryModal, setCategoryModal] = useState(false);
   const [occupationId, setOccupationId] = useState("");
   const [refresh, setRefresh] = useState(false);
-  // нас сонгох модал
+  // Hас сонгох модал
   const [priceModal, setPriceModal] = useState(false);
   const [price, setPrice] = useState("");
   // time modal
   const [timeModal, setTimeModal] = useState(false);
   const [time, setTime] = useState("");
+  // zariin torol modal
+  const [workTypeModal, setWorkTypeModal] = useState(false);
+  const [workType, setWorkType] = useState("");
   // huvi hun company songoh
   const [organizationModal, setOrganizationModal] = useState(false);
   const [organization, setOrganization] = useState("");
@@ -37,6 +41,9 @@ const EmployeeSort = () => {
   };
   const checkOrganization = (text) => {
     setOrganizationModal(!organizationModal);
+  };
+  const checkWorkType = (text) => {
+    setWorkTypeModal(!workTypeModal);
   };
   return (
     <>
@@ -108,6 +115,23 @@ const EmployeeSort = () => {
               {organization ? `${organization}` : "Байгууллага эсвэл хувь хүн"}
             </Text>
           </TouchableOpacity>
+          {/* Ажил гүйцэтгэгч  */}
+          <TouchableOpacity
+            style={{
+              padding: 10,
+              borderWidth: 1,
+              borderRadius: 10,
+              marginTop: 10,
+              borderColor: colors.border,
+            }}
+            onPress={checkWorkType}
+          >
+            <Text style={{ textAlign: "center", color: colors.primaryText }}>
+              {workType
+                ? `${workType}`
+                : "Ажил гүйцэтгэгч эсвэл ажил захиалагч "}
+            </Text>
+          </TouchableOpacity>
           {/* Хайх */}
           <TouchableOpacity
             onPress={() =>
@@ -116,6 +140,7 @@ const EmployeeSort = () => {
                 price: price,
                 time: time,
                 organization: organization,
+                workType: workType,
               })
             }
             style={{
@@ -167,6 +192,12 @@ const EmployeeSort = () => {
         organizationModal={organizationModal}
         setOrganization={setOrganization}
         checkOrganization={checkOrganization}
+      />
+      <WorkTypeModal
+        setWorkTypeModal={setWorkTypeModal}
+        workTypeModal={workTypeModal}
+        setWorkType={setWorkType}
+        checkWorkType={checkWorkType}
       />
     </>
   );

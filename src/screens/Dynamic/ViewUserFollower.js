@@ -38,7 +38,7 @@ const ViewUserFollower = (props) => {
                     <DynamicFollower
                       followUser={item.createUserInfo}
                       isFollowing={item.isFollowing}
-                      id={item.followUser}
+                      id={item.createUser}
                     />
                   )}
                 </View>

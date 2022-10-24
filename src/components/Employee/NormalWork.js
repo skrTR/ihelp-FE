@@ -170,7 +170,7 @@ const NormalWork = (props) => {
                 width: "95%",
               }}
             >
-              {occupation}
+              {job}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
@@ -191,7 +191,7 @@ const NormalWork = (props) => {
                 fontWeight: "200",
               }}
             >
-              {job && `${job}  - `}
+              {occupation && `${occupation}  - `}
               {createUserName}
             </Text>
           </View>
@@ -204,6 +204,8 @@ const NormalWork = (props) => {
               borderRadius: 10,
               marginRight: 20,
               alignItems: "center",
+              position: "absolute",
+              right: 0,
             }}
             onPress={() =>
               navigation.navigate("BoostEmployeeWork", {
@@ -213,7 +215,7 @@ const NormalWork = (props) => {
             }
           >
             <Text style={{ color: "black" }}>
-              {order < moment().format() ? "Зар идэвхжүүлэх" : "Сунгах"}
+              {order < moment().format() ? "Идэвхжүүлэх" : "Сунгах"}
             </Text>
           </TouchableOpacity>
         )}

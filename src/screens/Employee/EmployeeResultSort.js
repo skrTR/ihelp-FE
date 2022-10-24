@@ -7,22 +7,21 @@ import Empty from "../../components/Empty";
 import SpecialWork from "../../components/Employee/SpecialWork";
 import NormalWork from "../../components/Employee/NormalWork";
 const EmployeeResultSort = (props) => {
-  const { occupationId, time, price, organization } = props.route.params;
+  const { occupationId, time, price, organization, workType } =
+    props.route.params;
   const { colors } = useTheme();
   const [data, setData] = useState([]);
   const [refresh, setRefresh] = useState(false);
   let info = organization === "Байгууллага" ? true : false;
+  console.log(info);
   const getWorkSearch = () => {
-    const test = `${api}/api/v1/announcements?limit=1000${
-      occupationId ? `&occupation=${occupationId}` : ""
-    }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}${
-      organization ? `organization=${organization}` : ""
-    }`;
     axios
       .get(
         `${api}/api/v1/announcements?limit=1000${
           occupationId ? `&occupation=${occupationId}` : ""
-        }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}`
+        }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}${
+          organization ? `organization=${organization}` : ""
+        }${workType ? `&certificate=${workType}` : ""}`
       )
       .then((res) => {
         setData(res.data.data);
