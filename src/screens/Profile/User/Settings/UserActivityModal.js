@@ -328,8 +328,8 @@ const UserActivityModal = () => {
                     </ImageBackground>
                     <View style={{ flex: 3, marginHorizontal: 5 }}>
                       <Text style={{ color: colors.primaryText }}>
-                        Та {item.jobId && item.jobId.firstName}
-                        та ажлын санал илгээсэн байна.{" "}
+                        Та {item.jobId && item.jobId.firstName} танд ажлын санал
+                        илгээсэн байна.{" "}
                       </Text>
                       <Text
                         style={{ color: colors.secondaryText, fontSize: 12 }}

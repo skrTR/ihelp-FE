@@ -15,17 +15,23 @@ const EmployeeResultSort = (props) => {
   let info = organization === "Байгууллага" ? true : false;
   console.log(info);
   const getWorkSearch = () => {
+    const test = `${api}/api/v1/announcements?limit=1000${
+      occupationId ? `&occupation=${occupationId}` : ""
+    }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}${
+      organization ? `&organization=${info}` : ""
+    }${workType ? `&certificate=${workType}` : ""}`;
+    console.log(test);
     axios
       .get(
         `${api}/api/v1/announcements?limit=1000${
           occupationId ? `&occupation=${occupationId}` : ""
         }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}${
-          organization ? `organization=${organization}` : ""
+          organization ? `&organization=${info}` : ""
         }${workType ? `&certificate=${workType}` : ""}`
       )
       .then((res) => {
         setData(res.data.data);
-        // console.log(res.data.data, "data");
+        console.log(res.data.data, "data");
       })
       .catch((err) => {
         console.log(err.message);

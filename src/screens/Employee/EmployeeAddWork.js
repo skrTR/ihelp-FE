@@ -5,6 +5,7 @@ import {
   ScrollView,
   TouchableOpacity,
   StyleSheet,
+  Alert,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useTheme } from "@react-navigation/native";
@@ -41,13 +42,19 @@ const EmployeeAddWork = () => {
 
   const sendWork = () => {
     if (addWork.occupation === "") {
-      return alert("Чиглэлээ сонгоно уу");
+      return Alert.alert("Чиглэлээ сонгоно уу");
     }
     if (addWork.price === "Сонгох") {
-      return alert("Үнийн санал сонгоно уу");
+      return Alert.alert("Үнийн санал сонгоно уу");
     }
     if (addWork.time === "Сонгох") {
-      return alert("Зарцуулах цаг хугацаа сонгоно уу");
+      return Alert.alert("Зарцуулах цаг хугацаа сонгоно уу");
+    }
+    {
+      console.log(addWork.do.length);
+    }
+    if (addWork.do.length < 1) {
+      return Alert.alert("Үндсэн үйлчилгээг оруулна уу");
     }
 
     setSpecialModal(true);

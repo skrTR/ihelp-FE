@@ -206,6 +206,7 @@ const NormalWork = (props) => {
               alignItems: "center",
               position: "absolute",
               right: 0,
+              top: 10,
             }}
             onPress={() =>
               navigation.navigate("BoostEmployeeWork", {

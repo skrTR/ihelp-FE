@@ -128,7 +128,7 @@ const Portfolio = (props) => {
               style={styles.imageStyle3}
             />
             <Image
-              source={{ uri: `${api}/upload/${image2}` }}
+              source={{ uri: `${api}/upload/${image3}` }}
               style={styles.imageStyle3}
             />
           </TouchableOpacity>

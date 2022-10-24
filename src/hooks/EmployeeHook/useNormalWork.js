@@ -3,7 +3,7 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
 
-export default (refresh) => {
+export default (type) => {
   const [normalWork, setNormalWork] = useState([]);
   const [refreshings, setRefreshings] = useState(false);
 
@@ -11,7 +11,11 @@ export default (refresh) => {
   let isMoutned = true;
   const getData = () => {
     axios
-      .get(`${api}/api/v1/announcements/unspecials?limit=10`)
+      .get(
+        `${api}/api/v1/announcements/unspecials?limit=100${
+          type ? `&certificate=${type}` : ""
+        }`
+      )
       .then((result) => {
         if (isMoutned) {
           setNormalWork(result.data.data);
@@ -32,7 +36,7 @@ export default (refresh) => {
     () => {
       isMoutned = false;
     };
-  }, [isFocused, refresh]);
+  }, [isFocused]);
 
   return [normalWork, refreshings, setRefreshings];
 };

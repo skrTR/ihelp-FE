@@ -112,7 +112,7 @@ const UserSettingsScreen = ({ route }) => {
           <Text
             style={{ color: colors.primaryText, marginLeft: 20, fontSize: 16 }}
           >
-            Идэвхи
+            Идэвх
           </Text>
         </TouchableOpacity>
         {/* Line */}
@@ -241,7 +241,7 @@ const UserSettingsScreen = ({ route }) => {
                 fontSize: 16,
               }}
             >
-              Өөрийн профайл устгах
+              Өөрийн бүртгэл устгах
             </Text>
           </View>
         </TouchableOpacity>
@@ -271,7 +271,7 @@ const UserSettingsScreen = ({ route }) => {
                 fontSize: 16,
               }}
             >
-              Профайл баталгаажуулах
+              Бүртгэл баталгаажуулах
             </Text>
           </View>
         </TouchableOpacity>

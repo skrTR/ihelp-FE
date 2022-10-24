@@ -161,6 +161,7 @@ const EmployeeGroup = () => {
             headerShown: true,
             title: "Ажлын захиалга шүүх",
             headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
           }}
         />
       </EmployeeStack.Group>

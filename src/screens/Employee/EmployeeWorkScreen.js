@@ -6,8 +6,9 @@ import SpecialWork from "../../components/Employee/SpecialWork";
 import NormalWork from "../../components/Employee/NormalWork";
 
 const EmployeeWorkScreen = () => {
-  const [specialWork, refreshing, setRefreshing] = useSpecialWork();
-  const [normalWork] = useNormalWork();
+  const [specialWork, refreshing, setRefreshing] =
+    useSpecialWork("Ажил гүйцэтгэгч");
+  const [normalWork] = useNormalWork("Ажил гүйцэтгэгч");
 
   const handleRefresh = () => {
     setRefreshing(true);

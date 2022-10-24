@@ -343,7 +343,8 @@ const SpecialModal = (props) => {
                       width: "95%",
                     }}
                   >
-                    {occupationName}
+                    {data.do}
+
                     {/* Борлуулалт мэдээлэлийн ажилтан */}
                   </Text>
 
@@ -364,7 +365,7 @@ const SpecialModal = (props) => {
                       fontWeight: "200",
                     }}
                   >
-                    {data.do} - {companyProfile.firstName}
+                    {occupationName} - {companyProfile.firstName}
                   </Text>
                 </View>
               </TouchableOpacity>

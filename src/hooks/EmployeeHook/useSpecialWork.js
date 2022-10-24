@@ -3,14 +3,18 @@ import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
 
-export default () => {
+export default (type) => {
   const [specialWork, setSpecialWork] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const isFocused = useIsFocused();
   let isMoutned = true;
   const getData = () => {
     axios
-      .get(`${api}/api/v1/announcements/specials?limit=1000`)
+      .get(
+        `${api}/api/v1/announcements/specials?limit=1000${
+          type ? `&certificate=${type}` : ""
+        }`
+      )
       .then((result) => {
         if (isMoutned) {
           setSpecialWork(result.data.data);

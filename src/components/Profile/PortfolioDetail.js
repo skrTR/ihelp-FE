@@ -162,6 +162,7 @@ const PortfolioDetail = () => {
               console.log("Request Status", xhr.status);
               if (xhr.status === 200) {
                 setRefresh(true);
+                Alert.alert("Амжилтай устлаа");
               }
             };
           },
@@ -239,6 +240,9 @@ const PortfolioDetail = () => {
     xhr.send(formData);
     xhr.onload = function (e) {
       console.log("Request Status", xhr.status);
+      if (xhr.status === 200) {
+        Alert.alert("Амжилтай хадгалагдлаа");
+      }
     };
   };
   const handleUploadComplete = () => {
@@ -281,7 +285,7 @@ const PortfolioDetail = () => {
               <AntDesign
                 name="delete"
                 size={24}
-                color={"red"}
+                color={"#FFB6C1"}
                 style={{
                   alignSelf: "flex-end",
                   backgroundColor: colors.border,
@@ -298,7 +302,7 @@ const PortfolioDetail = () => {
               <AntDesign
                 name="delete"
                 size={24}
-                color={"red"}
+                color={"#FFB6C1"}
                 style={{
                   alignSelf: "flex-end",
                   backgroundColor: colors.border,
@@ -339,7 +343,7 @@ const PortfolioDetail = () => {
               <AntDesign
                 name="delete"
                 size={24}
-                color={"red"}
+                color={"#FFB6C1"}
                 style={{
                   alignSelf: "flex-end",
                   backgroundColor: colors.border,
@@ -356,7 +360,7 @@ const PortfolioDetail = () => {
               <AntDesign
                 name="delete"
                 size={24}
-                color={"red"}
+                color={"#FFB6C1"}
                 style={{
                   alignSelf: "flex-end",
                   backgroundColor: colors.border,
@@ -401,7 +405,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -418,7 +422,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -461,7 +465,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -478,7 +482,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -524,7 +528,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -541,7 +545,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -584,7 +588,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
@@ -601,7 +605,7 @@ const PortfolioDetail = () => {
                 <AntDesign
                   name="delete"
                   size={24}
-                  color={"red"}
+                  color={"#FFB6C1"}
                   style={{
                     alignSelf: "flex-end",
                     backgroundColor: colors.border,
