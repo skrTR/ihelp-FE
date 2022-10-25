@@ -122,11 +122,7 @@ const UserWorks = (props) => {
                   padding: 5,
                 }}
               >
-                <Ionicons
-                  name={"briefcase"}
-                  size={12}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"briefcase"} size={12} color={"white"} />
               </View>
             )}
             {isEmployee && (

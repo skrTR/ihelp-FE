@@ -14,6 +14,7 @@ import EmployeeData from "../../components/Search/Company/EmployeeData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserContext from "../../context/UserContext";
 import SearchByCategory from "./Work/SearchByCategory";
+import SearchTextInput from "../../components/SearchTextInput";
 
 const AllCompanySearch = () => {
   const [filterData, setFilterData] = useState([]);
@@ -92,20 +93,7 @@ const AllCompanySearch = () => {
             color={colors.primaryText}
             onPress={() => navigation.goBack()}
           />
-          <TextInput
-            placeholder="Хайх утга"
-            value={search}
-            onChangeText={(text) => searchFilter(text)}
-            placeholderTextColor={"#cccccccc"}
-            style={{
-              backgroundColor: colors.border,
-              padding: 10,
-              width: "90%",
-              marginHorizontal: 10,
-              borderRadius: 10,
-              color: colors.primaryText,
-            }}
-          />
+          <SearchTextInput searchFilter={searchFilter} search={search} />
         </View>
         <TouchableOpacity
           style={{

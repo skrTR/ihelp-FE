@@ -60,8 +60,15 @@ const EmployeeScreen = () => {
                 margin: 10,
                 borderRadius: 10,
                 borderWidth: 1,
-                borderColor: "white",
-                backgroundColor: !isFocused ? colors.background : "white",
+                borderColor: "#cccccccc",
+                backgroundColor:
+                  colorScheme === "dark"
+                    ? !isFocused
+                      ? colors.background
+                      : "white"
+                    : !isFocused
+                    ? "#cccccccc"
+                    : "#2c3539",
                 justifyContent: "center",
               }}
             >
@@ -69,7 +76,14 @@ const EmployeeScreen = () => {
                 style={{
                   fontWeight: "bold",
                   paddingHorizontal: 30,
-                  color: isFocused ? colors.background : colors.primaryText,
+                  color:
+                    colorScheme === "dark"
+                      ? isFocused
+                        ? colors.background
+                        : colors.primaryText
+                      : isFocused
+                      ? "white"
+                      : "grey",
                   textAlign: "center",
                 }}
               >

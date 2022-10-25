@@ -7,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
 import Empty from "../../components/Empty";
+import SearchTextInput from "../../components/SearchTextInput";
 const UserInfluencerSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -69,20 +70,7 @@ const UserInfluencerSearch = () => {
           color={colors.primaryText}
           onPress={() => navigation.goBack()}
         />
-        <TextInput
-          placeholder="Хайх утга"
-          value={search}
-          onChangeText={(text) => searchFilter(text)}
-          placeholderTextColor={"#cccccccc"}
-          style={{
-            backgroundColor: colors.border,
-            padding: 10,
-            width: "90%",
-            marginLeft: 10,
-            borderRadius: 20,
-            color: colors.primaryText,
-          }}
-        />
+        <SearchTextInput searchFilter={searchFilter} search={search} />
       </View>
       <View
         style={{

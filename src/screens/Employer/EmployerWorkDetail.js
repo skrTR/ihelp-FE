@@ -13,8 +13,7 @@ import { useNavigation, useTheme } from "@react-navigation/native";
 import Icon from "@expo/vector-icons/Entypo";
 import { Ionicons, AntDesign } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
-import Header from "../../components/Header/Header";
-import CompanyHeader from "../../components/Header/CompanyHeader";
+import Header from "../../components/Header";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 const EmployerWorkDetail = (props) => {
   const state = useContext(UserContext);
@@ -100,11 +99,7 @@ const EmployerWorkDetail = (props) => {
   }
   return (
     <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
-      {state.isCompany ? (
-        <CompanyHeader isBack={true} />
-      ) : (
-        <Header isBack={true} />
-      )}
+      <Header isBack={true} />
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{ backgroundColor: colors.background }}
@@ -144,7 +139,7 @@ const EmployerWorkDetail = (props) => {
                   style={{
                     fontSize: 20,
                     fontWeight: "bold",
-                    color: "white",
+                    color: colors.primaryText,
                     fontFamily: "Sf-bold",
                   }}
                 >
@@ -154,7 +149,7 @@ const EmployerWorkDetail = (props) => {
                   style={{
                     fontSize: 14,
                     fontWeight: "bold",
-                    color: "white",
+                    color: colors.primaryText,
                     fontFamily: "Sf-thin",
                     marginVertical: 7,
                     width:
@@ -166,7 +161,9 @@ const EmployerWorkDetail = (props) => {
                 >
                   {workDetail.comCategoryName && workDetail.comCategoryName}
                 </Text>
-                <Text style={{ color: "white", fontFamily: "Sf-bold" }}>
+                <Text
+                  style={{ color: colors.primaryText, fontFamily: "Sf-bold" }}
+                >
                   Нийт ажлын байр: {workDetail.comJobNumber}
                 </Text>
               </View>
@@ -181,7 +178,7 @@ const EmployerWorkDetail = (props) => {
           {/* aguulga */}
           <View
             style={{
-              backgroundColor: "#454545",
+              backgroundColor: colors.specialWork,
               padding: 30,
               borderRadius: 10,
               marginTop: 20,
@@ -200,7 +197,7 @@ const EmployerWorkDetail = (props) => {
                     fontSize: 20,
                     fontWeight: "bold",
                     marginVertical: 10,
-                    color: "white",
+                    color: colors.primaryText,
                     bottom: 8,
                   }}
                 >
@@ -210,7 +207,7 @@ const EmployerWorkDetail = (props) => {
                   <Icon
                     name={isLike ? "heart" : "heart-outlined"}
                     size={30}
-                    color={"white"}
+                    color={colors.primaryText}
                     onPress={isLike ? unLiked : liked}
                     style={{ textAlign: "right" }}
                   />
@@ -219,12 +216,18 @@ const EmployerWorkDetail = (props) => {
             )}
             {workDetail.type === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
+                <Text
+                  style={{
+                    marginBottom: 8,
+                    color: colors.primaryText,
+                    width: "40%",
+                  }}
+                >
                   Төрөл
                 </Text>
                 <Text
                   style={{
-                    color: "white",
+                    color: colors.primaryText,
                     marginBottom: 8,
                     width: "40%",
                   }}
@@ -235,12 +238,18 @@ const EmployerWorkDetail = (props) => {
             )}
             {workDetail.salary === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
+                <Text
+                  style={{
+                    marginBottom: 8,
+                    color: colors.primaryText,
+                    width: "40%",
+                  }}
+                >
                   Цалин
                 </Text>
                 <Text
                   style={{
-                    color: "white",
+                    color: colors.primaryText,
                     marginBottom: 8,
                   }}
                 >
@@ -250,12 +259,18 @@ const EmployerWorkDetail = (props) => {
             )}
             {!workDetail.location ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
+                <Text
+                  style={{
+                    marginBottom: 8,
+                    color: colors.primaryText,
+                    width: "40%",
+                  }}
+                >
                   Байршил
                 </Text>
                 <Text
                   style={{
-                    color: "white",
+                    color: colors.primaryText,
                     marginBottom: 8,
                     width: "60%",
                   }}
@@ -266,12 +281,18 @@ const EmployerWorkDetail = (props) => {
             )}
             {workDetail.gender === "Сонгох" ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
+                <Text
+                  style={{
+                    marginBottom: 8,
+                    color: colors.primaryText,
+                    width: "40%",
+                  }}
+                >
                   Хүйс
                 </Text>
                 <Text
                   style={{
-                    color: "white",
+                    color: colors.primaryText,
                     marginBottom: 8,
                   }}
                 >
@@ -281,12 +302,18 @@ const EmployerWorkDetail = (props) => {
             )}
             {!workDetail.schedule ? null : (
               <View style={{ flexDirection: "row", width: "100%" }}>
-                <Text style={{ marginBottom: 8, color: "white", width: "40%" }}>
+                <Text
+                  style={{
+                    marginBottom: 8,
+                    color: colors.primaryText,
+                    width: "40%",
+                  }}
+                >
                   Цагийн хуваарь
                 </Text>
                 <Text
                   style={{
-                    color: "white",
+                    color: colors.primaryText,
                     marginBottom: 8,
                   }}
                 >
@@ -301,7 +328,7 @@ const EmployerWorkDetail = (props) => {
                     fontSize: 20,
                     fontWeight: "bold",
                     marginVertical: 10,
-                    color: "white",
+                    color: colors.primaryText,
                   }}
                 >
                   Гүйцэтгэх үндсэн үүрэг
@@ -311,10 +338,14 @@ const EmployerWorkDetail = (props) => {
                     <AntDesign
                       name="checkcircleo"
                       size={18}
-                      color={"#FFB6C1"}
+                      color={"#FADBD8"}
                     />
                     <Text
-                      style={{ color: "white", width: "90%", marginLeft: 10 }}
+                      style={{
+                        color: colors.primaryText,
+                        width: "90%",
+                        marginLeft: 10,
+                      }}
                     >
                       {workDetail.do}
                     </Text>
@@ -329,7 +360,7 @@ const EmployerWorkDetail = (props) => {
                     fontSize: 20,
                     fontWeight: "bold",
                     marginVertical: 10,
-                    color: "white",
+                    color: colors.primaryText,
                   }}
                 >
                   Tавигдах шаардлага
@@ -337,13 +368,17 @@ const EmployerWorkDetail = (props) => {
                 <View style={{ marginLeft: 10 }}>
                   <View style={{ flexDirection: "row", width: "100%" }}>
                     <Text
-                      style={{ marginBottom: 8, color: "white", width: "40%" }}
+                      style={{
+                        marginBottom: 8,
+                        color: colors.primaryText,
+                        width: "40%",
+                      }}
                     >
                       • Боловсрол:{" "}
                     </Text>
                     <Text
                       style={{
-                        color: "white",
+                        color: colors.primaryText,
                         marginBottom: 8,
                       }}
                     >
@@ -355,7 +390,7 @@ const EmployerWorkDetail = (props) => {
                       <Text
                         style={{
                           marginBottom: 8,
-                          color: "white",
+                          color: colors.primaryText,
                           width: "40%",
                         }}
                       >
@@ -363,7 +398,7 @@ const EmployerWorkDetail = (props) => {
                       </Text>
                       <Text
                         style={{
-                          color: "white",
+                          color: colors.primaryText,
                           marginBottom: 8,
                         }}
                       >
@@ -376,7 +411,7 @@ const EmployerWorkDetail = (props) => {
                       <Text
                         style={{
                           marginBottom: 8,
-                          color: "white",
+                          color: colors.primaryText,
                           width: "40%",
                         }}
                       >
@@ -384,7 +419,7 @@ const EmployerWorkDetail = (props) => {
                       </Text>
                       <Text
                         style={{
-                          color: "white",
+                          color: colors.primaryText,
                           marginBottom: 8,
                         }}
                       >
@@ -402,7 +437,7 @@ const EmployerWorkDetail = (props) => {
                     fontSize: 20,
                     fontWeight: "bold",
                     marginVertical: 10,
-                    color: "white",
+                    color: colors.primaryText,
                   }}
                 >
                   Шаардагдах чадвар
@@ -415,7 +450,11 @@ const EmployerWorkDetail = (props) => {
                       color={"#FFB6C1"}
                     />
                     <Text
-                      style={{ color: "white", width: "90%", marginLeft: 10 }}
+                      style={{
+                        color: colors.primaryText,
+                        width: "90%",
+                        marginLeft: 10,
+                      }}
                     >
                       {workDetail.skill}
                     </Text>
@@ -429,14 +468,14 @@ const EmployerWorkDetail = (props) => {
                   <Text
                     style={{
                       marginBottom: 8,
-                      color: "white",
+                      color: colors.primaryText,
                     }}
                   >
                     ★ Ажлын зарын хандалт:{" "}
                   </Text>
                   <Text
                     style={{
-                      color: "white",
+                      color: colors.primaryText,
                       marginBottom: 8,
                       fontWeight: "bold",
                     }}
@@ -448,14 +487,14 @@ const EmployerWorkDetail = (props) => {
                   <Text
                     style={{
                       marginBottom: 8,
-                      color: "white",
+                      color: colors.primaryText,
                     }}
                   >
                     ★ Ажлын зар дээр ирсэн анкет:{" "}
                   </Text>
                   <Text
                     style={{
-                      color: "white",
+                      color: colors.primaryText,
                       marginBottom: 8,
                       fontWeight: "bold",
                     }}
@@ -507,7 +546,7 @@ const EmployerWorkDetail = (props) => {
                     style={{
                       textAlign: "center",
                       fontSize: 20,
-                      color: "white",
+                      color: colors.primaryText,
                     }}
                   >
                     Анкет илгээсэн байна{" "}
@@ -524,7 +563,7 @@ const EmployerWorkDetail = (props) => {
                     style={{
                       textAlign: "center",
                       fontSize: 20,
-                      color: "white",
+                      color: colors.primaryText,
                     }}
                   >
                     Анкет илгээх{" "}
@@ -565,7 +604,7 @@ const EmployerWorkDetail = (props) => {
                     style={{
                       textAlign: "center",
                       fontSize: 20,
-                      color: "white",
+                      color: colors.primaryText,
                     }}
                   >
                     Зарыг янзлах

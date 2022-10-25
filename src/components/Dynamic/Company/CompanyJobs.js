@@ -69,9 +69,9 @@ const CompanyJobs = (props) => {
         <View
           style={{
             backgroundColor: data.isUrgent
-              ? "#2c3539"
+              ? colors.urgentWork
               : data.isSpecial
-              ? `#454545`
+              ? colors.specialWork
               : colors.background,
             marginHorizontal: 5,
             paddingVertical: 5,
@@ -119,11 +119,7 @@ const CompanyJobs = (props) => {
                       padding: 5,
                     }}
                   >
-                    <Ionicons
-                      name={"briefcase"}
-                      size={12}
-                      color={colors.primaryText}
-                    />
+                    <Ionicons name={"briefcase"} size={12} color={"white"} />
                   </View>
                 )}
                 {data.isEmployee && (
@@ -139,11 +135,7 @@ const CompanyJobs = (props) => {
                       right: data.isEmployer ? 20 : 0,
                     }}
                   >
-                    <Ionicons
-                      name={"business"}
-                      size={12}
-                      color={colors.primaryText}
-                    />
+                    <Ionicons name={"business"} size={12} color={"white"} />
                   </View>
                 )}
               </ImageBackground>

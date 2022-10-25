@@ -149,7 +149,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"briefcase"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -169,7 +169,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"business"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -291,7 +291,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"briefcase"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -311,7 +311,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"business"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -434,7 +434,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"briefcase"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -454,7 +454,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"business"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -595,7 +595,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"briefcase"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}
@@ -615,7 +615,7 @@ const ProductUsePoint = ({ route }) => {
                                   <Ionicons
                                     name={"business"}
                                     size={12}
-                                    color={colors.primaryText}
+                                    color={"white"}
                                   />
                                 </View>
                               )}

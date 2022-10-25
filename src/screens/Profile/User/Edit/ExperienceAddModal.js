@@ -17,7 +17,7 @@ import { api } from "../../../../../Constants";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
-import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
+import TypeModal from "../../../../components/Modals/TypeModal";
 import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import moment from "moment";

@@ -13,6 +13,7 @@ import CompanyJobs from "../../../components/Profile/Company/CompanyJobs";
 import EmptyData from "../../../components/Profile/User/Empty/EmptyData";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Portfolio from "../../../components/Profile/Portfolio";
+import Loading from "../../../components/Loading";
 const CompanyProfileScreen = () => {
   const state = useContext(UserContext);
   const { colors } = useTheme();
@@ -86,7 +87,7 @@ const CompanyProfileScreen = () => {
 
           <Border />
           {loading ? (
-            <Spinner />
+            <Loading />
           ) : (
             <>
               {companyJobs.length > 0 && (

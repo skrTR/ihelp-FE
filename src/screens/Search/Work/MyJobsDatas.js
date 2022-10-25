@@ -120,11 +120,7 @@ const MyJobsDatas = (props) => {
                   padding: 5,
                 }}
               >
-                <Ionicons
-                  name={"briefcase"}
-                  size={8}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"briefcase"} size={8} color={"white"} />
               </View>
             )}
             {isEmployee && (
@@ -140,11 +136,7 @@ const MyJobsDatas = (props) => {
                   right: isEmployer ? 15 : 0,
                 }}
               >
-                <Ionicons
-                  name={"business"}
-                  size={8}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"business"} size={8} color={"white"} />
               </View>
             )}
           </ImageBackground>

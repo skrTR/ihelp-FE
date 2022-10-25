@@ -13,7 +13,7 @@ import { api } from "../../../../../Constants";
 import DataCountDown from "../../../../components/Employer/DataCountDown";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import MyButton from "../../../../components/MyButton";
-import ChooseDateModal from "../../../Employer/AddWorkModals/ChooseDateModal";
+import ChooseDateModal from "../../../../components/Modals/ChooseDateModal";
 
 const BoostEmployerWork = (props) => {
   const { type, id } = props.route.params;
@@ -198,11 +198,7 @@ const BoostEmployerWork = (props) => {
                     padding: 5,
                   }}
                 >
-                  <Ionicons
-                    name={"briefcase"}
-                    size={12}
-                    color={colors.primaryText}
-                  />
+                  <Ionicons name={"briefcase"} size={12} color={"white"} />
                 </View>
               )}
               {data.isEmployee && (
@@ -218,11 +214,7 @@ const BoostEmployerWork = (props) => {
                     right: data.isEmployer ? 20 : 0,
                   }}
                 >
-                  <Ionicons
-                    name={"business"}
-                    size={12}
-                    color={colors.primaryText}
-                  />
+                  <Ionicons name={"business"} size={12} color={"white"} />
                 </View>
               )}
             </ImageBackground>

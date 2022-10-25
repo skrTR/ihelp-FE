@@ -18,7 +18,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
 import MyButton from "../../../../components/MyButton";
 import ExperienceCompanyModal from "./EditModal/ExperienceCompanyModal";
-import TypeModal from "../../../Employer/AddWorkModals/TypeModal";
+import TypeModal from "../../../../components/Modals/TypeModal";
 import moment from "moment";
 import ProvinceModal from "../../../../components/Modals/ProvinceModal";
 import DateTimePicker from "@react-native-community/datetimepicker";

@@ -65,12 +65,13 @@ const EmptyData = (props) => {
             borderWidth: 1,
             borderRadius: 10,
             marginTop: 15,
+            borderColor: colors.border,
           }}
           onPress={() => {
             navigation.navigate(`${props.screenDetail}`, { id: props.id });
           }}
         >
-          <Text style={{ color: colors.border }}>Нэмэх</Text>
+          <Text style={{ color: "black" }}>Нэмэх</Text>
         </TouchableOpacity>
       </View>
     </View>

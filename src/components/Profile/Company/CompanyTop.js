@@ -104,7 +104,7 @@ const CompanyTop = (props) => {
                 backgroundColor: "#FFB6C1",
               }}
             >
-              <Feather name="plus" size={14} color={colors.border} />
+              <Feather name="plus" size={14} color={"black"} />
             </View>
             {/* Propic */}
             <Image
@@ -166,15 +166,11 @@ const CompanyTop = (props) => {
             end={[1.0, 0.5]}
           >
             <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Ionicons
-                name="wallet-outline"
-                size={24}
-                color={colors.primaryText}
-              />
+              <Ionicons name="wallet-outline" size={24} color={"white"} />
 
               <Text style={{ color: "white" }}>{numFormatter(point)}</Text>
             </View>
-            <Text style={{ color: colors.primaryText, fontFamily: "Sf-thin" }}>
+            <Text style={{ color: "white", fontFamily: "Sf-thin" }}>
               Хэтэвч
             </Text>
           </LinearGradient>
@@ -208,7 +204,7 @@ const CompanyTop = (props) => {
             <View style={{ alignItems: "center", justifyContent: "center" }}>
               <Text
                 style={{
-                  color: colors.border,
+                  color: "black",
                 }}
               >
                 Профайл янзлах
@@ -229,7 +225,7 @@ const CompanyTop = (props) => {
             onPress={() => navigation.navigate("CompanySettingModal")}
           >
             <View style={{ alignItems: "center", justifyContent: "center" }}>
-              <Text style={{ textAlign: "center", color: colors.border }}>
+              <Text style={{ textAlign: "center", color: "black" }}>
                 Тохиргоо
               </Text>
             </View>

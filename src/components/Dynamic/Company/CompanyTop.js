@@ -198,11 +198,7 @@ const CompanyTop = (props) => {
                 alignSelf: "center",
               }}
             >
-              <Ionicons
-                name={"briefcase"}
-                size={18}
-                color={colors.primaryText}
-              />
+              <Ionicons name={"briefcase"} size={18} color={"white"} />
               <Text
                 style={{
                   fontSize: 12,
@@ -232,7 +228,7 @@ const CompanyTop = (props) => {
               {data.isEmployer && (
                 <TouchableOpacity
                   style={{
-                    backgroundColor: "#FFB6C1",
+                    backgroundColor: colors.button,
                     paddingVertical: 2,
                     alignItems: "center",
                     justifyContent: "center",
@@ -249,7 +245,7 @@ const CompanyTop = (props) => {
                   {/* Профайл янзлах */}
                   <Text
                     style={{
-                      color: colors.border,
+                      color: "black",
                       fontSize: 12,
                     }}
                   >
@@ -263,7 +259,7 @@ const CompanyTop = (props) => {
           {data.isEmployee && (
             <TouchableOpacity
               style={{
-                backgroundColor: "#FFB6C1",
+                backgroundColor: colors.button,
                 marginHorizontal: 5,
                 paddingVertical: 2,
                 alignItems: "center",
@@ -280,7 +276,7 @@ const CompanyTop = (props) => {
               <Text
                 style={{
                   textAlign: "center",
-                  color: colors.border,
+                  color: "black",
                   fontSize: 12,
                 }}
               >
@@ -294,7 +290,7 @@ const CompanyTop = (props) => {
             onPress={onFollow}
             follow={following}
             style={{
-              backgroundColor: following ? null : "#FFB6C1",
+              backgroundColor: following ? null : colors.button,
               borderRadius: 10,
               borderWidth: 1,
               borderColor: colors.border,

@@ -237,7 +237,7 @@ const NetworkingPostDetailScreen = (props) => {
         >
           {/* Middle content */}
           <View style={{ marginTop: postDetail.isShare ? 10 : 0 }}>
-            {postDetail.body && (
+            {postDetail.isShare && (
               <Text
                 style={{
                   color: colors.primaryText,

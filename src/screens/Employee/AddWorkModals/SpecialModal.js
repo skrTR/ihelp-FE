@@ -304,11 +304,7 @@ const SpecialModal = (props) => {
                         padding: 5,
                       }}
                     >
-                      <Ionicons
-                        name={"briefcase"}
-                        size={12}
-                        color={colors.primaryText}
-                      />
+                      <Ionicons name={"briefcase"} size={12} color={"white"} />
                     </View>
                   )}
                   {companyProfile.isEmployee && (
@@ -324,11 +320,7 @@ const SpecialModal = (props) => {
                         right: companyProfile.isEmployer ? 20 : 0,
                       }}
                     >
-                      <Ionicons
-                        name={"business"}
-                        size={12}
-                        color={colors.primaryText}
-                      />
+                      <Ionicons name={"business"} size={12} color={"white"} />
                     </View>
                   )}
                 </ImageBackground>

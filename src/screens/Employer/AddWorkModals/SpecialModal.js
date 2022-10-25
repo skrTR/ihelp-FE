@@ -15,7 +15,7 @@ import axios from "axios";
 import UserContext from "../../../context/UserContext";
 import { Entypo, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import CountDown from "react-native-countdown-component";
-import ChooseDateModal from "./ChooseDateModal";
+import ChooseDateModal from "../../../components/Modals/ChooseDateModal";
 import MyButton from "../../../components/MyButton";
 const SpecialModal = (props) => {
   const { specialModal, setSpecialModal, data, occupationName, isNew } = props;
@@ -270,11 +270,7 @@ const SpecialModal = (props) => {
                         padding: 5,
                       }}
                     >
-                      <Ionicons
-                        name={"briefcase"}
-                        size={12}
-                        color={colors.primaryText}
-                      />
+                      <Ionicons name={"briefcase"} size={12} color={"white"} />
                     </View>
                   )}
                   {companyProfile.isEmployee && (
@@ -290,11 +286,7 @@ const SpecialModal = (props) => {
                         right: companyProfile.isEmployer ? 20 : 0,
                       }}
                     >
-                      <Ionicons
-                        name={"business"}
-                        size={12}
-                        color={colors.primaryText}
-                      />
+                      <Ionicons name={"business"} size={12} color={"white"} />
                     </View>
                   )}
                 </ImageBackground>

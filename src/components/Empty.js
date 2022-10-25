@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, useColorScheme, View } from "react-native";
 import React from "react";
 import * as Animatable from "react-native-animatable";
 import { useTheme } from "@react-navigation/native";
 const Empty = (props) => {
   const { colors } = useTheme();
+  const colorScheme = useColorScheme();
   return (
     <View style={{ marginTop: 250, ...props, height: "100%" }}>
       <Animatable.Image
@@ -11,7 +12,11 @@ const Empty = (props) => {
         iterationCount="infinite"
         direction="alternate"
         easing="ease-out"
-        source={require("../../assets/ihelp/logo.png")}
+        source={
+          colorScheme === "dark"
+            ? require("../../assets/ihelp/logo.png")
+            : require("../../assets/logo-dark.png")
+        }
         style={{
           width: 250,
           height: 90,

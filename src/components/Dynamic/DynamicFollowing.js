@@ -97,11 +97,7 @@ const DynamicFollowing = (props) => {
                       padding: 4,
                     }}
                   >
-                    <Ionicons
-                      name={"briefcase"}
-                      size={8}
-                      color={colors.primaryText}
-                    />
+                    <Ionicons name={"briefcase"} size={8} color={"white"} />
                   </View>
                 )}
                 {followUser.isEmployee && (
@@ -117,11 +113,7 @@ const DynamicFollowing = (props) => {
                       right: followUser.isEmployer ? 14 : 0,
                     }}
                   >
-                    <Ionicons
-                      name={"business"}
-                      size={8}
-                      color={colors.primaryText}
-                    />
+                    <Ionicons name={"business"} size={8} color={"white"} />
                   </View>
                 )}
               </ImageBackground>
@@ -201,7 +193,7 @@ const DynamicFollowing = (props) => {
           onPress={onFollow}
           follow={follow}
           style={{
-            backgroundColor: follow ? null : "#FFB6C1",
+            backgroundColor: follow ? null : colors.button,
             marginHorizontal: 5,
             borderRadius: 10,
             borderWidth: 1,

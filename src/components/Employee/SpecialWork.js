@@ -81,7 +81,7 @@ const SpecialWork = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#2c3539",
+        backgroundColor: colors.urgentWork,
         marginHorizontal: 10,
         paddingVertical: 15,
         marginVertical: 4,
@@ -113,7 +113,7 @@ const SpecialWork = (props) => {
             }}
             imageStyle={{ borderRadius: 30 }}
           >
-            {isEmployer && (
+            {isEmployee && (
               <View
                 style={{
                   backgroundColor: "#ff914d",
@@ -125,14 +125,10 @@ const SpecialWork = (props) => {
                   padding: 5,
                 }}
               >
-                <Ionicons
-                  name={"briefcase"}
-                  size={12}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"briefcase"} size={12} color={"white"} />
               </View>
             )}
-            {isEmployee && (
+            {isEmployer && (
               <View
                 style={{
                   backgroundColor: "#3da4e3",
@@ -145,11 +141,7 @@ const SpecialWork = (props) => {
                   right: isEmployer ? 20 : 0,
                 }}
               >
-                <Ionicons
-                  name={"business"}
-                  size={12}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"business"} size={12} color={"white"} />
               </View>
             )}
           </ImageBackground>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useTheme } from "@react-navigation/native";
@@ -25,12 +25,16 @@ import PersonAfterLogin from "../screens/Auth/PersonAfterLogin";
 import CompanyAfterLogin from "../screens/Auth/CompanyAfterLogin";
 import CompanyResetPassword1 from "../screens/Auth/CompanyResetPassword1";
 import CompanyResetPassword from "../screens/Auth/CompanyResetPassword";
+import TermsPolicy from "../screens/Auth/TermsPolicy";
+import MyBackButton from "../components/Header/MyBackButton";
+import { useColorScheme } from "react-native";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const StackNavigator = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
+  const colorScheme = useColorScheme();
   if (state.isLoading) {
     return <SplashScreen />;
   }
@@ -64,7 +68,9 @@ const StackNavigator = () => {
               return <Ionicons name={iconName} size={size} color={color} />;
             },
             tabBarActiveTintColor: "#FFB6C1",
-            tabBarInactiveTintColor: colors.secondaryText,
+            // colorScheme === "dark" ?  : "#FDEDEC",
+            tabBarInactiveTintColor:
+              colorScheme === "dark" ? colors.secondaryText : "#2c3539",
             tabBarHideOnKeyboard: true,
           })}
         >
@@ -165,6 +171,16 @@ const StackNavigator = () => {
             name="CompanyResetPassword1"
             component={CompanyResetPassword1}
             options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          />
+          <Stack.Screen
+            name="TermsPolicy"
+            component={TermsPolicy}
+            options={{
+              fullScreenGestureEnabled: true,
+              presentation: "formSheet",
+              title: "Үйлчилгээний нөхцөл",
+              headerLeft: () => <MyBackButton />,
+            }}
           />
         </Stack.Navigator>
       )}

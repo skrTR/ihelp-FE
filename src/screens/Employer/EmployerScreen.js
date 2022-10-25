@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Animated,
   Dimensions,
+  useColorScheme,
 } from "react-native";
 import React, { useContext } from "react";
 import { useTheme } from "@react-navigation/native";
@@ -22,6 +23,7 @@ const EmployerScreen = () => {
   const state = useContext(UserContext);
   const Tab = createMaterialTopTabNavigator();
   const insents = useSafeAreaInsets();
+  const colorScheme = useColorScheme();
   function MyTabBar({ state, descriptors, navigation, position }) {
     return (
       <View style={{ flexDirection: "row" }}>
@@ -77,15 +79,29 @@ const EmployerScreen = () => {
                 margin: 10,
                 borderRadius: 10,
                 borderWidth: 1,
-                borderColor: "white",
-                backgroundColor: !isFocused ? colors.background : "white",
+                borderColor: "#cccccccc",
+                backgroundColor:
+                  colorScheme === "dark"
+                    ? !isFocused
+                      ? colors.background
+                      : "white"
+                    : !isFocused
+                    ? "white"
+                    : "#2c3539",
               }}
             >
               <Animated.Text
                 style={{
                   fontWeight: "bold",
                   paddingHorizontal: 30,
-                  color: isFocused ? colors.background : colors.primaryText,
+                  color:
+                    colorScheme === "dark"
+                      ? isFocused
+                        ? colors.background
+                        : colors.primaryText
+                      : isFocused
+                      ? "white"
+                      : "grey",
                   textAlign: "center",
                 }}
               >

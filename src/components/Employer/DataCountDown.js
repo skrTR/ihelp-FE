@@ -45,9 +45,9 @@ const DataCountDown = ({ createdAt, text, owner }) => {
               borderWidth: owner ? 1 : 0,
               borderColor: colors.border,
             }}
-            digitTxtStyle={{ color: "#FFF" }}
+            digitTxtStyle={{ color: "#fff" }}
             timeLabels={{ d: "Өдөр", h: "Цаг", m: "Минут", s: "Секунд" }}
-            timeLabelStyle={{ color: "#FFF" }}
+            timeLabelStyle={{ color: colors.primaryText }}
             style={{ marginLeft: 21 }}
           />
         </View>

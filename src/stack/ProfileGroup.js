@@ -112,7 +112,8 @@ const ProfileGroup = () => {
               component={CompanyProfilePicture}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Профайл зураг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -122,7 +123,8 @@ const ProfileGroup = () => {
               component={EditCompanyCover}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ковер зураг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -132,7 +134,8 @@ const ProfileGroup = () => {
               component={EditCompanyStatus}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Статус солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -142,7 +145,8 @@ const ProfileGroup = () => {
               component={CompanyProfileEdit}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Профайл янзлах",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -177,7 +181,8 @@ const ProfileGroup = () => {
               component={CompanyCreatedWork}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Оруулсан ажлын зар",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -187,7 +192,8 @@ const ProfileGroup = () => {
               component={CompanyUsedProduct}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ашигласан үйлчилгээнүүд",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -197,7 +203,8 @@ const ProfileGroup = () => {
               component={ChangeCompanyPassword}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Нууц үг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -207,7 +214,8 @@ const ProfileGroup = () => {
               component={WorkBoostModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ажлын зар",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -217,7 +225,8 @@ const ProfileGroup = () => {
               component={CompanyWorkRequest}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ирсэн ажлын санал",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -227,7 +236,8 @@ const ProfileGroup = () => {
               component={CompanySendWork}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Илгээсэн ажлын санал",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -261,7 +271,8 @@ const ProfileGroup = () => {
               component={CreateCvScreen}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Анкет үүсгэх",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -271,7 +282,8 @@ const ProfileGroup = () => {
               component={PersonalDetailModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Хувийн мэдээлэл",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -282,7 +294,8 @@ const ProfileGroup = () => {
               component={AchievmentAddModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Гавьяа шагнал нэмэх",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -292,7 +305,8 @@ const ProfileGroup = () => {
               component={AchievmentDetailModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Гавьяа шагнал",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -304,7 +318,8 @@ const ProfileGroup = () => {
               component={CourseAddModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Боловсрол нэмэх",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -314,7 +329,8 @@ const ProfileGroup = () => {
               component={CourseDetailModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Боловсрол",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -325,7 +341,9 @@ const ProfileGroup = () => {
               options={{
                 title: "Боловсрол мэдээлэл",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Болвосрол дуусах */}
@@ -336,7 +354,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Туршлага дэлгэрэнгүй",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -347,7 +366,8 @@ const ProfileGroup = () => {
                 fullScreenGestureEnabled: true,
                 title: "Туршлага нэмэх",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -356,7 +376,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Туршлага мэдээлэл",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Туршлага дуусах */}
@@ -367,7 +388,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Гэр бүлийн мэдээлэл нэмэх",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -376,7 +398,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Гэр бүлийн мэдээлэл дэлгэрэнгүй",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Гэр бүлийн мэдээлэл дуусах*/}
@@ -387,7 +410,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Ур чадвар болон сул тал",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Ур чадвар дуусах*/}
@@ -398,7 +422,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Танилцуулга бичих",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Хэлний чадвар */}
@@ -408,7 +433,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Хэлний чадвар",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -417,7 +443,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Хэлний чадвар",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -426,7 +453,8 @@ const ProfileGroup = () => {
               options={{
                 title: "Хэлний чадвар",
                 headerLeft: () => <MyBackButton />,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             {/* Хэлний чадвар дуусгах */}
@@ -440,7 +468,8 @@ const ProfileGroup = () => {
               component={ProfilePictureView}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Профайл зураг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -450,7 +479,8 @@ const ProfileGroup = () => {
               component={ProfilePictureFrame}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Тохиргоо",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -460,7 +490,8 @@ const ProfileGroup = () => {
               component={EditCoverModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ковер зураг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -474,7 +505,8 @@ const ProfileGroup = () => {
               component={UserSettingsScreen}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Тохиргоо",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -492,7 +524,8 @@ const ProfileGroup = () => {
               component={EditStatusModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Статус солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -502,7 +535,8 @@ const ProfileGroup = () => {
               component={UserActivityModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Хэрэглэгчийн идэвх",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -512,7 +546,8 @@ const ProfileGroup = () => {
               component={NetworkingPostDetailScreen}
               options={{
                 headerShown: false,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
               }}
             />
             <ProfileStack.Screen
@@ -520,7 +555,8 @@ const ProfileGroup = () => {
               component={UserRecievedJob}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Ирсэн ажлын санал",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -530,7 +566,8 @@ const ProfileGroup = () => {
               component={UserSendWorkHistory}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Илгээсэн ажлын санал",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -540,7 +577,8 @@ const ProfileGroup = () => {
               component={UserSavedWork}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Хадгалсан ажлын байр",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -550,7 +588,8 @@ const ProfileGroup = () => {
               component={UserWorkDetail}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Хадгалсан ажлын байр дэлгэрэнгүй",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -560,7 +599,8 @@ const ProfileGroup = () => {
               component={ChangePasswordModal}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Нууц үг солих",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -570,7 +610,8 @@ const ProfileGroup = () => {
               component={UserVerifyScreen}
               options={{
                 headerShown: true,
-                presentation: "formSheet",
+                // presentation: "formSheet",
+                fullScreenGestureEnabled: true,
                 title: "Баталгажуулах хүсэлт",
                 headerLeft: () => <MyBackButton />,
               }}
@@ -598,7 +639,8 @@ const ProfileGroup = () => {
             component={UserSendWorkRequest}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Ажлын санал илгээх",
               headerLeft: () => <MyBackButton />,
             }}
@@ -608,7 +650,8 @@ const ProfileGroup = () => {
             component={CompanySendWorkRequest}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Ажлын санал илгээх",
               headerLeft: () => <MyBackButton />,
             }}
@@ -628,7 +671,8 @@ const ProfileGroup = () => {
             name="ChangeAccountModal"
             component={ChangeAccountModal}
             options={{
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               contentStyle: {
                 bottom: 0,
                 left: 0,
@@ -646,7 +690,8 @@ const ProfileGroup = () => {
             component={PersonLoginScreen}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Хэрэглэгч нэвтрэх",
               headerLeft: () => <MyBackButton />,
             }}
@@ -656,7 +701,8 @@ const ProfileGroup = () => {
             component={ChangeCompanyLogin}
             options={{
               headerShown: false,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Байгууллага нэвтрэх",
               headerLeft: () => <MyBackButton />,
             }}
@@ -679,7 +725,8 @@ const ProfileGroup = () => {
             component={QpayModal}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Банкны апп",
               headerLeft: () => <MyBackButton />,
             }}
@@ -711,7 +758,8 @@ const ProfileGroup = () => {
             component={BoostPost}
             options={{
               headerShown: true,
-              presentation: "formSheet",
+              // presentation: "formSheet",
+              fullScreenGestureEnabled: true,
               title: "Нийтлэл идэвхжүүлэх",
               headerLeft: () => <MyBackButton />,
               fullScreenGestureEnabled: true,
@@ -752,7 +800,8 @@ const ProfileGroup = () => {
           component={BoostEmployerWork}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
@@ -762,7 +811,8 @@ const ProfileGroup = () => {
           component={BoostSpecialCompany}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -782,7 +832,8 @@ const ProfileGroup = () => {
           component={BoostEmployeeWork}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
@@ -811,7 +862,8 @@ const ProfileGroup = () => {
           component={ViewUserPost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
@@ -821,7 +873,8 @@ const ProfileGroup = () => {
           component={PostSettings}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Тохиргоо",
             headerLeft: () => <MyBackButton />,
           }}
@@ -843,7 +896,8 @@ const ProfileGroup = () => {
           component={UserRecievedJobDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ирсэн ажлын санал",
             headerLeft: () => <MyBackButton />,
           }}
@@ -853,7 +907,8 @@ const ProfileGroup = () => {
           component={EmployerSendWorkModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -863,7 +918,8 @@ const ProfileGroup = () => {
           component={NetworkingBoost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Нийтлэл идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -873,7 +929,8 @@ const ProfileGroup = () => {
           component={CompanyJobCv}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет",
             headerLeft: () => <MyBackButton />,
           }}
@@ -883,7 +940,8 @@ const ProfileGroup = () => {
           component={CompanyJobCvDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет",
             headerLeft: () => <MyBackButton />,
           }}
@@ -893,7 +951,8 @@ const ProfileGroup = () => {
           component={ApplyCvDetailScreen}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет",
             headerLeft: () => <MyBackButton />,
           }}
@@ -903,7 +962,8 @@ const ProfileGroup = () => {
           component={RecievedJobDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Санал",
             headerLeft: () => <MyBackButton />,
           }}
@@ -913,7 +973,8 @@ const ProfileGroup = () => {
           component={PortfolioDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Зурагт танилцуулга",
             headerLeft: () => <MyBackButton />,
           }}

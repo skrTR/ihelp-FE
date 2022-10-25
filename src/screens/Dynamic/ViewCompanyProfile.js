@@ -14,13 +14,12 @@ import CompanyTop from "../../components/Dynamic/Company/CompanyTop";
 import Border from "../../components/Border";
 import CompanyAbout from "../../components/Dynamic/Company/CompanyAbout";
 import CompanyJobs from "../../components/Dynamic/Company/CompanyJobs";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Header";
 import UserContext from "../../context/UserContext";
-import CompanyHeader from "../../components/Header/CompanyHeader";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import useCompanyAnnoucement from "../../hooks/ProfileDetail/Company/useCompanyAnnoucement";
 import CompanyAnnoucements from "../../components/Dynamic/Company/CompanyAnnoucements";
-import Empty from "../../components/Empty";
+
 import Portfolio from "../../components/Profile/Portfolio";
 const ViewCompanyProfile = (props) => {
   const { id } = props.route.params;
@@ -38,6 +37,13 @@ const ViewCompanyProfile = (props) => {
   const sortedData = sorted2
     ? sorted2.sort((a, b) => b.isUrgent - a.isUrgent)
     : [];
+
+  var sorted_meetings = companyAnnoucement
+    .sort((a, b) => {
+      return new Date(a.special).getTime() - new Date(b.special).getTime();
+    })
+    .reverse();
+
   if (!companyProfile) {
     return null;
   }
@@ -50,11 +56,7 @@ const ViewCompanyProfile = (props) => {
       }}
     >
       <ScrollView showsVerticalScrollIndicator={false}>
-        {state.isCompany ? (
-          <CompanyHeader isBack={true} />
-        ) : (
-          <Header isBack={true} />
-        )}
+        <Header isBack={true} />
         <CompanyTop
           cover={companyProfile.cover}
           profile={companyProfile.profile}
@@ -115,15 +117,15 @@ const ViewCompanyProfile = (props) => {
                 margin: 10,
                 borderRadius: 10,
                 borderWidth: 1,
-                borderColor: "white",
+                borderColor: "#cccccccc",
                 backgroundColor:
                   colorScheme === "dark"
-                    ? !isType
+                    ? isType
                       ? colors.background
                       : "white"
-                    : colorScheme === "light" && isType
-                    ? colors.background
-                    : "#FFB6C1",
+                    : isType
+                    ? "#cccccccc"
+                    : colors.background,
                 justifyContent: "center",
               }}
               onPress={() => setIsType(true)}
@@ -137,10 +139,9 @@ const ViewCompanyProfile = (props) => {
                       ? isType
                         ? colors.background
                         : colors.primaryText
-                      : colorScheme === "light" && !isType
-                      ? "black"
-                      : colors.primaryText,
-
+                      : isType
+                      ? colors.primaryText
+                      : "grey",
                   textAlign: "center",
                 }}
               >
@@ -157,14 +158,15 @@ const ViewCompanyProfile = (props) => {
                 borderRadius: 10,
                 borderWidth: 1,
                 borderColor: "white",
+                borderColor: "#cccccccc",
                 backgroundColor:
                   colorScheme === "dark"
-                    ? isType
+                    ? !isType
                       ? colors.background
                       : "white"
-                    : colorScheme === "light" && !isType
-                    ? colors.background
-                    : "#FFB6C1",
+                    : !isType
+                    ? "#cccccccc"
+                    : colors.background,
               }}
             >
               <Text
@@ -176,9 +178,9 @@ const ViewCompanyProfile = (props) => {
                       ? !isType
                         ? colors.background
                         : colors.primaryText
-                      : colorScheme === "light" && isType
-                      ? "black"
-                      : colors.primaryText,
+                      : !isType
+                      ? colors.primaryText
+                      : "grey",
 
                   textAlign: "center",
                   justifyContent: "center",
@@ -203,26 +205,16 @@ const ViewCompanyProfile = (props) => {
               )}
             </>
           ) : (
-            // <>
-            //   {companyAnnoucement.map((data) => {
-            //     return (
-            //       <View key={data._id}>
-            //         <CompanyAnnoucements
-            //           id={data._id}
-            //           createUserName={data.firstName}
-            //           createUserProfile={data.profile}
-            //           isEmployer={data.isEmployer}
-            //           isEmployee={data.isEmployee}
-            //           occupation={data.occupationName}
-            //           type={data.do}
-            //           salary={data.price}
-            //           order={data.order}
-            //         />
-            //       </View>
-            //     );
-            //   })}
-            // </>
-            <Empty text={"Тун удахгүй"} />
+            <>
+              {sorted_meetings.map((data) => {
+                return (
+                  <View key={data._id}>
+                    <CompanyAnnoucements data={data} id={data._id} />
+                  </View>
+                );
+              })}
+            </>
+            // <Empty text={"Тун удахгүй"} />
           )}
         </View>
       </ScrollView>

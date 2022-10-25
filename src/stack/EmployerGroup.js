@@ -54,7 +54,8 @@ const EmployerGroup = () => {
           component={BoostEmployerWork}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -64,7 +65,8 @@ const EmployerGroup = () => {
           component={BoostSpecialCompany}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -74,7 +76,8 @@ const EmployerGroup = () => {
           component={ProductUsePoint}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -92,7 +95,7 @@ const EmployerGroup = () => {
           options={{
             headerShown: false,
             fullScreenGestureEnabled: true,
-            presentation: "fullScreenModal",
+            // presentation: "fullScreenModal",
           }}
         />
         <EmployerStack.Screen
@@ -100,7 +103,8 @@ const EmployerGroup = () => {
           component={UserSavedWork}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хадгалсан ажлын байр",
             headerLeft: () => <MyBackButton />,
           }}
@@ -122,7 +126,8 @@ const EmployerGroup = () => {
           component={UserSendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -132,7 +137,8 @@ const EmployerGroup = () => {
           component={CompanySendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -142,7 +148,8 @@ const EmployerGroup = () => {
           component={UserWorkDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хадгалсан ажлын байр",
             headerLeft: () => <MyBackButton />,
           }}
@@ -152,7 +159,8 @@ const EmployerGroup = () => {
           component={ViewCompanyJobs}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
@@ -175,7 +183,8 @@ const EmployerGroup = () => {
           component={ViewUserFollower}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагагч",
             headerLeft: () => <MyBackButton />,
           }}
@@ -185,7 +194,8 @@ const EmployerGroup = () => {
           component={ViewUserFollowings}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагасан",
             headerLeft: () => <MyBackButton />,
           }}
@@ -218,7 +228,8 @@ const EmployerGroup = () => {
           component={CompanyJobCvDetail}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет",
             headerLeft: () => <MyBackButton />,
           }}

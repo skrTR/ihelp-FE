@@ -103,7 +103,7 @@ const UserData = (props) => {
           onPress={onFollow}
           follow={follow}
           style={{
-            backgroundColor: follow ? null : "#FFB6C1",
+            backgroundColor: follow ? null : colors.button,
             marginHorizontal: 15,
             borderRadius: 10,
             borderWidth: 1,

@@ -10,11 +10,11 @@ import {
   Platform,
 } from "react-native";
 import React, { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useTheme } from "@react-navigation/native";
 import MyTextInput from "../../components/MyTextInput";
 import axios from "axios";
 import { api } from "../../../Constants";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, MaterialIcons } from "@expo/vector-icons";
 import * as Animatable from "react-native-animatable";
 import MyPasswordInput from "../../components/MyPasswordInput";
 const PersonSignUpScreen = () => {
@@ -26,6 +26,8 @@ const PersonSignUpScreen = () => {
   const [password1, setPassword1] = useState("");
   const [message, setMessage] = useState();
   const [email, setEmail] = useState("");
+  const { colors } = useTheme();
+  const [check, setCheck] = useState(false);
   const sendMessage = () => {
     axios
       .post(`${api}/api/v1/cvs/send`, { phone: phone })
@@ -125,16 +127,44 @@ const PersonSignUpScreen = () => {
           />
         </View>
         <TouchableOpacity
-          style={{ flex: 1, top: 5 }}
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            left: 20,
+            marginTop: 25,
+          }}
+          onPress={() => setCheck(!check)}
+        >
+          <MaterialIcons
+            name={!check ? "radio-button-unchecked" : "radio-button-checked"}
+            size={24}
+            color={!check ? "black" : "#765097"}
+          />
+          <View style={{ width: "90%" }}>
+            <Text>
+              Үйлчилгээний нөхцөл зөвшөөрөх{" "}
+              <Text
+                style={{ color: colors.primary }}
+                onPress={() => navigation.navigate("TermsPolicy")}
+              >
+                үйлчилгээний нөхцөлтэй үзэх
+              </Text>
+            </Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ flex: 1 }}
           onPress={() => {
             if (lastName.length < 1) {
-              return alert("Та өөрийн овгоо оруулна уу");
+              return Alert.alert("Та өөрийн овгоо оруулна уу");
             } else if (firstName.length < 1) {
-              return alert("Та өөрийн нэрийг оруулна уу");
+              return Alert.alert("Та өөрийн нэрийг оруулна уу");
             } else if (phone.length < 5) {
-              return alert("Та утасны дугаараа оруулна уу");
+              return Alert.alert("Та утасны дугаараа оруулна уу");
             } else if (password !== password1) {
-              return alert("Нууц үг таарахгүй байна.");
+              return Alert.alert("Нууц үг таарахгүй байна.");
+            } else if (!check) {
+              return Alert.alert("Үйлчилгээний нөхцөл зөвшөөрнө үү");
             }
             sendMessage();
             navigation.navigate("PersonSignUpScreen2", {

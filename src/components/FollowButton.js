@@ -1,9 +1,15 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  useColorScheme,
+} from "react-native";
 import React from "react";
 import { useTheme } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
 const FollowButton = (props) => {
   const { colors } = useTheme();
+  const colorScheme = useColorScheme();
   return (
     <TouchableOpacity
       style={{
@@ -21,7 +27,14 @@ const FollowButton = (props) => {
         <Text
           style={{
             textAlign: "center",
-            color: props.follow ? colors.primaryText : colors.border,
+            color:
+              colorScheme === "dark"
+                ? props.follow
+                  ? colors.primaryText
+                  : colors.border
+                : props.follow
+                ? colors.primaryText
+                : colors.primaryText,
             ...props.fontStyle,
           }}
         >

@@ -95,11 +95,7 @@ const NormalCompany = (props) => {
                 padding: 5,
               }}
             >
-              <Ionicons
-                name={"briefcase"}
-                size={12}
-                color={colors.primaryText}
-              />
+              <Ionicons name={"briefcase"} size={12} color={"white"} />
             </View>
           )}
           {data.isEmployee && (
@@ -115,17 +111,13 @@ const NormalCompany = (props) => {
                 right: data.isEmployer ? 20 : 0,
               }}
             >
-              <Ionicons
-                name={"business"}
-                size={12}
-                color={colors.primaryText}
-              />
+              <Ionicons name={"business"} size={12} color={"white"} />
             </View>
           )}
         </ImageBackground>
 
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>
+          <Text style={{ color: colors.primaryText, fontWeight: "bold" }}>
             {data.firstName}
           </Text>
           {data.categoryName && (
@@ -139,7 +131,7 @@ const NormalCompany = (props) => {
             </Text>
           )}
 
-          <Text style={{ color: "white" }}>
+          <Text style={{ color: colors.primaryText }}>
             Нийт ажлын байр: {data.jobNumber}
           </Text>
         </View>

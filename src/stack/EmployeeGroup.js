@@ -48,7 +48,8 @@ const EmployeeGroup = () => {
           component={EmployeeSavedWork}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хадгалсан ажлын байр",
             headerLeft: () => <MyBackButton />,
           }}
@@ -65,7 +66,8 @@ const EmployeeGroup = () => {
           component={BoostEmployeeWork}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -75,7 +77,8 @@ const EmployeeGroup = () => {
           component={ViewUserFollower}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагагч",
             headerLeft: () => <MyBackButton />,
           }}
@@ -85,7 +88,8 @@ const EmployeeGroup = () => {
           component={ViewUserFollowings}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагасан",
             headerLeft: () => <MyBackButton />,
           }}
@@ -95,7 +99,8 @@ const EmployeeGroup = () => {
           component={ViewCompanyJobs}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
@@ -105,7 +110,8 @@ const EmployeeGroup = () => {
           component={EmployerSendWorkModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -115,7 +121,8 @@ const EmployeeGroup = () => {
           component={UserSendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -125,7 +132,8 @@ const EmployeeGroup = () => {
           component={CompanySendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}

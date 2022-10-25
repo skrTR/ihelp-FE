@@ -15,8 +15,8 @@ import FormText from "../../components/FormText";
 import MyButton from "../../components/MyButton";
 import UserContext from "../../context/UserContext";
 import CompanyHeader from "../../components/Header/CompanyHeader";
-import PriceModal from "./AddWorkModals/PriceModal";
-import TimeModal from "./AddWorkModals/TimeModal";
+import PriceModal from "../../components/Modals/PriceModal";
+import TimeModal from "../../components/Modals/TimeModal";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import SpecialModal from "./AddWorkModals/SpecialModal";
 // Modals

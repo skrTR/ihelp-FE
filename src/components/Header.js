@@ -1,4 +1,4 @@
-import { Image, View, Alert } from "react-native";
+import { Image, View, Alert, useColorScheme } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -18,6 +18,7 @@ const Header = (props) => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [user, setUser] = useState([]);
+  const colorScheme = useColorScheme();
   const getUsers = () => {
     axios
       .get(`${api}/api/v1/cvs/${state.companyId}`)
@@ -93,7 +94,11 @@ const Header = (props) => {
       </View>
       <View style={{ width: "30%" }}>
         <Image
-          source={require("../../assets/ihelp/logo.png")}
+          source={
+            colorScheme === "dark"
+              ? require("../../assets/ihelp/logo.png")
+              : require("../../assets/logo-dark.png")
+          }
           style={{
             width: 90,
             height: 50,

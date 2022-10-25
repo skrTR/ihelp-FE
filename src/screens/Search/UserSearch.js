@@ -1,11 +1,4 @@
-import {
-  Text,
-  View,
-  FlatList,
-  Image,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Text, View, FlatList, TextInput, useColorScheme } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -13,6 +6,7 @@ import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
+import SearchTextInput from "../../components/SearchTextInput";
 const UserSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -21,6 +15,7 @@ const UserSearch = () => {
   const [search, setSearch] = useState("");
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
+  const colorScheme = useColorScheme();
   useEffect(() => {
     fetchUser();
     return () => {};
@@ -74,20 +69,7 @@ const UserSearch = () => {
           color={colors.primaryText}
           onPress={() => navigation.goBack()}
         />
-        <TextInput
-          placeholder="Хайх утга"
-          value={search}
-          onChangeText={(text) => searchFilter(text)}
-          placeholderTextColor={"#cccccccc"}
-          style={{
-            backgroundColor: colors.border,
-            padding: 10,
-            width: "90%",
-            marginLeft: 10,
-            borderRadius: 20,
-            color: colors.primaryText,
-          }}
-        />
+        <SearchTextInput searchFilter={searchFilter} search={search} />
       </View>
       <View
         style={{

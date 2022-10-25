@@ -2,12 +2,10 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 
-import { LinearGradient } from "expo-linear-gradient";
-import EducationModal from "../Employer/AddWorkModals/EducationModal";
-import ExperienceModal from "../Employer/AddWorkModals/ExperienceModal";
-import GenderModal from "../Employer/AddWorkModals/GenderModal";
-import OccupationModal from "../Employer/AddWorkModals/OccupationModal";
-import SalaryModal from "../Employer/AddWorkModals/SalaryModal";
+import EducationModal from "../../components/Modals/EducationModal";
+import ExperienceModal from "../../components/Modals/ExperienceModal";
+import GenderModal from "../../components/Modals/GenderModal";
+import SalaryModal from "../../components/Modals/SalaryModal";
 import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
 import SearchByOccupation from "../../components/Modals/SearchByOccupation";
 const UserSortModal = () => {

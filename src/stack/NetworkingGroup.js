@@ -40,7 +40,8 @@ const NetworkingGroup = () => {
           component={SharePostModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Нийтлэл хуваалцах",
             headerLeft: () => <MyBackButton />,
           }}
@@ -58,7 +59,8 @@ const NetworkingGroup = () => {
           component={PostSettings}
           options={{
             fullScreenGestureEnabled: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Тохиргоо",
             headerLeft: () => <MyBackButton />,
           }}
@@ -68,7 +70,8 @@ const NetworkingGroup = () => {
           component={EditPost}
           options={{
             fullScreenGestureEnabled: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+
             title: "Нийтлэл янзлах",
             headerLeft: () => <MyBackButton />,
             headerShown: false,
@@ -79,7 +82,7 @@ const NetworkingGroup = () => {
           component={PostLikeUser}
           options={{
             fullScreenGestureEnabled: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
             title: "Лайк дарсан хүмүүс",
             headerLeft: () => <MyBackButton />,
           }}
@@ -101,7 +104,8 @@ const NetworkingGroup = () => {
           component={ViewUserFollowings}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагадаг",
             headerLeft: () => <MyBackButton />,
           }}
@@ -111,7 +115,8 @@ const NetworkingGroup = () => {
           component={ViewUserFollower}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагагч",
             headerLeft: () => <MyBackButton />,
           }}
@@ -121,7 +126,8 @@ const NetworkingGroup = () => {
           component={ViewUserPost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
@@ -131,7 +137,8 @@ const NetworkingGroup = () => {
           component={UserSendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -141,7 +148,8 @@ const NetworkingGroup = () => {
           component={CompanySendWorkRequest}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -151,7 +159,8 @@ const NetworkingGroup = () => {
           component={UserSearch}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хэрэглэгчид",
             headerLeft: () => <MyBackButton />,
           }}
@@ -161,7 +170,8 @@ const NetworkingGroup = () => {
           component={BoostPost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Нийтлэл идэвхжүүлэх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -185,7 +195,8 @@ const NetworkingGroup = () => {
           name="CommentDetailModal"
           component={CommentDetailModal}
           options={{
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Сэтгэгдэл",
             headerLeft: () => <MyBackButton />,
           }}

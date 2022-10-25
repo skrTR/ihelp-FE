@@ -116,7 +116,8 @@ const UrgentWork = (props) => {
   return (
     <View
       style={{
-        backgroundColor: "#2c3539",
+        backgroundColor: colors.urgentWork,
+        backgroundColor: "#F9E79F",
         marginHorizontal: 5,
         paddingVertical: 5,
         marginVertical: 4,
@@ -164,11 +165,7 @@ const UrgentWork = (props) => {
                   padding: 5,
                 }}
               >
-                <Ionicons
-                  name={"briefcase"}
-                  size={12}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"briefcase"} size={12} color={"white"} />
               </View>
             )}
             {isEmployee && (
@@ -184,11 +181,7 @@ const UrgentWork = (props) => {
                   right: isEmployer ? 20 : 0,
                 }}
               >
-                <Ionicons
-                  name={"business"}
-                  size={12}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"business"} size={12} color={"white"} />
               </View>
             )}
           </ImageBackground>
@@ -232,11 +225,13 @@ const UrgentWork = (props) => {
         {createUserId === state.companyId && (
           <TouchableOpacity
             style={{
-              backgroundColor: "#FFB6C1",
+              backgroundColor: colors.button,
               padding: 10,
               borderRadius: 10,
               marginRight: 20,
               alignItems: "center",
+              position: "absolute",
+              right: 0,
             }}
             onPress={() =>
               navigation.navigate("BoostEmployerWork", {
@@ -246,7 +241,9 @@ const UrgentWork = (props) => {
             }
           >
             <Text style={{ color: "black" }}>
-              {urgent < moment().format() ? "Зар идэвхжүүлэх" : "Сунгах"}
+              {moment(urgent).format() < moment().format()
+                ? "Идэвхжүүлэх"
+                : "Сунгах"}
             </Text>
           </TouchableOpacity>
         )}

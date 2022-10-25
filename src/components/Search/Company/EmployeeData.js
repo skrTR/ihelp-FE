@@ -109,11 +109,7 @@ const EmployeeData = (props) => {
                   right: item.isEmployer ? 12 : 0,
                 }}
               >
-                <Ionicons
-                  name={"briefcase"}
-                  size={6}
-                  color={colors.primaryText}
-                />
+                <Ionicons name={"briefcase"} size={6} color={"white"} />
               </View>
             )}
           </ImageBackground>
@@ -138,7 +134,7 @@ const EmployeeData = (props) => {
           onPress={onFollow}
           follow={follow}
           style={{
-            backgroundColor: follow ? null : "#FFB6C1",
+            backgroundColor: follow ? null : colors.button,
             marginHorizontal: 15,
             borderRadius: 10,
             borderWidth: 1,

@@ -108,7 +108,8 @@ const SearchGroup = () => {
           component={CustomSearchModal}
           options={{
             fullScreenGestureEnabled: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Ажлын зар сортлох",
             headerLeft: () => <MyBackButton />,
           }}
@@ -118,7 +119,8 @@ const SearchGroup = () => {
           component={CustomSearchedModal}
           options={{
             fullScreenGestureEnabled: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Олдсон ажлын зар",
             headerLeft: () => <MyBackButton />,
           }}
@@ -149,7 +151,8 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
@@ -157,7 +160,8 @@ const SearchGroup = () => {
           component={EmployerSendWorkModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Анкет илгээх",
             headerLeft: () => <MyBackButton />,
           }}
@@ -179,13 +183,18 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
           name="ViewCompanyProfile"
           component={ViewCompanyProfile}
-          options={{ headerShown: false, presentation: "formSheet" }}
+          options={{
+            headerShown: false,
+            fullScreenGestureEnabled: true,
+            // presentation: "formSheet"
+          }}
         />
         <SearchStack.Screen
           name="ViewCompanyJobs"
@@ -201,14 +210,19 @@ const SearchGroup = () => {
         <SearchStack.Screen
           name="ViewUserProfile"
           component={ViewUserProfile}
-          options={{ headerShown: false, presentation: "formSheet" }}
+          options={{
+            headerShown: false,
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
+          }}
         />
         <SearchStack.Screen
           name="ViewUserFollower"
           component={ViewUserFollower}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Дагагч",
             headerLeft: () => <MyBackButton />,
           }}
@@ -217,10 +231,10 @@ const SearchGroup = () => {
           name="ViewUserFollowings"
           component={ViewUserFollowings}
           options={{
-            fullScreenGestureEnabled: true,
             title: "Дагасан хаягууд",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
@@ -228,7 +242,8 @@ const SearchGroup = () => {
           component={ViewUserPost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
           }}
@@ -238,7 +253,8 @@ const SearchGroup = () => {
           component={NotificationScreen}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Мэдэгдлүүд",
             headerLeft: () => <MyBackButton />,
           }}
@@ -251,7 +267,8 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
             title: "Дагасан байгууллага",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
@@ -261,7 +278,8 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
             title: "Байгууллага нарийвчлах",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
@@ -274,7 +292,8 @@ const SearchGroup = () => {
           component={NetworkingPostDetailScreen}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Нийтлэл дэлгэрэнгүй",
             headerLeft: () => <MyBackButton />,
           }}
@@ -284,7 +303,8 @@ const SearchGroup = () => {
           component={SharePostModal}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
             title: "Нийтлэл хуваалцах",
             headerLeft: () => <MyBackButton />,
           }}
@@ -296,7 +316,8 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
             title: "Байгууллага",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen
@@ -304,7 +325,8 @@ const SearchGroup = () => {
           component={ViewPortfolio}
           options={{
             headerShown: false,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <SearchStack.Screen

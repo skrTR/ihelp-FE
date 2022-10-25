@@ -128,7 +128,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
       >
         <TouchableOpacity
           style={{
-            backgroundColor: "#FFB6C1",
+            backgroundColor: colors.button,
             borderRadius: 10,
             justifyContent: "center",
             alignItems: "center",
@@ -146,7 +146,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
             <Text
               style={{
                 textAlign: "center",
-                color: colors.border,
+                color: "black",
                 padding: 10,
               }}
             >
@@ -158,7 +158,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           onPress={onFollow}
           follow={following}
           style={{
-            backgroundColor: following ? null : "#FFB6C1",
+            backgroundColor: following ? null : colors.button,
             borderRadius: 10,
             borderWidth: following ? 1 : null,
             borderColor: colors.border,

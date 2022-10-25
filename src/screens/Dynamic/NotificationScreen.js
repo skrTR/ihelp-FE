@@ -15,6 +15,7 @@ import UserContext from "../../context/UserContext";
 import moment from "moment";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import Header from "../../components/Header";
 
 const NotificationScreen = () => {
   const state = useContext(UserContext);
@@ -47,47 +48,7 @@ const NotificationScreen = () => {
         height: "100%",
       }}
     >
-      <View
-        style={{
-          backgroundColor: "#141414",
-          borderBottomLeftRadius: 20,
-          borderBottomRightRadius: 20,
-          bottom: 0,
-          borderBottomWidth: 1,
-          borderLeftWidth: 1,
-          borderRightWidth: 1,
-          borderColor: colors.border,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            marginHorizontal: 20,
-          }}
-        >
-          <View>
-            <AntDesign
-              name="left"
-              size={25}
-              color={colors.primaryText}
-              onPress={() => navigation.goBack()}
-            />
-          </View>
-          <View>
-            <Image
-              source={require("../../../assets/ihelp/logo.png")}
-              style={{
-                width: 90,
-                height: 50,
-                resizeMode: "contain",
-              }}
-            />
-          </View>
-          <Text>{"      "}</Text>
-        </View>
-      </View>
+      <Header isBack={true} />
       <FlatList
         data={notifData}
         keyExtractor={(item, index) => index}

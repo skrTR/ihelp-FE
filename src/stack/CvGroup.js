@@ -4,7 +4,6 @@ import CvScreen from "../screens/Cv/CvScreen";
 import CvDetailScreen from "../components/Cv/CvDetailScreen";
 import ViewUserProfile from "../screens/Dynamic/ViewUserProfile";
 import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
-import ViewUserFollowing from "../screens/Dynamic/ViewUserFollowings";
 import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import MyBackButton from "../components/Header/MyBackButton";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
@@ -54,9 +53,10 @@ const CvGroup = () => {
           component={ViewUserPost}
           options={{
             headerShown: true,
-            presentation: "formSheet",
+            // presentation: "formSheet",
             title: "Хэрэглэгчийн нийтлэл",
             headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
           }}
         />
         <CvStack.Screen
@@ -65,7 +65,8 @@ const CvGroup = () => {
           options={{
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <CvStack.Screen
@@ -74,7 +75,8 @@ const CvGroup = () => {
           options={{
             title: "Ажлын санал илгээх",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <CvStack.Screen
@@ -83,7 +85,8 @@ const CvGroup = () => {
           options={{
             title: "Хэрэглэгч шүүх",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <CvStack.Screen
@@ -92,7 +95,8 @@ const CvGroup = () => {
           options={{
             title: "Илэрц",
             headerLeft: () => <MyBackButton />,
-            presentation: "formSheet",
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
           }}
         />
         <CvStack.Screen

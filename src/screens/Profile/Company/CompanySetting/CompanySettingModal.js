@@ -152,7 +152,6 @@ const CompanySettingModal = () => {
           Ашиглаж буй үйлчилгээ
         </Text>
       </TouchableOpacity>
-
       {/* Irsen cv nuud */}
       <>
         {/* Line */}
@@ -266,7 +265,6 @@ const CompanySettingModal = () => {
           }}
         />
       </>
-
       <TouchableOpacity
         style={{
           flexDirection: "row",
@@ -300,7 +298,6 @@ const CompanySettingModal = () => {
           marginVertical: 10,
         }}
       />
-
       {/* Change password */}
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
@@ -322,7 +319,7 @@ const CompanySettingModal = () => {
           marginVertical: 10,
         }}
       />
-      {/* <TouchableOpacity
+      <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
         onPress={companyDelete}
       >
@@ -337,15 +334,14 @@ const CompanySettingModal = () => {
         >
           Аккоунт устгах
         </Text>
-      </TouchableOpacity> */}
-      {/* Line */}
-      {/* <View
+      </TouchableOpacity>
+      <View
         style={{
           borderWidth: 0.5,
           borderColor: colors.border,
           marginVertical: 10,
         }}
-      /> */}
+      />
       <TouchableOpacity
         style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
         onPress={companyExit}

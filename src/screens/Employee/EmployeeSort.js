@@ -144,7 +144,7 @@ const EmployeeSort = () => {
               })
             }
             style={{
-              backgroundColor: "#FFB6C1",
+              backgroundColor: colors.button,
               padding: 10,
               borderWidth: 1,
               borderRadius: 10,
