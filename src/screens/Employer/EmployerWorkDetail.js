@@ -110,7 +110,7 @@ const EmployerWorkDetail = (props) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              backgroundColor: "#2c3539",
+              backgroundColor: colors.urgentWork,
               justifyContent: "space-between",
               borderRadius: 10,
               marginTop: 10,
@@ -141,6 +141,7 @@ const EmployerWorkDetail = (props) => {
                     fontWeight: "bold",
                     color: colors.primaryText,
                     fontFamily: "Sf-bold",
+                    width: "90%",
                   }}
                 >
                   {workDetail.firstName}
@@ -338,7 +339,7 @@ const EmployerWorkDetail = (props) => {
                     <AntDesign
                       name="checkcircleo"
                       size={18}
-                      color={"#FADBD8"}
+                      color={colors.button}
                     />
                     <Text
                       style={{
@@ -509,10 +510,11 @@ const EmployerWorkDetail = (props) => {
                     })
                   }
                   style={{
-                    alignSelf: "center",
                     borderRadius: 10,
                     padding: 10,
                     backgroundColor: "#FFB6C1",
+                    alignSelf: "flex-start",
+                    marginTop: 10,
                   }}
                 >
                   <Text>Ирсэн анкет үзэх</Text>
@@ -525,7 +527,7 @@ const EmployerWorkDetail = (props) => {
           {!state.isCompany ? (
             <TouchableOpacity
               style={{
-                backgroundColor: "#2c3539",
+                backgroundColor: colors.urgentWork,
                 alignItems: "center",
                 borderRadius: 10,
                 marginHorizontal: 10,
@@ -534,7 +536,7 @@ const EmployerWorkDetail = (props) => {
             >
               <View
                 style={{
-                  backgroundColor: "#2c3539",
+                  backgroundColor: colors.urgentWork,
                   width: "90%",
                   alignItems: "center",
                   justifyContent: "center",
@@ -582,7 +584,7 @@ const EmployerWorkDetail = (props) => {
             <>
               <TouchableOpacity
                 style={{
-                  backgroundColor: "#2c3539",
+                  backgroundColor: colors.urgentWork,
                   alignItems: "center",
                   borderRadius: 10,
                   margin: 10,
@@ -594,7 +596,7 @@ const EmployerWorkDetail = (props) => {
               >
                 <View
                   style={{
-                    backgroundColor: "#2c3539",
+                    backgroundColor: colors.urgentWork,
                     width: "90%",
                     padding: 20,
                     alignItems: "center",

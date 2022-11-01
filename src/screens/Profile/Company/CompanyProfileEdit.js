@@ -1,14 +1,13 @@
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, ScrollView } from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { LinearGradient } from "expo-linear-gradient";
 import axios from "axios";
 import UserContext from "../../../context/UserContext";
 import moment from "moment";
 import { api } from "../../../../Constants";
 import FormText from "../../../components/FormText";
 import CompanyWorkerModal from "./CompanyWorkerModal";
-import MyButton from "../../../components/MyButton";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const CompanyProfileEdit = ({ route }) => {
   const { colors } = useTheme();
@@ -101,97 +100,100 @@ const CompanyProfileEdit = ({ route }) => {
       .catch((err) => alert(err));
   };
   return (
-    <View style={{ marginHorizontal: 20 }}>
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Байгууллагын тухай
-      </Text>
-      <FormText
-        value={companyProfile.about}
-        onChangeText={checkAbout}
-        errorText="Байгууллага мэдээлэл 2 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.about}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Веб хуудас
-      </Text>
-      <FormText
-        value={companyProfile.web}
-        onChangeText={checkWeb}
-        errorText="Байгууллага web 2 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.web}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Утасны дугаар
-      </Text>
-      <FormText
-        value={companyProfile.phone && companyProfile.phone.toString()}
-        onChangeText={checkPhone}
-        errorText="Утасны дугаар 6 аас дээш тоонд тогтоно."
-        errorShow={error.phone}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Ажилтаны тоо
-      </Text>
-      <TouchableOpacity
-        style={{
-          padding: 10,
-          borderWidth: 1,
-          borderRadius: 10,
-          borderColor: colors.border,
-          backgroundColor: colors.secondaryText,
-        }}
-        onPress={() => setMembersModal(true)}
-      >
-        {console.log(companyProfile)}
-        <Text
+    <KeyboardAwareScrollView>
+      <ScrollView style={{ marginHorizontal: 20 }}>
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Байгууллагын тухай
+        </Text>
+        <FormText
+          value={companyProfile.about}
+          onChangeText={checkAbout}
+          errorText="Байгууллага мэдээлэл 2 оос дээш тэмдэгтээс тогтоно."
+          errorShow={error.about}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Веб хуудас
+        </Text>
+        <FormText
+          value={companyProfile.web}
+          onChangeText={checkWeb}
+          errorText="Байгууллага web 2 оос дээш тэмдэгтээс тогтоно."
+          errorShow={error.web}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Утасны дугаар
+        </Text>
+        <FormText
+          value={companyProfile.phone && companyProfile.phone.toString()}
+          onChangeText={checkPhone}
+          errorText="Утасны дугаар 6 аас дээш тоонд тогтоно."
+          errorShow={error.phone}
+          keyboardType={"number-pad"}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Ажилтаны тоо
+        </Text>
+        <TouchableOpacity
           style={{
-            textAlign: "center",
+            padding: 10,
+            borderWidth: 1,
+            borderRadius: 10,
+            borderColor: colors.border,
+            backgroundColor: colors.secondaryText,
+          }}
+          onPress={() => setMembersModal(true)}
+        >
+          {console.log(companyProfile)}
+          <Text
+            style={{
+              textAlign: "center",
+            }}
+          >
+            {companyProfile.employerNumber === "null"
+              ? "Ажилтаны тоо"
+              : `${companyProfile.employerNumber} Ажилтантай`}
+          </Text>
+        </TouchableOpacity>
+
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Үүсгэн байгуулагдсан огноо
+        </Text>
+        <FormText
+          value={moment(companyProfile.createYear).format("YYYY")}
+          onChangeText={checkCreatedYear}
+          errorText="Үүсгэн байгуулагдсан огноо 4 оос дээш тэмдэгтээс тогтоно."
+          errorShow={error.createYear}
+        />
+        <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+          Хаяг байршил
+        </Text>
+        <FormText
+          value={companyProfile.location}
+          onChangeText={checkLocaiton}
+          errorText="Хаяг байршил 2 оос дээш тэмдэгтээс тогтоно."
+          errorShow={error.locaiton}
+        />
+        <TouchableOpacity
+          onPress={sendCompanyProfile}
+          style={{
+            alignSelf: "center",
+            backgroundColor: "#FFB6C1",
+            borderRadius: 10,
+            paddingHorizontal: 40,
+            marginTop: 20,
+            padding: 10,
           }}
         >
-          {companyProfile.employerNumber === "null"
-            ? "Ажилтаны тоо"
-            : `${companyProfile.employerNumber} Ажилтантай`}
-        </Text>
-      </TouchableOpacity>
-
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Үүсгэн байгуулагдсан огноо
-      </Text>
-      <FormText
-        value={moment(companyProfile.createYear).format("YYYY")}
-        onChangeText={checkCreatedYear}
-        errorText="Үүсгэн байгуулагдсан огноо 4 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.createYear}
-      />
-      <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-        Хаяг байршил
-      </Text>
-      <FormText
-        value={companyProfile.location}
-        onChangeText={checkLocaiton}
-        errorText="Хаяг байршил 2 оос дээш тэмдэгтээс тогтоно."
-        errorShow={error.locaiton}
-      />
-      <TouchableOpacity
-        onPress={sendCompanyProfile}
-        style={{
-          alignSelf: "center",
-          backgroundColor: "#FFB6C1",
-          borderRadius: 10,
-          paddingHorizontal: 40,
-          marginTop: 20,
-          padding: 10,
-        }}
-      >
-        <Text style={{ color: "black" }}> Хадгалах </Text>
-      </TouchableOpacity>
-      <CompanyWorkerModal
-        setMembersText={setMembersText}
-        membersModal={membersModal}
-        setMembersModal={setMembersModal}
-        checkMembers={checkMembers}
-      />
-    </View>
+          <Text style={{ color: "black" }}> Хадгалах </Text>
+        </TouchableOpacity>
+        <CompanyWorkerModal
+          setMembersText={setMembersText}
+          membersModal={membersModal}
+          setMembersModal={setMembersModal}
+          checkMembers={checkMembers}
+        />
+      </ScrollView>
+    </KeyboardAwareScrollView>
   );
 };
 

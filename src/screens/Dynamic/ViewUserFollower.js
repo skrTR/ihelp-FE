@@ -11,7 +11,7 @@ const ViewUserFollower = (props) => {
   const { colors } = useTheme();
   const getFollowerData = () => {
     axios
-      .get(`${api}/api/v1/follows/${id}/followers`)
+      .get(`${api}/api/v1/follows/${id}/followers?limit=1000`)
       .then((res) => {
         setFollowerData(res.data.data);
       })
@@ -31,7 +31,6 @@ const ViewUserFollower = (props) => {
             data={followerData}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) => {
-              console.log(item);
               return (
                 <View>
                   {item.followUser && (

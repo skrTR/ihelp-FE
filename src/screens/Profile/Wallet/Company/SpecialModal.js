@@ -104,8 +104,18 @@ const SpecialModal = (props) => {
                 navigation.goBack();
               })
               .catch((err) => {
-                alert(err.message);
-                console.log(err);
+                let message = err.message;
+
+                if (message === "Request failed with status code 404")
+                  message =
+                    "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+                else if (message === "Network Error")
+                  message =
+                    "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+                else {
+                  message === err.response.data.error.message;
+                }
+                Alert.alert(message);
               });
           },
         },

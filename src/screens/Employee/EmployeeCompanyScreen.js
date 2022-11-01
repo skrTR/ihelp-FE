@@ -4,6 +4,8 @@ import useNormalWork from "../../hooks/EmployeeHook/useNormalWork";
 import useSpecialWork from "../../hooks/EmployeeHook/useSpecialWork";
 import SpecialWork from "../../components/Employee/SpecialWork";
 import NormalWork from "../../components/Employee/NormalWork";
+import axios from "axios";
+import { api } from "../../../Constants";
 
 const EmployeeCompanyScreen = () => {
   const [specialWork, refreshing, setRefreshing] =

@@ -84,8 +84,15 @@ const UserInfluencerSearch = () => {
           data={filtered}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => {
-            return <UserData item={item} isFollowing={item.isFollowing} />;
+            return (
+              <UserData
+                item={item}
+                isFollowing={item.isFollowing}
+                status={`${item.profession} ${item.workingCompany}`}
+              />
+            );
           }}
+          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
           ListHeaderComponent={
             <>
               <Text
@@ -97,7 +104,7 @@ const UserInfluencerSearch = () => {
                   marginHorizontal: 10,
                 }}
               >
-                Идэвхжүүлэгч хайх
+                Инфлүүнсер хайх
               </Text>
             </>
           }

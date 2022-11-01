@@ -6,6 +6,7 @@ import {
   ImageBackground,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -37,6 +38,7 @@ const NetworkingScreen = ({ route }) => {
     getData();
     return () => {
       isMounted = false;
+      setJustRefresh(false);
     };
   }, [justRefresh, page]);
 
@@ -51,7 +53,7 @@ const NetworkingScreen = ({ route }) => {
           setMaxPage(res.data.pagination.pageCount);
         })
         .catch((err) => {
-          console.log(err.message);
+          Alert.alert(err.response.data.error.message);
         })
         .finally(() => {
           setLoading(false);
@@ -86,9 +88,8 @@ const NetworkingScreen = ({ route }) => {
   const handleRefresh = () => {
     setData([]);
     setPage(1);
-
-    setRefreshing(true);
     setJustRefresh(true);
+    setRefreshing(true);
   };
   useEffect(() => {
     if (route.params?.indexId) {

@@ -23,9 +23,7 @@ export default function App() {
     return null;
   }
   return (
-    <NavigationContainer
-      theme={colorScheme === "dark" ? darkTheme : lightTheme}
-    >
+    <NavigationContainer theme={colorScheme === "dark" ? darkTheme : darkTheme}>
       <RootSiblingParent>
         <UserStore>
           <StackNavigator />

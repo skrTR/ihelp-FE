@@ -1,4 +1,4 @@
-import { SafeAreaView, View, FlatList } from "react-native";
+import { SafeAreaView, View, FlatList, Alert } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import axios from "axios";
@@ -37,7 +37,7 @@ const ResultWorkModal = (props) => {
         // console.log(res.data.data, "data");
       })
       .catch((err) => {
-        console.log(err.message);
+        Alert.alert(err.response.data.error.message);
       });
   };
   useEffect(() => {

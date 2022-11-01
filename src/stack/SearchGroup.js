@@ -75,8 +75,12 @@ const SearchGroup = () => {
         <SearchStack.Screen
           name="UserSearch"
           component={UserSearch}
-          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          options={{
+            headerShown: false,
+            fullScreenGestureEnabled: true,
+          }}
         />
+
         <SearchStack.Screen
           name="UserInfluncerSearch"
           component={UserInfluncerSearch}

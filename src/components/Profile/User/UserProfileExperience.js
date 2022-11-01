@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from "react-native";
 import React from "react";
 import Border from "../../Border";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -68,7 +75,7 @@ const UserProfileExperience = ({ data }) => {
                         id: e._id,
                       });
                     } else {
-                      alert(
+                      Alert.alert(
                         "Хэрэглэгч өрөө оруулсан байгууллага тул профайл байхгүй байна"
                       );
                     }

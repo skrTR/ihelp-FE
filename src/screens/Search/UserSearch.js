@@ -1,5 +1,12 @@
-import { Text, View, FlatList, TextInput, useColorScheme } from "react-native";
-import React, { useState, useEffect, useContext } from "react";
+import {
+  Text,
+  View,
+  FlatList,
+  TextInput,
+  useColorScheme,
+  Animated,
+} from "react-native";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { api } from "../../../Constants";
@@ -16,6 +23,7 @@ const UserSearch = () => {
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   const colorScheme = useColorScheme();
+  const scrollY = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     fetchUser();
     return () => {};
@@ -79,11 +87,34 @@ const UserSearch = () => {
         }}
       />
       {filterData.length > 0 && (
-        <FlatList
+        <Animated.FlatList
           data={filtered.sort((a, b) => b.score - a.score)}
+          showsVerticalScrollIndicator={false}
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+            { useNativeDriver: true }
+          )}
           keyExtractor={(item, index) => index}
-          renderItem={({ item }) => {
-            return <UserData item={item} isFollowing={item.isFollowing} />;
+          renderItem={({ item, index }) => {
+            const inputRange = [-1, 0, 80 * index, 80 * (index + 2)];
+            const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)];
+            const scale = scrollY.interpolate({
+              inputRange,
+              outputRange: [1, 1, 1, 0],
+            });
+            const opacity = scrollY.interpolate({
+              inputRange: opacityInputRange,
+              outputRange: [1, 1, 1, 0],
+            });
+            return (
+              <Animated.View style={{ transform: [{ scale }], opacity }}>
+                <UserData
+                  item={item}
+                  isFollowing={item.isFollowing}
+                  status={`${item.profession} ${item.workingCompany}`}
+                />
+              </Animated.View>
+            );
           }}
           ListHeaderComponent={
             <>
@@ -100,6 +131,7 @@ const UserSearch = () => {
               </Text>
             </>
           }
+          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
         />
       )}
     </View>

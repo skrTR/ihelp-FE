@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -54,6 +55,7 @@ const EmployerAddWork = () => {
   const [typeModal, setTypeModal] = useState(false);
   const insents = useSafeAreaInsets();
   const [addWork, setAddWork] = useState({
+    title: "",
     occupation: "",
     education: "Сонгох",
     experience: "Сонгох",
@@ -77,6 +79,7 @@ const EmployerAddWork = () => {
     order: false,
     schedule: false,
     language: false,
+    title: false,
   });
   const [notification, setNotification] = useState([]);
   useEffect(() => {
@@ -91,23 +94,26 @@ const EmployerAddWork = () => {
       });
   }, []);
   const addNext = () => {
+    if (addWork.title.length < 1) {
+      return Alert.alert("Та заавал гарчиг өгнө үү");
+    }
     if (addWork.occupation.length < 1) {
-      return alert("Та мэргэжил заавал сонгоно уу");
+      return Alert.alert("Та мэргэжил заавал сонгоно уу");
     }
     if (addWork.education === "Сонгох") {
-      return alert("Та боловсрол заавал сонгоно уу");
+      return Alert.alert("Та боловсрол заавал сонгоно уу");
     }
     if (addWork.experience === "Сонгох") {
-      return alert("Та ажлын туршлага заавал сонгоно уу");
+      return Alert.alert("Та ажлын туршлага заавал сонгоно уу");
     }
     if (addWork.education === "Сонгох") {
-      return alert("Та цагийн төрөл заавал сонгоно уу");
+      return Alert.alert("Та цагийн төрөл заавал сонгоно уу");
     }
     if (addWork.salary === "Сонгох") {
-      return alert("Та цалин заавал сонгоно уу");
+      return Alert.alert("Та цалин заавал сонгоно уу");
     }
     if (addWork.gender === "Сонгох") {
-      return alert("Та хүйс заавал сонгоно уу");
+      return Alert.alert("Та хүйс заавал сонгоно уу");
     }
     setSpecialModal(true);
   };
@@ -200,6 +206,17 @@ const EmployerAddWork = () => {
       schedule: text,
     });
   };
+  const checkTitle = (text) => {
+    setError({
+      ...error,
+      title: text.length < 5,
+    });
+
+    setAddWork({
+      ...addWork,
+      title: text,
+    });
+  };
   const checkSalary = (text) => {
     setModalVisible(!modalVisible);
     setAddWork({
@@ -216,7 +233,7 @@ const EmployerAddWork = () => {
       keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
       behavior={"padding"}
     >
-      <View style={{}}>
+      <View style={{ backgroundColor: colors.header }}>
         <CompanyHeader isBack={true} notification={notification.notification} />
         {/* Агуулга */}
         <View style={{ backgroundColor: colors.background }}>
@@ -224,6 +241,19 @@ const EmployerAddWork = () => {
             style={{ marginHorizontal: 20 }}
             showsVerticalScrollIndicator={false}
           >
+            {/* Гарчиг */}
+            <>
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Зарын гарчиг
+              </Text>
+              <FormText
+                placeholder="Зарын гарчиг"
+                value={addWork.title}
+                onChangeText={checkTitle}
+                errorText="Зарын гарчиг урт 4-20 тэмдэгтээс тогтоно."
+                errorShow={error.location}
+              />
+            </>
             {/* Мэргэжил сонгох модал = occupation */}
             <>
               <Text style={[styles.textTitle, { color: colors.primaryText }]}>

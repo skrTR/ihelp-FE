@@ -115,9 +115,11 @@ const EmployeeData = (props) => {
           </ImageBackground>
 
           <View style={{ marginLeft: 10 }}>
-            <Text style={{ color: colors.primaryText }}>
-              {item.firstName} {item.isApproved && <Verify size={10} />}
-            </Text>
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Text style={{ color: colors.primaryText, width: "75%" }}>
+                {item.firstName} {item.isApproved && <Verify size={10} />}
+              </Text>
+            </View>
             {item.categoryName && (
               <Text
                 style={{

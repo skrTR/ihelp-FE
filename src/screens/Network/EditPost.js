@@ -9,6 +9,7 @@ import {
   ScrollView,
   Button,
   Dimensions,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -79,8 +80,7 @@ const EditPost = ({ route }) => {
         console.log(res.data);
       })
       .catch((err) => {
-        alert(err.message);
-        console.log(err.message);
+        Alert.alert(err.response.data.error.message);
       });
   };
   const handleUploadComplete = () => {

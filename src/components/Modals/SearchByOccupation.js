@@ -33,7 +33,9 @@ const SearchByOccupation = (props) => {
     return () => {};
   }, [refresh]);
   const fetchUser = () => {
-    const apiURL = `${api}/api/v1/occupations?select=id name&category=${categoryId}`;
+    const apiURL = `${api}/api/v1/occupations?select=id name${
+      categoryId ? `&category=${categoryId}` : ""
+    }`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {

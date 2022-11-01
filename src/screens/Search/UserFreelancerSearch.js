@@ -86,8 +86,15 @@ const UserFreelancerSearch = () => {
           data={filtered}
           keyExtractor={(item, index) => index}
           renderItem={({ item }) => {
-            return <UserData item={item} isFollowing={item.isFollowing} />;
+            return (
+              <UserData
+                item={item}
+                isFollowing={item.isFollowing}
+                status={`${item.profession} ${item.workingCompany}`}
+              />
+            );
           }}
+          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
           ListHeaderComponent={
             <>
               <Text

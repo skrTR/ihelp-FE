@@ -19,7 +19,7 @@ import Verify from "../../Verify";
 
 const fullWidth = Dimensions.get("screen").width;
 const fullHeight = Dimensions.get("screen").height;
-const UserProfileTop = ({ userProfile, isFollowing }) => {
+const UserProfileTop = ({ userProfile, isFollowing, status }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [following, setFollowing] = useState(isFollowing);
@@ -37,7 +37,17 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           // Alert.alert("Амжилттай дагахаа болилоо");
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     } else {
       setFollowing(true);
@@ -51,7 +61,17 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           // Alert.alert("Амжилттай дагалаа");
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     }
   };
@@ -106,10 +126,11 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
             </Text>
             <Text
               style={{
-                bottom: -3,
+                bottom: status.length > 25 ? -20 : -3,
                 position: "absolute",
                 fontFamily: "Sf-thin",
                 color: colors.secondaryText,
+                width: status.length > 25 ? fullWidth / 1.5 : fullWidth,
               }}
             >
               {userProfile.profession}{" "}
@@ -123,7 +144,7 @@ const UserProfileTop = ({ userProfile, isFollowing }) => {
           flexDirection: "row",
           marginHorizontal: 5,
           justifyContent: "space-between",
-          bottom: 30,
+          bottom: 25,
         }}
       >
         <TouchableOpacity

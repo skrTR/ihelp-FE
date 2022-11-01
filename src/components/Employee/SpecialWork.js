@@ -15,6 +15,7 @@ import axios from "axios";
 import UserContext from "../../context/UserContext";
 import moment from "moment";
 import DataCountDown from "./DataCountDown";
+import Verify from "../Verify";
 const SpecialWork = (props) => {
   const {
     id,
@@ -63,7 +64,17 @@ const SpecialWork = (props) => {
       })
       .catch((err) => {
         // alert(err);
-        console.log(err);
+        let message = err.message;
+
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   const liked = () => {
@@ -152,7 +163,7 @@ const SpecialWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-bold",
                 fontWeight: "bold",
-                width: "95%",
+                width: job.length > 10 ? "50%" : "95%",
               }}
             >
               {job}
@@ -167,13 +178,16 @@ const SpecialWork = (props) => {
                 fontSize: 14,
               }}
             >
-              {salary}₮
+              {salary === "1,000,000 хүртэлх"
+                ? "1,000,000₮ хүртэлх"
+                : `${salary}₮`}
             </Text>
             <Text
               style={{
                 color: colors.primaryText,
                 fontFamily: "Sf-regular",
                 fontWeight: "200",
+                width: "90%",
               }}
             >
               {`${occupation}  - `}
@@ -193,7 +207,7 @@ const SpecialWork = (props) => {
             onPress={() =>
               navigation.navigate("BoostEmployeeWork", {
                 id: id,
-                type: "Special",
+                type: "2",
               })
             }
           >

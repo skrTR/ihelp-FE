@@ -65,7 +65,17 @@ const NormalWork = (props) => {
       })
       .catch((err) => {
         // alert(err);
-        console.log(err);
+        let message = err.message;
+
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   const liked = () => {
@@ -181,6 +191,7 @@ const NormalWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-regular",
                 fontWeight: "200",
+                width: "90%",
               }}
             >
               {occupation && `${occupation}  - `}
@@ -203,7 +214,7 @@ const NormalWork = (props) => {
             onPress={() =>
               navigation.navigate("BoostEmployeeWork", {
                 id: id,
-                type: "Normal",
+                type: "1",
               })
             }
           >

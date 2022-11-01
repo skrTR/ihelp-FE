@@ -41,12 +41,24 @@ const CvGroup = () => {
         <CvStack.Screen
           name="ViewUserFollower"
           component={ViewUserFollower}
-          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          options={{
+            headerShown: true,
+            // presentation: "formSheet",
+            title: "Дагагч",
+            headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
+          }}
         />
         <CvStack.Screen
           name="ViewUserFollowings"
           component={ViewUserFollowings}
-          options={{ headerShown: false, fullScreenGestureEnabled: true }}
+          options={{
+            headerShown: true,
+            // presentation: "formSheet",
+            title: "Дагасан",
+            headerLeft: () => <MyBackButton />,
+            fullScreenGestureEnabled: true,
+          }}
         />
         <CvStack.Screen
           name="ViewUserPosts"

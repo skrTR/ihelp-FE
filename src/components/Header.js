@@ -26,7 +26,16 @@ const Header = (props) => {
         setUser(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
+        let message = err.message;
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   const getCvs = () => {
@@ -36,7 +45,16 @@ const Header = (props) => {
         setUser(res.data.data);
       })
       .catch((err) => {
-        console.log(err);
+        let message = err.message;
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   useEffect(() => {
@@ -120,49 +138,7 @@ const Header = (props) => {
             size={30}
             color={colors.primaryText}
             onPress={() => {
-              if (state.isCompany) {
-                if (user && user.isApproved) {
-                  navigation.navigate("EmployeeAddWork");
-                } else {
-                  Alert.alert(
-                    "",
-                    "Та эхлээд манай компанитай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
-                    [
-                      {
-                        text: "Буцах",
-                        style: "cancel",
-                      },
-                      {
-                        text: "Холбоо барих",
-                        onPress: () => Linking.openURL("tel:+976 77555255"),
-                      },
-                    ]
-                  );
-                }
-              } else if (!state.isCompany) {
-                if (user && user.score > 79) {
-                  navigation.navigate("EmployeeAddWork");
-                } else {
-                  Alert.alert(
-                    "Анхаар",
-                    "Та өөрийн анкетыг 80%-с дээш бөглөснөөр өөрт тохирох зарыг үзэх боломжтой",
-                    [
-                      {
-                        text: "Үгүй",
-                        style: "cancel",
-                      },
-                      {
-                        text: "Анкет янзлах",
-                        onPress: () =>
-                          navigation.navigate("ProfileStack", {
-                            screen: "CreateCvScreen",
-                            params: { id: state.userId },
-                          }),
-                      },
-                    ]
-                  );
-                }
-              }
+              navigation.navigate("EmployeeAddWork");
             }}
           />
         ) : isNotification ? (

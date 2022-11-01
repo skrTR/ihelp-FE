@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Alert, SafeAreaView, ScrollView, Text, View } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useTheme } from "@react-navigation/native";
 import useUserProfile from "../../hooks/ProfileDetail/User/useUserProfile";
@@ -31,7 +31,7 @@ const ViewUserProfile = (props) => {
         setActivityData(res.data.data);
       })
       .catch((err) => {
-        console.log(err.message, "aaa12");
+        Alert.alert(err.response.data.error.message);
       });
   };
 
@@ -58,15 +58,16 @@ const ViewUserProfile = (props) => {
         <UserProfileTop
           userProfile={userProfile}
           isFollowing={userProfile.isFollowing}
+          status={`${userProfile.profession} ${userProfile.workingCompany}`}
         />
         <View style={{ bottom: 10 }}>
-          <UserProfileAbout about={userProfile.about} />
+          {userProfile.about && <UserProfileAbout about={userProfile.about} />}
           <Border />
           {cv.experience.length > 0 && (
             <UserProfileExperience data={cv.experience} />
           )}
           {cv.course.length > 0 && <UserProfileCourse data={cv.course} />}
-
+          {console.log(userProfile.portfolio)}
           {userProfile.portfolio && (
             <Portfolio
               image1={userProfile.portfolio.image1}

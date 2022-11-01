@@ -185,9 +185,15 @@ const CompanyAnnoucements = (props) => {
               style={{ textAlign: "right", marginRight: 10 }}
             />
           </View>
-          {state.isCompany ? (
-            state.companyId
-          ) : state.userId === data.createUser ? (
+          {state.userId === data.createUser ? (
+            <DataCountDown
+              createdAt={
+                data.isSpecial ? data.special : data.order ? data.order : null
+              }
+              text={"3арын дуусах хугацаа"}
+            />
+          ) : null}
+          {state.companyId === data.createUser ? (
             <DataCountDown
               createdAt={
                 data.isSpecial ? data.special : data.order ? data.order : null

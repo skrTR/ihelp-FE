@@ -86,7 +86,7 @@ const ExperienceAddModal = (props) => {
       .then((res) => {
         navigation.goBack();
       })
-      .catch((err) => console.log(err.message));
+      .catch((err) => Alert.alert(err.response.data.error.message));
   };
   const checkLocation = (text) => {
     setProvinceModal(!provinceModal);

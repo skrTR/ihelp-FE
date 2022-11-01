@@ -136,6 +136,7 @@ const CourseSchoolModal = (props) => {
               ItemSeparatorComponent={ItemSeparatorView}
               renderItem={ItemView}
               showsVerticalScrollIndicator={false}
+              ListFooterComponent={<View style={{ marginBottom: 200 }} />}
             />
           ) : (
             <TouchableOpacity
@@ -149,7 +150,7 @@ const CourseSchoolModal = (props) => {
                 setCourse({
                   ...course,
                   school: search,
-                  schoolPhoto: "photo_62429a7c4a8b192ee41485fb.jpg",
+                  schoolPhoto: "building.jpg",
                 });
               }}
             >

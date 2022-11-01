@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 export default () => {
   const [normalCompany, setNormalCompany] = useState([]);
@@ -13,7 +14,7 @@ export default () => {
     setNormalCompanyLoading(true);
     axios
       .get(
-        `${api}/api/v1/profiles/unspecials/employer?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing categoryName&isApproved=true`
+        `${api}/api/v1/profiles/unspecials/employer?select=firstName jobNumber isApproved profile isEmployer isEmployee isFollowing categoryName&isApproved=true&limit=1000`
       )
       .then((result) => {
         if (isMounted) {
@@ -30,6 +31,10 @@ export default () => {
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
         setNormalCompanyError(message);
         setNormalCompanyLoading(false);
       });

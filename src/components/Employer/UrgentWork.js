@@ -28,6 +28,7 @@ const UrgentWork = (props) => {
     urgent,
     salary,
     createUserId,
+    title,
   } = props;
 
   const navigation = useNavigation();
@@ -117,7 +118,6 @@ const UrgentWork = (props) => {
     <View
       style={{
         backgroundColor: colors.urgentWork,
-        backgroundColor: "#F9E79F",
         marginHorizontal: 5,
         paddingVertical: 5,
         marginVertical: 4,
@@ -196,7 +196,8 @@ const UrgentWork = (props) => {
                 width: "95%",
               }}
             >
-              {occupation}
+              {/* {occupation} */}
+              {title ? title : occupation}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
@@ -216,6 +217,7 @@ const UrgentWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-regular",
                 fontWeight: "200",
+                width: "95%",
               }}
             >
               {type} - {createUserName}

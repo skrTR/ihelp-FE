@@ -28,7 +28,7 @@ const EmployeeResultSort = (props) => {
         console.log(res.data.data, "data");
       })
       .catch((err) => {
-        console.log(err.message);
+        Alert.alert(err.response.data.error.message);
       });
   };
   useEffect(() => {

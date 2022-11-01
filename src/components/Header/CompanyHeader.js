@@ -147,23 +147,7 @@ const CompanyHeader = (props) => {
               color={colors.primaryText}
               style={{ alignSelf: "flex-end" }}
               onPress={() => {
-                companyProfile.isApproved
-                  ? navigation.navigate("EmployerAddWork")
-                  : Alert.alert(
-                      "",
-                      "Та эхлээд манай байгууллагатай гэрээ байгуулснаар ажлын зар оруулах эрх үүсэхийг анхаарна уу",
-                      [
-                        {
-                          text: "Буцах",
-                          onPress: () => console.log("Cancel Pressed"),
-                          style: "cancel",
-                        },
-                        {
-                          text: "Холбоо барих",
-                          onPress: () => Linking.openURL("tel:+976 77555255"),
-                        },
-                      ]
-                    );
+                navigation.navigate("EmployerAddWork");
               }}
             />
           ) : isEmployeeAddWork ? (

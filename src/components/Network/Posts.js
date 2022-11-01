@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import React, { useState, useContext, useEffect, setTimeout } from "react";
 import { api } from "../../../Constants";
@@ -64,7 +65,7 @@ const Posts = (props) => {
           setCounter(counter - 1);
         })
         .catch((err) => {
-          console.log(err.message);
+          Alert.alert(err.response.data.error.message);
           // alert(err.response.data);
         });
     } else {

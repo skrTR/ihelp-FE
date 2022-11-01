@@ -65,7 +65,7 @@ const EmployeeGroup = () => {
           name="BoostEmployeeWork"
           component={BoostEmployeeWork}
           options={{
-            headerShown: false,
+            headerShown: true,
             // presentation: "formSheet",
             fullScreenGestureEnabled: true,
             title: "Идэвхжүүлэх",

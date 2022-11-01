@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 export default () => {
   const [specialWork, setSpecialWork] = useState([]);
@@ -27,6 +28,10 @@ export default () => {
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
         setSpecialError(message);
         setSpecialLoading(false);
       });

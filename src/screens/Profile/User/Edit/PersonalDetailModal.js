@@ -6,6 +6,7 @@ import {
   Switch,
   KeyboardAvoidingView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -81,7 +82,7 @@ const PersonalDetailModal = (props) => {
         setLoading(false);
       })
       .catch((err) => {
-        alert(err.message);
+        Alert.alert(err.response.data.error.message);
         setLoading(false);
       });
   };

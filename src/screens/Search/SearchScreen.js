@@ -1,46 +1,22 @@
 import {
-  Alert,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useContext, useEffect, useState } from "react";
-import UserContext from "../../context/UserContext";
+import React from "react";
 import Header from "../../components/Header";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import CompanyHeader from "../../components/Header/CompanyHeader";
-import axios from "axios";
-import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 const SearchScreen = () => {
-  const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const [score, setScore] = useState();
   const insents = useSafeAreaInsets();
-  const getScore = () => {
-    axios
-      .get(`${api}/api/v1/questionnaires/${state.userId}?select=score`)
-      .then((res) => {
-        setScore(res.data.data.score);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    getScore();
-  }, []);
+
   return (
     <>
       <View style={{ backgroundColor: colors.header, paddingTop: insents.top }}>
-        {/* {state.isCompany ? (
-          <CompanyHeader isNotification={true} isFollowedCompany={true} />
-        ) : (
-          <Header isFollowedCompany={true} />
-        )} */}
         <Header isFollowedCompany={true} isNotification={true} />
         <ScrollView style={{ backgroundColor: colors.background }}>
           <View
@@ -86,7 +62,7 @@ const SearchScreen = () => {
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
-                Идэвхжүүлэгч
+                Инфлүүнсер
               </Text>
             </TouchableOpacity>
             <TouchableOpacity

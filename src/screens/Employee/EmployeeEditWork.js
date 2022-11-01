@@ -86,7 +86,7 @@ const EmployeeAddWork = (props) => {
                 Alert.alert("Амжилтай устлаа");
               })
               .catch((err) => {
-                console.log(err.message);
+                Alert.alert(err.response.data.error.message);
               });
           },
         },

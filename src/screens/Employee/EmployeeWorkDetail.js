@@ -160,6 +160,7 @@ const EmployeeWorkDetail = (props) => {
                     fontWeight: "bold",
                     color: colors.primaryText,
                     fontFamily: "Sf-bold",
+                    width: "90%",
                   }}
                 >
                   {workDetail.firstName}

@@ -11,6 +11,7 @@ const EmployerWorkScreen = () => {
   const [urgentWork, refreshing, setRefreshing] = useUrgentWork();
   const [specialWork] = useSpecialWork();
   const [normalWork] = useNormalWork();
+
   const handleRefresh = () => {
     setRefreshing(true);
   };
@@ -35,6 +36,7 @@ const EmployerWorkScreen = () => {
                   salary={data.salary}
                   isSentCv={data.isSentCv}
                   createUserId={data.createUser}
+                  title={data.title}
                 />
               </View>
             );
@@ -53,6 +55,7 @@ const EmployerWorkScreen = () => {
                   salary={data.salary}
                   createUserId={data.createUser}
                   special={data.special}
+                  title={data.title}
                 />
               </View>
             );
@@ -75,6 +78,7 @@ const EmployerWorkScreen = () => {
               salary={item.salary}
               createUserId={item.createUser}
               order={item.order}
+              title={item.title}
             />
           </>
         );

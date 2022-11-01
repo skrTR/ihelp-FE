@@ -60,8 +60,15 @@ const ProductUsePoint = ({ route }) => {
         })
         .catch((err) => {
           let message = err.message;
-          console.log(message);
-          setLoading(false);
+          if (message === "Request failed with status code 404") {
+            message = "Уучлаарай сэрвэр дахин ажилуулана уу";
+          } else if (message === "Network Error") {
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          } else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     }
     () => {

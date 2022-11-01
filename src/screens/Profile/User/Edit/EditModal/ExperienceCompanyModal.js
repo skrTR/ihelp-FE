@@ -153,7 +153,7 @@ const ExperienceCompanyModal = (props) => {
                 setExperience({
                   ...experience,
                   company: search,
-                  companyPhoto: "photo_62429a7c4a8b192ee41485fb.jpg",
+                  companyPhoto: "building.jpg",
                 });
               }}
             >

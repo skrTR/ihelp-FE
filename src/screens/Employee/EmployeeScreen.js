@@ -67,7 +67,7 @@ const EmployeeScreen = () => {
                       ? colors.background
                       : "white"
                     : !isFocused
-                    ? "#cccccccc"
+                    ? "white"
                     : "#2c3539",
                 justifyContent: "center",
               }}

@@ -10,15 +10,11 @@ const Verify = (props) => {
         backgroundColor: colors.primary,
         borderRadius: 50,
         alignItems: "center",
-        padding: 2,
+        justifyContent: "center",
+        ...props.style,
       }}
     >
-      <AntDesign
-        name="check"
-        size={props.size}
-        color={colors.primaryText}
-        style={{ alignItems: "center" }}
-      />
+      <AntDesign name="check" size={props.size} color={colors.primaryText} />
     </View>
   );
 };

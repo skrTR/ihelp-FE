@@ -27,6 +27,7 @@ const NormalWork = (props) => {
     isEmployer,
     createUserId,
     order,
+    title,
   } = props;
 
   const navigation = useNavigation();
@@ -161,7 +162,7 @@ const NormalWork = (props) => {
                 width: "95%",
               }}
             >
-              {occupation}
+              {title ? title : occupation}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
@@ -180,6 +181,7 @@ const NormalWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-regular",
                 fontWeight: "200",
+                width: "80%",
               }}
             >
               {type} - {createUserName}

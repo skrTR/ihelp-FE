@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Image,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -23,7 +24,17 @@ const QpayModal = ({ route }) => {
         setBanks(res.data.data.urls);
       })
       .catch((err) => {
-        alert(err.message);
+        let message = err.message;
+
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   useEffect(() => {

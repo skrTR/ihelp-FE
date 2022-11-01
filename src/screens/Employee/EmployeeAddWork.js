@@ -151,6 +151,16 @@ const EmployeeAddWork = () => {
             showsVerticalScrollIndicator={false}
           >
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+              Гарчиг
+            </Text>
+            <FormText
+              placeholder="Гарчиг"
+              value={addWork.do}
+              onChangeText={checkDo}
+              errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
+              errorShow={error.do}
+            />
+            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Чиглэл сонгох
             </Text>
             <MyButton
@@ -158,16 +168,6 @@ const EmployeeAddWork = () => {
                 occupationName === "" ? "Чиглэл сонгох" : `${occupationName}`
               }
               onPress={() => setCategoryModal(true)}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Үндсэн үйлчилгээ
-            </Text>
-            <FormText
-              placeholder="Үндсэн үйлчилгээ"
-              value={addWork.do}
-              onChangeText={checkDo}
-              errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.do}
             />
             <Text style={[styles.textTitle, { color: colors.primaryText }]}>
               Туршлага

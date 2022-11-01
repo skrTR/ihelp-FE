@@ -184,18 +184,26 @@ const CompanyJobs = (props) => {
               style={{ textAlign: "right", marginRight: 10 }}
             />
           </View>
-          {state.isCompany ? (
-            state.companyId
-          ) : state.userId === data.createUser ? (
+          {state.userId === data.createUser ? (
             <DataCountDown
               createdAt={
                 data.isUrgent
                   ? data.urgent
                   : data.isSpecial
                   ? data.special
-                  : data.order
-                  ? data.order
-                  : null
+                  : data.order && data.order
+              }
+              text={"3арын дуусах хугацаа"}
+            />
+          ) : null}
+          {state.companyId === data.createUser ? (
+            <DataCountDown
+              createdAt={
+                data.isUrgent
+                  ? data.urgent
+                  : data.isSpecial
+                  ? data.special
+                  : data.order && data.order
               }
               text={"3арын дуусах хугацаа"}
             />

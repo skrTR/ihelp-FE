@@ -17,30 +17,7 @@ const CompanySettingModal = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [loading, setLoading] = useState(false);
-  const [companyProfile, setCompanyProfile] = useState(null);
-  let isMounted = true;
-  const loadCompanyProfile = () => {
-    axios
-      .get(
-        `${api}/api/v1/profiles/${state.companyId}?select=isEmployee isEmployer`
-      )
-      .then((res) => {
-        if (isMounted) {
-          setCompanyProfile(res.data.data);
-        }
-        console.log(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  useEffect(() => {
-    loadCompanyProfile();
-    return () => {
-      isMounted = false;
-    };
-  }, []);
   const companyExit = () => {
     state.logout();
   };
@@ -102,9 +79,7 @@ const CompanySettingModal = () => {
       </View>
     );
   }
-  if (!companyProfile) {
-    return null;
-  }
+
   return (
     <View style={{ marginHorizontal: 20, flex: 1 }}>
       {/* Oruulsan ajliin zar  */}

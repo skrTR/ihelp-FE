@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ImageBackground,
+  Alert,
 } from "react-native";
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -32,7 +33,17 @@ const DynamicFollower = (props) => {
           console.log(res.data.data);
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     } else {
       setFollow(true);
@@ -46,7 +57,17 @@ const DynamicFollower = (props) => {
           console.log(res.data.data);
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     }
   };
@@ -131,10 +152,10 @@ const DynamicFollower = (props) => {
               </Text>
               <Text
                 style={{
-                  marginVertical: 5,
                   marginLeft: 10,
                   color: colors.primaryText,
                   fontFamily: "Sf-thin",
+                  width: "70%",
                 }}
               >
                 {followUser.category}
@@ -201,6 +222,8 @@ const DynamicFollower = (props) => {
             alignContent: "center",
             padding: 10,
             width: 100,
+            position: "absolute",
+            right: 0,
           }}
         />
       </View>

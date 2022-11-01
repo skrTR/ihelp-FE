@@ -17,6 +17,7 @@ const EmployeeWorkScreen = () => {
     <>
       <FlatList
         showsVerticalScrollIndicator={false}
+        style={{ height: "100%" }}
         ListHeaderComponent={
           <>
             {specialWork.map((data) => {

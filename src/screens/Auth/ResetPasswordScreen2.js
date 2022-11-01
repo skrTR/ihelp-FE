@@ -45,7 +45,6 @@ const ResetPasswordScreen2 = (props) => {
         });
       })
       .catch((err) => {
-        console.log(err.message);
         Alert.alert(err.response.data.error.message);
       });
   };
@@ -56,7 +55,6 @@ const ResetPasswordScreen2 = (props) => {
         console.log(res.data);
       })
       .catch((err) => {
-        console.log(err.message);
         Alert.alert(err.response.data.error.message);
       });
   };

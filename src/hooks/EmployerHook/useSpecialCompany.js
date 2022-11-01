@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../Constants";
 import { useIsFocused } from "@react-navigation/native";
+import { Alert } from "react-native";
 
 export default () => {
   const [specialCompany, setSpecialCompany] = useState([]);
@@ -12,7 +13,7 @@ export default () => {
   const SpecialCompanyData = () => {
     setSpecialCompanyLoading(true);
     axios
-      .get(`${api}/api/v1/profiles/specials/employer`)
+      .get(`${api}/api/v1/profiles/specials/employer?limit=1000`)
       .then((result) => {
         if (isMounted) {
           setSpecialCompany(result.data.data);
@@ -22,12 +23,15 @@ export default () => {
       })
       .catch((err) => {
         let message = err.message;
-
         if (message === "Request failed with status code 404")
           message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
         setSpecialCompanyError(message);
         setSpecialCompanyLoading(false);
       });

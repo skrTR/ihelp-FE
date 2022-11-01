@@ -5,6 +5,7 @@ import {
   Image,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -43,7 +44,17 @@ const CvDetailScreen = (props) => {
         setFamily(res.data.data.family);
       })
       .catch((err) => {
-        console.log(err);
+        let message = err.message;
+
+        if (message === "Request failed with status code 404")
+          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+        else if (message === "Network Error")
+          message =
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
       });
   };
   useEffect(() => {
@@ -457,7 +468,7 @@ const CvDetailScreen = (props) => {
                             }}
                           >
                             {" "}
-                            {moment(e.start).format("YYYY-MM-DD")}
+                            {moment(e.start).format("YYYY")}
                           </Text>
                         </Text>
                         {e.isWorking ? (
@@ -488,7 +499,7 @@ const CvDetailScreen = (props) => {
                                 }}
                               >
                                 {" "}
-                                {moment(e.end).format("YYYY-MM-DD")}
+                                {moment(e.end).format("YYYY")}
                               </Text>
                             </Text>
                             <Text
@@ -621,7 +632,7 @@ const CvDetailScreen = (props) => {
                             }}
                           >
                             {" "}
-                            {moment(e.start).format("YYYY-MM-DD")}
+                            {moment(e.start).format("YYYY")}
                           </Text>
                         </Text>
 
@@ -642,7 +653,7 @@ const CvDetailScreen = (props) => {
                               }}
                             >
                               {" "}
-                              {moment(e.end).format("YYYY-MM-DD")}
+                              {moment(e.end).format("YYYY")}
                             </Text>
                           </Text>
                         ) : (

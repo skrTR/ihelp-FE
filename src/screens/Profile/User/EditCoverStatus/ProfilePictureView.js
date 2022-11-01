@@ -51,9 +51,9 @@ const ProfilePictureView = ({ route }) => {
   };
   const uploadProfileImage = async () => {
     const xhr = new XMLHttpRequest();
-    const fileExt = profileImage.substring(profileImage.lastIndexOf(".") + 1);
     xhr.addEventListener("load", (event) => handleUploadComplete(event));
     xhr.upload.addEventListener("progress", handleUploadProgress);
+    const fileExt = profileImage.substring(profileImage.lastIndexOf(".") + 1);
     const formData = new FormData();
     formData.append("file", {
       uri: profileImage,

@@ -120,7 +120,7 @@ const SpecialModal = (props) => {
                 });
               })
               .catch((err) => {
-                alert(err.message);
+                Alert.alert(err.response.data.error.message);
                 console.log(err);
               });
           },
@@ -301,7 +301,8 @@ const SpecialModal = (props) => {
                       width: "95%",
                     }}
                   >
-                    {occupationName}
+                    {/* {occupationName} */}
+                    {data.title}
                     {/* Борлуулалт мэдээлэлийн ажилтан */}
                   </Text>
 

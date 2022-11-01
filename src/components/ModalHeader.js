@@ -16,7 +16,7 @@ const ModalHeader = (props) => {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={props.clicked}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <AntDesign name="left" color={colors.primaryText} size={30} />
         </TouchableOpacity>
         <Text

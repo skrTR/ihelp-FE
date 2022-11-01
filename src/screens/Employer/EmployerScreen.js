@@ -113,7 +113,9 @@ const EmployerScreen = () => {
       </View>
     );
   }
-
+  if (error === "Request failed with status code 401") {
+    state.logout();
+  }
   return (
     <View
       style={{

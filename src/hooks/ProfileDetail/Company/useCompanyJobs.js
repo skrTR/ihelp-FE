@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { api } from "../../../../Constants";
+import { Alert } from "react-native";
 
 export default (companyId) => {
   const [companyJobs, setCompanyJobs] = useState([]);
@@ -26,6 +27,10 @@ export default (companyId) => {
         else if (message === "Network Error")
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        else {
+          message === err.response.data.error.message;
+        }
+        Alert.alert(message);
         setErrorMessage(message);
         setLoading(false);
       });

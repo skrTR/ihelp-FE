@@ -15,7 +15,7 @@ import FollowButton from "../../FollowButton";
 const UserData = (props) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
-  const { isFollowing, item } = props;
+  const { isFollowing, item, status } = props;
   const state = useContext(UserContext);
   const [follow, setFollow] = useState(isFollowing);
   const onFollow = () => {
@@ -90,11 +90,17 @@ const UserData = (props) => {
 
           <View style={{ marginLeft: 10 }}>
             <Text style={{ color: colors.primaryText }}>
-              {item.lastName} {item.firstName}{" "}
+              {item.lastName} {item.firstName}
               {item.isApproved && <Verify size={10} />}
             </Text>
-            <Text style={{ color: colors.secondaryText }}>
-              {item.profession && `${item.profession}`}
+
+            <Text
+              style={{
+                color: colors.secondaryText,
+                width: status.length > 25 ? "60%" : "100%",
+              }}
+            >
+              {item.profession && `${item.profession}`}{" "}
               {item.workingCompany && `@${item.workingCompany}`}
             </Text>
           </View>

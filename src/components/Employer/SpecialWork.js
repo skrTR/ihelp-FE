@@ -29,6 +29,7 @@ const SpecialWork = (props) => {
     salary,
     createUserId,
     special,
+    title,
   } = props;
 
   const navigation = useNavigation();
@@ -160,7 +161,7 @@ const SpecialWork = (props) => {
                 width: "95%",
               }}
             >
-              {occupation}
+              {title ? title : occupation}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
             </Text>
 
@@ -179,6 +180,7 @@ const SpecialWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-regular",
                 fontWeight: "200",
+                width: "90%",
               }}
             >
               {type} - {createUserName}

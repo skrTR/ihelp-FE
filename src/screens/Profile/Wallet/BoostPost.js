@@ -14,7 +14,7 @@ import axios from "axios";
 import { api } from "../../../../Constants";
 import UserContext from "../../../context/UserContext";
 import { LinearGradient } from "expo-linear-gradient";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, AntDesign } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 const BoostPost = (props) => {
   const { data } = props.route.params;
@@ -41,7 +41,10 @@ const BoostPost = (props) => {
         } else if (message === "Network Error") {
           message =
             "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+        } else {
+          message === err.response.data.error.message;
         }
+        Alert.alert(message);
       });
   };
   function numFormatter(num) {

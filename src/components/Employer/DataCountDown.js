@@ -38,7 +38,6 @@ const DataCountDown = ({ createdAt, text, owner }) => {
           </Text>
           <CountDown
             until={totalDuration}
-            // timetoShow={("H", "M", "S")}
             size={12}
             digitStyle={{
               backgroundColor: owner ? "#2c3539" : "#FAB913",

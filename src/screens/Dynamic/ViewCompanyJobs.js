@@ -26,6 +26,11 @@ const ViewCompanyJobs = (props) => {
   const sortedData = sorted2
     ? sorted2.sort((a, b) => b.isUrgent - a.isUrgent)
     : [];
+  var sorted_meetings = companyAnnoucement
+    .sort((a, b) => {
+      return new Date(a.special).getTime() - new Date(b.special).getTime();
+    })
+    .reverse();
   return (
     <ScrollView>
       <View style={{ flexDirection: "row" }}>
@@ -121,26 +126,15 @@ const ViewCompanyJobs = (props) => {
           })}
         </>
       ) : (
-        // <>
-        //   {companyAnnoucement.map((data) => {
-        //     return (
-        //       <View key={data._id}>
-        //         <CompanyAnnoucements
-        //           id={data._id}
-        //           createUserName={data.firstName}
-        //           createUserProfile={data.profile}
-        //           isEmployer={data.isEmployer}
-        //           isEmployee={data.isEmployee}
-        //           occupation={data.occupationName}
-        //           type={data.do}
-        //           salary={data.price}
-        //           order={data.order}
-        //         />
-        //       </View>
-        //     );
-        //   })}
-        // </>
-        <Empty text="Тун удахгүй" />
+        <>
+          {sorted_meetings.map((data) => {
+            return (
+              <View key={data._id}>
+                <CompanyAnnoucements data={data} id={data._id} />
+              </View>
+            );
+          })}
+        </>
       )}
     </ScrollView>
   );

@@ -120,7 +120,7 @@ const ViewCompanyProfile = (props) => {
                 borderColor: "#cccccccc",
                 backgroundColor:
                   colorScheme === "dark"
-                    ? isType
+                    ? !isType
                       ? colors.background
                       : "white"
                     : isType
@@ -161,7 +161,7 @@ const ViewCompanyProfile = (props) => {
                 borderColor: "#cccccccc",
                 backgroundColor:
                   colorScheme === "dark"
-                    ? !isType
+                    ? isType
                       ? colors.background
                       : "white"
                     : !isType

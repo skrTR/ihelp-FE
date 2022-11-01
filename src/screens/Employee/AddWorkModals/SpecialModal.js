@@ -113,8 +113,7 @@ const SpecialModal = (props) => {
                 console.log(res.data.data);
               })
               .catch((err) => {
-                alert(err.message);
-                console.log(err);
+                Alert.alert(err.response.data.error.message);
               });
           },
         },

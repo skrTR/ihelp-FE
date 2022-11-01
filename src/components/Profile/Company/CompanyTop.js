@@ -123,6 +123,7 @@ const CompanyTop = (props) => {
                 color: colors.primaryText,
                 fontWeight: "bold",
                 fontSize: 18,
+                width: name.length > 10 ? "70%" : "100%",
               }}
             >
               {name} {isApproved && <Verify size={13} />}

@@ -54,7 +54,17 @@ const CompanyTop = (props) => {
           // Alert.alert("Амжилттай дагахаа болилоо");
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     } else {
       setFollowing(true);
@@ -68,7 +78,17 @@ const CompanyTop = (props) => {
           // Alert.alert("Амжилттай дагалаа");
         })
         .catch((err) => {
-          console.log(err);
+          let message = err.message;
+
+          if (message === "Request failed with status code 404")
+            message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
+          else if (message === "Network Error")
+            message =
+              "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
+          else {
+            message === err.response.data.error.message;
+          }
+          Alert.alert(message);
         });
     }
   };
@@ -115,6 +135,7 @@ const CompanyTop = (props) => {
                 color: colors.primaryText,
                 fontWeight: "bold",
                 fontSize: 18,
+                width: name.length > 10 ? "70%" : "100%",
               }}
             >
               {name}{" "}
@@ -198,7 +219,11 @@ const CompanyTop = (props) => {
                 alignSelf: "center",
               }}
             >
-              <Ionicons name={"briefcase"} size={18} color={"white"} />
+              <Ionicons
+                name={"briefcase"}
+                size={18}
+                color={colors.primaryText}
+              />
               <Text
                 style={{
                   fontSize: 12,
@@ -223,68 +248,58 @@ const CompanyTop = (props) => {
             justifyContent: "space-around",
           }}
         >
-          {!state.isCompany && (
-            <>
-              {data.isEmployer && (
-                <TouchableOpacity
-                  style={{
-                    backgroundColor: colors.button,
-                    paddingVertical: 2,
-                    alignItems: "center",
-                    justifyContent: "center",
-                    borderRadius: 10,
-                    flex: 0.66,
-                  }}
-                  onPress={() => {
-                    navigation.navigate("EmployerSendWorkModal", {
-                      id: id,
-                      isSentCv: data.isSentCv,
-                    });
-                  }}
-                >
-                  {/* Профайл янзлах */}
-                  <Text
-                    style={{
-                      color: "black",
-                      fontSize: 12,
-                    }}
-                  >
-                    Анкет илгээх
-                  </Text>
-                </TouchableOpacity>
-              )}
-            </>
-          )}
-
-          {data.isEmployee && (
-            <TouchableOpacity
+          <TouchableOpacity
+            style={{
+              backgroundColor: colors.button,
+              paddingVertical: 2,
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 10,
+              flex: 0.66,
+            }}
+            onPress={() => {
+              navigation.navigate("EmployerSendWorkModal", {
+                id: id,
+                isSentCv: data.isSentCv,
+              });
+            }}
+          >
+            {/* Профайл янзлах */}
+            <Text
               style={{
-                backgroundColor: colors.button,
-                marginHorizontal: 5,
-                paddingVertical: 2,
-                alignItems: "center",
-                borderRadius: 10,
-                flex: 0.66,
-                justifyContent: "center",
+                color: "black",
+                fontSize: 12,
               }}
-              onPress={() =>
-                navigation.navigate("CompanySendWorkRequest", { id: id })
-              }
             >
-              {/* Профайл янзлах */}
+              Анкет илгээх
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              backgroundColor: colors.button,
+              marginHorizontal: 5,
+              paddingVertical: 2,
+              alignItems: "center",
+              borderRadius: 10,
+              flex: 0.66,
+              justifyContent: "center",
+            }}
+            onPress={() =>
+              navigation.navigate("CompanySendWorkRequest", { id: id })
+            }
+          >
+            {/* Профайл янзлах */}
 
-              <Text
-                style={{
-                  textAlign: "center",
-                  color: "black",
-                  fontSize: 12,
-                }}
-              >
-                Ажлын санал тавих
-              </Text>
-            </TouchableOpacity>
-          )}
-
+            <Text
+              style={{
+                textAlign: "center",
+                color: "black",
+                fontSize: 12,
+              }}
+            >
+              Ажлын санал тавих
+            </Text>
+          </TouchableOpacity>
           {/* Тохиргоо */}
           <FollowButton
             onPress={onFollow}
