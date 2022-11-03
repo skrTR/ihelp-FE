@@ -1,18 +1,10 @@
-import {
-  StyleSheet,
-  TextInput,
-  useColorScheme,
-  View,
-  InputAccessoryView,
-  Button,
-} from "react-native";
+import { StyleSheet, TextInput, useColorScheme } from "react-native";
 import React from "react";
 import { useTheme } from "@react-navigation/native";
 
 const SearchTextInput = (props) => {
   const colorScheme = useColorScheme();
   const { colors } = useTheme();
-  const inputAccessoryViewID = "uniqueID";
   return (
     <>
       <TextInput
@@ -21,7 +13,6 @@ const SearchTextInput = (props) => {
         onChangeText={(text) => props.searchFilter(text)}
         placeholderTextColor={colorScheme === "dark" ? "#cccccccc" : "grey"}
         returnKeyType={"search"}
-        inputAccessoryViewID={inputAccessoryViewID}
         returnKeyLabel={"Хайх"}
         style={{
           backgroundColor: colors.border,
@@ -32,9 +23,6 @@ const SearchTextInput = (props) => {
           color: colors.primaryText,
         }}
       />
-      <InputAccessoryView nativeID={inputAccessoryViewID}>
-        <Button onPress={() => props.searchFilter("")} title="Цэвэрлэх" />
-      </InputAccessoryView>
     </>
   );
 };

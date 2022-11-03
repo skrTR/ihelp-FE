@@ -69,17 +69,17 @@ const UserProfileExperience = ({ data }) => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={() => {
-                    if (e.companyId !== null) {
-                      navigation.navigate("ViewCompanyProfile", {
-                        id: e._id,
-                      });
-                    } else {
-                      Alert.alert(
-                        "Хэрэглэгч өрөө оруулсан байгууллага тул профайл байхгүй байна"
-                      );
-                    }
-                  }}
+                // onPress={() => {
+                //   if (e.companyId !== null) {
+                //     navigation.navigate("ViewCompanyProfile", {
+                //       id: e._id,
+                //     });
+                //   } else {
+                //     Alert.alert(
+                //       "Хэрэглэгч өрөө оруулсан байгууллага тул профайл байхгүй байна"
+                //     );
+                //   }
+                // }}
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.companyPhoto}` }}

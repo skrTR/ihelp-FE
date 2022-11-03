@@ -97,11 +97,15 @@ const EmployeeWorkDetail = (props) => {
               borderRadius: 10,
               marginTop: 10,
             }}
-            onPress={() =>
-              navigation.navigate("ViewCompanyProfile", {
-                id: workDetail.createUser,
-              })
-            }
+            onPress={() => {
+              workDetail.organization
+                ? navigation.navigate("ViewCompanyProfile", {
+                    id: workDetail.createUser,
+                  })
+                : navigation.navigate("ViewUserProfile", {
+                    id: workDetail.createUser,
+                  });
+            }}
           >
             <View
               style={{

@@ -1,4 +1,10 @@
-import { StyleSheet, View, FlatList, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useTheme } from "@react-navigation/native";
@@ -13,6 +19,9 @@ const CvScreen = () => {
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [point, setPoint] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [maxPage, setMaxPage] = useState();
   const insents = useSafeAreaInsets();
   let isMounted = true;
   const getPermision = () => {
@@ -28,18 +37,22 @@ const CvScreen = () => {
       });
   };
   const getCvs = () => {
+    setIsLoading(true);
+
     axios
       .get(
-        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences education gender occupation experienceYear occupationName&limit=1000`
+        `${api}/api/v1/questionnaires?select=workingCompany working profession firstName lastName profile score experienceCount familyCount courseCount achievementCount birth createUser salaryExpectation experiences education gender occupation experienceYear occupationName&limit=10&sort=-score&page=${currentPage}`
       )
       .then((res) => {
         if (isMounted) {
-          setCvData(res.data.data);
-          console.log(res.data.data);
+          setCvData([...cvData, ...res.data.data]);
+          setMaxPage(res.data.pagination.pageCount);
         }
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   };
   useEffect(() => {
@@ -48,7 +61,19 @@ const CvScreen = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [currentPage]);
+  const renderLoader = () => {
+    return (
+      <View style={{ marginBottom: 50 }}>
+        {isLoading ? <ActivityIndicator size="large" color="#FFB6C1" /> : null}
+      </View>
+    );
+  };
+  const loadMoreItem = () => {
+    if (maxPage > currentPage) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
   if (!point) {
     return null;
   }
@@ -64,12 +89,14 @@ const CvScreen = () => {
       {point.point > 1000 ? (
         <View style={{ backgroundColor: colors.background }}>
           <FlatList
-            data={cvData.sort((a, b) => b.score - a.score)}
+            data={cvData}
             keyExtractor={(item, index) => index}
             renderItem={({ item }) => {
               return <Cvs item={item} />;
             }}
-            ListFooterComponent={<View style={{ marginBottom: 100 }} />}
+            ListFooterComponent={renderLoader}
+            onEndReachedThreshold={0}
+            onEndReached={loadMoreItem}
           />
         </View>
       ) : (

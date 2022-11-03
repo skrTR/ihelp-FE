@@ -17,8 +17,9 @@ const SortResultModal = (props) => {
     }${education ? `&education=${education}` : ""}${
       experience ? `&experience=${experience}` : ""
     }${gender ? `&gender=${gender}` : ""}${
-      occupationId ? `&occupations=${occupationId}` : ""
+      occupationId ? `&occupation=${occupationId}` : ""
     }`;
+    console.log(apis);
     axios
       .get(
         `${api}/api/v1/questionnaires?limit=1000${
@@ -26,7 +27,7 @@ const SortResultModal = (props) => {
         }${education ? `&education=${education}` : ""}${
           experience ? `&experienceYear=${experience}` : ""
         }${gender ? `&gender=${gender}` : ""}${
-          occupationId ? `&occupations=${occupationId}` : ""
+          occupationId ? `&occupation=${occupationId}` : ""
         }`
       )
       .then((res) => {

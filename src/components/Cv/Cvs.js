@@ -67,16 +67,14 @@ const Cvs = ({ item, needApply, applyId }) => {
               </Text>
               <>
                 {item.profession !== "" && (
-                  <View style={{ flexDirection: "row" }}>
-                    <Text
-                      style={{
-                        fontSize: 15,
-                        color: colors.primaryText,
-                      }}
-                    >
-                      {" "}
-                      {item.profession}
-                    </Text>
+                  <Text
+                    style={{
+                      fontSize: 15,
+                      color: colors.primaryText,
+                      width: "80%",
+                    }}
+                  >
+                    {item.profession}{" "}
                     {item.workingCompany !== null && (
                       <Text
                         style={{
@@ -87,7 +85,7 @@ const Cvs = ({ item, needApply, applyId }) => {
                         @{item.workingCompany}
                       </Text>
                     )}
-                  </View>
+                  </Text>
                 )}
               </>
               {item.education && (

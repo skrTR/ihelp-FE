@@ -19,6 +19,7 @@ const SalaryModal = (props) => {
         <ModalHeader text="Цалин" clicked={() => setModalVisible(false)} />
         <View style={{ marginHorizontal: 10 }}>
           {[
+            "Байхгүй",
             "400,000 - 600,000",
             "600,000 - 800,000",
             "800,000 - 1,000,000",

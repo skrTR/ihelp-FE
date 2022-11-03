@@ -22,6 +22,7 @@ import SpecialModal from "./AddWorkModals/SpecialModal";
 // Modals
 import SearchWorkByCateogry from "../../components/Modals/SearchWorkByCateogry";
 import SearchByOccupation from "../../components/Modals/SearchByOccupation";
+import Loading from "../../components/Loading";
 
 const EmployeeAddWork = (props) => {
   const { data } = props.route.params;
@@ -30,6 +31,7 @@ const EmployeeAddWork = (props) => {
   const [specialModal, setSpecialModal] = useState(false);
   const navigation = useNavigation();
   const insents = useSafeAreaInsets();
+  const [loading, setLoading] = useState(false);
   // Мэргэжил сонгох
   const [occupationModal, setOccupationModal] = useState(false);
   const [occupationName, setOccupationName] = useState("");
@@ -53,15 +55,17 @@ const EmployeeAddWork = (props) => {
     if (addWork.time === "Сонгох") {
       return alert("Зарцуулах цаг хугацаа сонгоно уу");
     }
-
+    setLoading(true);
     axios
       .put(`${api}/api/v1/announcements/${data._id}`, addWork)
       .then((res) => {
         navigation.navigate("EmployeeStack", { screen: "EmployeeScreen" });
+        setLoading(false);
         Alert.alert("Амжилтай");
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   };
   const deleteWork = () => {
@@ -77,15 +81,18 @@ const EmployeeAddWork = (props) => {
         {
           text: "Тийм",
           onPress: () => {
+            setLoading(true);
             axios
               .delete(`${api}/api/v1/announcements/${data._id}`)
               .then((res) => {
                 navigation.navigate("EmployeeStack", {
                   screen: "EmployeeScreen",
                 });
+                setLoading(false);
                 Alert.alert("Амжилтай устлаа");
               })
               .catch((err) => {
+                setLoading(false);
                 Alert.alert(err.response.data.error.message);
               });
           },
@@ -194,102 +201,109 @@ const EmployeeAddWork = (props) => {
     >
       <View style={{ backgroundColor: colors.background }}>
         <CompanyHeader isBack={true} notification={notification.notification} />
-        <View style={{ backgroundColor: colors.background }}>
-          <ScrollView
-            style={{ marginHorizontal: 20 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Чиглэл сонгох
-            </Text>
-            <MyButton
-              text={
-                occupationName === ""
-                  ? data.occupationName
-                  : `${occupationName}`
-              }
-              onPress={() => setCategoryModal(true)}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Үндсэн үйлчилгээ
-            </Text>
-            <FormText
-              placeholder="Үндсэн үйлчилгээ"
-              value={addWork.do}
-              onChangeText={checkDo}
-              errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.do}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Туршлага
-            </Text>
-            <FormText
-              placeholder="Туршлага"
-              value={addWork.experience}
-              onChangeText={checkExperience}
-              errorText="Туршлага урт 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.experience}
-            />
-
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Үнийн санал
-            </Text>
-            <MyButton
-              text={price === "" ? data.price : price}
-              onPress={checkPrice}
-            />
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Зарцуулах цаг хугацаа
-            </Text>
-            <MyButton
-              text={time === "" ? data.time : time}
-              onPress={checkTime}
-            />
-
-            <Text style={[styles.textTitle, { color: colors.primaryText }]}>
-              Нэмэлт тайлбар
-            </Text>
-            <FormText
-              placeholder="Нэмэлт тайлбар"
-              value={addWork.description}
-              onChangeText={checkDescription}
-              errorText="Нэмэлт тайлбар урт 4-20 тэмдэгтээс тогтоно."
-              errorShow={error.description}
-            />
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: "#FFB6C1",
-                padding: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: colors.border,
-                marginTop: 10,
-              }}
-              onPress={sendWork}
+        {loading ? (
+          <Loading />
+        ) : (
+          <View style={{ backgroundColor: colors.background }}>
+            <ScrollView
+              style={{ marginHorizontal: 20 }}
+              showsVerticalScrollIndicator={false}
             >
-              <Text style={{ textAlign: "center", color: "black" }}>
-                Нийтлэх
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Чиглэл сонгох
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: colors.background,
-                padding: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: colors.border,
-                marginTop: 10,
-              }}
-              onPress={deleteWork}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                Устгах
+              <MyButton
+                text={
+                  occupationName === ""
+                    ? data.occupationName
+                    : `${occupationName}`
+                }
+                onPress={() => setCategoryModal(true)}
+              />
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Үндсэн үйлчилгээ
               </Text>
-            </TouchableOpacity>
-            <View style={{ marginBottom: 200 }} />
-          </ScrollView>
-        </View>
+              <FormText
+                placeholder="Үндсэн үйлчилгээ"
+                value={addWork.do}
+                onChangeText={checkDo}
+                errorText="Үндсэн үйлчилгээ урт 4-20 тэмдэгтээс тогтоно."
+                errorShow={error.do}
+              />
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Туршлага
+              </Text>
+              <FormText
+                placeholder="Туршлага"
+                value={addWork.experience}
+                onChangeText={checkExperience}
+                errorText="Туршлага урт 4-20 тэмдэгтээс тогтоно."
+                errorShow={error.experience}
+              />
+
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Үнийн санал
+              </Text>
+              <MyButton
+                text={price === "" ? data.price : price}
+                onPress={checkPrice}
+              />
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Зарцуулах цаг хугацаа
+              </Text>
+              <MyButton
+                text={time === "" ? data.time : time}
+                onPress={checkTime}
+              />
+
+              <Text style={[styles.textTitle, { color: colors.primaryText }]}>
+                Нэмэлт тайлбар
+              </Text>
+              <FormText
+                placeholder="Нэмэлт тайлбар"
+                value={addWork.description}
+                onChangeText={checkDescription}
+                errorText="Нэмэлт тайлбар урт 4-20 тэмдэгтээс тогтоно."
+                errorShow={error.description}
+              />
+
+              <TouchableOpacity
+                style={{
+                  backgroundColor: "#FFB6C1",
+                  padding: 10,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: colors.border,
+                  marginTop: 10,
+                }}
+                onPress={sendWork}
+              >
+                <Text style={{ textAlign: "center", color: "black" }}>
+                  Нийтлэх
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: colors.background,
+                  padding: 10,
+                  borderWidth: 1,
+                  borderRadius: 10,
+                  borderColor: colors.border,
+                  marginTop: 10,
+                }}
+                onPress={deleteWork}
+              >
+                <Text
+                  style={{ textAlign: "center", color: colors.primaryText }}
+                >
+                  Устгах
+                </Text>
+              </TouchableOpacity>
+              <View style={{ marginBottom: 200 }} />
+            </ScrollView>
+          </View>
+        )}
+
         {/* Мэргэжил сонгох */}
         <SearchWorkByCateogry
           setCategoryModal={setCategoryModal}

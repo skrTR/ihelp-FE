@@ -1,12 +1,5 @@
-import {
-  Text,
-  View,
-  FlatList,
-  TextInput,
-  useColorScheme,
-  Animated,
-} from "react-native";
-import React, { useState, useEffect, useContext, useRef } from "react";
+import { View } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { api } from "../../../Constants";
@@ -14,6 +7,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
 import SearchTextInput from "../../components/SearchTextInput";
+import BigList from "react-native-big-list";
 const UserSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -22,15 +16,12 @@ const UserSearch = () => {
   const [search, setSearch] = useState("");
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
-  const colorScheme = useColorScheme();
-  const scrollY = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     fetchUser();
     return () => {};
   }, []);
   const fetchUser = () => {
-    // const apiURL = `${api}/api/v1/cvs`;
-    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&limit=1000`;
+    const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&limit=10000&sort=-isApproved -createdAt`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
@@ -43,10 +34,10 @@ const UserSearch = () => {
   };
   const searchFilter = (text) => {
     const newData = masterData.filter((item) => {
-      const itemData = item.lastName
-        ? item.lastName.toUpperCase()
+      const itemData = item.firstName
+        ? item.firstName.toUpperCase()
         : "".toUpperCase();
-      item.lastName ? item.lastName.toUpperCase() : "".toUpperCase();
+      item.firstName ? item.firstName.toUpperCase() : "".toUpperCase();
       const textData = text.toUpperCase();
       return itemData.indexOf(textData) > -1;
     });
@@ -61,6 +52,14 @@ const UserSearch = () => {
   const filtered = filterData.filter((obj) => {
     return obj.id !== state.userId;
   });
+  const renderItem = ({ item, index }) => (
+    <UserData
+      item={item}
+      isFollowing={item.isFollowing}
+      status={`${item.profession} ${item.workingCompany}`}
+    />
+  );
+  const renderFooter = () => <View style={{ marginBottom: 100 }} />;
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
       <View
@@ -83,57 +82,16 @@ const UserSearch = () => {
         style={{
           borderWidth: 1,
           borderColor: colors.border,
-          marginVertical: 10,
+          marginTop: 10,
         }}
       />
-      {filterData.length > 0 && (
-        <Animated.FlatList
-          data={filtered.sort((a, b) => b.score - a.score)}
-          showsVerticalScrollIndicator={false}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-            { useNativeDriver: true }
-          )}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item, index }) => {
-            const inputRange = [-1, 0, 80 * index, 80 * (index + 2)];
-            const opacityInputRange = [-1, 0, 80 * index, 80 * (index + 2)];
-            const scale = scrollY.interpolate({
-              inputRange,
-              outputRange: [1, 1, 1, 0],
-            });
-            const opacity = scrollY.interpolate({
-              inputRange: opacityInputRange,
-              outputRange: [1, 1, 1, 0],
-            });
-            return (
-              <Animated.View style={{ transform: [{ scale }], opacity }}>
-                <UserData
-                  item={item}
-                  isFollowing={item.isFollowing}
-                  status={`${item.profession} ${item.workingCompany}`}
-                />
-              </Animated.View>
-            );
-          }}
-          ListHeaderComponent={
-            <>
-              <Text
-                style={{
-                  color: colors.primaryText,
-                  fontFamily: "Sf-bold",
-                  fontSize: 20,
-                  marginBottom: 10,
-                  marginHorizontal: 10,
-                }}
-              >
-                Хэрэглэгч хайх
-              </Text>
-            </>
-          }
-          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
-        />
-      )}
+      <BigList
+        data={filtered}
+        renderItem={renderItem}
+        itemHeight={65}
+        footerHeight={100}
+        renderFooter={renderFooter}
+      />
     </View>
   );
 };

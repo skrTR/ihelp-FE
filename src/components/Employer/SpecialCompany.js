@@ -9,15 +9,13 @@ import {
 import React, { useContext, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
-import { Ionicons, AntDesign } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
 import moment from "moment";
 import FollowButton from "../FollowButton";
-import Verify from "../Verify";
 const SpecialCompany = (props) => {
   const { data, isFollowing } = props;
-  console.log(data);
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
@@ -76,7 +74,10 @@ const SpecialCompany = (props) => {
   return (
     <View
       style={{
-        backgroundColor: colors.specialWork,
+        backgroundColor:
+          moment(data.special).format() < moment().format()
+            ? colors.background
+            : colors.specialWork,
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
@@ -84,6 +85,8 @@ const SpecialCompany = (props) => {
         marginHorizontal: 10,
         borderRadius: 10,
         marginVertical: 4,
+        borderWidth: moment(data.special).format() < moment().format() ? 1 : 0,
+        borderColor: colors.border,
       }}
       key={data._id}
     >
@@ -137,7 +140,13 @@ const SpecialCompany = (props) => {
           )}
         </ImageBackground>
         <View style={{ marginLeft: 10 }}>
-          <Text style={{ color: colors.primaryText, fontWeight: "bold" }}>
+          <Text
+            style={{
+              color: colors.primaryText,
+              fontWeight: "bold",
+              width: "80%",
+            }}
+          >
             {data.firstName}
           </Text>
           {data.categoryName && (
@@ -169,9 +178,7 @@ const SpecialCompany = (props) => {
             navigation.navigate("BoostSpecialCompany");
           }}
         >
-          <Text style={{ color: "black" }}>
-            {data.employerSpecial && "Cунгах"}
-          </Text>
+          <Text style={{ color: "black" }}>{data.special && "Тохиргоо"}</Text>
         </TouchableOpacity>
       ) : (
         <FollowButton

@@ -73,8 +73,8 @@ const BoostSpecialCompany = (props) => {
           text: "Зөвшөөрөх",
           onPress: () => {
             axios
-              .put(`${api}/api/v1/profiles/special/employer`, {
-                employerSpecial:
+              .put(`${api}/api/v1/profiles/special`, {
+                special:
                   dates === 1
                     ? 30
                     : dates === 2
@@ -225,14 +225,28 @@ const BoostSpecialCompany = (props) => {
               }}
             />
           </View>
-          <Text
-            style={{ color: colors.primaryText, margin: 10, fontWeight: "200" }}
-          >
-            Үлдсэн хугацаа:{" "}
-            <Text>
-              {moment(companyProfile.employerSpecial).format("YYYY-MM-DD")}
+          {moment(companyProfile.special).format() > moment().format() ? (
+            <Text
+              style={{
+                color: colors.primaryText,
+                margin: 10,
+                fontWeight: "200",
+              }}
+            >
+              Үлдсэн хугацаа:{" "}
+              <Text>{moment(companyProfile.special).format("YYYY-MM-DD")}</Text>
             </Text>
-          </Text>
+          ) : (
+            <Text
+              style={{
+                color: colors.primaryText,
+                margin: 10,
+                fontWeight: "200",
+              }}
+            >
+              Идэвхжээгүй
+            </Text>
+          )}
         </View>
         <>
           <TouchableOpacity

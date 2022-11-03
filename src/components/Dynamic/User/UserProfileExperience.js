@@ -41,9 +41,9 @@ const UserProfileExperience = ({ data }) => {
                 }}
               >
                 <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("ViewCompanyProfile", { id: e._id })
-                  }
+                // onPress={() =>
+                //   navigation.navigate("ViewCompanyProfile", { id: e._id })
+                // }
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.companyPhoto}` }}

@@ -41,9 +41,9 @@ const UserProfileCourse = ({ data }) => {
             >
               <View style={{ flexDirection: "row", marginHorizontal: 20 }}>
                 <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate("ViewCompanyProfile", { id: e._id })
-                  }
+                // onPress={() =>
+                //   navigation.navigate("ViewCompanyProfile", { id: e._id })
+                // }
                 >
                   <Image
                     source={{ uri: `${api}/upload/${e.schoolPhoto}` }}

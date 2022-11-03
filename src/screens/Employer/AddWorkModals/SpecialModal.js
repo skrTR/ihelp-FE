@@ -96,6 +96,7 @@ const SpecialModal = (props) => {
                 skill: data.skill,
                 language: data.language,
                 schedule: data.schedule,
+                title: data.title,
                 order:
                   isTypes === 1 && dates === 1
                     ? 7
@@ -115,13 +116,16 @@ const SpecialModal = (props) => {
                 urgent: isTypes === 3 && chooses,
               })
               .then((res) => {
+                setSpecialModal(false);
                 navigation.navigate("EmployerStack", {
                   screen: "EmployerScreen",
                 });
+                Alert.alert("Амжилтай");
               })
               .catch((err) => {
-                Alert.alert(err.response.data.error.message);
-                console.log(err);
+                // Alert.alert(err.response.data.error.message);
+                console.log(err.message);
+                setSpecialModal(false);
               });
           },
         },

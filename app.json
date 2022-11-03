@@ -17,7 +17,7 @@
     ],
     "name": "ihelp",
     "slug": "ihelphr",
-    "version": "0.3.2",
+    "version": "0.3.3",
     "orientation": "portrait",
     "icon": "./assets/logo.png",
     "userInterfaceStyle": "automatic",
@@ -41,7 +41,7 @@
     },
 
     "android": {
-      "versionCode": 21,
+      "versionCode": 22,
       "package": "mn.ihelphrnovelist",
       "permissions": ["CAMERA", "WRITE_EXTERNAL_STORAGE", "CAMERA_ROLL"],
       "adaptiveIcon": {

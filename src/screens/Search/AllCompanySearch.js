@@ -43,7 +43,6 @@ const AllCompanySearch = () => {
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
-        console.log(responseJson);
       })
       .catch((error) => {
         alert(error);
