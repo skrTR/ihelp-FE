@@ -7,6 +7,7 @@ import {
   Alert,
   TextInput,
   ScrollView,
+  ImageBackground,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -44,7 +45,7 @@ const EditStatusModal = (props) => {
   };
   return (
     <ScrollView keyboardShouldPersistTaps={"handled"}>
-      <Image
+      <ImageBackground
         source={{
           uri: `${api}/upload/${data.profile}`,
         }}
@@ -52,12 +53,25 @@ const EditStatusModal = (props) => {
           height: 150,
           width: 150,
           alignSelf: "center",
-          borderRadius: 100,
-          resizeMode: "contain",
           marginTop: 50,
           marginBottom: 20,
+          borderRadius: 100,
         }}
-      />
+        imageStyle={{ borderRadius: 100, resizeMode: "cover" }}
+      >
+        <Image
+          style={{ width: 160, height: 160, bottom: 5, right: 5 }}
+          source={
+            data.status === "lookingForJob"
+              ? require("../../../../../assets/looking.png")
+              : data.status === "opentowork"
+              ? require("../../../../../assets/open.png")
+              : data.status === "getEmployee"
+              ? require("../../../../../assets/hiring.png")
+              : null
+          }
+        />
+      </ImageBackground>
       <Text
         style={{
           color: colors.primaryText,
@@ -172,7 +186,9 @@ const EditStatusModal = (props) => {
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
           onPress={() =>
-            navigation.navigate("ProfilePictureView", { photo: data.profile })
+            navigation.navigate("ProfilePictureView", {
+              photo: data.profile,
+            })
           }
         >
           <SimpleLineIcons
@@ -199,7 +215,10 @@ const EditStatusModal = (props) => {
         <TouchableOpacity
           style={{ flexDirection: "row", alignItems: "center", marginTop: 20 }}
           onPress={() => {
-            navigation.navigate("ProfilePictureFrame", { photo: data.profile });
+            navigation.navigate("ProfilePictureFrame", {
+              photo: data.profile,
+              status: data.status,
+            });
           }}
         >
           <SimpleLineIcons name="frame" size={28} color={colors.primaryText} />

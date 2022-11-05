@@ -15,10 +15,10 @@ import axios from "axios";
 import UserContext from "../../../../context/UserContext";
 import { api } from "../../../../../Constants";
 const ProfilePictureFrame = ({ route }) => {
-  const { photo } = route.params;
+  const { photo, status } = route.params;
   const { colors } = useTheme();
   const state = useContext(UserContext);
-  const [statusText, setStatusText] = useState("null");
+  const [statusText, setStatusText] = useState(status ? status : "null");
   const navigation = useNavigation();
   const postStatus = () => {
     axios
@@ -64,6 +64,7 @@ const ProfilePictureFrame = ({ route }) => {
           />
         )}
       </ImageBackground>
+      {console.log(statusText)}
       <View style={{ marginTop: 50 }}>
         <View
           style={{
@@ -189,19 +190,18 @@ const ProfilePictureFrame = ({ route }) => {
         </ScrollView>
         <TouchableOpacity
           style={{
-            backgroundColor: statusText !== "null" ? "#FFB6C1" : colors.border,
+            backgroundColor: "#FFB6C1",
             padding: 10,
             borderRadius: 10,
             alignSelf: "center",
             marginVertical: 20,
           }}
-          disabled={statusText !== "null" ? false : true}
           onPress={postStatus}
         >
           <Text
             style={{
               fontSize: 18,
-              color: statusText !== "null" ? "black" : colors.secondaryText,
+              color: "black",
               paddingHorizontal: 10,
             }}
           >

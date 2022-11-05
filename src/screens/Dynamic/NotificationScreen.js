@@ -16,6 +16,7 @@ import moment from "moment";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Header from "../../components/Header";
+import Empty from "../../components/Empty";
 
 const NotificationScreen = () => {
   const state = useContext(UserContext);
@@ -49,7 +50,7 @@ const NotificationScreen = () => {
       }}
     >
       <Header isBack={true} />
-      <FlatList
+      {/* <FlatList
         data={notifData}
         keyExtractor={(item, index) => index}
         showsVerticalScrollIndicator={false}
@@ -127,7 +128,8 @@ const NotificationScreen = () => {
             </>
           );
         }}
-      />
+      /> */}
+      <Empty text={"Уучлаарай засвар хийгдэж байна"} />
     </View>
   );
 };
