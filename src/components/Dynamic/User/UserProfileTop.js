@@ -126,11 +126,11 @@ const UserProfileTop = ({ userProfile, isFollowing, status }) => {
             </Text>
             <Text
               style={{
-                bottom: status.length > 25 ? -20 : -3,
+                bottom: status.length > 30 ? -20 : -3,
                 position: "absolute",
                 fontFamily: "Sf-thin",
                 color: colors.secondaryText,
-                width: status.length > 25 ? fullWidth / 1.5 : fullWidth,
+                width: status.length > 30 ? fullWidth / 1.5 : fullWidth,
               }}
             >
               {userProfile.profession}{" "}

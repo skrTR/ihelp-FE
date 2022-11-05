@@ -67,8 +67,7 @@ const ViewUserProfile = (props) => {
             <UserProfileExperience data={cv.experience} />
           )}
           {cv.course.length > 0 && <UserProfileCourse data={cv.course} />}
-          {console.log(userProfile.portfolio)}
-          {userProfile.portfolio && (
+          {userProfile.portfolio && userProfile.portfolio.image1 !== "1" ? (
             <Portfolio
               image1={userProfile.portfolio.image1}
               image2={userProfile.portfolio.image2}
@@ -77,7 +76,7 @@ const ViewUserProfile = (props) => {
               image5={userProfile.portfolio.image5}
               image6={userProfile.portfolio.image6}
             />
-          )}
+          ) : null}
 
           {activityData.length > 0 && (
             <>

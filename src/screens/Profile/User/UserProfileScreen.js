@@ -72,7 +72,7 @@ const UserProfileScreen = () => {
               }
             />
           )}
-          <UserProfileAbout about={userProfile.about} />
+          {userProfile.about && <UserProfileAbout about={userProfile.about} />}
           <Border />
           {cv.experience.length === 0 ? (
             <EmptyData
@@ -112,7 +112,7 @@ const UserProfileScreen = () => {
               marginVertical: 10,
             }}
           />
-          {userProfile.portfolio ? (
+          {userProfile.portfolio && userProfile.portfolio.image1 !== "1" ? (
             <Portfolio
               image1={userProfile.portfolio.image1}
               image2={userProfile.portfolio.image2}
@@ -139,61 +139,69 @@ const UserProfileScreen = () => {
               marginBottom: 10,
             }}
           />
-          <Text
-            style={{
-              color: colors.primaryText,
-              marginHorizontal: 10,
-              fontFamily: "Sf-bold",
-              fontSize: 20,
-            }}
-          >
-            Оруулсан нийтлэл
-          </Text>
-          {activityData.map((item) => {
-            return (
-              <View key={item._id} style={{}}>
-                {item.createUser && (
-                  <Posts
-                    postId={item._id}
-                    createUserId={item.createUser}
-                    createUserProfile={item.profile}
-                    createUserStatus={item.status}
-                    firstName={item.firstName}
-                    lastName={item.lastName}
-                    profession={item.profession}
-                    workingCompany={item.workingCompany}
-                    createdAt={item.createdAt}
-                    body={item.body}
-                    photo={item.photo}
-                    isShared={item.isShare}
-                    sharedUserFirstName={
-                      item.shareInfo && item.shareInfo.firstName
-                    }
-                    sharedUserLastName={
-                      item.shareInfo && item.shareInfo.lastName
-                    }
-                    sharedUserProfile={item.shareInfo && item.shareInfo.profile}
-                    sharedId={item.shareInfo && item.shareInfo.createUser}
-                    sharedCreatedAt={item.shareInfo && item.shareInfo.createdAt}
-                    sharedBody={item.shareInfo && item.shareInfo.body}
-                    sharedPhoto={item.shareInfo && item.shareInfo.photo}
-                    sharedUserProfession={
-                      item.shareInfo && item.shareInfo.profession
-                    }
-                    sharedUserWorkingCompany={
-                      item.shareInfo && item.shareInfo.workingCompany
-                    }
-                    likeCount={item.like}
-                    commentCount={item.comment}
-                    shareCount={item.share}
-                    isLiked={item.isLiked}
-                    isCompany={item.organization}
-                    isBoost={item.isBoost}
-                  />
-                )}
-              </View>
-            );
-          })}
+          {activityData.length > 0 ? (
+            <>
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  marginHorizontal: 10,
+                  fontFamily: "Sf-bold",
+                  fontSize: 20,
+                }}
+              >
+                Оруулсан нийтлэл
+              </Text>
+              {activityData.map((item) => {
+                return (
+                  <View key={item._id} style={{}}>
+                    {item.createUser && (
+                      <Posts
+                        postId={item._id}
+                        createUserId={item.createUser}
+                        createUserProfile={item.profile}
+                        createUserStatus={item.status}
+                        firstName={item.firstName}
+                        lastName={item.lastName}
+                        profession={item.profession}
+                        workingCompany={item.workingCompany}
+                        createdAt={item.createdAt}
+                        body={item.body}
+                        photo={item.photo}
+                        isShared={item.isShare}
+                        sharedUserFirstName={
+                          item.shareInfo && item.shareInfo.firstName
+                        }
+                        sharedUserLastName={
+                          item.shareInfo && item.shareInfo.lastName
+                        }
+                        sharedUserProfile={
+                          item.shareInfo && item.shareInfo.profile
+                        }
+                        sharedId={item.shareInfo && item.shareInfo.createUser}
+                        sharedCreatedAt={
+                          item.shareInfo && item.shareInfo.createdAt
+                        }
+                        sharedBody={item.shareInfo && item.shareInfo.body}
+                        sharedPhoto={item.shareInfo && item.shareInfo.photo}
+                        sharedUserProfession={
+                          item.shareInfo && item.shareInfo.profession
+                        }
+                        sharedUserWorkingCompany={
+                          item.shareInfo && item.shareInfo.workingCompany
+                        }
+                        likeCount={item.like}
+                        commentCount={item.comment}
+                        shareCount={item.share}
+                        isLiked={item.isLiked}
+                        isCompany={item.organization}
+                        isBoost={item.isBoost}
+                      />
+                    )}
+                  </View>
+                );
+              })}
+            </>
+          ) : null}
         </View>
         <View style={{ marginBottom: 200 }} />
       </ScrollView>

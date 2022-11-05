@@ -97,7 +97,7 @@ const UserData = (props) => {
             <Text
               style={{
                 color: colors.secondaryText,
-                width: status.length > 25 ? "60%" : "100%",
+                width: status.length > 30 ? "65%" : "100%",
               }}
             >
               {item.profession && `${item.profession}`}{" "}

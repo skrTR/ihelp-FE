@@ -15,10 +15,12 @@ import { AntDesign, Ionicons } from "@expo/vector-icons";
 import FollowButton from "../FollowButton";
 const DynamicFollowing = (props) => {
   const { followUser, isFollowing, id } = props;
+
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [follow, setFollow] = useState(isFollowing);
   const state = useContext(UserContext);
+  console.log(followUser);
   const onFollow = () => {
     if (follow) {
       setFollow(false);

@@ -4,7 +4,7 @@ import React from "react";
 const TermsPolicy = () => {
   return (
     <ScrollView
-      style={{ marginHorizontal: 10 }}
+      style={{ marginHorizontal: 10, backgroundColor: "white" }}
       showsVerticalScrollIndicator={false}
     >
       <Text style={{ fontWeight: "bold", textAlign: "center", fontSize: 18 }}>

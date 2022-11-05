@@ -8,11 +8,13 @@ import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
 import SearchTextInput from "../../components/SearchTextInput";
 import BigList from "react-native-big-list";
+import Loading from "../../components/Loading";
 const UserSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
@@ -21,15 +23,18 @@ const UserSearch = () => {
     return () => {};
   }, []);
   const fetchUser = () => {
+    setLoading(true);
     const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&limit=10000&sort=-isApproved -createdAt`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
+        setLoading(false);
       })
       .catch((error) => {
         alert(error);
+        setLoading(false);
       });
   };
   const searchFilter = (text) => {
@@ -62,6 +67,7 @@ const UserSearch = () => {
   const renderFooter = () => <View style={{ marginBottom: 100 }} />;
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
+      {loading ? <Loading /> : null}
       <View
         style={{
           flexDirection: "row",
@@ -88,7 +94,7 @@ const UserSearch = () => {
       <BigList
         data={filtered}
         renderItem={renderItem}
-        itemHeight={65}
+        itemHeight={75}
         footerHeight={100}
         renderFooter={renderFooter}
       />

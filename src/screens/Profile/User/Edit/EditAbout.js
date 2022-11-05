@@ -68,7 +68,7 @@ const EditAbout = ({ route }) => {
       <Text
         style={{ margin: 20, color: colors.primaryText, textAlign: "right" }}
       >
-        {postText.length}/255
+        {postText ? postText.length : "0"}/255
       </Text>
       <TouchableOpacity
         style={{

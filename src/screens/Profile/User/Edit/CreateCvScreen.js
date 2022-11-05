@@ -1377,8 +1377,7 @@ const CreateCvScreen = (props) => {
           >
             <Text
               style={{
-                borderWidth:
-                  userProfile.about === "Та өөрийгөө танилцуулна уу" ? 0 : 1,
+                borderWidth: userProfile.about ? 0 : 1,
                 borderColor: colors.border,
                 color: userProfile.about
                   ? colors.primaryText
@@ -1389,7 +1388,9 @@ const CreateCvScreen = (props) => {
                 borderRadius: 10,
               }}
             >
-              {userProfile.about && userProfile.about}
+              {userProfile.about
+                ? userProfile.about
+                : "Өөрийн тухай оруулна уу"}
             </Text>
           </TouchableOpacity>
         </View>

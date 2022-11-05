@@ -152,13 +152,14 @@ const SpecialWork = (props) => {
           </ImageBackground>
 
           <View>
+            {console.log(title && title.length)}
             <Text
               style={{
                 fontSize: 15,
                 color: colors.primaryText,
                 fontFamily: "Sf-bold",
                 fontWeight: "bold",
-                width: "95%",
+                width: title ? (title.length > 40 ? "60%" : "95%") : "95%",
               }}
             >
               {title ? title : occupation}
