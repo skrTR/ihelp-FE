@@ -13,8 +13,7 @@ import { api } from "../../../Constants";
 import moment from "moment";
 import axios from "axios";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { Entypo, AntDesign } from "@expo/vector-icons";
+import { Entypo, AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import UserContext from "../../context/UserContext";
 const fullWidth = Dimensions.get("screen").width;
 const Posts = (props) => {
@@ -191,7 +190,7 @@ const Posts = (props) => {
               </View>
             </TouchableOpacity>
             {/* Post setting ooriin */}
-            {!isShared ? null : createUserId === state.userId ? (
+            {isShared ? (
               <TouchableOpacity
                 style={{}}
                 onPress={() =>
@@ -348,12 +347,11 @@ const Posts = (props) => {
               </View>
             </TouchableOpacity>
             {/* Post settings ooriin*/}
-            {isShared ? null : createUserId === state.userId ? (
+            {!isShared ? (
               <TouchableOpacity
+                style={{}}
                 onPress={() =>
-                  navigation.navigate("PostSettings", {
-                    id: postId,
-                  })
+                  navigation.navigate("PostSettings", { id: postId })
                 }
               >
                 <Entypo

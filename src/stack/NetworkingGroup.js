@@ -20,6 +20,7 @@ import PostLikeUser from "../screens/Network/PostLikeUser";
 import UserSearch from "../screens/Search/UserSearch";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import CommentDetailModal from "../screens/Network/CommentDetailModal";
+import PostReport from "../screens/Network/PostReport";
 const NetworkingGroup = () => {
   const NetworkingStack = createNativeStackNavigator();
   return (
@@ -62,6 +63,17 @@ const NetworkingGroup = () => {
             // presentation: "formSheet",
             fullScreenGestureEnabled: true,
             title: "Тохиргоо",
+            headerLeft: () => <MyBackButton />,
+          }}
+        />
+        <NetworkingStack.Screen
+          name="PostReport"
+          component={PostReport}
+          options={{
+            fullScreenGestureEnabled: true,
+            // presentation: "formSheet",
+            fullScreenGestureEnabled: true,
+            title: "Гомдол",
             headerLeft: () => <MyBackButton />,
           }}
         />
