@@ -4,25 +4,28 @@ import { View, Text, Image } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import * as Animatable from "react-native-animatable";
-const Loading = () => {
+const Loading = ({ back }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   return (
     <View
       style={{ alignItems: "center", justifyContent: "center", height: "100%" }}
     >
-      {/* <AntDesign
-        name="arrowleft"
-        size={30}
-        color="#ffffff"
-        style={{
-          position: "absolute",
-          top: 30,
-          left: 10,
-          zIndex: 2,
-        }}
-        onPress={() => navigation.goBack()}
-      /> */}
+      {back && (
+        <AntDesign
+          name="arrowleft"
+          size={30}
+          color={colors.primaryText}
+          style={{
+            position: "absolute",
+            top: 30,
+            left: 10,
+            zIndex: 2,
+          }}
+          onPress={() => navigation.goBack()}
+        />
+      )}
+
       <Image
         source={require("../../assets/ihelp/logo.png")}
         style={{ width: 300, height: 100, resizeMode: "contain" }}

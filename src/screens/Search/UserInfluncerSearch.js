@@ -1,4 +1,4 @@
-import { Text, View, FlatList, TextInput } from "react-native";
+import { Text, View } from "react-native";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import AntDesign from "@expo/vector-icons/AntDesign";
@@ -6,30 +6,44 @@ import { api } from "../../../Constants";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserData from "../../components/Search/User/UserData";
 import UserContext from "../../context/UserContext";
-import Empty from "../../components/Empty";
+import { FlashList } from "@shopify/flash-list";
 import SearchTextInput from "../../components/SearchTextInput";
-const UserInfluencerSearch = () => {
+import Empty from "../../components/Empty";
+import Notfound from "../../components/notfound";
+import Loading from "../../components/Loading";
+const UserInfluncerSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [error, setError] = useState(null);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(null);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
+
   useEffect(() => {
     fetchUser();
     return () => {};
   }, []);
   const fetchUser = () => {
+    setLoading(true);
     const apiURL = `${api}/api/v1/cvs?select=firstName lastName profile workingCompany isApproved profession isFollowing score&organization=false&type=Идэвхжүүлэгч&limit=1000`;
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
+        setError(null);
+        setLoading(false);
       })
       .catch((error) => {
-        alert(error);
+        let message = error.message;
+        setErrorMessage(message);
+        setError(true);
+        setLoading(false);
+        console.log(message, "=> SearchStack>UserInfluncerSearch.JS");
       });
   };
   const searchFilter = (text) => {
@@ -54,6 +68,16 @@ const UserInfluencerSearch = () => {
     filterData.filter((obj) => {
       return obj.id !== state.userId;
     });
+  const renderItem = ({ item }) => (
+    <UserData
+      item={item}
+      isFollowing={item.isFollowing}
+      status={`${item.profession} ${item.workingCompany}`}
+    />
+  );
+  if (error) {
+    return <Notfound message={errorMessage} />;
+  }
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
       <View
@@ -79,20 +103,13 @@ const UserInfluencerSearch = () => {
           marginVertical: 10,
         }}
       />
+      {loading ? <Loading back={true} /> : null}
       {filterData.length > 0 ? (
-        <FlatList
+        <FlashList
           data={filtered}
-          keyExtractor={(item, index) => index}
-          renderItem={({ item }) => {
-            return (
-              <UserData
-                item={item}
-                isFollowing={item.isFollowing}
-                status={`${item.profession} ${item.workingCompany}`}
-              />
-            );
-          }}
-          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
+          renderItem={renderItem}
+          estimatedItemSize={200}
+          showsVerticalScrollIndicator={false}
           ListHeaderComponent={
             <>
               <Text
@@ -108,6 +125,7 @@ const UserInfluencerSearch = () => {
               </Text>
             </>
           }
+          ListFooterComponent={<View style={{ marginBottom: 200 }} />}
         />
       ) : (
         <Empty text={"Илэрц олдсонгүй"} />
@@ -116,4 +134,4 @@ const UserInfluencerSearch = () => {
   );
 };
 
-export default UserInfluencerSearch;
+export default UserInfluncerSearch;

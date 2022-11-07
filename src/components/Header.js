@@ -1,11 +1,21 @@
-import { Image, View, Alert, useColorScheme } from "react-native";
+import {
+  Image,
+  View,
+  useColorScheme,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { Ionicons, SimpleLineIcons, AntDesign } from "@expo/vector-icons";
-import { useNavigation, useTheme } from "@react-navigation/native";
+import {
+  useIsFocused,
+  useNavigation,
+  useTheme,
+} from "@react-navigation/native";
 import UserContext from "../context/UserContext";
 import axios from "axios";
 import { api } from "../../Constants";
-import * as Linking from "expo-linking";
+import Notfound from "./notfound";
 const Header = (props) => {
   const {
     isFollowedCompany,
@@ -13,57 +23,40 @@ const Header = (props) => {
     isEmployeeAddWork,
     isBack,
     isNotification,
+    isEmployerSaved,
+    employerSort,
   } = props;
   const navigation = useNavigation();
   const { colors } = useTheme();
   const state = useContext(UserContext);
   const [user, setUser] = useState([]);
   const colorScheme = useColorScheme();
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState();
+  const isFocused = useIsFocused();
   const getUsers = () => {
     axios
-      .get(`${api}/api/v1/cvs/${state.companyId}`)
+      .get(
+        `${api}/api/v1/cvs/${state.isCompany ? state.companyId : state.userId}`
+      )
       .then((res) => {
         setUser(res.data.data);
+        setError(null);
+        console.log(res.data.data);
       })
       .catch((err) => {
         let message = err.message;
-        if (message === "Request failed with status code 404")
-          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
-        else if (message === "Network Error")
-          message =
-            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
-        else {
-          message === err.response.data.error.message;
-        }
-        Alert.alert(message);
+        setErrorMessage(message);
+        setError(true);
       });
   };
-  const getCvs = () => {
-    axios
-      .get(`${api}/api/v1/questionnaires/${state.userId}`)
-      .then((res) => {
-        setUser(res.data.data);
-      })
-      .catch((err) => {
-        let message = err.message;
-        if (message === "Request failed with status code 404")
-          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
-        else if (message === "Network Error")
-          message =
-            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
-        else {
-          message === err.response.data.error.message;
-        }
-        Alert.alert(message);
-      });
-  };
+
   useEffect(() => {
-    if (isEmployeeAddWork && state.isCompany) {
-      getUsers();
-    } else if (isEmployeeAddWork === true && state.isCompany === false) {
-      getCvs();
-    }
-  }, []);
+    getUsers();
+  }, [isFocused]);
+  if (error) {
+    return <Notfound message={errorMessage} isHeader={true} />;
+  }
   return (
     <View
       style={{
@@ -80,6 +73,7 @@ const Header = (props) => {
         justifyContent: "space-between",
       }}
     >
+      {/* left */}
       <View
         style={{
           width: "30%",
@@ -108,8 +102,17 @@ const Header = (props) => {
             color={colors.primaryText}
             onPress={() => navigation.goBack()}
           />
+        ) : employerSort ? (
+          <SimpleLineIcons
+            name="equalizer"
+            size={25}
+            color={colors.primaryText}
+            onPress={() => navigation.navigate("SortWorkModal")}
+          />
         ) : null}
       </View>
+      {/* left end */}
+      {/* Mid */}
       <View style={{ width: "30%" }}>
         <Image
           source={
@@ -125,6 +128,8 @@ const Header = (props) => {
           }}
         />
       </View>
+      {/* mid end */}
+      {/* right  */}
       <View
         style={{
           width: "30%",
@@ -142,14 +147,60 @@ const Header = (props) => {
             }}
           />
         ) : isNotification ? (
-          <Ionicons
-            name="md-notifications-outline"
-            size={30}
-            color={colors.primaryText}
+          <TouchableOpacity
             onPress={() => navigation.navigate("NotificationScreen")}
-          />
+          >
+            <Ionicons
+              name="notifications-outline"
+              size={30}
+              color={colors.primaryText}
+            />
+            <View
+              style={{
+                position: colors.primary,
+                backgroundColor: "red",
+                borderRadius: 20,
+                paddingHorizontal: 3.5,
+                position: "absolute",
+                right: 15,
+                top: 0,
+              }}
+            >
+              <Text
+                style={{
+                  color: colors.primaryText,
+                  fontFamily: "Sf-bold",
+                  padding: 3,
+                  fontSize: 10,
+                }}
+              >
+                {user.notification}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        ) : isEmployerSaved ? (
+          <>
+            {state.isCompany ? (
+              <Ionicons
+                name="add"
+                size={30}
+                color={colors.primaryText}
+                onPress={() => {
+                  navigation.navigate("EmployerAddWork");
+                }}
+              />
+            ) : (
+              <SimpleLineIcons
+                name="handbag"
+                size={25}
+                color={colors.primaryText}
+                onPress={() => navigation.navigate("UserSavedWork")}
+              />
+            )}
+          </>
         ) : null}
       </View>
+      {/* right end */}
     </View>
   );
 };

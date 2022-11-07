@@ -6,21 +6,16 @@ import {
   Dimensions,
   useColorScheme,
 } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { useTheme } from "@react-navigation/native";
-import Header from "../../components/Header/Header";
-import CompanyHeader from "../../components/Header/CompanyHeader";
-import UserContext from "../../context/UserContext";
-import useChecked from "../../hooks/useChecked";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import EmployerWorkScreen from "./EmployerWorkScreen";
 import EmployerCompanyScreen from "./EmployerCompanyScreen";
+import Header from "../../components/Header";
 const height = Dimensions.get("screen").height;
 const EmployerScreen = () => {
   const { colors } = useTheme();
-  const [error] = useChecked();
-  const state = useContext(UserContext);
   const Tab = createMaterialTopTabNavigator();
   const insents = useSafeAreaInsets();
   const colorScheme = useColorScheme();
@@ -88,6 +83,8 @@ const EmployerScreen = () => {
                     : !isFocused
                     ? "white"
                     : "#2c3539",
+                alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Animated.Text
@@ -113,9 +110,7 @@ const EmployerScreen = () => {
       </View>
     );
   }
-  if (error === "Request failed with status code 401") {
-    state.logout();
-  }
+
   return (
     <View
       style={{
@@ -126,15 +121,7 @@ const EmployerScreen = () => {
         width: "100%",
       }}
     >
-      {state.isCompany ? (
-        <CompanyHeader
-          isEmployerAddWork={true}
-          isSearch={true}
-          sortWork={true}
-        />
-      ) : (
-        <Header isEmployerSaved={true} sortWork={true} />
-      )}
+      <Header isEmployerSaved={true} employerSort={true} />
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
         <Tab.Screen name="Ажлын зар" component={EmployerWorkScreen} />
         <Tab.Screen name="Байгууллага" component={EmployerCompanyScreen} />

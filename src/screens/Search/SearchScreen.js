@@ -58,7 +58,6 @@ const SearchScreen = () => {
                 borderColor: colors.border,
               }}
               onPress={() => navigation.navigate("UserInfluncerSearch")}
-              // onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
@@ -75,7 +74,6 @@ const SearchScreen = () => {
                 borderColor: colors.border,
               }}
               onPress={() => navigation.navigate("UserFreelancerSearch")}
-              // onPress={() => Alert.alert("Тун удахгүй")}
             >
               <Text style={{ textAlign: "center", color: colors.primaryText }}>
                 {" "}
@@ -145,95 +143,6 @@ const SearchScreen = () => {
                 Бүгд
               </Text>
             </TouchableOpacity>
-            {/* <TouchableOpacity
-              style={{
-                padding: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                marginTop: 10,
-                borderColor: colors.border,
-              }}
-              onPress={() => navigation.navigate("CompanySearch")}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                {" "}
-                Байгууллага хайх
-              </Text>
-            </TouchableOpacity> */}
-            {/* {!state.isCompany && (
-              <TouchableOpacity
-                style={{
-                  padding: 10,
-
-                  borderWidth: 1,
-                  borderRadius: 10,
-                  borderColor: colors.border,
-                  marginTop: 10,
-                }}
-                onPress={() => {
-                  if (score > 79) {
-                    navigation.navigate("MyJobs");
-                  } else {
-                    Alert.alert(
-                      "Анхаар",
-                      "Та өөрийн анкетыг 80%-с дээш бөглөснөөр өөрт тохирох зарыг үзэх боломжтой",
-                      [
-                        {
-                          text: "Үгүй",
-                          style: "cancel",
-                        },
-                        {
-                          text: "Анкет янзлах",
-                          onPress: () =>
-                            navigation.navigate("ProfileStack", {
-                              screen: "CreateCvScreen",
-                              params: { id: state.userId },
-                            }),
-                        },
-                      ]
-                    );
-                  }
-                }}
-              >
-                <Text
-                  style={{ textAlign: "center", color: colors.primaryText }}
-                >
-                  {" "}
-                  Өөрт тохирох{" "}
-                </Text>
-              </TouchableOpacity>
-            )} */}
-            {/* <TouchableOpacity
-              style={{
-                padding: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                marginTop: 10,
-                borderColor: colors.border,
-              }}
-              onPress={() => navigation.navigate("WorkSearch")}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                {" "}
-                Мэргэжлээр зар хайх{" "}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                padding: 10,
-                borderWidth: 1,
-                borderRadius: 10,
-                borderColor: colors.border,
-
-                marginTop: 10,
-              }}
-              onPress={() => navigation.navigate("CategorySearch")}
-            >
-              <Text style={{ textAlign: "center", color: colors.primaryText }}>
-                {" "}
-                Салбараар зар хайх{" "}
-              </Text>
-            </TouchableOpacity> */}
           </View>
         </ScrollView>
       </View>

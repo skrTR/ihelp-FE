@@ -2,29 +2,22 @@ import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import MyBackButton from "../components/Header/MyBackButton";
 import SearchScreen from "../screens/Search/SearchScreen";
-import CompanySearch from "../screens/Search/CompanySearch";
 import EmployerSearch from "../screens/Search/EmployerSearch";
 import UserSearch from "../screens/Search/UserSearch";
 import EmployeeSearch from "../screens/Search/EmployeeSearch";
-import WorkSearch from "../screens/Search/WorkSearch";
 import CategorySearch from "../screens/Search/CategorySearch";
-import MyJobs from "../screens/Search/MyJobs";
 import SendWorkRequestModal from "../screens/Dynamic/UserSendWorkRequest";
 import ViewCompanyProfile from "../screens/Dynamic/ViewCompanyProfile";
 import ViewUserProfile from "../screens/Dynamic/ViewUserProfile";
 import ViewUserFollower from "../screens/Dynamic/ViewUserFollower";
 import ViewUserFollowings from "../screens/Dynamic/ViewUserFollowings";
-import CustomSearchModal from "../screens/Search/Work/CustomSearchModal";
-import CustomSearchedModal from "../screens/Search/Work/CustomSearchedModal";
+
 import AllCompanySearch from "../screens/Search/AllCompanySearch";
 import NotificationScreen from "../screens/Dynamic/NotificationScreen";
 import ViewUserPost from "../screens/Dynamic/ViewUserPost";
 import ViewCompanyJobs from "../screens/Dynamic/ViewCompanyJobs";
 import EmployerWorkDetail from "../screens/Employer/EmployerWorkDetail";
 import FollowedCompany from "../screens/Search/FollowedCompany";
-import CompanyFilterModal from "../screens/Search/Company/CompanyFilterModal";
-import ResultedCompanyModal from "../screens/Search/Company/ResultedCompanyModal";
-import UserSendWorkRequest from "../screens/Dynamic/UserSendWorkRequest";
 import ViewPortfolio from "../screens/Dynamic/VIewPortfolio";
 import CompanySendWorkRequest from "../screens/Dynamic/CompanySendWorkRequest";
 import EmployeeEditWork from "../screens/Employee/EmployeeEditWork";
@@ -46,11 +39,7 @@ const SearchGroup = () => {
           component={SearchScreen}
           options={{ headerShown: false }}
         />
-        <SearchStack.Screen
-          name="CompanySearch"
-          component={CompanySearch}
-          options={{ headerShown: false, fullScreenGestureEnabled: true }}
-        />
+
         <SearchStack.Screen
           name="AllCompanySearch"
           component={AllCompanySearch}
@@ -99,51 +88,13 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
           }}
         />
-        <SearchStack.Screen
-          name="WorkSearch"
-          component={WorkSearch}
-          options={{
-            fullScreenGestureEnabled: true,
-            headerShown: false,
-          }}
-        />
-        <SearchStack.Screen
-          name="CustomSearchModal"
-          component={CustomSearchModal}
-          options={{
-            fullScreenGestureEnabled: true,
-            // presentation: "formSheet",
-            fullScreenGestureEnabled: true,
-            title: "Ажлын зар сортлох",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
-        <SearchStack.Screen
-          name="CustomSearchedModal"
-          component={CustomSearchedModal}
-          options={{
-            fullScreenGestureEnabled: true,
-            // presentation: "formSheet",
-            fullScreenGestureEnabled: true,
-            title: "Олдсон ажлын зар",
-            headerLeft: () => <MyBackButton />,
-          }}
-        />
+
         <SearchStack.Screen
           name="CategorySearch"
           component={CategorySearch}
           options={{
             fullScreenGestureEnabled: true,
             headerShown: false,
-          }}
-        />
-        <SearchStack.Screen
-          name="MyJobs"
-          component={MyJobs}
-          options={{
-            fullScreenGestureEnabled: true,
-            title: "Өөрт тохирох",
-            headerLeft: () => <MyBackButton />,
           }}
         />
       </SearchStack.Group>
@@ -275,17 +226,7 @@ const SearchGroup = () => {
             fullScreenGestureEnabled: true,
           }}
         />
-        <SearchStack.Screen
-          name="CompanyFilterModal"
-          component={CompanyFilterModal}
-          options={{
-            fullScreenGestureEnabled: true,
-            title: "Байгууллага нарийвчлах",
-            headerLeft: () => <MyBackButton />,
-            // presentation: "formSheet",
-            fullScreenGestureEnabled: true,
-          }}
-        />
+
         <SearchStack.Screen
           name="UserProfileScreen"
           component={UserProfileScreen}
@@ -313,17 +254,7 @@ const SearchGroup = () => {
             headerLeft: () => <MyBackButton />,
           }}
         />
-        <SearchStack.Screen
-          name="ResultedCompanyModal"
-          component={ResultedCompanyModal}
-          options={{
-            fullScreenGestureEnabled: true,
-            title: "Байгууллага",
-            headerLeft: () => <MyBackButton />,
-            // presentation: "formSheet",
-            fullScreenGestureEnabled: true,
-          }}
-        />
+
         <SearchStack.Screen
           name="ViewPortfolio"
           component={ViewPortfolio}

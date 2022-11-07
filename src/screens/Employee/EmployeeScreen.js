@@ -1,14 +1,12 @@
 import { View, TouchableOpacity, Animated, useColorScheme } from "react-native";
-import React, { useContext } from "react";
+import React from "react";
 import { useTheme } from "@react-navigation/native";
 import Header from "../../components/Header";
-import UserContext from "../../context/UserContext";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import EmployeeWorkScreen from "./EmployeeWorkScreen";
-import EmployeeCompanyScreen from "./EmployeeCompanyScreen";
+import EmployeeWorkDoScreen from "./EmployeeWorkDoScreen";
+import EmployeeWorkCallScreen from "./EmployeeWorkCallScreen";
 const EmployeeScreen = () => {
-  const state = useContext(UserContext);
   const { colors } = useTheme();
   const Tab = createMaterialTopTabNavigator();
   const insents = useSafeAreaInsets();
@@ -108,8 +106,8 @@ const EmployeeScreen = () => {
       )} */}
       <Header isEmployeeSort={true} isEmployeeAddWork={true} />
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-        <Tab.Screen name="Ажил гүйцэтгэгч" component={EmployeeWorkScreen} />
-        <Tab.Screen name="Ажил захиалагч" component={EmployeeCompanyScreen} />
+        <Tab.Screen name="Ажил гүйцэтгэгч" component={EmployeeWorkDoScreen} />
+        <Tab.Screen name="Ажил захиалагч" component={EmployeeWorkCallScreen} />
       </Tab.Navigator>
       {/* <Empty text={"Тун удахгүй"} /> */}
     </>

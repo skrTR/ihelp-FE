@@ -1,4 +1,4 @@
-import { FlatList, View } from "react-native";
+import { View } from "react-native";
 import React from "react";
 import useUrgentWork from "../../hooks/EmployerHook/useUrgentWork";
 import useNormalWork from "../../hooks/EmployerHook/useNormalWork";
@@ -6,6 +6,7 @@ import useSpecialWork from "../../hooks/EmployerHook/useSpecialWork";
 import UrgentWork from "../../components/Employer/UrgentWork";
 import SpecialWork from "../../components/Employer/SpecialWork";
 import NormalWork from "../../components/Employer/NormalWork";
+import { FlashList } from "@shopify/flash-list";
 
 const EmployerWorkScreen = () => {
   const [urgentWork, refreshing, setRefreshing] = useUrgentWork();
@@ -16,9 +17,8 @@ const EmployerWorkScreen = () => {
     setRefreshing(true);
   };
   return (
-    <FlatList
+    <FlashList
       showsVerticalScrollIndicator={false}
-      style={{ height: "100%" }}
       ListHeaderComponent={
         <>
           {urgentWork.map((data) => {
@@ -63,7 +63,6 @@ const EmployerWorkScreen = () => {
         </>
       }
       data={normalWork}
-      keyExtractor={(item, index) => index}
       renderItem={({ item }) => {
         return (
           <>
@@ -87,6 +86,7 @@ const EmployerWorkScreen = () => {
       onRefresh={handleRefresh}
       onEndReachedThreshold={0}
       ListFooterComponent={<View style={{ marginBottom: 200 }} />}
+      estimatedItemSize={590}
     />
   );
 };

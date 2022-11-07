@@ -1,11 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  TextInput,
-  FlatList,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { useNavigation, useTheme } from "@react-navigation/native";
@@ -15,37 +8,49 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import UserContext from "../../context/UserContext";
 import SearchByCategory from "./Work/SearchByCategory";
 import SearchTextInput from "../../components/SearchTextInput";
-
-const AllCompanySearch = () => {
+import Notfound from "../../components/notfound";
+import { FlashList } from "@shopify/flash-list";
+import Loading from "../../components/Loading";
+import Empty from "../../components/Empty";
+const EmployerSearch = () => {
   const [filterData, setFilterData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [search, setSearch] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
-  const [choosedId, setChoosedId] = useState("");
+  const [choosedId, setChoosedId] = useState("undefined");
   const [choosedName, setChoosedName] = useState("Салбар сонгох");
   const [refresh, setRefresh] = useState(false);
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState();
+  const [loading, setLoading] = useState(null);
+  const state = useContext(UserContext);
   const { colors } = useTheme();
   const navigation = useNavigation();
   const insents = useSafeAreaInsets();
-  const state = useContext(UserContext);
   useEffect(() => {
     setRefresh(false);
     fetchCompany();
     return () => {};
   }, [refresh]);
   const fetchCompany = () => {
-    // const apiURL = `${api}/api/v1/profiles`;
-    const apiURL = `${api}/api/v1/profiles?select=firstName profile categoryName organization isEmployer isEmployee isApproved employerSpecial employeeSpecial&limit=1000&organization=true${
-      choosedId === "" ? "" : `&category=${choosedId}`
+    const apiURL = `${api}/api/v1/profiles?select=firstName profile categoryName organization isEmployer isEmployee isApproved special&limit=1000&sort=-special -createdAt${
+      choosedId === "undefined" ? "" : `&category=${choosedId}`
     }`;
+    setLoading(true);
     fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
+        setLoading(false);
+        setError(null);
       })
       .catch((error) => {
-        alert(error);
+        let message = error.message;
+        setLoading(false);
+        setErrorMessage(message);
+        setError(true);
+        console.log(message, "AllCompanySearch -> searchStack");
       });
   };
   const searchFilter = (text) => {
@@ -64,19 +69,16 @@ const AllCompanySearch = () => {
       setSearch(text);
     }
   };
-  const filtered = filterData.filter((obj) => {
-    return obj.id !== state.companyId;
-  });
-  // employerSpecial employeeSpecial
-  const sorted2 = filtered.sort(
-    (a, b) => b.employerSpecial - a.employerSpecial
+  const renderItem = ({ item }) => (
+    <EmployeeData item={item} isFollowing={item.isFollowing} />
   );
-  const sortedData = sorted2.sort(
-    (a, b) => b.employeeSpecial - a.employeeSpecial
-  );
+  if (error) {
+    return <Notfound message={`${errorMessage} !`} />;
+  }
   return (
     <>
       <View style={{ marginTop: insents.top, height: "100%" }}>
+        {loading ? <Loading /> : null}
         <View
           style={{
             flexDirection: "row",
@@ -94,6 +96,7 @@ const AllCompanySearch = () => {
           />
           <SearchTextInput searchFilter={searchFilter} search={search} />
         </View>
+
         <TouchableOpacity
           style={{
             padding: 10,
@@ -113,30 +116,32 @@ const AllCompanySearch = () => {
             {choosedName}
           </Text>
         </TouchableOpacity>
-        <FlatList
-          data={sortedData}
-          keyExtractor={(item, index) => index}
-          showsVerticalScrollIndicator={false}
-          ListFooterComponent={() => <View style={{ marginBottom: 200 }} />}
-          renderItem={({ item }) => {
-            return <EmployeeData item={item} isFollowing={item.isFollowing} />;
-          }}
-          ListHeaderComponent={
-            <>
-              <Text
-                style={{
-                  color: colors.primaryText,
-                  fontFamily: "Sf-bold",
-                  fontSize: 20,
-                  marginHorizontal: 10,
-                  marginVertical: 20,
-                }}
-              >
-                Бүх байгууллага
-              </Text>
-            </>
-          }
-        />
+        {filterData.length > 0 ? (
+          <FlashList
+            data={filterData}
+            showsVerticalScrollIndicator={false}
+            estimatedItemSize={200}
+            ListFooterComponent={<View style={{ marginBottom: 200 }} />}
+            renderItem={renderItem}
+            ListHeaderComponent={
+              <>
+                <Text
+                  style={{
+                    color: colors.primaryText,
+                    fontFamily: "Sf-bold",
+                    fontSize: 20,
+                    marginHorizontal: 10,
+                    marginVertical: 20,
+                  }}
+                >
+                  Бүх байгууллага
+                </Text>
+              </>
+            }
+          />
+        ) : (
+          <Empty text="Илэрх олдсонгүй" />
+        )}
       </View>
       <SearchByCategory
         setModalVisible={setModalVisible}
@@ -149,6 +154,6 @@ const AllCompanySearch = () => {
   );
 };
 
-export default AllCompanySearch;
+export default EmployerSearch;
 
 const styles = StyleSheet.create({});

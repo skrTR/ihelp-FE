@@ -1,23 +1,27 @@
-import { SafeAreaView, View, FlatList } from "react-native";
+import { View } from "react-native";
 import React, { useEffect, useState } from "react";
-import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../Constants";
 import Empty from "../../components/Empty";
-import SpecialWork from "../../components/Employee/SpecialWork";
+
 import NormalWork from "../../components/Employee/NormalWork";
+import { FlashList } from "@shopify/flash-list";
+import { useContext } from "react";
+import UserContext from "../../context/UserContext";
+import Notfound from "../../components/notfound";
 const EmployeeResultSort = (props) => {
   const { occupationId, time, price, organization, workType } =
     props.route.params;
-  const { colors } = useTheme();
+  const state = useContext(UserContext);
   const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+  const [errorMessage, setErrorMessage] = useState();
   const [refresh, setRefresh] = useState(false);
   let info = organization === "Байгууллага" ? true : false;
-  console.log(info);
   const getWorkSearch = () => {
     axios
       .get(
-        `${api}/api/v1/announcements?limit=1000${
+        `${api}/api/v1/announcements?limit=1000&sort=-special -createdAt${
           occupationId ? `&occupation=${occupationId}` : ""
         }${time ? `&time=${time}` : ""}${price ? `&price=${price}` : ""}${
           organization ? `&organization=${info}` : ""
@@ -25,69 +29,60 @@ const EmployeeResultSort = (props) => {
       )
       .then((res) => {
         setData(res.data.data);
-        console.log(res.data.data, "data");
+        setError(false);
       })
       .catch((err) => {
-        Alert.alert(err.response.data.error.message);
+        let message = err.message;
+        setErrorMessage(message);
+        setError(true);
+      })
+      .finally(() => {
+        setRefresh(false);
       });
   };
   useEffect(() => {
-    setRefresh(false);
     getWorkSearch();
   }, [refresh]);
-
-  const sortedData = data.sort((a, b) => b.isSpecial - a.isSpecial);
+  const onRefresh = () => {
+    setRefresh(true);
+  };
+  if (error) {
+    return <Notfound message={errorMessage} isHeader={true} />;
+  }
   return (
     <>
-      <SafeAreaView style={{ backgroundColor: "#141414" }}>
-        <View style={{ height: "100%", backgroundColor: colors.background }}>
-          {data.length > 0 ? (
-            <FlatList
-              showsVerticalScrollIndicator={false}
-              data={sortedData}
-              keyExtractor={(item, index) => index}
-              ListFooterComponent={<View style={{ marginVertical: 200 }} />}
-              renderItem={({ item }) => {
-                return (
-                  <View style={{}}>
-                    {item.isSpecial ? (
-                      <SpecialWork
-                        id={item._id}
-                        createUserId={item.createUser}
-                        createUserName={item.firstName}
-                        createUserProfile={item.profile}
-                        isEmployer={item.isEmployer}
-                        isEmployee={item.isEmployee}
-                        occupation={item.occupationName}
-                        salary={item.price}
-                        job={item.do}
-                        special={item.special}
-                      />
-                    ) : (
-                      <NormalWork
-                        id={item._id}
-                        createUserName={item.firstName}
-                        createUserProfile={item.profile}
-                        isEmployer={item.isEmployer}
-                        isEmployee={item.isEmployee}
-                        occupation={item.occupationName}
-                        price={item.price}
-                        job={item.do}
-                        createUserId={item.createUser}
-                        order={item.order}
-                      />
-                    )}
-                  </View>
-                );
-              }}
-            />
-          ) : (
-            <View>
-              <Empty text="Илэрц байхгүй" />
-            </View>
-          )}
+      {data.length > 0 ? (
+        <FlashList
+          showsVerticalScrollIndicator={false}
+          data={data}
+          estimatedItemSize={99}
+          ListFooterComponent={<View style={{ marginVertical: 200 }} />}
+          renderItem={({ item }) => {
+            return (
+              <NormalWork
+                id={item._id}
+                createUserName={item.firstName}
+                createUserProfile={item.profile}
+                isEmployer={item.isEmployer}
+                isEmployee={item.isEmployee}
+                occupation={item.occupationName}
+                price={item.price}
+                job={item.do}
+                createUserId={item.createUser}
+                order={item.order}
+                special={item.special}
+                own={state.isCompany ? state.companyId : state.userId}
+              />
+            );
+          }}
+          refreshing={refresh}
+          onRefresh={onRefresh}
+        />
+      ) : (
+        <View>
+          <Empty text="Илэрц байхгүй" />
         </View>
-      </SafeAreaView>
+      )}
     </>
   );
 };

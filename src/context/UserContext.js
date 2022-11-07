@@ -79,7 +79,6 @@ export const UserStore = (props) => {
     setCompanyId(null);
   };
   const login = (phone, password) => {
-    console.log(expoPushToken);
     axios
       .post(`${api}/api/v1/cvs/login`, {
         phone: phone,

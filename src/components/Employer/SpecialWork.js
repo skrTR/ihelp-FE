@@ -152,7 +152,6 @@ const SpecialWork = (props) => {
           </ImageBackground>
 
           <View>
-            {console.log(title && title.length)}
             <Text
               style={{
                 fontSize: 15,

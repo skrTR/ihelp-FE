@@ -3,20 +3,19 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Alert,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import { api } from "../../../Constants";
-
 import Icon from "@expo/vector-icons/Entypo";
 import axios from "axios";
 import UserContext from "../../context/UserContext";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import moment from "moment";
 import DataCountDown from "./DataCountDown";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import Toast from "react-native-root-toast";
 const NormalWork = (props) => {
   const {
     id,
@@ -29,6 +28,8 @@ const NormalWork = (props) => {
     job,
     createUserId,
     order,
+    special,
+    own,
   } = props;
 
   const navigation = useNavigation();
@@ -36,6 +37,7 @@ const NormalWork = (props) => {
   const { colors } = useTheme();
   const [checkLikeId, setCheckLikeId] = useState([]);
   const [isLike, setIsLike] = useState(false);
+  const { height } = Dimensions.get("window");
   const getCheckLike = () => {
     {
       state.userId &&
@@ -61,21 +63,53 @@ const NormalWork = (props) => {
       .delete(`${api}/api/v1/likes/${id}/job`)
       .then((res) => {
         setIsLike(false);
-        Alert.alert("Амжилттай устгалаа");
+        Toast.show("Хадгалсан зараас устлаа", {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "#FFB6C1",
+        });
       })
       .catch((err) => {
-        // alert(err);
-        let message = err.message;
-
-        if (message === "Request failed with status code 404")
-          message = "Уучлаарай сэрвэр дээр энэ өгөгдөл байхгүй байна...";
-        else if (message === "Network Error")
-          message =
-            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу..";
-        else {
-          message === err.response.data.error.message;
+        let text = err.message;
+        if (text === "Network Error") {
+          text ===
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 429") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "403 Forbidden") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 404") {
+          text = "Сервер таны хүсэлтийг олсонгүй";
+        } else if (text === "Request failed with status code 408") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 413") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 500") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 502") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 504") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text == "JSON Parse error: Unrecognized token '<'") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
         }
-        Alert.alert(message);
+        Toast.show(text, {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "red",
+        });
       });
   };
   const liked = () => {
@@ -83,16 +117,63 @@ const NormalWork = (props) => {
       .post(`${api}/api/v1/likes/${id}/announcement`)
       .then((res) => {
         setIsLike(true);
-        Alert.alert("Амжилттай хадгаллаа");
+        Toast.show("Амжилтай хадгаллаа", {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "#FFB6C1",
+        });
       })
       .catch((err) => {
-        // alert(err);
+        let text = err.message;
+        if (text === "Network Error") {
+          text ===
+            "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 429") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "403 Forbidden") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 404") {
+          text = "Сервер таны хүсэлтийг олсонгүй";
+        } else if (text === "Request failed with status code 408") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 413") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 500") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 502") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text === "Request failed with status code 504") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        } else if (text == "JSON Parse error: Unrecognized token '<'") {
+          text === "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+        }
+        Toast.show(text, {
+          duration: Toast.durations.SHORT,
+          position: Toast.positions.BOTTOM,
+          textColor: "black",
+          position: height - 150,
+          shadow: true,
+          animation: true,
+          hideOnPress: true,
+          delay: 0,
+          backgroundColor: "red",
+        });
       });
   };
+
   return (
     <View
       style={{
-        backgroundColor: colors.background,
+        backgroundColor:
+          moment(special).format() < moment().format()
+            ? colors.background
+            : colors.urgentWork,
         marginHorizontal: 10,
         paddingVertical: 5,
         marginVertical: 4,
@@ -169,8 +250,10 @@ const NormalWork = (props) => {
                 color: colors.primaryText,
                 fontFamily: "Sf-bold",
                 fontWeight: "bold",
-                width: "95%",
+                width: job.length < 50 ? "75%" : "40%",
               }}
+              numberOfLines={2}
+              ellipsizeMode="tail"
             >
               {job}
               {/* Борлуулалт мэдээлэлийн ажилтан */}
@@ -194,12 +277,12 @@ const NormalWork = (props) => {
                 width: "90%",
               }}
             >
-              {occupation && `${occupation}  - `}
-              {createUserName}
+              {occupation && `${occupation} `}
+              {createUserName && `- ${createUserName} `}
             </Text>
           </View>
         </TouchableOpacity>
-        {createUserId === state.companyId && (
+        {createUserId === own && (
           <TouchableOpacity
             style={{
               backgroundColor: "#FFB6C1",
@@ -214,31 +297,50 @@ const NormalWork = (props) => {
             onPress={() =>
               navigation.navigate("BoostEmployeeWork", {
                 id: id,
-                type: "1",
+                type: moment(special).format() < moment().format() ? "1" : "2",
               })
             }
           >
-            <Text style={{ color: "black" }}>
-              {order < moment().format() ? "Идэвхжүүлэх" : "Сунгах"}
-            </Text>
+            <Text style={{ color: "black" }}>{"Сунгах"}</Text>
           </TouchableOpacity>
         )}
-        {!state.isCompany && (
-          <View style={{}}>
-            <Icon
-              name={isLike ? "heart" : "heart-outlined"}
+        <View>
+          {state.isCompany ? null : own === createUserId ? null : (
+            <View style={{}}>
+              <Icon
+                name={isLike ? "heart" : "heart-outlined"}
+                size={30}
+                color={"white"}
+                onPress={isLike ? unLiked : liked}
+                style={{ textAlign: "right", marginRight: 20 }}
+              />
+            </View>
+          )}
+          {createUserId === own ? null : moment(special).format() <
+            moment().format() ? null : (
+            <MaterialCommunityIcons
+              name="offer"
               size={30}
-              color={"white"}
-              onPress={isLike ? unLiked : liked}
-              style={{ textAlign: "right", marginRight: 20 }}
+              color={colors.primaryText}
+              style={{ marginRight: 10, marginTop: 10 }}
+              onPress={() =>
+                navigation.navigate("CompanySendWorkRequest", { id: id })
+              }
             />
-          </View>
-        )}
+          )}
+        </View>
       </View>
-      {createUserId === state.companyId && order && (
+      {createUserId === own && order && (
         <DataCountDown
           createdAt={order}
           text={"Энгийн зарын дуусах хугацаа"}
+          owner={true}
+        />
+      )}
+      {createUserId === own && special && (
+        <DataCountDown
+          createdAt={special}
+          text={"Онцгой зарын дуусах хугацаа"}
           owner={true}
         />
       )}

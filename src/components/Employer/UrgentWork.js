@@ -99,7 +99,6 @@ const UrgentWork = (props) => {
           .get(`${api}/api/v1/applies/${state.userId}/apply`)
           .then((res) => {
             setCheckCvId(res.data.data);
-            console.log(res.data.data);
           })
           .catch((err) => {
             alert(err);

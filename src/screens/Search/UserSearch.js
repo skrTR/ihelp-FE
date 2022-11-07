@@ -9,6 +9,7 @@ import UserContext from "../../context/UserContext";
 import SearchTextInput from "../../components/SearchTextInput";
 import BigList from "react-native-big-list";
 import Loading from "../../components/Loading";
+import Notfound from "../../components/notfound";
 const UserSearch = () => {
   const { colors } = useTheme();
   const navigation = useNavigation();
@@ -16,6 +17,8 @@ const UserSearch = () => {
   const [masterData, setMasterData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const [errorMessage, setErrorMessage] = useState();
+  const [error, setError] = useState(null);
   const insents = useSafeAreaInsets();
   const state = useContext(UserContext);
   useEffect(() => {
@@ -31,10 +34,14 @@ const UserSearch = () => {
         setFilterData(responseJson.data);
         setMasterData(responseJson.data);
         setLoading(false);
+        setError(null);
       })
       .catch((error) => {
-        alert(error);
+        let message = error.message;
+        setErrorMessage(message);
         setLoading(false);
+        setError(true);
+        console.log(message, "=> SearchStack>UserSearch.JS");
       });
   };
   const searchFilter = (text) => {
@@ -65,9 +72,12 @@ const UserSearch = () => {
     />
   );
   const renderFooter = () => <View style={{ marginBottom: 100 }} />;
+  if (error) {
+    return <Notfound message={errorMessage} />;
+  }
   return (
     <View style={{ marginTop: insents.top, height: "100%" }}>
-      {loading ? <Loading /> : null}
+      {loading ? <Loading back={true} /> : null}
       <View
         style={{
           flexDirection: "row",

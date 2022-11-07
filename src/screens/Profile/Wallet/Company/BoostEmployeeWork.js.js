@@ -5,15 +5,15 @@ import {
   TouchableOpacity,
   Alert,
   ImageBackground,
+  Dimensions,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useNavigation, useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { api } from "../../../../../Constants";
-import DataCountDown from "../../../../components/Employer/DataCountDown";
 import { Entypo, MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import MyButton from "../../../../components/MyButton";
-
+import Toast from "react-native-root-toast";
+const { height } = Dimensions.get("window");
 const BoostEmployeeWork = (props) => {
   const { type, id } = props.route.params;
   const { colors } = useTheme();
@@ -57,11 +57,66 @@ const BoostEmployeeWork = (props) => {
             axios
               .put(`${api}/api/v1/announcements/${id}/special`, { special: l })
               .then((res) => {
-                alert("Онцгой зар амжиллтай боллоо");
+                Toast.show("Онцгой зар амжилтай боллоо", {
+                  duration: Toast.durations.SHORT,
+                  position: Toast.positions.BOTTOM,
+                  textColor: "black",
+                  position: height - 150,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                  backgroundColor: "#FFB6C1",
+                });
                 navigation.goBack();
               })
               .catch((err) => {
-                console.log(err);
+                let text = err.message;
+                if (text === "Network Error") {
+                  text ===
+                    "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 429") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "403 Forbidden") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 404") {
+                  text = "Сервер таны хүсэлтийг олсонгүй";
+                } else if (text === "Request failed with status code 408") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 413") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 500") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 502") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 504") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text == "JSON Parse error: Unrecognized token '<'") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                }
+                Toast.show(text, {
+                  duration: Toast.durations.SHORT,
+                  position: Toast.positions.BOTTOM,
+                  textColor: "black",
+                  position: height - 150,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                  backgroundColor: "red",
+                });
+                console.log(
+                  err.message,
+                  "BoostEmployeeWork => profile => wallet => company, special"
+                );
               });
           },
         },
@@ -94,10 +149,66 @@ const BoostEmployeeWork = (props) => {
             axios
               .put(`${api}/api/v1/announcements/${id}/order`, { order: l })
               .then((res) => {
+                Toast.show("Онцгой зар амжилтай боллоо", {
+                  duration: Toast.durations.SHORT,
+                  position: Toast.positions.BOTTOM,
+                  textColor: "black",
+                  position: height - 150,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                  backgroundColor: "#FFB6C1",
+                });
                 navigation.goBack();
               })
               .catch((err) => {
-                console.log(err);
+                let text = err.message;
+                if (text === "Network Error") {
+                  text ===
+                    "Сэрвэр ажиллахгүй байна. Та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 429") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "403 Forbidden") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 404") {
+                  text = "Сервер таны хүсэлтийг олсонгүй";
+                } else if (text === "Request failed with status code 408") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 413") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 500") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 502") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text === "Request failed with status code 504") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                } else if (text == "JSON Parse error: Unrecognized token '<'") {
+                  text ===
+                    "Серверт алдаа гарлаа та түр хүлээгээд дахин оролдоно уу";
+                }
+                Toast.show(text, {
+                  duration: Toast.durations.SHORT,
+                  position: Toast.positions.BOTTOM,
+                  textColor: "black",
+                  position: height - 150,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                  backgroundColor: "red",
+                });
+                console.log(
+                  err.message,
+                  "BoostEmployeeWork => profile => wallet => company, normalwork"
+                );
               });
           },
         },
